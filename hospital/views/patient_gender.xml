@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- this is the main view for hosiptial-->
+<record id="male_patient_action" model="ir.actions.act_window">
+    <field name="name">Male Patients</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">main_hosp.model</field>
+    <field name="view_mode">tree,form,kanban</field> 
+    <field name="context">{'default_gender':'male', 'hide_gender':1}</field>
+    <field name="domain">[('gender','=','male')]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Create Your First Male Patient! 	
+    	</p>
+    </field>
+</record>
+
+<menuitem id="male_patient" 
+        name="Male Patients"
+        parent="hospitial_patient_root"
+        action="male_patient_action"
+        sequence="30"/>
+
+<record id="female_patient_action" model="ir.actions.act_window">
+    <field name="name">female Patients</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">main_hosp.model</field>
+    <field name="view_mode">tree,form,kanban</field> 
+    <field name="context">{'default_gender':'female','hide_gender':1}</field>
+    <field name="domain">[('gender','=','female')]</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+        Create Your First female Patient!     
+        </p>
+    </field>
+</record>
+
+<menuitem id="female_patient" 
+        name="Female Patients"
+        parent="hospitial_patient_root"
+        action="female_patient_action"
+        sequence="30"/>
+
+</odoo>

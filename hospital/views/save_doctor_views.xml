@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record id="action_doc_open_appointment" model="ir.actions.act_window">
+    <field name="name">Appointments</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">appointment.model</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="domain">[('Doc','=',active_id)]</field>
+    <field name="context">{'default_Doc':active_id}</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+        Create New Appointment   
+        </p>
+    </field>
+</record>
+
+<!-- this is the main view for hosiptial-->
+<record id="save_doctor_action" model="ir.actions.act_window">
+    <field name="name">Doctors</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">save_doctor.model</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="context"></field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Create Your First Doctor Record!	
+    	</p>
+    </field>
+</record>
+
+<!-- this tree Views for hosiptial-->
+<record id="save_doc_tree" model="ir.ui.view">
+        <field name="name">save.doctor.tree</field>
+        <field name="model">save_doctor.model</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="reference_id"/>
+                <field name="doc_name"/>
+                <field name="age"/>
+                <field name="gender"/>
+            </tree>
+        </field>
+</record>  
+
+<record id="save_doc_form" model="ir.ui.view">
+        <field name="name">save_doc.form</field>
+        <field name="model">save_doctor.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                      <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="%(hospital.action_doc_open_appointment)d" class="oe_stat_button" type="action" icon="fa-handshake-o">
+                            <div class="o_stat_info">
+                                <field name="doc_appoint_count"/>
+                                <span class="o_stat_text">Appointements</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference_id"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <!--this splts form into 2 -->
+                        <group>
+                            <field name="doc_name" />
+                            <field name="age"/>
+                            <field name="gender"/>
+                            <field name="active" invisible="1"/>
+
+                        </group>
+                        <group>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                </group>
+                    </group>
+                </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+         </field>
+   </record>
+
+<!--kanaban view fro main view of hospitials-->
+        <record id="save_kan_view" model="ir.ui.view">
+            <field name="name">save_doc.kanban</field>
+            <field name="model">save_doctor.model</field>
+            <field name="arch" type="xml">
+                <kanban sample="1">
+                    <field name="reference_id"/>
+                    <field name="doc_name"/>
+                    <field name="age"/>
+                    <field name="gender"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <li>
+                                        <field name="reference_id"/>
+                                    </li>
+                                    <li>
+                                        Name : <field name="doc_name"/>
+                                    </li>
+                                     <li>
+                                       Age : <field name="age"/>
+                                    </li>
+                                     <li>
+                                       Gender : <field name="gender"/>
+                                    </li>                             
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+<menuitem id="save_doc" 
+        name="Doctors"
+        parent="hospitial_root"
+        sequence="10"/>
+
+
+<menuitem id="save_doc_sub_menu" 
+        name="Doctors"
+        parent="save_doc"
+        action="save_doctor_action"
+        sequence="10"/>
+</odoo>

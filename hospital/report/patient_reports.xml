@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--this is a report action-->
+        <record id="patient_card_report" model="ir.actions.report">
+            <field name="name">Patient Card</field>
+            <field name="model">main_hosp.model</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_file">hospital.patient_card_reports</field>
+            <field name="report_name">hospital.patient_card_reports</field>
+            <field name="binding_model_id" ref="model_main_hosp_model"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+ <!-- Add options or  Button in action menu -->
+<record id="action_create_new_appointments" model="ir.actions.server">
+    <field name="name">Create Appointment</field>
+    <field name="model_id" ref="hospital.model_main_hosp_model"/>
+    <field name="binding_model_id" ref="hospital.model_main_hosp_model"/>
+     <field name="binding_view_types">list,form</field>
+    <field name="state">code</field>
+    <field name="code">
+        if record:
+            action_values = env.ref('hospital.create_appoint_action').sudo().read()[0]
+            action_values.update({'context': env.context})
+            action = action_values
+
+    </field>
+</record>
+
+<!-- this is the main view for hosiptial-->
+<record id="patient_action" model="ir.actions.act_window">
+    <field name="name">Patients</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">main_hosp.model</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="context"></field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Create Your First Patient 	
+    	</p>
+    </field>
+</record>
+<!-- this tree Views for hosiptial-->
+  <record id="patient_tree" model="ir.ui.view">
+        <field name="name">hosptial.patient.tree</field>
+        <field name="model">main_hosp.model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="gender" optional="show"/>
+                <field name="note" optional="hide"/>
+                <field name="state"  optional="show"/>
+                 <field name="responsible_id" optional="show"/>
+                 <field name="appoint_count"  optional="show"/>
+
+            </tree>
+        </field>
+   </record>      
+
+<!-- hosptial search views-->
+    <record id="hosptial_search_view" model="ir.ui.view">
+        <field name="name">hosptial.patient.search</field>
+        <field name="model">main_hosp.model</field>
+        <field name="arch" type="xml">
+            <search string="Patients">
+                    <!-- as you type on search bar options views-->
+                    <field name="name"/>
+                    <field name="age"/>
+                    <field name="gender"/>
+                    <field name="note"/>
+                    <field name="state"/>
+                    <field name="responsible_id"/>
+                <separator/>
+                     <!-- group by options  views-->
+                    <group expand='1' string='Group by...'>
+                        <filter string="Gender" name="gender" context="{'group_by': 'gender'}"/>
+                        <filter string="Patient Name" name="Name" context="{'group_by': 'name'}"/>
+                        <filter name="Make" string="Male" domain="[('gender','=','male')]"/>
+                    </group>
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+
+
+<!--kanaban view fro main view of hospitials-->
+        <record id="kanban_view_hosp" model="ir.ui.view">
+            <field name="name">main.hospt.kanban</field>
+            <field name="model">main_hosp.model</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="age"/>
+                    <field name="gender"/>
+                    <field name="state"/>
+                    <field name="note"/>
+                    <field name="state"/>
+                    <field name="responsible_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <li>
+                                        Name : <field name="name"/>
+                                    </li>
+                                     <li>
+                                       Age : <field name="age"/>
+                                    </li>
+                                     <li>
+                                       Gender : <field name="gender"/>
+                                    </li>
+                                     <li>
+                                       Note : <field name="note"/>
+                                    </li>
+                                     <li>
+                                        Responsible : <field name="responsible_id"/>
+                                    </li>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+<!-- this form Views for hosiptial-->
+                <!-- header tag with status bar to monitor position-->
+
+
+<!--this id for displayiing and monitoring the buttons -->
+  <record id="patient_form" model="ir.ui.view">
+        <field name="name">hosptial.patient.form</field>
+        <field name="model">main_hosp.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                        <field name="state" statusbar_visible="draft,done,confirm" default="draft" widget="statusbar"/>
+                         <button id="button_draft" name="action_draft" string="Set to Draft" confirm="are you sure to set this record as draft?" type="object" states="cancel" class="btn-primary"/>
+                        <button id="button_confirmed" name="action_confirm" string="Confirm" confirm="are you sure to confirm this record?" type="object" states="draft" class="btn-primary"/>
+                         <button id="button_done" name="action_done" confirm="are you sure to this record as done?" string="Mark as done" type="object" states="confirm" class="btn-primary"/>
+                         <button id="button_cancel"  name="action_cancelled" confirm="are you sure to cancel this record?" string="Cancel" type="object" states="draft,done,confirm"/>
+                          <button id="button_create_appoint" name="%(hospital.create_appoint_action)d" string="Create Appointment" type="action" class="btn-primary"/>
+                </header>
+            	<sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button name="action_open_appointments" class="oe_stat_button" type="object" icon="fa-handshake-o">
+                            <div class="o_stat_info">
+                                <field name="appoint_count"/>
+                                <span class="o_stat_text">Appointements</span>
+                            </div>
+                        </button>
+                    </div>
+                     <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference"/>
+                        </h1>
+                    </div>
+            		<group>
+            			<!--this splts form into 2 -->
+            			<group>
+			                <field name="name"/>
+			                <field name="age"/>
+                            <field name="appoint_count"/>
+            			</group>
+            			<group>
+			            	 <field name="gender" invisible="context.get('hide_gender')"/>
+			                <field name="note"/>
+                           <field name="responsible_id"/>
+
+            			</group>
+            		</group>
+                    <notebook>
+                        <page string="Appointments">
+                            <field name="appointement_ids" readonly="1"> 
+                        </field>
+                        </page>
+                       </notebook> 
+            	</sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+         </field>
+   </record>
+
+
+<!--for menu and joining actions-->
+<menuitem id="hospitial_root" 
+		name="Hospital"
+		sequence="10"/>
+
+
+<menuitem id="hospitial_patient_root" 
+		name="Patients"
+		parent="hospitial_root"
+		sequence="10"/>
+
+
+<menuitem id="hospitial_patient" 
+		name="Patients"
+		parent="hospitial_patient_root"
+		action="patient_action"
+		sequence="10"/>
+        
+</odoo>

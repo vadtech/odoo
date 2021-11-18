@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <!-- Add options or  Button in action menu -->
+<record id="action_confirm_appointments" model="ir.actions.server">
+    <field name="name">Confirm Appointment</field>
+    <field name="model_id" ref="model_appointment_model"/>
+    <field name="binding_model_id" ref="model_appointment_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.action_confirm()</field>
+</record>
+
+<!-- this is the main view for hosiptial-->
+<record id="appointment_action" model="ir.actions.act_window">
+    <field name="name">Appointments</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">appointment.model</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="context"></field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Create Your First Appointment 	
+    	</p>
+    </field>
+</record>
+
+<!-- this tree Views for hosiptial-->
+  <record id="appointment_tree" model="ir.ui.view">
+        <field name="name">appointment.patient.tree</field>
+        <field name="model">appointment.model</field>
+        <field name="arch" type="xml">
+            <tree multi_edit="1">
+                <header>
+                     <button name="action_cancelled" string="Cancel" type="object"/>
+                </header>    
+                <field name="refer"/>
+                <field name="patient_id"/>
+                <field name="descrip"/>
+                <field name="date_apppoint"/>
+                <field name="age"/>
+                <field name="Doc"/>
+                <field name="gender"/>
+            </tree>
+        </field>
+   </record> 
+
+
+     <record id="appointment_form" model="ir.ui.view">
+        <field name="name">appointment.patient.form</field>
+        <field name="model">appointment.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                        <field name="state" statusbar_visible="draft,done,confirm" default="draft" widget="statusbar"/>
+                         <button id="button_draft" name="action_draft" string="Set to Draft" confirm="are you sure to set this record as draft?" type="object" states="cancel" class="btn-primary"/>
+                        <button id="button_confirmed" name="action_confirm" string="Confirm" confirm="are you sure to confirm this record?" type="object" states="draft" class="btn-primary"/>
+                         <button id="button_done" name="action_done" confirm="are you sure to this record as done?" string="Mark as done" type="object" states="confirm" class="btn-primary"/>
+                         <button id="button_cancel"  name="action_cancelled" confirm="are you sure to cancel this record?" string="Cancel" type="object" states="draft,done,confirm"/>
+                          <button id="button_url"  name="action_url" string="Open url" type="object"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="refer"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <!--this splts form into 2 -->
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="date_apppoint"/>
+                            <field name="gender" readonly="1" force_save="1"/>
+
+                        </group>
+                        <group>
+                            <field name="Doc"/>
+                             <field name="age" readonly="1" force_save="1"/>
+                        </group> 
+                    </group>
+                    <notebook>
+                            <page name="doc_descrip" string="Doctor Pescription">
+                                <group>
+                                    <field name="prescrip"/>
+                                </group>
+                            </page>
+                            <page name="doc_descrip" string="Medicine Page">
+                                <field name="pescrption_ids">
+                                    <tree editable="top">
+                                        <field name="Name"/>
+                                        <field name="Qty"/>
+
+                                    </tree>
+                                    <form>
+                                    <group>
+                                        <field name="Name"/>
+                                        <field name="Qty"/>
+                                    </group> 
+                                    </form> 
+                                </field>
+                            </page>
+                            <page name="other_info" string="Other Info">
+                                <group>
+                                     <field name="descrip" readonly="1" force_save="1"/>   
+                                </group>
+                            </page>
+                        </notebook>
+                </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+         </field>
+   </record>
+
+
+
+<menuitem id="appointment_patient_root" 
+        name="Appointments Menu"
+        parent="hospitial_root"
+        sequence="10"/>
+
+
+<menuitem id="appointment_sub_patient" 
+        name="Appointments Booked"
+        parent="appointment_patient_root"
+        action="appointment_action"
+        sequence="10"/>
+
+
+<menuitem id="create_appointment" 
+        name="Create Appointment"
+        parent="appointment_patient_root"  
+        action="create_appoint_action"
+        sequence="20"/>
+
+
+<menuitem id="search_appointment" 
+        name="Search Appointment"
+        parent="appointment_patient_root"  
+        action="search_appoint_action"
+        sequence="20"/>
+
+</odoo>
+
+    
