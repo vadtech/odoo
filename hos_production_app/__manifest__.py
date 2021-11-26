@@ -16,6 +16,7 @@
     'views/add_files_sales.xml', 
     'report/production_report.xml', 
     'report/modify_sales.xml',
+    'report/order_quatation.xml',
     ],
     'demo': [],
     'qweb': [],
