@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="prod_reports_va">
+             <t t-call="web.html_container">
+                     <t t-call="web.external_layout">
+                        <h1>djsdjdccjcs</h1>
+                    </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
