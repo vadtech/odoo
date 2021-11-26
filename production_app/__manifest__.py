@@ -15,6 +15,7 @@
     'views/main_prod_app.xml',   
     'report/production_report.xml', 
     'report/modify_sales.xml',
+    'report/prod_report.xml',
     ],
     'demo': [],
     'qweb': [],
