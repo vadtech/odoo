@@ -112,13 +112,13 @@
        	 	</xpath>
 
        	 	<xpath expr="//t/div[hasclass('page')]/div[@name='signature']" position="before">  
-
-       	 		<h5>Payment Terms</h5>
+                <br/>
+       	 		<h6>Payment Terms</h6>
        	 		<p t-field="doc.payment_term_id"/>
 
-
-       	 		 <h5>Delivery Terms</h5>
-       	 		<p t-field="doc.delv_terms"/>
+                <br/>
+       	 		 <h6>Delivery Terms</h6>
+       	 		<p t-field="doc.x_delivery_terms"/>
        	  	
        	 	</xpath>
         </template>
