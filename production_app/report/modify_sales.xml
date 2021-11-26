@@ -4,43 +4,34 @@
         <template id="modify_inherits" inherit_id="sale.report_saleorder_document">
 
 
-        <xpath expr="//t/t/t[@t-set='address']" position="before">
-            <t t-set="information_block">
-                <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Invoicing and Shipping Address:</strong>
-                <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Invoicing Address:</strong>
-                <div t-field="doc.partner_invoice_id"
-                t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
-                <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
+        <xpath expr="//t/t/t/div[@t-field='doc.partner_id']" position="replace">
+           <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+            <div id="p" style="padding-top:0px; margin-top:0px;">
                     <strong>Shipping Address:</strong>
-                    <div t-field="doc.partner_shipping_id"
+                    <div  t-field="doc.partner_shipping_id"
                         t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
-                </t>
-            </t>
+                        <br/>
+                        <br/>
+
+                      </div>
         </xpath>
-
-        <xpath expr="//t/t/t/strong[@t-if='doc.partner_shipping_id == doc.partner_invoice_id']" position="before">
-                 
-        	 <h2 class="mt16">
-                <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
-                    <span t-if="doc.state not in ['draft','sent']">Order # </span>
-                    <span t-if="doc.state in ['draft','sent']">Quotation # </span>
-                </t>
-                <t t-if="env.context.get('proforma', False) or is_pro_forma">
-                    <span>Pro-Forma Invoice # </span>
-                </t>
-                <span t-field="doc.name"/>
-            </h2>
-
-        </xpath>  
-
-          <xpath expr="//t/t[@t-set='address']" position="before">  
-              <br/>   
-       	 </xpath> 
 
        	 <xpath expr="//t/div/h2[hasclass('mt16')]" position="replace">  
               <div>
               </div>
        	 </xpath>
+
+
+         <xpath expr="//t/t/p[@t-if='doc.partner_id.vat']" position="replace">  
+              <div>
+              </div>
+         </xpath>
+
+        <xpath expr="//t/t/t/t[@t-if='doc.partner_shipping_id != doc.partner_invoice_id']" position="replace">  
+            <div>
+            </div>
+        </xpath>
+
 
        	  <xpath expr="//t/div/div[@id='informations']" position="before">  
 
@@ -110,17 +101,18 @@
                  </th>
        	  	
        	 	</xpath>
-
-       	 	<xpath expr="//t/div[hasclass('page')]/div[@name='signature']" position="before">  
+            
+          <xpath expr="//t/div[hasclass('page')]/div[@name='signature']" position="before">  
                 <br/>
-       	 		<h6>Payment Terms</h6>
-       	 		<p t-field="doc.payment_term_id"/>
+            <h6>Payment Terms</h6>
+            <p t-field="doc.payment_term_id"/>
 
                 <br/>
-       	 		 <h6>Delivery Terms</h6>
-       	 		<p t-field="doc.x_delivery_terms"/>
-       	  	
-       	 	</xpath>
+             <h6>Delivery Terms</h6>
+            <p t-field="doc.x_delivery_terms"/>
+            
+          </xpath>
         </template>
     </data>
 </odoo>
+
