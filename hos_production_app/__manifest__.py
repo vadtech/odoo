@@ -14,10 +14,8 @@
     'security/ir.model.access.csv',
     'views/main_prod_app.xml',   
     'views/add_files_sales.xml', 
-    'report/prod_report.xml', 
     'report/production_report.xml', 
-      
-
+    'report/modify_sales.xml',
     ],
     'demo': [],
     'qweb': [],
