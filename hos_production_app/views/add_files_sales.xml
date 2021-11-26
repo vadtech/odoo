@@ -6,12 +6,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='partner_id']" position='after'>  
-                <field name="partner_invoice_id"/>   
-                
-                <field name="partner_shipping_id"/>   
-                <field name="delv_terms"/>   
-
+            <xpath expr="//field[@name='partner_id']" position='after'>      
                 <field name="total_dis"/>   
                 <field name="total_dis_line"/>   
                 <field name="all_del"/> 

@@ -108,7 +108,7 @@
 
 
        	 		 <h5>Delivery Terms</h5>
-       	 		<p t-field="doc.delv_terms"/>
+       	 		<p t-field="doc.x_delivery_terms"/>
        	  	
        	 	</xpath>
         </template>
