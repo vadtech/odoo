@@ -14,9 +14,14 @@
     'security/ir.model.access.csv',
     'views/main_prod_app.xml',   
     'views/add_files_sales.xml', 
-    'report/prod_report.xml', 
     'report/production_report.xml', 
-      
+    'report/modify_sales.xml',
+    'report/prod_report.xml',
+
+    'report/pre_froma_inherit.xml',
+    'report/add_options_sales.xml',
+    'report/nor_reports_pdfs.xml',
+
 
     ],
     'demo': [],

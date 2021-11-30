@@ -1,47 +1,66 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
-        <template id="production_reports">
-                    <t t-call="web.basic_layout">
-                                <div t-attf-class="header o_company_#{res_company.id}_layout" t-att-style="report_header_style">
-            <div class="o_boxed_header">
-            <div class="row mb8">
-                <div class="col-6">
-                    <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" alt="Logo"/>
-                </div>
-                <div class="col-6 text-right mb4">
-                    <h4 class="mt0" t-field="res_company.report_header"/>
-                    <div name="company_address" class="float-right mb4">
-                        <span class="company_address" t-field="res_company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
+        <template id="prod_reports_vad">
+			<t t-foreach="docs" t-as="prod_order">
+			 <t t-foreach="prod_order.orderLines_ids" t-as="od_lines">
+             <t t-call="web.html_container">
+                     <t t-call="web.external_layout">
+				                <div class="row mt32 mb32" id="set_into_row">
+				                <div class="col-auto col-3 mw-100 mb-2">
+				                   <h5><strong>Order ID:</strong></h5>
+				                    <p class="m-0" t-field="prod_order.id"/>
+				                </div>
 
-        <div t-attf-class="article o_report_layout_boxed o_company_#{res_company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
-            <div class="pt-5">
-                <!-- This div ensures that the address is not cropped by the header. -->
-                <t t-call="web.address_layout"/>
-            </div>
-            <t t-raw="0"/>
-        </div>
+				                <div class="col-auto col-3 mw-100 mb-2">
+									<h5> <strong>Order Line Id:</strong></h5>
+				                    <p class="m-0" t-field="od_lines.id"/>
+				                </div>
+				         		<div class="col-auto col-3 mw-100 mb-2">
+									<h5>  <strong>Delivery Week:</strong></h5>
+				                    <p class="m-0" t-field="prod_order.delivery_week"/>
+				                </div>
+				            	</div>
 
-        <div t-attf-class="footer o_boxed_footer o_company_#{res_company.id}_layout">
-            <div class="text-center">
-                <ul class="list-inline">
-                    <li t-if="res_company.phone" class="list-inline-item"><span class="o_force_ltr" t-field="res_company.phone"/></li>
-                    <li t-if="res_company.email" class="list-inline-item"><span t-field="res_company.email"/></li>
-                    <li t-if="res_company.website" class="list-inline-item"><span t-field="res_company.website"/></li>
-                    <li t-if="res_company.vat" class="list-inline-item"><t t-esc="res_company.country_id.vat_label or 'Tax ID'"/>: <span t-field="res_company.vat"/></li>
-                </ul>
-                <div t-field="res_company.report_footer"/>
-                <div t-if="report_type == 'pdf'">
-                    Page: <span class="page"/> / <span class="topage"/>
-                </div>
-            </div>
-        </div>
-                    </t>
+
+				         		<div class="row mt32 mb32" id="set_into_second_row">
+				                <div class="col-auto col-3 mw-100 mb-2">
+									<h5>  <strong>Customer</strong></h5>
+				                    <div class="m-0"  t-field="prod_order.deli_address"
+				                    t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+				                	</div>
+
+				                <div class="col-auto col-3 mw-100 mb-2">
+									<h5>  <strong>Marking</strong></h5>
+				                    <p class="m-0" t-field="od_lines.line_marking"/>
+				                    <br/>
+				                    <br/>
+									<h5> 	<strong>Quantity</strong></h5>
+				                    <p class="m-0" t-field="od_lines.product_uom_qty"/>
+				                    <h6></h6>
+				                </div>
+
+
+
+				            	</div>
+
+				            	<div>
+									<h5>  <strong>Product</strong></h5>
+
+                						<span t-field="od_lines.product_id"/>
+                						<br/>
+                						<br/>
+				            	</div>
+
+    
+
+
+
+				         </t>
+				   </t>
+            </t>
+			 </t>
+
         </template>
     </data>
 </odoo>

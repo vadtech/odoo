@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models , api
 
 class prod_order_app(models.Model):
 	"""real name of the model"""
@@ -7,6 +7,7 @@ class prod_order_app(models.Model):
 	_inherit =["mail.thread","mail.activity.mixin"]
 	_rec_name="customer_ref"
 	_order="id,state"
+
 
 
 	customer_ref=fields.Many2one('sale.order.line',string="sale_order_lines",tracking=True)
@@ -22,7 +23,6 @@ class prod_order_app(models.Model):
 	delivered_date=fields.Date(string="Delivered Date",tracking=True)
 
 	
-
 	delivered_all=fields.Boolean(related='main_sales_id.all_del' ,string="Delivered All Units",default="True")
 	total_vol=fields.Float(string="Total Volume",default="0.00")
 	total_wei=fields.Float(string="Total Weight",default="0.00")
