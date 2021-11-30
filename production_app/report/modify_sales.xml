@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="modify_inherits" inherit_id="sale.report_saleorder_document">
+
+
+        <xpath expr="//t/t/t/div[@t-field='doc.partner_id']" position="replace">
+           <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+            <div id="p" style="padding-top:0px; margin-top:0px;">
+                    <strong>Shipping Address:</strong>
+                    <div  t-field="doc.partner_shipping_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                        <br/>
+                        <br/>
+
+                      </div>
+        </xpath>
+
+       	 <xpath expr="//t/div/h2[hasclass('mt16')]" position="replace">  
+              <div>
+              </div>
+       	 </xpath>
+
+
+         <xpath expr="//t/t/p[@t-if='doc.partner_id.vat']" position="replace">  
+              <div>
+              </div>
+         </xpath>
+
+        <xpath expr="//t/t/t/t[@t-if='doc.partner_shipping_id != doc.partner_invoice_id']" position="replace">  
+            <div>
+            </div>
+        </xpath>
+
+
+       	  <xpath expr="//t/div/div[@id='informations']" position="before">  
+
+
+       	  	    <div class="row mt32 mb32" id="information">
+       	  		 <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Customer Reference 1:</strong>
+                    <p class="m-0"/>
+                </div>
+
+
+       	  		 <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Customer Reference 2:</strong>
+                    <p class="m-0"/>
+                </div>
+
+
+                    <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Marking</strong>
+                    <p class="m-0"/>
+                	</div>
+
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Price Lists:</strong>
+                    <p class="m-0" t-field="doc.pricelist_id"/>
+                </div>
+
+            </div>
+       	 </xpath>
+
+
+       	  <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[1]" position="before">  
+       	  	<th name="th_artno" class="text-left">ARTNO</th>
+       	 	</xpath>
+
+       	 	<xpath expr="//t/div[hasclass('page')]/table/tbody/t/tr/t/td[1]" position="before">  
+              <td name="td_artno"><span t-field="line.id"/></td>
+       	 	</xpath>
+
+       	 	 <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[3]" position="replace">  
+             <th name="th_quantity" class="text-right">Quantity<span style="font-size:10px" >(PCS)</span></th>
+       	  	
+       	 	</xpath>
+
+
+       	 	 <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[6]" position="replace">  
+
+       	  	   <th name="th_taxes" class="text-right"></th>
+       	 	</xpath>
+
+       	 	 <xpath expr="//t/div[hasclass('page')]/table/tbody/t/tr/t/td[6]" position="replace">  
+       	 	 <td name="td_taxes" class="text-right"></td>
+       	 	</xpath>
+
+
+
+       	 	  <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[4]" position="replace">  
+             <th name="th_priceunit" class="text-right">Unit Price<span style="font-size:10px" >(NOK)</span></th>
+       	  	
+       	 	</xpath>
+
+       	 	   <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[7]" position="replace">  
+
+       	 	   	 <th name="th_subtotal" class="text-right">
+                            <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span><span style="font-size:10px" >(NOK)</span>
+                          <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
+                 </th>
+       	  	
+       	 	</xpath>
+            
+          <xpath expr="//t/div[hasclass('page')]/div[@name='signature']" position="before">  
+                <br/>
+            <h6>Payment Terms</h6>
+            <p t-field="doc.payment_term_id"/>
+
+                <br/>
+             <h6>Delivery Terms</h6>
+            <p t-field="doc.x_delivery_terms"/>
+            
+          </xpath>
+        </template>
+    </data>
+</odoo>
+
