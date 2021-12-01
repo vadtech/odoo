@@ -6,8 +6,8 @@
             <field name="name">Production Report</field>
             <field name="model">prod_order.model</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_file">hos_production_app.prod_reports_vad</field>
-            <field name="report_name">hos_production_app.prod_reports_vad</field>
+            <field name="report_file">production_app.prod_reports_vad</field>
+            <field name="report_name">production_app.prod_reports_vad</field>
             <field name="binding_model_id" ref="model_prod_order_model"/>
         </record>
     </data>
