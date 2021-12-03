@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name' : 'Production Application',
-    'version' : '14.0.1',
+    'version' : '14.1.2',
     'summary': 'Invoices & Payments',
     'sequence': -100,
     'description': """this is for monitoring vad production systems to manage its flow """,
