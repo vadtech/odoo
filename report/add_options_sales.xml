@@ -5,8 +5,8 @@
             <field name="name">Tilbud/ordre</field>
             <field name="model">sale.order</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">hos_production_app.report_saleorder_nor</field>
-            <field name="report_file">hos_production_app.report_saleorder_nor</field>
+            <field name="report_name">production_app.report_saleorder_nor</field>
+            <field name="report_file">production_app.report_saleorder_nor</field>
             <field name="print_report_name">(object.state in ('draft', 'sent') and 'Tilbud - %s' % (object.name)) or 'ordre - %s' % (object.name)</field>
             <field name="binding_model_id" ref="model_sale_order"/>
             <field name="binding_type">report</field>
@@ -16,8 +16,8 @@
             <field name="name">PRO-FORMA-faktura</field>
             <field name="model">sale.order</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">hos_production_app.report_saleorder_pro_nor</field>
-            <field name="report_file">hos_production_app.report_saleorder_pro_nor</field>
+            <field name="report_name">production_app.report_saleorder_pro_nor</field>
+            <field name="report_file">production_app.report_saleorder_pro_nor</field>
             <field name="print_report_name">'PRO-FORMA - %s' % (object.name)</field>
             <field name="binding_model_id" ref="model_sale_order"/>
             <field name="binding_type">report</field>
