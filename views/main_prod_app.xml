@@ -60,8 +60,7 @@
                         </group>
                         <group>
                             <field name="delivery_date" />
-                            <field name="delivery_week" />
-                            <field name="delivered_all"/>
+                            <field name="delivery_week"/>
                             <field name="total_vol"/>
                             <field name="total_wei"/>
                             <field name="total_ite"/>
@@ -72,11 +71,11 @@
                                        <field name="orderLines_ids" readonly="1"> 
                                             <tree>
                                                  <field string="id" name="id"/>
-                                                 <field string="Marking" name="line_marking"/>
-                                                 <field string="Art_No and description" name="product_id"/>
+                                                 <field string="Marking" name="x_marking"/>
+                                                 <field string="Art_No and description" name="product_template_id"/>
                                                  <field string="Line Discount" name="discount"/>
-                                                 <field string="Product Instruction" name="prod_ist"/>
-                                                 <field string="Delivered Quantity" name="product_uom_qty"/>
+                                                 <field string="Product Instruction" name="x_production_instruction"/>
+                                                 <field string="Delivered Quantity" name="qty_delivered"/>
                                                  <field string="Unit of Measure" name="product_uom"/>
                                             </tree>
 
