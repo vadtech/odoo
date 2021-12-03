@@ -32,7 +32,7 @@
 
 				                <div class="col-auto col-3 mw-100 mb-2">
 									<h5>  <strong>Marking</strong></h5>
-				                    <p class="m-0" t-field="od_lines.line_marking"/>
+				                    <p class="m-0" t-field="od_lines.x_marking"/>
 				                    <br/>
 				                    <br/>
 									<h5> 	<strong>Quantity</strong></h5>
@@ -47,7 +47,7 @@
 				            	<div>
 									<h5>  <strong>Product</strong></h5>
 
-                						<span t-field="od_lines.product_id"/>
+                						<span t-field="od_lines.product_template_id"/>
                 						<br/>
                 						<br/>
 				            	</div>
