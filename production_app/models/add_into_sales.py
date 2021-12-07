@@ -16,5 +16,6 @@ class add_into_sales(models.Model):
 	total_dis=fields.Integer( string='Total Discount')
 	total_dis_line=fields.Integer(string='Total line')
 	all_del=fields.Boolean(string="All Iteams as Delivered?",default="False")
+	client_order_ref2 = fields.Char(string='Customer Reference 2', copy=False)
 	
 
