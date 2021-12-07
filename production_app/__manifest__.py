@@ -16,7 +16,7 @@
     'report/production_report.xml', 
     'report/modify_sales.xml',
     'report/prod_report.xml',
-
+    'views/add_files_sales.xml',
     'report/pre_froma_inherit.xml',
     'report/add_options_sales.xml',
     'report/nor_reports_pdfs.xml',
