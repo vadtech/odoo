@@ -3,7 +3,7 @@
     <data>
         <!--this is a report action-->
         <record id="prod_card_repor" model="ir.actions.report">
-            <field name="name">Production Report</field>
+            <field name="name">Order Labels</field>
             <field name="model">prod_order.model</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_file">production_app.prod_reports_vad</field>
