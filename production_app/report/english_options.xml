@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--this is a report action-->
+        <record id="english_sales_reports" model="ir.actions.report">
+            <field name="name">Quotation / Order</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_file">production_app.english_reports</field>
+            <field name="report_name">production_app.english_reports</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+        </record>
+    </data>
+</odoo>
