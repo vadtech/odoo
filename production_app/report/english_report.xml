@@ -28,16 +28,16 @@
         </t>
         <div class="page">
             <div class="oe_structure"/>
-             <h2 class="mt16">
+             <h4 class="mt16">
                 <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
-                    <span t-if="doc.state not in ['draft','sent']">Order Number </span>
-                    <span t-if="doc.state in ['draft','sent']">Quotation Number </span>
+                    <span t-if="doc.state not in ['draft','sent']">Order Confirmation Number </span>
+                    <span t-if="doc.state in ['draft','sent']">Quotation Confirmation Number </span>
                 </t>
                 <t t-if="env.context.get('proforma', False) or is_pro_forma">
                     <span>Pro-Forma Invoice # </span>
                 </t>
                 <span t-field="doc.name"/>
-            </h2>
+            </h4>
            
             <div class="row mt32 mb32" id="informations">
                 <div  class="col-auto col-3 mw-100 mb-2">
@@ -91,7 +91,7 @@
                         <th name="th_artno" class="text-left">ARTNO</th>
                         <th name="th_description" class="text-left">Description</th>
                         <th name="th_quantity" class="text-right">Quantity<span style="font-size:10px">(PCS)</span></th>
-                        <th name="th_priceunit" class="text-right">Unit Price<span style="font-size:10px">(NOK)</span></th>
+                        <th name="th_priceunit" class="text-right"> Unit Price <span style="font-size:10px">(NOK)</span></th>
                         <th name="th_discount" t-if="display_discount" class="text-right" groups="product.group_discount_per_so_line">
                             <span>Disc.%</span>
                         </th>
@@ -225,7 +225,7 @@
                 <span t-field="doc.fiscal_position_id.sudo().note"/>
             </p>
         </div>
-                        <h5>Delivery Terms</h5>
+                        <p>Delivery Terms</p>
        	 		<p t-field="doc.x_delivery_terms"/>
 
                     </t>
