@@ -6,7 +6,7 @@ class add_into_order_line(models.Model):
 	_description="Moddification of order sales table"
 
 	lineDiscount=fields.Integer( string='Line Discount %')
-	disAmount=fields.Integer( string='line Amount' )
+	disAmount=fields.Integer( string='Line Discount Amount' )
 
 	@api.onchange("lineDiscount")
 	def _onchange_lineDiscount(self):
