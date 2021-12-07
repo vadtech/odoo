@@ -225,7 +225,7 @@
                 <span t-field="doc.fiscal_position_id.sudo().note"/>
             </p>
         </div>
-                        <h5>Delivery Terms</h5>
+                        <p>Delivery Terms</p>
        	 		<p t-field="doc.x_delivery_terms"/>
 
                     </t>
