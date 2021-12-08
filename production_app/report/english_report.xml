@@ -222,7 +222,7 @@
             </p>
         </div>
                         <p>Delivery Terms</p>
-       	 		<p t-field="doc.x_delivery_term"/>
+       	 		<p t-field="doc.x_delivery_terms"/>
 
                     </t>
                 </t>
