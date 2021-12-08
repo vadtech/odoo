@@ -210,18 +210,17 @@
             </div>
 
             <div class="oe_structure"/>
-
-            <p t-field="doc.note" />
+            <p>Betalingsbetingelser</p>
             <p t-if="doc.payment_term_id.note">
                 <span t-field="doc.payment_term_id.note"/>
             </p>
             <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
-                <strong>Finanspolitisk posisjon Anmerkning :</strong>
+                <strong>Fiscal Position Remark:</strong>
                 <span t-field="doc.fiscal_position_id.sudo().note"/>
             </p>
         </div>
-                        <p>Leveringsvilkår:</p>
-                        <p >hello world</p>
+                        <p>Leveringsvilkår</p>
+       	 		<p t-field="doc.x_delivery_detail"/>
 
                     </t>
                 </t>
