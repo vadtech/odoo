@@ -221,7 +221,7 @@
             </p>
         </div>
                         <p>Delivery Terms</p>
-       	 		<p t-field="doc.x_delivery_terms"/>
+       	 		<p t-field="doc.partner_id.x_delivery_detail"/>
 
                     </t>
                 </t>
