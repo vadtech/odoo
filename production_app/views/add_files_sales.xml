@@ -24,10 +24,6 @@
                   <attribute name="optional">hide</attribute>
             </xpath>
             
-            <xpath expr="//page/field[@name='order_line']/tree/field[@name='x_marking']" position="attributes">
-                  <attribute name="string">Line Marking</attribute>
-            </xpath>
-            
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='x_production_instruction']" position="attributes">
                   <attribute name="optional">hide</attribute>
             </xpath>
