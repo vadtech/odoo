@@ -14,18 +14,13 @@
                     <div t-field="doc.partner_shipping_id"
                         t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
                 </t>
-        </t>
-                        
-        <t t-if="doc.partner_shipping_id == doc.partner_invoice_id
-                             and doc.partner_invoice_id != doc.partner_id
-                             or doc.partner_shipping_id != doc.partner_invoice_id">
+        </t> 
             <t t-set="information_block">
                 <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Customer and Delivery Address:</strong>
                 <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Customer Address:</strong>
                 <div t-field="doc.partner_invoice_id"
                 t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
             </t>
-        </t>
         <div class="page">
             <div class="oe_structure"/>
              <h4 class="mt16">
