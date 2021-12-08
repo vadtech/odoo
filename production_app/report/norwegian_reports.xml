@@ -220,7 +220,7 @@
             </p>
         </div>
                         <p>Leveringsvilkår</p>
-       	 		<p t-field="doc.x_delivery_detail"/>
+       	 		<p t-field="doc.x_delivery_term"/>
 
                     </t>
                 </t>
