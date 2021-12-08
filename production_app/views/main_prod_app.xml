@@ -97,17 +97,6 @@
         name="Production Application"
         sequence="10"/>
 
-<menuitem id="production_sub_menu" 
-        name="Production Orders"
-        parent="production_app_root"
-        sequence="10"/>
-
-
-<menuitem id="hospitial_patient" 
-        name="Oders List"
-        parent="production_sub_menu"
-        action="main_prod_action"
-        sequence="10"/>
 
 </odoo>
 
