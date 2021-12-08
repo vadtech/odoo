@@ -12,15 +12,16 @@
             <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
                     <strong>Delivery Address:</strong>
                     <div t-field="doc.partner_shipping_id"
-                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
                 </t>
         </t> 
             <t t-set="information_block">
                 <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Customer and Delivery Address:</strong>
                 <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Customer Address:</strong>
                 <div t-field="doc.partner_invoice_id"
-                t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True,}'/>
             </t>
+             <br/>
         <div class="page">
             <div class="oe_structure"/>
              <h4 class="mt16">
@@ -33,7 +34,7 @@
                 </t>
                 <span t-field="doc.name"/>
             </h4>
-           
+           <br/>
             <div class="row mt32 mb32" id="informations">
                 <div  class="col-auto col-3 mw-100 mb-2">
                     <strong>Customer Reference:</strong>
@@ -211,7 +212,7 @@
 
             <div class="oe_structure"/>
 
-            <p t-field="doc.note" />
+            <p>Payment Terms</p>
             <p t-if="doc.payment_term_id.note">
                 <span t-field="doc.payment_term_id.note"/>
             </p>
