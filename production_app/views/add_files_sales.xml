@@ -23,10 +23,7 @@
              <xpath expr="//page/field[@name='order_line']/tree/field[@name='tax_id']" position="attributes">
                   <attribute name="optional">hide</attribute>
             </xpath>
-            
-            <xpath expr="//page/field[@name='order_line']/tree/field[@name='x_production_instruction']" position="attributes">
-                  <attribute name="optional">hide</attribute>
-            </xpath>
+       
 
             <xpath expr="//page/group/group[@name='sales_person']/field[@name='tag_ids']" position="replace">
                 <field name="newMarking"/>
