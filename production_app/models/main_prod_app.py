@@ -21,8 +21,8 @@ class prod_order_app(models.Model):
 	delivery_week=fields.Integer(string="Delivered Week",tracking=True)
 	delivered_date=fields.Date(string="Delivered Date",tracking=True)
 
+	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
 	
-
 	total_vol=fields.Float(string="Total Volume",default="0.00")
 	total_wei=fields.Float(string="Total Weight",default="0.00")
 	total_ite=fields.Char(string="Total iteams")
@@ -38,6 +38,13 @@ class prod_order_app(models.Model):
         ('cancel','Cancel'),
         ('delivered','Delivered')])
 
+	@api.onchange("all_del")
+	def _onchange_alldel(self):
+		if self.all_del==True:
+			self.orderLines_ids.delivered_Qty=self.orderLines_ids.product_uom_qty
+			self.state='delivered'
+		else:
+			pass
 
 	def action_new(self):
 		self.state='new'
