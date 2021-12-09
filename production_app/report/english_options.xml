@@ -12,7 +12,7 @@
         </record>
         
         <record id="norwegian_sales_reports" model="ir.actions.report">
-            <field name="name">Tilbud/Ordredato</field>
+            <field name="name">Tilbud/Ordre</field>
             <field name="model">sale.order</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_file">production_app.norwegian_reports</field>
