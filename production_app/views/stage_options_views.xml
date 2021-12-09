@@ -41,25 +41,6 @@
         action="in_production_views"
         sequence="20"/>
 
-            <record id="pending_stage" model="ir.actions.act_window">
-    <field name="name">Pending Delivery Orders</field>
-    <field name="type">ir.actions.act_window</field>
-    <field name="res_model">prod_order.model</field>
-    <field name="view_mode">tree,form,kanban</field>
-    <field name="context">{'default_state':'done'}</field>
-    <field name="domain">[('state','=','done')]</field>
-    <field name="help" type="html">
-    	<p class="o_view_nocontent_smiling_face">
-    	Export A Order Into Pending Stage!
-    	</p>
-    </field>
-</record>
-
-<menuitem id="in_pending_stage"
-        name="Pending Delivery Orders"
-        parent="production_app_root"
-        action="pending_stage"
-        sequence="30"/>
                 <record id="delivered_stage" model="ir.actions.act_window">
     <field name="name">Delivered Orders</field>
     <field name="type">ir.actions.act_window</field>
@@ -80,23 +61,5 @@
         action="delivered_stage"
         sequence="40"/>
 
-             <record id="cancelled_stage" model="ir.actions.act_window">
-    <field name="name">Cancelled Orders</field>
-    <field name="type">ir.actions.act_window</field>
-    <field name="res_model">prod_order.model</field>
-    <field name="view_mode">tree,form,kanban</field>
-    <field name="context">{'default_state':'cancel'}</field>
-    <field name="domain">[('state','=','cancel')]</field>
-    <field name="help" type="html">
-    	<p class="o_view_nocontent_smiling_face">
-    	Cancel Any Order!
-    	</p>
-    </field>
-</record>
 
-<menuitem id="cancelled_stages"
-        name="Cancelled Orders"
-        parent="production_app_root"
-        action="cancelled_stage"
-        sequence="50"/>
 </odoo>
