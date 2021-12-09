@@ -11,7 +11,6 @@ class add_into_order_line(models.Model):
 	prod_ist=fields.Text(string='Product Instruction')
 	linMarking=fields.Text(string='Line Marking')
 	
-
 	@api.onchange("lineDiscount")
 	def _onchange_lineDiscount(self):
 		self.disAmount = self.lineDiscount/100 * self.price_subtotal
