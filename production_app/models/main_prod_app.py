@@ -23,8 +23,8 @@ class prod_order_app(models.Model):
 
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
 	
-	total_vol=fields.Float(string="Total Volume",default="0.00")
-	total_wei=fields.Float(string="Total Weight",default="0.00")
+	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
+	total_wei=fields.Float(string="Total Weight(kg)",default="0.00")
 	total_ite=fields.Char(string="Total iteams")
 
 	state=fields.Selection(
@@ -33,8 +33,7 @@ class prod_order_app(models.Model):
         default='new',
         selection=[
         ('new','New'),
-        ('prod','In Production'),
-        ('done','Done'),
+        ('prod','In Production')
         ('cancel','Cancel'),
         ('delivered','Delivered')])
 
