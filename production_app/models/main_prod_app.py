@@ -23,8 +23,8 @@ class prod_order_app(models.Model):
 
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
 	
-	total_vol=fields.Float(string="Total Volume",default="0.00")
-	total_wei=fields.Float(string="Total Weight",default="0.00")
+	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
+	total_wei=fields.Float(string="Total Weight(kg)",default="0.00")
 	total_ite=fields.Char(string="Total iteams")
 
 	state=fields.Selection(
@@ -34,15 +34,15 @@ class prod_order_app(models.Model):
         selection=[
         ('new','New'),
         ('prod','In Production'),
-        ('done','Done'),
         ('cancel','Cancel'),
         ('delivered','Delivered')])
 
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
 		if self.all_del==True:
-			self.orderLines_ids.delivered_Qty=self.orderLines_ids.product_uom_qty
-			self.state='delivered'
+			for rec in self.orderLines_ids:
+				rec.delivered_Qty=rec.product_uom_qty
+			self.state = 'delivered'
 		else:
 			pass
 
