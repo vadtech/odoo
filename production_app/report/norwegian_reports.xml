@@ -26,8 +26,8 @@
             <div class="oe_structure"/>
              <h4 class="mt16">
                 <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
-                    <span t-if="doc.state not in ['draft','sent']">Ordrebekreftelsesnummer</span>
-                    <span t-if="doc.state in ['draft','sent']">Tilbudsbekreftelsesnummer </span>
+                    <span t-if="doc.state not in ['draft','sent']">Ordrebekreftelses</span>
+                    <span t-if="doc.state in ['draft','sent']">Tilbudsbekreftelses</span>
                 </t>
                 <t t-if="env.context.get('proforma', False) or is_pro_forma">
                     <span>Pro-Forma faktura # </span>
