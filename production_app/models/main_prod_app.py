@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models,  api , _
 
 class prod_order_app(models.Model):
 	"""real name of the model"""
