@@ -41,8 +41,9 @@ class prod_order_app(models.Model):
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
 		if self.all_del==True:
-			self.orderLines_ids.delivered_Qty=self.orderLines_ids.product_uom_qty
-			self.state='delivered'
+			for rec in self.orderLines_ids:
+				rec.delivered_Qty=rec.product_uom_qty
+			self.state = 'delivered'
 		else:
 			pass
 
