@@ -55,7 +55,7 @@
             <div class="row mt32 mb32" id="informations">
 
                 <div class="col-auto col-3 mw-100 mb-2">
-                    <strong>Pris liste:</strong>
+                    <strong>Prisliste:</strong>
                     <p class="m-0" t-field="doc.pricelist_id"/>
                 </div>
 
@@ -72,8 +72,8 @@
                     <p class="m-0" t-field="doc.validity_date"/>
                 </div>
                 <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
-                    <strong>Selger:</strong>
-                    <p class="m-0" t-field="doc.user_id"/>
+                    <strong>Leveringsdato:</strong>
+                    <p class="m-0" t-field="doc.commitment_date"/>
                 </div>
             </div>
 
