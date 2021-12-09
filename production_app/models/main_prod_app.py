@@ -33,7 +33,7 @@ class prod_order_app(models.Model):
         default='new',
         selection=[
         ('new','New'),
-        ('prod','In Production')
+        ('prod','In Production'),
         ('cancel','Cancel'),
         ('delivered','Delivered')])
 
