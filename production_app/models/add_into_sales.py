@@ -9,7 +9,5 @@ class add_into_sales(models.Model):
 	total_dis_line=fields.Integer(string='Total line')
 	client_order_ref2 = fields.Char(string='Customer Reference 2', copy=False)
 	newMarking = fields.Char(string='Marking', copy=False)
-	prod_ist=fields.Text(string='Product Instruction')
-	linMarking=fields.Text(string='Line Marking')
 	
 
