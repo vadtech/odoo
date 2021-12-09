@@ -26,8 +26,8 @@
             <div class="oe_structure"/>
              <h4 class="mt16">
                 <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
-                    <span t-if="doc.state not in ['draft','sent']">Order Confirmation Number </span>
-                    <span t-if="doc.state in ['draft','sent']">Quotation Confirmation Number </span>
+                    <span t-if="doc.state not in ['draft','sent']">Order Confirmation</span>
+                    <span t-if="doc.state in ['draft','sent']">Quotation Confirmation</span>
                 </t>
                 <t t-if="env.context.get('proforma', False) or is_pro_forma">
                     <span>Pro-Forma Invoice # </span>
@@ -72,8 +72,8 @@
                     <p class="m-0" t-field="doc.validity_date"/>
                 </div>
                 <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
-                    <strong>Salesperson:</strong>
-                    <p class="m-0" t-field="doc.user_id"/>
+                    <strong>Delivery Date:</strong>
+                    <p class="m-0" t-field="doc.commitment_date"/>
                 </div>
             </div>
 
@@ -220,9 +220,10 @@
                 <span t-field="doc.fiscal_position_id.sudo().note"/>
             </p>
         </div>
-                        <p>Delivery Terms</p>
-       	 		<p t-field="doc.partner_id.x_delivery_detail"/>
-
+                  <t t-foreach="doc.partner_id" t-as="user">
+                        <p>Delivery Terms:</p>
+                        <p t-field="user.x_delivery_detail"/>
+                        </t>
                     </t>
                 </t>
             </t>
