@@ -42,7 +42,7 @@
                         <button id="button_prod" name="action_prod" string="In Production" confirm="are you sure to confirm to in production state?" type="object" states="new" class="btn-primary"/>
                          <button id="button_delivered" name="action_delivered" confirm="are you sure to set this record as delivered?" string="Mark as delivered" type="object" states="prod" class="btn-primary"/>
                          <button id="button_cancel"  name="action_cancelled" confirm="are you sure to cancel this record?" string="Canceled" type="object" states="new,prod,delivered"/>
-                <header/>
+                </header>
                 <sheet>
                                         <div class="oe_title">
                         <h1>
