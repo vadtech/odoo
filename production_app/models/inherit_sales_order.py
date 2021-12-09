@@ -7,6 +7,8 @@ class add_into_order_line(models.Model):
 
 	lineDiscount=fields.Integer( string='Line Discount %')
 	disAmount=fields.Integer( string='Line Discount Amount' )
+	delivered_Qty = fields.Integer(string="Delivered Quantity.")
+
 
 	@api.onchange("lineDiscount")
 	def _onchange_lineDiscount(self):
