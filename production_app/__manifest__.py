@@ -20,6 +20,7 @@
     'report/english_options.xml',
     'report/english_report.xml',
     'report/norwegian_reports.xml',
+    'report/packaging_list.xml',
     ],
     'demo': [],
     'qweb': [],
