@@ -220,9 +220,9 @@
                 <span t-field="doc.fiscal_position_id.sudo().note"/>
             </p>
         </div>
-                  <t t-foreach="doc.partner_id" t-as="user">
-                        <p>Delivery Terms:</p>
-                        <p t-field="user.x_delivery_detail"/>
+                  
+                        <p t-if="doc.state not in ['draft','sent']" >Delivery Terms:</p>
+                        <p t-if="doc.state not in ['draft','sent']" t-field="doc.detailed_terms"/>
                         </t>
                     </t>
                 </t>
