@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api ,_
 
 class add_into_sales(models.Model):
 	"""real name of the model"""
