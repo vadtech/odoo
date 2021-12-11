@@ -71,13 +71,13 @@
                     <strong>Expiration:</strong>
                     <p class="m-0" t-field="doc.validity_date"/>
                 </div>
-                <div t-if="doc.state in ['draft','sent']" t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
-                    <strong>Delivery Date:</strong>
-                    <p class="m-0" t-field="doc.commitment_date"/>
+                <div t-if="doc.state in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
+                    <strong  t-if="doc.state in ['draft','sent']"  >Delivery Date:</strong>
+                    <p  t-if="doc.state in ['draft','sent']"  class="m-0" t-field="doc.commitment_date"/>
                 </div>
                  <div t-if="doc.state not in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
-                    <strong>Salesperson:</strong>
-                    <p class="m-0" t-field="doc.user_id"/>
+                    <strong t-if="doc.state not in ['draft','sent']" >Salesperson:</strong>
+                    <p t-if="doc.state not in ['draft','sent']" class="m-0" t-field="doc.user_id"/>
                 </div>
             </div>
 
