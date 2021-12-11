@@ -7,6 +7,10 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             
+             <xpath expr="//field[@name='date_order']" position='after'>  
+                <field name="delv_terms"/>
+            </xpath>
+            
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_id']" position="before">
                     <field name="id"/>
                      <field name="linMarking" optional="hide"/>
