@@ -61,7 +61,7 @@
 
                 <div t-if="doc.date_order and doc.state not in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
                     <strong>Order Date:</strong>
-                    <p class="m-0" t-field="doc.date_order t-options='{"widget": "date"}'/>
+                    <p class="m-0" t-field="doc.date_order" t-options='{"widget": "date"}'/>
                 </div>
                 <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
                     <strong>Quotation Date:</strong>
