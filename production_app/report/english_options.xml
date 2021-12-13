@@ -6,6 +6,7 @@
             <field name="name">Quotation / Order</field>
             <field name="model">sale.order</field>
             <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)</field>
             <field name="report_file">production_app.english_reports</field>
             <field name="report_name">production_app.english_reports</field>
             <field name="binding_model_id" ref="model_sale_order"/>
@@ -15,6 +16,7 @@
             <field name="name">Tilbud/Ordre</field>
             <field name="model">sale.order</field>
             <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">(object.state in ('draft', 'sent') and 'Tilbud - %s' % (object.name)) or 'Ordre - %s' % (object.name)</field>
             <field name="report_file">production_app.norwegian_reports</field>
             <field name="report_name">production_app.norwegian_reports</field>
             <field name="binding_model_id" ref="model_sale_order"/>
