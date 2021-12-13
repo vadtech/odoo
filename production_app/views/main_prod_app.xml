@@ -92,7 +92,7 @@
                         <group>
                             <field name="delivery_date" />
                             <field name="delivery_week"/>
-                             <field name="all_del"/>
+                            <field name="all_del" attrs="{'invisible':[('state','=', 'new')]}"/>
                             <field name="total_vol"/>
                             <field name="total_wei"/>
                             <field name="total_ite"/>
