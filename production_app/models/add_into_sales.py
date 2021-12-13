@@ -9,6 +9,8 @@ class add_into_sales(models.Model):
 	total_dis_line=fields.Integer(string='Total line')
 	client_order_ref2 = fields.Char(string='Customer Reference 2', copy=False)
 	newMarking = fields.Char(string='Marking', copy=False)
+	delive_date = fields.Date(string="Delivery_Date")
+	orde_date = fields.Date(string="Order_Date")
 	
 	delv_terms=fields.Selection(
         string='Delivery Terms',
@@ -26,5 +28,14 @@ class add_into_sales(models.Model):
 			self.detailed_terms=""
 		else:
 			self.detailed_terms="Priser i NOK. Fritt levert forhandlers adresse inkl. assuranse. Ordrer under kr. 7 500 netto belastes omkostninger/frakttillegg på netto kr. 750. Ved levering på annen vareadresse kan det kreves et tillegg på inntil 6 %, dog minimum netto kr. 900."
+	
+	@api.onchange("commitment_date")	
+	def _onchange_delive_date(self):
+	 	self.delive_date = self.commitment_date.date()
+
+	@api.onchange("date_order")
+	def _onchange_orde_date(self):
+		self.orde_date = self.date_order.date()
+
 
 

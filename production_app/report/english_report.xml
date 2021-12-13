@@ -61,7 +61,7 @@
 
                 <div t-if="doc.date_order and doc.state not in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
                     <strong>Order Date:</strong>
-                    <p class="m-0" t-field="doc.date_order"/>
+                    <p class="m-0" t-field="doc.date_order" t-options='{"widget": "date"}'/>
                 </div>
                 <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
                     <strong>Quotation Date:</strong>
@@ -69,11 +69,11 @@
                 </div>
                 <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto col-3 mw-100 mb-2" name="expiration_date">
                     <strong>Expiration:</strong>
-                    <p class="m-0" t-field="doc.validity_date"/>
+                    <p class="m-0" t-field="doc.validity_date" t-options='{"widget": "date"}'/>
                 </div>
                 <div t-if="doc.state not in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
                     <strong  t-if="doc.state not in ['draft','sent']"  >Delivery Date:</strong>
-                    <p  t-if="doc.state not in ['draft','sent']"  class="m-0" t-field="doc.commitment_date"/>
+                    <p  t-if="doc.state not in ['draft','sent']"  class="m-0" t-field="doc.commitment_date" t-options='{"widget": "date"}'/>
                 </div>
                  <div t-if="doc.state in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
                     <strong t-if="doc.state in ['draft','sent']" >Salesperson:</strong>
