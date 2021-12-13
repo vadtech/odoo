@@ -71,9 +71,13 @@
                     <strong>Utløp:</strong>
                     <p class="m-0" t-field="doc.validity_date"/>
                 </div>
-                <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
-                    <strong>Leveringsdato:</strong>
-                    <p class="m-0" t-field="doc.commitment_date"/>
+                 <div t-if="doc.state not in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
+                    <strong  t-if="doc.state not in ['draft','sent']"  >Leveringsdato:</strong>
+                    <p  t-if="doc.state not in ['draft','sent']"  class="m-0" t-field="doc.commitment_date"/>
+                </div>
+                 <div t-if="doc.state in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
+                    <strong t-if="doc.state in ['draft','sent']" >Selger:</strong>
+                    <p t-if="doc.state in ['draft','sent']" class="m-0" t-field="doc.user_id"/>
                 </div>
             </div>
 
@@ -218,9 +222,9 @@
                 <span t-field="doc.fiscal_position_id.sudo().note"/>
             </p>
         </div>
-                        <p>Leveringsvilkår</p>
-       	 		<p t-field="doc.x_delivery_terms"/>
-
+                 <br/>
+                        <p t-if="doc.state not in ['draft','sent']" >Leveringsvilkår:</p>
+                        <p t-if="doc.state not in ['draft','sent']" t-field="doc.detailed_terms"/>
                     </t>
                 </t>
             </t>

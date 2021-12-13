@@ -109,6 +109,8 @@
                                                  <field string="Quantity" name="product_uom_qty"  readonly="1"/>
                                                  <field string="Delivered Quantity" name="delivered_Qty" readonly="0"/>
                                             </tree>
+                                                <form>
+                                            </form>
 
                                     </field>    
                                   
