@@ -9,6 +9,8 @@ class add_into_sales(models.Model):
 	total_dis_line=fields.Integer(string='Total line')
 	client_order_ref2 = fields.Char(string='Customer Reference 2', copy=False)
 	newMarking = fields.Char(string='Marking', copy=False)
+	delive_date = fields.Date(string="Delivery_Date")
+	orde_date = fields.Date(string="Order_Date")
 	
 	delv_terms=fields.Selection(
         string='Delivery Terms',
