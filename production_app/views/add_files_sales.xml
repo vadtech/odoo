@@ -24,7 +24,7 @@
             <xpath expr="//page/group/group[@name='sales_person']/field[@name='client_order_ref']" position="after">
                 <field name="client_order_ref2"/>
             </xpath>
-             <xpath expr="//page/group/group[@name='client_order_ref2']/field[@name='client_order_ref']" position="after">
+             <xpath expr="//page/group/group[@name='sales_person']/field[@name='client_order_ref2']" position="after">
                 <field name="detailed_terms"/>
             </xpath>
 
