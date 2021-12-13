@@ -72,12 +72,12 @@
                     <p class="m-0" t-field="doc.validity_date"/>
                 </div>
                 <div t-if="doc.state not in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
-                    <strong  t-if="doc.state in ['draft','sent']"  >Delivery Date:</strong>
-                    <p  t-if="doc.state in ['draft','sent']"  class="m-0" t-field="doc.commitment_date"/>
+                    <strong  t-if="doc.state not in ['draft','sent']"  >Delivery Date:</strong>
+                    <p  t-if="doc.state not in ['draft','sent']"  class="m-0" t-field="doc.commitment_date"/>
                 </div>
                  <div t-if="doc.state in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
-                    <strong t-if="doc.state not in ['draft','sent']" >Salesperson:</strong>
-                    <p t-if="doc.state not in ['draft','sent']" class="m-0" t-field="doc.user_id"/>
+                    <strong t-if="doc.state in ['draft','sent']" >Salesperson:</strong>
+                    <p t-if="doc.state in ['draft','sent']" class="m-0" t-field="doc.user_id"/>
                 </div>
             </div>
 
@@ -215,15 +215,13 @@
             </div>
 
             <div class="oe_structure"/>
-
-            <p>Payment Terms</p>
                 <span t-field="doc.payment_term_id.note"/>
-     
             <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
                 <strong>Fiscal Position Remark:</strong>
                 <span t-field="doc.fiscal_position_id.sudo().note"/>
             </p>
         </div>
+                        <br/>
                   
                         <p t-if="doc.state not in ['draft','sent']" >Delivery Terms:</p>
                         <p t-if="doc.state not in ['draft','sent']" t-field="doc.detailed_terms"/>
