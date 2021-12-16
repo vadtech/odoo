@@ -15,12 +15,12 @@
                     <field name="id"/>
                      <field name="linMarking" optional="hide"/>
             </xpath>
-            <xpath expr="//page/field[@name='order_line']/tree/field[@name='qty_delivered']" position="before">
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">
                 <attribute name="optional">hide</attribute>
             </xpath>
             
             
-            <xpath expr="//page/field[@name='order_line']/tree/field[@name='qty_invoiced']" position="before">
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='qty_invoiced']" position="attributes">
                     <attribute name="optional">hide</attribute>
             </xpath>qty_invoiced
             
