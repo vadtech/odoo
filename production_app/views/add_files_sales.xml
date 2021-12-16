@@ -22,7 +22,7 @@
             
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='qty_invoiced']" position="attributes">
                     <attribute name="optional">hide</attribute>
-            </xpath>qty_invoiced
+            </xpath>
             
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='name']" position="after">
                     <field name="prod_ist" optional="hide"/>  
