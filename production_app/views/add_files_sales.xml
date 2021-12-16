@@ -18,14 +18,8 @@
             
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='name']" position="after">
                     <field name="prod_ist" optional="hide"/>  
-            </xpath>
-            
-                        
-            <xpath expr="//page/field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">
-                    <attribute name="optional">hide</attribute> 
-            </xpath>
-            <xpath expr="//page/field[@name='order_line']/tree/field[@name='qty_invoiced']" position="attributes">
-                    <attribute name="optional">hide</attribute> 
+                    <field name="qty_delivered" optional="hide"/>  
+                    <field name="qty_invoiced" optional="hide"/>  
             </xpath>
             
             <xpath expr="//page/group/group[@name='sales_person']/field[@name='client_order_ref']" position="after">
