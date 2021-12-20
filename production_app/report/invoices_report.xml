@@ -73,7 +73,7 @@
                         </div>
                     </div>
 
-                    <br/>
+                    </br>
                     <h5>KID</h5>
                     <p class="m-0" t-field="o.payment_reference"/>
                     <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
