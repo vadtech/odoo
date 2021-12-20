@@ -6,8 +6,7 @@
               <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
                     <t t-call="web.external_layout">
-                    
-                        </br>
+                        <br/>
                    <h4>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</span>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
@@ -17,7 +16,7 @@
                         <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
                         <span t-if="o.name != '/'" t-field="o.name"/>
                     </h4>
-                     </br>
+                     <br/>
 
                 <t t-set="o" t-value="o.with_context(lang=lang)" />
                 <t t-set="address">
@@ -73,7 +72,7 @@
                         </div>
                     </div>
 
-                    </br>
+                    <br/>
                     <h5>KID</h5>
                     <p class="m-0" t-field="o.payment_reference"/>
                     <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
