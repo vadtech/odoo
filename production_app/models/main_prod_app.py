@@ -10,7 +10,7 @@ class prod_order_app(models.Model):
 
 
 	customer_ref=fields.Many2one('sale.order.line',string="sale_order_lines",tracking=True)
-	main_sales_id=fields.Many2one('sale.order',string="Production_order",tracking=True)
+	main_sales_id=fields.Many2one('sale.order',string="Production_order",tracking=True,index=True,required=True)
 	orderLines_ids=fields.One2many(related='main_sales_id.order_line', string="")
 
 
