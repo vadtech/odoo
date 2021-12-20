@@ -6,7 +6,8 @@
               <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
                     <t t-call="web.external_layout">
-
+                    
+                        </br>
                    <h4>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</span>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
@@ -16,6 +17,7 @@
                         <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
                         <span t-if="o.name != '/'" t-field="o.name"/>
                     </h4>
+                     </br>
 
                 <t t-set="o" t-value="o.with_context(lang=lang)" />
                 <t t-set="address">
@@ -40,12 +42,12 @@
 
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Customer Reference 1:</strong>
-                            <p class="m-0" t-field="o.invoice_date"/>
+                            <p class="m-0" t-field="o.ref"/>
                         </div>
 
                        <div class="col-auto col-3 mw-100 mb-2" >
                             <strong>Customer Reference 2:</strong>
-                            <p class="m-0" t-field="o.invoice_date"/>
+                            <p class="m-0" t-field="o.ref"/>
                         </div>
 
                         <div class="col-auto col-3 mw-100 mb-2" >
@@ -58,7 +60,7 @@
 
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Order No:</strong>
-                            <p class="m-0" t-field="o.invoice_date"/>
+                            <p class="m-0">S0012</p>
                         </div>
 
                         <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
@@ -72,9 +74,8 @@
                     </div>
 
                     <br/>
-                    <h4>KID</h4>
-                    <h5>rufhorhofehfoehofehorfehor</h5>
-
+                    <h5>KID</h5>
+                    <p class="m-0" t-field="o.payment_reference"/>
                     <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
 
                     <table class="table table-sm o_main_table" name="invoice_line_table">
@@ -217,6 +218,11 @@
                     <p t-if="o.invoice_payment_term_id" name="payment_term">
                         <span t-field="o.invoice_payment_term_id.note"/>
                     </p>
+                    
+                    <p>Juridictional Information:</p>
+                    <p><span t-field="o.partner_id.x_jurisdictional_information"/></p>
+                    
+                    
                     <p t-if="o.narration" name="comment">
                         <span t-field="o.narration"/>
                     </p>
