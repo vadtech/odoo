@@ -44,7 +44,9 @@ class prod_order_app(models.Model):
 				rec.delivered_Qty=rec.product_uom_qty
 			self.state = 'delivered'
 		else:
-			pass
+			for rec in self.orderLines_ids:
+				rec.delivered_Qty = 0
+			self.state = 'prod'
 
 	def action_new(self):
 		self.state='new'
