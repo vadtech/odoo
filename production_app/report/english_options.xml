@@ -12,7 +12,7 @@
             <field name="binding_model_id" ref="model_sale_order"/>
         </record>
         <record id="edited_account_invoices" model="ir.actions.report">
-            <field name="name">Edited Invoices</field>
+            <field name="name">Invoices</field>
             <field name="model">account.move</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">production_app.edit_report_invoice_with_payments</field>
