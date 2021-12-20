@@ -221,11 +221,13 @@
                 <span t-field="doc.fiscal_position_id.sudo().note"/>
             </p>
         </div>
-                        <br/>
-                  
+                        <br/>              
                         <p t-if="doc.state not in ['draft','sent']" >Delivery Terms:</p>
-                        <p t-if="doc.state not in ['draft','sent']" t-field="doc.delv_terms"/>
+                        <t t-foreach="doc.partner_id" t-as="user">
+                        <p t-if="doc.state not in ['draft','sent']" t-field="user.delv_terms"/>
+                        </t>
                         <br/>
+                        
                         <span t-if="doc.state in ['draft','sent']">
                         <p>Quotation valid for 30 Days from this date, for delivery within 4 months from Factory. Free delivery to dealers for net. orders above NOK 740 Up to 6% additional costs for delivery to others address but minimum NOK 900,Prices in NOK ex. VAT</p>
                         </span>
