@@ -224,7 +224,7 @@
                         <br/>
                   
                         <p t-if="doc.state not in ['draft','sent']" >Delivery Terms:</p>
-                        <p t-if="doc.state not in ['draft','sent']" t-field="doc.detailed_terms"/>
+                        <p t-if="doc.state not in ['draft','sent']" t-field="doc.delv_terms"/>
                         <br/>
                         <p>Quotation valid for 30 Days from this date, for delivery within 4 months from Factory. Free delivery to dealers for net. orders above NOK 740 Up to 6% additional costs for delivery to others address but minimum NOK 900,Prices in NOK ex. VAT</p>
                         </t>
