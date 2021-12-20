@@ -100,7 +100,7 @@
                     </group>
                     <notebook>
                             <page name="order_lines" string="Order Lines">
-                                       <field name="orderLines_ids"> 
+                                       <field name="orderLines_ids" force_save="1"> 
                                             <tree>
                                                  <field string="id" name="id"  readonly="1"/>
                                                  <field string="Marking" name="x_marking"  readonly="1"/>
