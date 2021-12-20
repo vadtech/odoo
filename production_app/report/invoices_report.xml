@@ -41,17 +41,17 @@
 
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Customer Reference 1:</strong>
-                            <p class="m-0" t-field="o.ref"/>
+                            <p class="m-0" t-field="o.partner_id.x_customer_reference"/>
                         </div>
 
                        <div class="col-auto col-3 mw-100 mb-2" >
                             <strong>Customer Reference 2:</strong>
-                            <p class="m-0" t-field="o.ref"/>
+                            <p class="m-0" t-field="o.partner_id.x_customer_reference_2"/>
                         </div>
 
                         <div class="col-auto col-3 mw-100 mb-2" >
                             <strong>Marking:</strong>
-                            <p class="m-0" t-field="o.invoice_date"/>
+                            <p class="m-0"/>
                         </div>
                     </div>
 
