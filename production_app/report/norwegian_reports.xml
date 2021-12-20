@@ -225,6 +225,9 @@
                  <br/>
                         <p t-if="doc.state not in ['draft','sent']" >Leveringsvilkår:</p>
                         <p t-if="doc.state not in ['draft','sent']" t-field="doc.detailed_terms"/>
+                        <span t-if="doc.state in ['draft','sent']"
+                        <p>Tilbudet er gjeldende til 30 dager fra d.d for levering innen 4 mnd. fra fabrikk Fritt levert til fveorhandlers adresse ved netto order over kr 7500,-. Ved levering pa innem 4 mnd. fra fabrikk. Fritt levert til forhandlers adresse ved netto orde kr 7 500,-. Ved levering pa annem vareadresse kan det kreves et tillegg pa inntil 6%, dog minimum netto kr 900. Prisene er a forsta NOK eks. MVA</p>
+                        </span>
                     </t>
                 </t>
             </t>
