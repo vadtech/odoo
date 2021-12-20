@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+     <!--Inherits into res partner forms views-->
+    <record id="vad_res_inherit" model="ir.ui.view">
+        <field name="name">vad.res.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group/group[@name='sale']/field[@name='user_id']" position='after'>
+                <field name="delv_terms"/>
+                <field name="detailed_terms"/>
+            </xpath>
+        </field>
+     </record>
+    
     <!--Inherits into sales application under forms views-->
      <record id="vad_sales_inherit" model="ir.ui.view">
         <field name="name">vad.sale.order.inherited</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            
+            
             
             
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_id']" position="before">
