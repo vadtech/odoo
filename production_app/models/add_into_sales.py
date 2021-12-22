@@ -11,3 +11,15 @@ class add_into_sales(models.Model):
 	newMarking = fields.Char(string='Marking', copy=False)
 
 
+	def action_confirm(self):
+		created_all = self.env["prod_order.model"].search_count([('main_sales_id', '=', self.id)])
+		if created_all == 0:
+			self.env["prod_order.model"].create(
+				{
+					"main_sales_id": self.id,
+				}
+			)
+		else:
+			print("created_all--------------",created_all)
+			pass
+		return super().action_confirm()
