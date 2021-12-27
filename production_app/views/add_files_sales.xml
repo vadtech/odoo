@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+     
+        <record id="account_move_inherit" model="ir.ui.view">
+        <field name="name">account.move.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//form/sheet/group/group[@id='header_left_group']/field[@name='partner_id']" position='after'>
+                <field name="link_prod_id" groups="base.group_user"/>
+            </xpath>
+
+        </field>
+     </record>
+     
      <!--Inherits into res partner forms views-->
     <record id="vad_res_inherit" model="ir.ui.view">
         <field name="name">vad.res.inherited</field>
