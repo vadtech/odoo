@@ -83,6 +83,7 @@ class prod_order_app(models.Model):
 				self.env['account.move'].create({
 					'link_prod_id':record.id,
 					'ref': record.main_sales_id.client_order_ref,
+					'partner_shipping_id': record.main_sales_id.partner_shipping_id,
 					'move_type': 'out_invoice',
 					'invoice_origin': record.main_sales_id.name,
 					'invoice_user_id': record.main_sales_id.user_id.id,
