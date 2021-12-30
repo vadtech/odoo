@@ -20,6 +20,7 @@
 
                 <t t-set="o" t-value="o.with_context(lang=lang)" />
                 <t t-set="address">
+                    
                      <t t-if="o.partner_shipping_id != o.partner_id">
                          <strong>Delivery Address:</strong>
                     <address t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
@@ -31,35 +32,26 @@
                 <div t-field="o.partner_id"
                 t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'/>
             </t>
-
-
-
                 <div class="page">
-
-
                     <div id="informatios" class="row mt32 mb32">
-
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Customer Reference 1:</strong>
-                            <p class="m-0" t-field="o.partner_id.x_customer_reference"/>
+                            <p class="m-0" t-field="o.link_prod_id.client_order_ref"/>
                         </div>
-
                        <div class="col-auto col-3 mw-100 mb-2" >
                             <strong>Customer Reference 2:</strong>
-                            <p class="m-0" t-field="o.partner_id.x_customer_reference_2"/>
+                            <p class="m-0" t-field="o.link_prod_id.client_order_ref2"/>
                         </div>
-
                         <div class="col-auto col-3 mw-100 mb-2" >
                             <strong>Marking:</strong>
-                            <p class="m-0"/>
+                            <p class="m-0" t-field="o.link_prod_id.newMarking"/>
                         </div>
                     </div>
 
                     <div id="informations" class="row mt32 mb32">
-
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Order No:</strong>
-                            <p class="m-0">S0012</p>
+                            <p class="m-0" t-field="o.link_prod_id.name"/>
                         </div>
 
                         <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
@@ -211,9 +203,6 @@
                             </div>
                         </div>
                     </div>
-                    <p t-if="o.move_type in ('out_invoice', 'in_refund') and o.payment_reference" name="payment_communication">
-                        Please use the following communication for your payment : <b><span t-field="o.payment_reference"/></b>
-                    </p>
                     <p t-if="o.invoice_payment_term_id" name="payment_term">
                         <span t-field="o.invoice_payment_term_id.note"/>
                     </p>
