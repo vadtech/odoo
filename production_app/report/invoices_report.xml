@@ -32,26 +32,27 @@
                 <div t-field="o.partner_id"
                 t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'/>
             </t>
+                    <t t-foreach="o.link_prod_id" t-as="sale_id">
                 <div class="page">
                     <div id="informatios" class="row mt32 mb32">
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Customer Reference 1:</strong>
-                            <p class="m-0" t-field="o.link_prod_id.client_order_ref"/>
+                            <p class="m-0" t-field="sale_id.client_order_ref"/>
                         </div>
                        <div class="col-auto col-3 mw-100 mb-2" >
                             <strong>Customer Reference 2:</strong>
-                            <p class="m-0" t-field="o.link_prod_id.client_order_ref2"/>
+                            <p class="m-0" t-field="sale_id.client_order_ref2"/>
                         </div>
                         <div class="col-auto col-3 mw-100 mb-2" >
                             <strong>Marking:</strong>
-                            <p class="m-0" t-field="o.link_prod_id.newMarking"/>
+                            <p class="m-0" t-field="sale_id.newMarking"/>
                         </div>
                     </div>
 
                     <div id="informations" class="row mt32 mb32">
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Order No:</strong>
-                            <p class="m-0" t-field="o.link_prod_id.name"/>
+                            <p class="m-0" t-field="sale_id.name"/>
                         </div>
 
                         <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
@@ -63,7 +64,7 @@
                             <p class="m-0" t-field="o.invoice_date_due"/>
                         </div>
                     </div>
-
+                     </t> 
                     <br/>
                     <h5>KID</h5>
                     <p class="m-0" t-field="o.payment_reference"/>
