@@ -5,6 +5,7 @@
 
               <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
+                     <t t-foreach="o.link_prod_id" t-as="sale_id">
                     <t t-call="web.external_layout">
                         <br/>
                    <h4>
@@ -34,7 +35,6 @@
             </t>
                    
                 <div class="page">
-                     <t t-foreach="o.link_prod_id" t-as="sale_id">
                     <div id="informatios" class="row mt32 mb32">
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Customer Reference 1:</strong>
@@ -64,7 +64,6 @@
                             <strong>Due Date:</strong>
                             <p class="m-0" t-field="o.invoice_date_due"/>
                         </div>
-                     </t> 
                     </div>
                     <br/>
                     <h5>KID</h5>
@@ -231,6 +230,7 @@
                 </div>
             </t>
             </t>
+            </t> 
               </t>
         </template>
     </data>
