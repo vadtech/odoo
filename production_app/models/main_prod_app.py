@@ -89,4 +89,13 @@ class prod_order_app(models.Model):
 					'currency_id': record.main_sales_id.pricelist_id.currency_id.id,
 					'invoice_line_ids': invoice_lines
 				})
+				
+				record_to_update = self.env["account.move"].search([('link_prod_id', '=',record.id )])
+				if record_to_update.exists():
+					vali = {
+						'state': 'posted',
+						'invoice_date':date.today()
+					}
+					record_to_update.write(vali)
+
 
