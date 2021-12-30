@@ -85,6 +85,7 @@ class prod_order_app(models.Model):
 					'ref': record.main_sales_id.client_order_ref,
 					'partner_shipping_id': record.main_sales_id.partner_shipping_id,
 					'move_type': 'out_invoice',
+					'state':'draft',
 					'invoice_origin': record.main_sales_id.name,
 					'invoice_user_id': record.main_sales_id.user_id.id,
 					'partner_id': record.main_sales_id.partner_invoice_id.id,
