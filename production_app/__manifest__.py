@@ -19,6 +19,7 @@
     'report/prod_report.xml',
     'report/english_options.xml',
     'report/english_report.xml',
+    'report/norw_invoice_report.xml',
     'report/norwegian_reports.xml',
     'report/invoices_report.xml',
     ],
