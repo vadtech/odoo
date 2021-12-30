@@ -38,22 +38,22 @@
                     <div id="informatios" class="row mt32 mb32">
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Customer Reference 1:</strong>
-                            <p class="m-0" t-field="sale_id.client_order_ref"/>
+                            <p class="m-0" t-field="sale_id.main_sales_id.client_order_ref"/>
                         </div>
                        <div class="col-auto col-3 mw-100 mb-2" >
                             <strong>Customer Reference 2:</strong>
-                            <p class="m-0" t-field="sale_id.client_order_ref2"/>
+                            <p class="m-0" t-field="sale_id.main_sales_id.client_order_ref2"/>
                         </div>
                         <div class="col-auto col-3 mw-100 mb-2" >
                             <strong>Marking:</strong>
-                            <p class="m-0" t-field="sale_id.newMarking"/>
+                            <p class="m-0" t-field="sale_id.main_sales_id.newMarking"/>
                         </div>
                     </div>
 
                     <div id="informations" class="row mt32 mb32">
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Order No:</strong>
-                            <p class="m-0" t-field="sale_id.name"/>
+                            <p class="m-0" t-field="sale_id.main_sales_id.name"/>
                         </div>
 
                         <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
