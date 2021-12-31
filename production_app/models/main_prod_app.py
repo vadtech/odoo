@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import fields, models,  api , _
+from datetime import date
 
 class prod_order_app(models.Model):
 	"""real name of the model"""
@@ -17,14 +18,14 @@ class prod_order_app(models.Model):
 	order=fields.Datetime(related='main_sales_id.date_order' ,string="Order Date")
 	customer_ref= fields.Char(related='main_sales_id.partner_id.name')
 	deli_address=fields.Many2one(related='main_sales_id.partner_invoice_id' ,string="Delivery Address")
-	delivery_date=fields.Datetime(string="Delivery Date",tracking=True)
+	delivery_date=fields.Datetime(related='main_sales_id.commitment_date', string="Delivery Date",tracking=True)
 	delivery_week=fields.Integer(string="Delivered Week",tracking=True)
 	delivered_date=fields.Date(string="Delivered Date",tracking=True)
 
+	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
 	
-
-	total_vol=fields.Float(string="Total Volume",default="0.00")
-	total_wei=fields.Float(string="Total Weight",default="0.00")
+	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
+	total_wei=fields.Float(string="Total Weight(kg)",default="0.00")
 	total_ite=fields.Char(string="Total iteams")
 
 	state=fields.Selection(
@@ -34,10 +35,19 @@ class prod_order_app(models.Model):
         selection=[
         ('new','New'),
         ('prod','In Production'),
-        ('done','Done'),
         ('cancel','Cancel'),
         ('delivered','Delivered')])
 
+	@api.onchange("all_del")
+	def _onchange_alldel(self):
+		if self.all_del==True:
+			for rec in self.orderLines_ids:
+				rec.delivered_Qty=rec.product_uom_qty
+			self.state = 'delivered'
+		else:
+			for rec in self.orderLines_ids:
+				rec.delivered_Qty = 0
+			self.state = 'prod'
 
 	def action_new(self):
 		self.state='new'
@@ -54,3 +64,41 @@ class prod_order_app(models.Model):
 
 	def action_delivered(self):
 		self.state='delivered'
+		self.state='delivered'
+		for record in self:
+			created_all = self.env["account.move"].search_count([('link_prod_id', '=', record.id)])
+			if created_all == 0:
+				invoice_lines = []
+				for line in record.orderLines_ids:
+					vals = {
+						'name': line.name,
+						'price_unit': line.price_unit,
+						'quantity': line.product_uom_qty,
+						'product_id': line.product_id.id,
+						'product_uom_id': line.product_uom.id,
+						'tax_ids': [(6, 0, line.tax_id.ids)],
+						'sale_line_ids': [(6, 0, [line.id])],
+					}
+					invoice_lines.append((0, 0, vals))
+				self.env['account.move'].create({
+					'link_prod_id':record.id,
+					'ref': record.main_sales_id.client_order_ref,
+					'partner_shipping_id': record.main_sales_id.partner_shipping_id,
+					'move_type': 'out_invoice',
+					'state':'draft',
+					'invoice_origin': record.main_sales_id.name,
+					'invoice_user_id': record.main_sales_id.user_id.id,
+					'partner_id': record.main_sales_id.partner_invoice_id.id,
+					'currency_id': record.main_sales_id.pricelist_id.currency_id.id,
+					'invoice_line_ids': invoice_lines
+				})
+				
+				record_to_update = self.env["account.move"].search([('link_prod_id', '=',record.id )])
+				if record_to_update.exists():
+					vali = {
+						'state': 'posted',
+						'invoice_date':date.today()
+					}
+					record_to_update.write(vali)
+
+

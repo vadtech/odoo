@@ -3,11 +3,22 @@
     <data>
         <!--this is a report action-->
         <record id="prod_card_repor" model="ir.actions.report">
-            <field name="name">Production Report</field>
+            <field name="name">Order Labels</field>
             <field name="model">prod_order.model</field>
             <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">('Production Report - %s' % (object.main_sales_id.name))</field>
             <field name="report_file">production_app.prod_reports_vad</field>
             <field name="report_name">production_app.prod_reports_vad</field>
+            <field name="binding_model_id" ref="model_prod_order_model"/>
+        </record>
+        
+              <record id="packging_lists" model="ir.actions.report">
+            <field name="name">Packaging List</field>
+            <field name="model">prod_order.model</field>
+            <field name="report_type">qweb-pdf</field>
+             <field name="print_report_name">('Packaging List - %s' % (object.main_sales_id.name))</field>
+            <field name="report_file">production_app.packging_list</field>
+            <field name="report_name">production_app.packging_list</field>
             <field name="binding_model_id" ref="model_prod_order_model"/>
         </record>
     </data>

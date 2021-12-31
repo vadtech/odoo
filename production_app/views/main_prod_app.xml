@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+     <!-- Add options or  Button in action menu -->
+<record id="action_confirm_to_production" model="ir.actions.server">
+    <field name="name">Export To Production</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.action_prod()</field>
+</record>
 
+
+    <record id="action_confirm_to_cancel" model="ir.actions.server">
+    <field name="name">Cancel Order</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.action_cancelled()</field>
+</record>
+
+    <record id="action_confirm_to_deivered" model="ir.actions.server">
+    <field name="name">Export To Delivered</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.action_delivered()</field>
+</record>
+
+    <record id="action_confirm_to_delivered" model="ir.actions.server">
+    <field name="name">Reset to New</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.action_new()</field>
+</record>
 <!-- this is the main view for hosiptial-->
 <record id="main_prod_action" model="ir.actions.act_window">
     <field name="name">Production Application</field>
@@ -37,12 +69,11 @@
         <field name="arch" type="xml">
             <form>
                  <header>
-                        <field name="state" statusbar_visible="new,prod,done,delivered" default="new" widget="statusbar"/>
+                         <field name="state" statusbar_visible="new,prod,delivered" default="new" widget="statusbar"/>
                          <button id="button_new" name="action_new" string="Set to New" confirm="are you sure to set this record as New?" type="object" states="cancel" class="btn-primary"/>
                         <button id="button_prod" name="action_prod" string="In Production" confirm="are you sure to confirm to in production state?" type="object" states="new" class="btn-primary"/>
-                         <button id="button_done" name="action_done" confirm="are you sure to this record as done?" string="Mark as done" type="object" states="prod" class="btn-primary"/>
-                         <button id="button_delivered" name="action_delivered" confirm="are you sure to set this record as delivered?" string="Mark as delivered" type="object" states="done" class="btn-primary"/>
-                         <button id="button_cancel"  name="action_cancelled" confirm="are you sure to cancel this record?" string="Canceled" type="object" states="new,prod,done,delivered"/>
+                         <button id="button_delivered" name="action_delivered" confirm="are you sure to set this record as delivered?" string="Mark as delivered" type="object" states="prod" class="btn-primary"/>
+                         <button id="button_cancel"  name="action_cancelled" confirm="are you sure to cancel this record?" string="Canceled" type="object" states="new,prod,delivered"/>
                 </header>
                 <sheet>
                                         <div class="oe_title">
@@ -61,6 +92,7 @@
                         <group>
                             <field name="delivery_date" />
                             <field name="delivery_week"/>
+                            <field name="all_del" attrs="{'invisible':[('state','=', 'new')]}"/>
                             <field name="total_vol"/>
                             <field name="total_wei"/>
                             <field name="total_ite"/>
@@ -68,16 +100,17 @@
                     </group>
                     <notebook>
                             <page name="order_lines" string="Order Lines">
-                                       <field name="orderLines_ids" readonly="1"> 
+                                       <field name="orderLines_ids" force_save="1"> 
                                             <tree>
-                                                 <field string="id" name="id"/>
-                                                 <field string="Marking" name="x_marking"/>
-                                                 <field string="Art_No and description" name="product_template_id"/>
-                                                 <field string="Line Discount" name="discount"/>
-                                                 <field string="Product Instruction" name="x_production_instruction"/>
-                                                 <field string="Delivered Quantity" name="qty_delivered"/>
-                                                 <field string="Unit of Measure" name="product_uom"/>
+                                                 <field string="id" name="id"  readonly="1"/>
+                                                 <field string="Marking" name="x_marking"  readonly="1"/>
+                                                 <field string="Art_No and description" name="product_template_id"  readonly="1"/>
+                                                 <field string="Product Instruction" name="x_production_instruction"  readonly="1"/>
+                                                 <field string="Quantity" name="product_uom_qty"  readonly="1"/>
+                                                 <field string="Delivered Quantity" name="delivered_Qty" readonly="0"/>
                                             </tree>
+                                                <form>
+                                            </form>
 
                                     </field>    
                                   
@@ -97,17 +130,6 @@
         name="Production Application"
         sequence="10"/>
 
-<menuitem id="production_sub_menu" 
-        name="Production Orders"
-        parent="production_app_root"
-        sequence="10"/>
-
-
-<menuitem id="hospitial_patient" 
-        name="Oders List"
-        parent="production_sub_menu"
-        action="main_prod_action"
-        sequence="10"/>
 
 </odoo>
 
