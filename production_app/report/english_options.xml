@@ -51,7 +51,7 @@
         </record>
         
          <record id="edited_xml" model="ir.actions.report">
-            <field name="name">Xml Inovices</field>
+            <field name="name">Xml inovices</field>
             <field name="model">account.move</field>
             <field name="report_type">qweb-xml</field>
             <field name="report_name">production_app.report_xml</field>
