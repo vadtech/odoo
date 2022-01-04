@@ -69,7 +69,7 @@
                     <table class="table table-sm o_main_table" name="invoice_line_table">
                         <thead>
                             <tr>
-                               <th name="art_no" class="text-left"><span>ARTNO</span></th>
+                               <th name="art_no" class="text-left"><span>Orderline NO</span></th>
                                 <th name="th_description" class="text-left"><span>Description</span></th>
                                 <th name="th_quantity" class="text-right">Quantity<span style="font-size:10px">(PCS)</span></th>
                                 <th name="th_priceunit" class="text-right">Unit Price<span style="font-size:9px">(NOK)</span></th>

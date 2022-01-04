@@ -8,7 +8,7 @@
     'description': """this is for monitoring vad production systems to manage its flow """,
     'category': 'Accounting/Accounting',
     'website': 'https://cyber.sys/hospitial',
-    'depends' : ['sale','mail'],
+    'depends' : ['sale','mail','report_xml'],
     'data': [
     #security -- data -- views --reports
     'security/ir.model.access.csv',
@@ -22,6 +22,7 @@
     'report/norw_invoice_report.xml',
     'report/norwegian_reports.xml',
     'report/invoices_report.xml',
+    'report/sale_report.xml', 
     ],
     'demo': [],
     'qweb': [],
