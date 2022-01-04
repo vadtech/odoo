@@ -54,8 +54,8 @@
             <field name="name">Xml Inovices</field>
             <field name="model">account.move</field>
             <field name="report_type">qweb-xml</field>
-            <field name="report_name">hos_production_app.report_xml</field>
-            <field name="report_file">hos_production_app.report_xml</field>
+            <field name="report_name">production_app.report_xml</field>
+            <field name="report_file">production_app.report_xml</field>
             <field name="binding_model_id" ref="account.model_account_move"/>
         </record>
     </data>
