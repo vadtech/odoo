@@ -24,7 +24,7 @@
                 <DebtorPostalAddr t-field="o.partner_id.street" > </DebtorPostalAddr>
                 <DebtorSuplAddr t-field="o.partner_id.street"> </DebtorSuplAddr>
                 <DebtorPostalCode  t-field="o.partner_id.zip"></DebtorPostalCode>
-                <DebtorCity  t-field="o.partner_id.country_id"></DebtorCity>
+                <DebtorCity  t-field="o.partner_id.city"></DebtorCity>
                 <DebtorCtryCode  t-field="o.partner_id.state_id"></DebtorCtryCode>
                 <DebtorPhone  t-field="o.partner_id.phone" > </DebtorPhone>
                 <DebtorMobile t-field="o.partner_id.mobile"> </DebtorMobile>
@@ -37,16 +37,16 @@
                 <DeliveryName t-field="o.partner_id.name"/>
                 <DeliveryAddr t-field="o.partner_id.street"></DeliveryAddr>
                 <DeliveryPostalCode  t-field="o.partner_id.zip" ></DeliveryPostalCode>
-                <DeliveryCity t-field="o.partner_id.country_id" ></DeliveryCity>
+                <DeliveryCity t-field="o.partner_id.city" ></DeliveryCity>
                 <DeliveryCtryCode>NO</DeliveryCtryCode>
                 <DeliveryDate>02-02-2022</DeliveryDate>
                 <DeliveryType>Bil</DeliveryType>
-                <DeliveryTerms>	incoterms 2020-Ex.works</DeliveryTerms>
+                <DeliveryTerms>Incoterms 2020-Ex.works</DeliveryTerms>
                 </DeliveryDetails>
                  <!-- -->
 
                 <InvoiceHeader>
-                <InvRef t-field="o.ref"> </InvRef>
+                <InvRef t-field="o.o.link_prod_id.main_sales_id.client_order_ref"> </InvRef>
                 <InvNbr t-field="o.name"> </InvNbr>
                 <InvDate>13-02-2022</InvDate>
                 <DueDate t-field="o.invoice_payment_term_id"> </DueDate>
@@ -65,8 +65,8 @@
                 <ItemId t-field="o_lines.id"> </ItemId>
                 <ItemDescr t-field="o_lines.name" >
                 </ItemDescr>
-                <NbrOfUnits t-field="o_lines.quantity"> </NbrOfUnits>
-                <UnitPrice  t-field="o_lines.price_unit"> </UnitPrice>
+                <NbrOfUnits>4</NbrOfUnits>
+                <UnitPrice>7628</UnitPrice>
                 <DiscPercent>25%</DiscPercent>
                 <Amt><t t-esc="o_lines.price_subtotal"/></Amt>
                 <VATPct>25%</VATPct>
