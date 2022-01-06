@@ -68,7 +68,7 @@
                 <UnitPrice> <t t-esc="o.convert_to_float(o_lines.price_unit)"/></UnitPrice>
                 <DiscPercent><t t-esc="o.extract_digits(o_lines.price_unit)"/></DiscPercent>
                 <Amt ><t t-esc="o.convert_to_float(o_lines.price_subtotal)"/></Amt>
-                <VATPct ><t t-esc="o.extract_digits(o_lines.tax_line_id)"/> </VATPct>
+                <VATPct ><t t-esc="o.extract_digits(o_lines.tax_ids)"/> </VATPct>
 
                 </Item>
                 </OrderDetails>
