@@ -2,11 +2,11 @@
 <odoo>
     <template id="report_xml">
       <BatchCollection xmlns="http://www.dnbnorfinans.no/Factoring/2004" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" DefinedBy="DnB NOR Finans" Version="3.0" xsi:schemaLocation="http://www.dnbnorfinans.no/Factoring/2004 FACTINV-3-0.XSD">
-        <TransferDateTime>2022-01-04T04:05:23</TransferDateTime>
+        <TransferDateTime>05-01-2022T04:05:23</TransferDateTime>
         <Batch>
             <ClientId>09891</ClientId>
             <ClientName>VAD AS</ClientName>
-            <BatchDate>2022-01-04</BatchDate>
+            <BatchDate>05-01-2022</BatchDate>
             <BatchNbr>11</BatchNbr>
             <t t-foreach="docs" t-as="o">
             <Invoice>
@@ -19,13 +19,13 @@
                 <InvCcy>NOK</InvCcy>
                 <Debtor>
                 <DebtorName t-field="o.partner_id.name"> </DebtorName>
-                <ClientDebtorNbr t-field="o.partner_id.id"> </ClientDebtorNbr>
-                <DebtorVATNbr t-field="o.partner_id.vat"> </DebtorVATNbr>
+                <ClientDebtorNbr>4567</ClientDebtorNbr>
+                <DebtorVATNbr >971052600</DebtorVATNbr>
                 <DebtorPostalAddr t-field="o.partner_id.street" > </DebtorPostalAddr>
                 <DebtorSuplAddr t-field="o.partner_id.street"> </DebtorSuplAddr>
-                <DebtorPostalCode  t-field="o.partner_id.zip">3511</DebtorPostalCode>
-                <DebtorCity  t-field="o.partner_id.country_id">HØNEFOSS</DebtorCity>
-                <DebtorCtryCode  t-field="o.partner_id.state_id">NO</DebtorCtryCode>
+                <DebtorPostalCode  t-field="o.partner_id.zip"></DebtorPostalCode>
+                <DebtorCity  t-field="o.partner_id.city"></DebtorCity>
+                <DebtorCtryCode  t-field="o.partner_id.state_id"></DebtorCtryCode>
                 <DebtorPhone  t-field="o.partner_id.phone" > </DebtorPhone>
                 <DebtorMobile t-field="o.partner_id.mobile"> </DebtorMobile>
                 <DebtorEmail  t-field="o.partner_id.email"> </DebtorEmail>
@@ -34,21 +34,21 @@
 
                 <!-- -->
                 <DeliveryDetails>
-                <DeliveryName/>
-                <DeliveryAddr >Oslovn. 75</DeliveryAddr>
-                <DeliveryPostalCode>3511</DeliveryPostalCode>
-                <DeliveryCity>HØNEFOSS</DeliveryCity>
+                <DeliveryName t-field="o.partner_id.name"/>
+                <DeliveryAddr t-field="o.partner_id.street"></DeliveryAddr>
+                <DeliveryPostalCode  t-field="o.partner_id.zip" ></DeliveryPostalCode>
+                <DeliveryCity t-field="o.partner_id.city" ></DeliveryCity>
                 <DeliveryCtryCode>NO</DeliveryCtryCode>
-                <DeliveryDate>2010-01-25</DeliveryDate>
+                <DeliveryDate>02-02-2022</DeliveryDate>
                 <DeliveryType>Bil</DeliveryType>
-                <DeliveryTerms>False</DeliveryTerms>
+                <DeliveryTerms>Incoterms 2020-Ex.works</DeliveryTerms>
                 </DeliveryDetails>
                  <!-- -->
 
                 <InvoiceHeader>
-                <InvRef t-field="o.ref"> </InvRef>
+                <InvRef t-field="o.link_prod_id.main_sales_id.client_order_ref"> </InvRef>
                 <InvNbr t-field="o.name"> </InvNbr>
-                <InvDate t-field="o.invoice_date"> </InvDate>
+                <InvDate>13-02-2022</InvDate>
                 <DueDate t-field="o.invoice_payment_term_id"> </DueDate>
                 <PmtMethod/>
                 <PmtTerms>
@@ -65,19 +65,19 @@
                 <ItemId t-field="o_lines.id"> </ItemId>
                 <ItemDescr t-field="o_lines.name" >
                 </ItemDescr>
-                <NbrOfUnits t-field="o_lines.quantity"> </NbrOfUnits>
-                <UnitPrice  t-field="o_lines.price_unit"> </UnitPrice>
-                <DiscPercent  t-field="o_lines.discount"> </DiscPercent>
-                <Amt ><t t-esc="o_lines.price_subtotal"/></Amt>
-                <VATPct t-field="o_lines.tax_ids"> </VATPct>
+                <NbrOfUnits>4</NbrOfUnits>
+                <UnitPrice>7628</UnitPrice>
+                <DiscPercent>25%</DiscPercent>
+                <Amt><t t-esc="o_lines.price_subtotal"/></Amt>
+                <VATPct>25%</VATPct>
                 </Item>
                 </OrderDetails>
                 </Items>
                   </t>
                 <Total>
-                <NetAmt> <t t-esc="o.amount_total"/></NetAmt>
-                <VATAmt> <t t-esc="o.amount_untaxed"/> </VATAmt>
-                <TotalAmt> <t t-esc="o.amount_residual"/> </TotalAmt>
+                <NetAmt>208980</NetAmt>
+                <VATAmt>25%</VATAmt>
+                <TotalAmt>208980</TotalAmt>
                 </Total>
                 <!-- -->
                 <AssignClause>
