@@ -2,11 +2,11 @@
 <odoo>
     <template id="report_xml">
       <BatchCollection xmlns="http://www.dnbnorfinans.no/Factoring/2004" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" DefinedBy="DnB NOR Finans" Version="3.0" xsi:schemaLocation="http://www.dnbnorfinans.no/Factoring/2004 FACTINV-3-0.XSD">
-        <TransferDateTime>05-01-2022T04:05:23</TransferDateTime>
+        <TransferDateTime>2022-01-05T12:05:23</TransferDateTime>
         <Batch>
             <ClientId>09891</ClientId>
             <ClientName>VAD AS</ClientName>
-            <BatchDate>05-01-2022</BatchDate>
+            <BatchDate>2022-01-06</BatchDate>
             <BatchNbr>11</BatchNbr>
             <t t-foreach="docs" t-as="o">
             <Invoice>
@@ -17,39 +17,38 @@
                         <InvType t-if="o.move_type == 'in_refund'">Vendor Credit Note</InvType>
                         <InvType t-if="o.move_type == 'in_invoice'">Vendor Bill</InvType>
                 <InvCcy>NOK</InvCcy>
-                <Debtor>
+
+               <Debtor>
                 <DebtorName t-field="o.partner_id.name"> </DebtorName>
-                <ClientDebtorNbr>4567</ClientDebtorNbr>
-                <DebtorVATNbr >971052600</DebtorVATNbr>
+                <ClientDebtorNbr><t t-esc="o.convert_to_int(o.partner_id.id)"/> </ClientDebtorNbr>
+                <DebtorVATNbr> <t t-esc="o.extract_digits(o.partner_id.vat)"/> </DebtorVATNbr>
                 <DebtorPostalAddr t-field="o.partner_id.street" > </DebtorPostalAddr>
-                <DebtorSuplAddr t-field="o.partner_id.street"> </DebtorSuplAddr>
-                <DebtorPostalCode  t-field="o.partner_id.zip"></DebtorPostalCode>
-                <DebtorCity  t-field="o.partner_id.city"></DebtorCity>
-                <DebtorCtryCode  t-field="o.partner_id.state_id"></DebtorCtryCode>
+                <DebtorSuplAddr t-field="o.partner_id.street2"> </DebtorSuplAddr>
+                <DebtorPostalCode  t-field="o.partner_id.zip">3511</DebtorPostalCode>
+                <DebtorCity  t-field="o.partner_id.city">HØNEFOSS</DebtorCity>
+                <DebtorCtryCode  t-field="o.partner_id.state_id">NO</DebtorCtryCode>
                 <DebtorPhone  t-field="o.partner_id.phone" > </DebtorPhone>
                 <DebtorMobile t-field="o.partner_id.mobile"> </DebtorMobile>
-                <DebtorEmail  t-field="o.partner_id.email"> </DebtorEmail>
-                 <DebtorRef  t-field="o.ref"> </DebtorRef>
+                <DebtorEmail  t-field="o.partner_id.email"> </DebtorEmail><DebtorRef  t-field="o.ref"> </DebtorRef>
                 </Debtor>
 
                 <!-- -->
                 <DeliveryDetails>
                 <DeliveryName t-field="o.partner_id.name"/>
-                <DeliveryAddr t-field="o.partner_id.street"></DeliveryAddr>
-                <DeliveryPostalCode  t-field="o.partner_id.zip" ></DeliveryPostalCode>
-                <DeliveryCity t-field="o.partner_id.city" ></DeliveryCity>
-                <DeliveryCtryCode>NO</DeliveryCtryCode>
-                <DeliveryDate>02-02-2022</DeliveryDate>
+                <DeliveryAddr t-field="o.partner_shipping_id.street"> </DeliveryAddr>
+                <DeliveryPostalCode  t-field="o.partner_shipping_id.zip" > </DeliveryPostalCode>
+                <DeliveryCity t-field="o.partner_shipping_id.city" > </DeliveryCity>
+                <DeliveryCtryCode t-field="o.partner_shipping_id.state_id" > </DeliveryCtryCode>
+                <DeliveryDate t-field="o.link_prod_id.main_sales_id.expected_date"> </DeliveryDate>
                 <DeliveryType>Bil</DeliveryType>
-                <DeliveryTerms>Incoterms 2020-Ex.works</DeliveryTerms>
+                <DeliveryTerms t-field="o.partner_id.delv_terms"> </DeliveryTerms>
                 </DeliveryDetails>
-                 <!-- -->
 
                 <InvoiceHeader>
                 <InvRef t-field="o.link_prod_id.main_sales_id.client_order_ref"> </InvRef>
                 <InvNbr t-field="o.name"> </InvNbr>
-                <InvDate>13-02-2022</InvDate>
-                <DueDate t-field="o.invoice_payment_term_id"> </DueDate>
+                <InvDate t-field="o.invoice_date"> </InvDate>
+                <DueDate t-field="o.invoice_date_due"> </DueDate>
                 <PmtMethod/>
                 <PmtTerms>
                 <PmtTermsText t-field="o.link_prod_id.main_sales_id.payment_term_id"> </PmtTermsText>
@@ -62,22 +61,23 @@
                 <Items>
                 <OrderDetails>
                 <Item>
-                <ItemId t-field="o_lines.id"> </ItemId>
+                <ItemId><t t-esc="o.convert_to_int(o_lines.id)"/>  </ItemId>
                 <ItemDescr t-field="o_lines.name" >
                 </ItemDescr>
-                <NbrOfUnits>4</NbrOfUnits>
-                <UnitPrice>7628</UnitPrice>
-                <DiscPercent>25%</DiscPercent>
-                <Amt><t t-esc="o_lines.price_subtotal"/></Amt>
-                <VATPct>25%</VATPct>
+                <NbrOfUnits> <t t-esc="o.convert_to_int(o_lines.quantity)"/> </NbrOfUnits>
+                <UnitPrice> <t t-esc="o.convert_to_float(o_lines.price_unit)"/></UnitPrice>
+                <DiscPercent><t t-esc="o.extract_digits(o_lines.price_unit)"/></DiscPercent>
+                <Amt ><t t-esc="o.convert_to_float(o_lines.price_subtotal)"/></Amt>
+                <VATPct ><t t-esc="o.extract_digits(o_lines.tax_ids)"/> </VATPct>
+
                 </Item>
                 </OrderDetails>
                 </Items>
                   </t>
                 <Total>
-                <NetAmt>208980</NetAmt>
-                <VATAmt>25%</VATAmt>
-                <TotalAmt>208980</TotalAmt>
+                <NetAmt><t t-esc="o.convert_to_float(o.amount_total)"/></NetAmt>
+                <VATAmt><t t-esc="o.convert_to_float(o.amount_untaxed)"/> </VATAmt>
+                <TotalAmt><t t-esc="o.convert_to_float(o.amount_residual)"/> </TotalAmt>
                 </Total>
                 <!-- -->
                 <AssignClause>

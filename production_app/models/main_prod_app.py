@@ -1,5 +1,7 @@
-from odoo import fields, models,  api , _
+from odoo import fields, models , api
+import datetime
 from datetime import date
+from datetime import timedelta
 
 class prod_order_app(models.Model):
 	"""real name of the model"""
@@ -9,11 +11,9 @@ class prod_order_app(models.Model):
 	_rec_name="customer_ref"
 	_order="id,state"
 
-
 	customer_ref=fields.Many2one('sale.order.line',string="sale_order_lines",tracking=True)
 	main_sales_id=fields.Many2one('sale.order',string="Production_order",tracking=True,index=True,required=True)
 	orderLines_ids=fields.One2many(related='main_sales_id.order_line', string="")
-
 
 	order=fields.Datetime(related='main_sales_id.date_order' ,string="Order Date")
 	customer_ref= fields.Char(related='main_sales_id.partner_id.name')
@@ -23,7 +23,6 @@ class prod_order_app(models.Model):
 	delivered_date=fields.Date(string="Delivered Date",tracking=True)
 
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
-	
 	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
 	total_wei=fields.Float(string="Total Weight(kg)",default="0.00")
 	total_ite=fields.Char(string="Total iteams")
@@ -97,7 +96,9 @@ class prod_order_app(models.Model):
 				if record_to_update.exists():
 					vali = {
 						'state': 'posted',
-						'invoice_date':date.today()
+						'invoice_date':date.today(),
+						'invoice_date_due':date.today() + timedelta(days=30),
+
 					}
 					record_to_update.write(vali)
 
