@@ -22,3 +22,6 @@ class add_into_res(models.Model):
 		change=str(convert)
 		res = ''.join(filter(lambda i: i.isdigit(), change))
 		return res
+	
+	
+	
