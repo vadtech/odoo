@@ -19,41 +19,43 @@
                 <InvCcy>NOK</InvCcy>
 
                <Debtor>
-                <DebtorName t-field="o.partner_id.name"> </DebtorName>
-                <ClientDebtorNbr><t t-esc="o.convert_to_int(o.partner_id.id)"/> </ClientDebtorNbr>
-                <DebtorVATNbr> <t t-esc="o.extract_digits(o.partner_id.vat)"/> </DebtorVATNbr>
-                <DebtorPostalAddr t-field="o.partner_id.street" > </DebtorPostalAddr>
-                <DebtorSuplAddr t-field="o.partner_id.street2"> </DebtorSuplAddr>
+                <DebtorName t-field="o.partner_id.name"></DebtorName>
+                <ClientDebtorNbr><t t-esc="o.convert_to_int(o.partner_id.id)"/></ClientDebtorNbr>
+                <DebtorVATNbr><t t-esc="o.extract_digits(o.partner_id.vat)"/></DebtorVATNbr>
+                <DebtorPostalAddr t-field="o.partner_id.street"></DebtorPostalAddr>
+                <DebtorSuplAddr t-field="o.partner_id.street2"></DebtorSuplAddr>
                 <DebtorPostalCode  t-field="o.partner_id.zip">3511</DebtorPostalCode>
                 <DebtorCity  t-field="o.partner_id.city">HØNEFOSS</DebtorCity>
                 <DebtorCtryCode  t-field="o.partner_id.state_id">NO</DebtorCtryCode>
-                <DebtorPhone  t-field="o.partner_id.phone" > </DebtorPhone>
-                <DebtorMobile t-field="o.partner_id.mobile"> </DebtorMobile>
-                <DebtorEmail  t-field="o.partner_id.email"> </DebtorEmail><DebtorRef  t-field="o.ref"> </DebtorRef>
+                <DebtorPhone  t-field="o.partner_id.phone" ></DebtorPhone>
+                <DebtorMobile t-field="o.partner_id.mobile"></DebtorMobile>
+                <DebtorEmail  t-field="o.partner_id.email"></DebtorEmail>
+                <DebtorRef  t-field="o.link_prod_id.main_sales_id.client_order_ref"></DebtorRef>
+
                 </Debtor>
 
                 <!-- -->
                 <DeliveryDetails>
                 <DeliveryName t-field="o.partner_id.name"/>
-                <DeliveryAddr t-field="o.partner_shipping_id.street"> </DeliveryAddr>
-                <DeliveryPostalCode  t-field="o.partner_shipping_id.zip" > </DeliveryPostalCode>
-                <DeliveryCity t-field="o.partner_shipping_id.city" > </DeliveryCity>
-                <DeliveryCtryCode t-field="o.partner_shipping_id.state_id" > </DeliveryCtryCode>
-                <DeliveryDate t-field="o.link_prod_id.main_sales_id.expected_date"> </DeliveryDate>
+                <DeliveryAddr t-field="o.partner_shipping_id.street"></DeliveryAddr>
+                <DeliveryPostalCode  t-field="o.partner_shipping_id.zip" ></DeliveryPostalCode>
+                <DeliveryCity t-field="o.partner_shipping_id.city" ></DeliveryCity>
+                <DeliveryCtryCode t-field="o.partner_shipping_id.state_id" ></DeliveryCtryCode>
+                <DeliveryDate t-field="o.link_prod_id.main_sales_id.expected_date"></DeliveryDate>
                 <DeliveryType>Bil</DeliveryType>
-                <DeliveryTerms t-field="o.partner_id.delv_terms"> </DeliveryTerms>
+                <DeliveryTerms t-field="o.partner_id.delv_terms"></DeliveryTerms>
                 </DeliveryDetails>
 
                 <InvoiceHeader>
-                <InvRef t-field="o.link_prod_id.main_sales_id.client_order_ref"> </InvRef>
-                <InvNbr t-field="o.name"> </InvNbr>
-                <InvDate t-field="o.invoice_date"> </InvDate>
-                <DueDate t-field="o.invoice_date_due"> </DueDate>
+                <InvRef t-field="o.link_prod_id.main_sales_id.client_order_ref"></InvRef>
+                <InvNbr t-field="o.name"></InvNbr>
+                <InvDate t-field="o.invoice_date"></InvDate>
+                <DueDate t-field="o.invoice_date_due"></DueDate>
                 <PmtMethod/>
                 <PmtTerms>
-                <PmtTermsText t-field="o.link_prod_id.main_sales_id.payment_term_id"> </PmtTermsText>
+                <PmtTermsText t-field="o.link_prod_id.main_sales_id.payment_term_id"></PmtTermsText>
                 </PmtTerms>
-                <OrderRef t-field="o.ref"> </OrderRef>
+                <OrderRef t-field="o.ref"></OrderRef>
                 <Kid t-field="o.payment_reference"/>
                 </InvoiceHeader>
                 <!-- -->
@@ -61,14 +63,14 @@
                 <Items>
                 <OrderDetails>
                 <Item>
-                <ItemId><t t-esc="o.convert_to_int(o_lines.id)"/>  </ItemId>
-                <ItemDescr t-field="o_lines.name" >
+                <ItemId><t t-esc="o.convert_to_int(o_lines.id)"/></ItemId>
+                <ItemDescr t-field="o_lines.name">
                 </ItemDescr>
-                <NbrOfUnits> <t t-esc="o.convert_to_int(o_lines.quantity)"/> </NbrOfUnits>
-                <UnitPrice> <t t-esc="o.convert_to_float(o_lines.price_unit)"/></UnitPrice>
+                <NbrOfUnits><t t-esc="o.convert_to_int(o_lines.quantity)"/></NbrOfUnits>
+                <UnitPrice><t t-esc="o.convert_to_float(o_lines.price_unit)"/></UnitPrice>
                 <DiscPercent><t t-esc="o.extract_digits(o_lines.price_unit)"/></DiscPercent>
                 <Amt ><t t-esc="o.convert_to_float(o_lines.price_subtotal)"/></Amt>
-                <VATPct ><t t-esc="o.extract_digits(o_lines.tax_ids)"/> </VATPct>
+                <VATPct ><t t-esc="o.convert_to_int(o_lines.tax_ids.amount)"/></VATPct>
 
                 </Item>
                 </OrderDetails>
@@ -76,8 +78,8 @@
                   </t>
                 <Total>
                 <NetAmt><t t-esc="o.convert_to_float(o.amount_total)"/></NetAmt>
-                <VATAmt><t t-esc="o.convert_to_float(o.amount_untaxed)"/> </VATAmt>
-                <TotalAmt><t t-esc="o.convert_to_float(o.amount_residual)"/> </TotalAmt>
+                <VATAmt><t t-esc="o.convert_to_float(o.amount_untaxed)"/></VATAmt>
+                <TotalAmt><t t-esc="o.convert_to_float(o.amount_residual)"/></TotalAmt>
                 </Total>
                 <!-- -->
                 <AssignClause>
