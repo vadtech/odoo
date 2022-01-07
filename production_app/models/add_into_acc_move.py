@@ -6,6 +6,7 @@ class add_into_res(models.Model):
 	_description="Invoicing Application edits"
 
 	link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
+	banch_no=fields.Integer(string="Banch No")
 	
 	@api.model
 	def convert_to_float(self,convert):
@@ -23,5 +24,16 @@ class add_into_res(models.Model):
 		res = ''.join(filter(lambda i: i.isdigit(), change))
 		return res
 	
+	@api.model
+	def count_banch(self):
+		for record in self:
+			record_to_update = self.env["account.move"].search([('id', '=',1)])
+			if record_to_update.exists():
+				vali = {
+					'banch_no': record_to_update.banch_no + 1
+				}
+				record_to_update.write(vali)
+			return record_to_update.banch_no
+
 	
 	
