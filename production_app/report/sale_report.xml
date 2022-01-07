@@ -2,11 +2,11 @@
 <odoo>
     <template id="report_xml">
       <BatchCollection xmlns="http://www.dnbnorfinans.no/Factoring/2004" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" DefinedBy="DnB NOR Finans" Version="3.0" xsi:schemaLocation="http://www.dnbnorfinans.no/Factoring/2004 FACTINV-3-0.XSD">
-        <TransferDateTime><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%YT%H:%M')"/></TransferDateTime>
+        <TransferDateTime><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%dT%H:%M:%S')"/></TransferDateTime>
         <Batch>
             <ClientId>09891</ClientId>
             <ClientName>VAD AS</ClientName>
-            <BatchDate><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/></BatchDate>
+            <BatchDate><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></BatchDate>
             <BatchNbr><t t-esc="docs.count_banch()"/></BatchNbr>
             <t t-foreach="docs" t-as="o">
             <Invoice>
@@ -41,15 +41,16 @@
                 <DeliveryPostalCode  t-field="o.partner_shipping_id.zip" ></DeliveryPostalCode>
                 <DeliveryCity t-field="o.partner_shipping_id.city" ></DeliveryCity>
                 <DeliveryCtryCode t-field="o.partner_shipping_id.state_id" ></DeliveryCtryCode>
-                <DeliveryDate t-field="o.link_prod_id.main_sales_id.expected_date"  t-options='{"widget": "date"}'></DeliveryDate>
+                <DeliveryDate><t t-esc="o.link_prod_id.main_sales_id.expected_date.strftime('%Y-%m-%d')"/></DeliveryDate>
                 <DeliveryType>Bil</DeliveryType>
                 <DeliveryTerms t-field="o.partner_id.delv_terms"></DeliveryTerms>
                 </DeliveryDetails>
 
                 <InvoiceHeader>
+                <InvRef t-field="o.link_prod_id.main_sales_id.client_order_ref"></InvRef>
                 <InvNbr t-field="o.name"></InvNbr>
-                <InvDate t-field="o.invoice_date"></InvDate>
-                <DueDate t-field="o.invoice_date_due"></DueDate>
+                <InvDate><t t-esc="o.invoice_date.strftime('%Y-%m-%d')"/></InvDate>
+                <DueDate><t t-esc="o.invoice_date_due.strftime('%Y-%m-%d')"/></DueDate>
                 <PmtMethod/>
                 <PmtTerms>
                 <PmtTermsText t-field="o.link_prod_id.main_sales_id.payment_term_id"></PmtTermsText>
@@ -67,18 +68,17 @@
                 </ItemDescr>
                 <NbrOfUnits><t t-esc="o.convert_to_int(o_lines.quantity)"/></NbrOfUnits>
                 <UnitPrice><t t-esc="o.convert_to_float(o_lines.price_unit)"/></UnitPrice>
-                <DiscPercent><t t-esc="o.convert_to_int(o_lines.discount)"/></DiscPercent>
+                <DiscPercent><t t-esc="o.convert_to_int(o_lines.tax_ids.amount)"/></DiscPercent>
                 <!-- -->
                 <Amt ><t t-esc="o.convert_to_float(o_lines.price_subtotal)"/></Amt>
                 <VATPct ><t t-esc="o.convert_to_int(o_lines.tax_ids.amount)"/></VATPct>
-
                 </Item>
                 </OrderDetails>
                 </Items>
                   </t>
                 <Total>
-                <NetAmt><t t-esc="o.convert_to_float(o.amount_total)"/></NetAmt>
-                <VATAmt><t t-esc="o.convert_to_float(o.amount_untaxed)"/></VATAmt>
+                <NetAmt><t t-esc="o.convert_to_float(o.amount_untaxed)"/></NetAmt>
+                <VATAmt><t t-esc="o.amount_tax"/></VATAmt>
                 <TotalAmt><t t-esc="o.convert_to_float(o.amount_residual)"/></TotalAmt>
                 </Total>
                 <!-- -->
