@@ -11,6 +11,7 @@
     'depends' : ['sale','mail','report_xml'],
     'data': [
     #security -- data -- views --reports
+    'data/increment.xml',
     'security/ir.model.access.csv',
     'views/main_prod_app.xml',
     'views/stage_options_views.xml',
