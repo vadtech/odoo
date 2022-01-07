@@ -2,12 +2,12 @@
 <odoo>
     <template id="report_xml">
       <BatchCollection xmlns="http://www.dnbnorfinans.no/Factoring/2004" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" DefinedBy="DnB NOR Finans" Version="3.0" xsi:schemaLocation="http://www.dnbnorfinans.no/Factoring/2004 FACTINV-3-0.XSD">
-        <TransferDateTime>2022-01-05T12:05:23</TransferDateTime>
+        <TransferDateTime><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%YT%H:%M')"/></TransferDateTime>
         <Batch>
             <ClientId>09891</ClientId>
             <ClientName>VAD AS</ClientName>
-            <BatchDate>2022-01-06</BatchDate>
-            <BatchNbr>11</BatchNbr>
+            <BatchDate><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/></BatchDate>
+            <BatchNbr><t t-esc="docs.count_banch()"/></BatchNbr>
             <t t-foreach="docs" t-as="o">
             <Invoice>
                         <InvType t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</InvType>
@@ -41,7 +41,7 @@
                 <DeliveryPostalCode  t-field="o.partner_shipping_id.zip" ></DeliveryPostalCode>
                 <DeliveryCity t-field="o.partner_shipping_id.city" ></DeliveryCity>
                 <DeliveryCtryCode t-field="o.partner_shipping_id.state_id" ></DeliveryCtryCode>
-                <DeliveryDate t-field="o.link_prod_id.main_sales_id.expected_date"></DeliveryDate>
+                <DeliveryDate t-field="o.link_prod_id.main_sales_id.expected_date"  t-options='{"widget": "date"}'></DeliveryDate>
                 <DeliveryType>Bil</DeliveryType>
                 <DeliveryTerms t-field="o.partner_id.delv_terms"></DeliveryTerms>
                 </DeliveryDetails>
@@ -68,7 +68,8 @@
                 </ItemDescr>
                 <NbrOfUnits><t t-esc="o.convert_to_int(o_lines.quantity)"/></NbrOfUnits>
                 <UnitPrice><t t-esc="o.convert_to_float(o_lines.price_unit)"/></UnitPrice>
-                <DiscPercent><t t-esc="o.extract_digits(o_lines.price_unit)"/></DiscPercent>
+                <DiscPercent><t t-esc="o.convert_to_int(o_lines.tax_ids.amount)"/></DiscPercent>
+                <!-- -->
                 <Amt ><t t-esc="o.convert_to_float(o_lines.price_subtotal)"/></Amt>
                 <VATPct ><t t-esc="o.convert_to_int(o_lines.tax_ids.amount)"/></VATPct>
 
