@@ -6,6 +6,7 @@ class add_into_res(models.Model):
 	_description="Invoicing Application edits"
 
 	link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
+	banch_no=fields.Integer(string="Banch No")
 	
 	@api.model
 	def convert_to_float(self,convert):
