@@ -36,17 +36,20 @@ class prod_order_app(models.Model):
         ('prod','In Production'),
         ('cancel','Cancel'),
         ('delivered','Delivered')])
-
+	
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
-		if self.all_del==True:
+		if self.all_del == True and self.state == 'prod':
 			for rec in self.orderLines_ids:
-				rec.delivered_Qty=rec.product_uom_qty
+				rec.delivered_Qty = rec.product_uom_qty
 			self.state = 'delivered'
 		else:
-			for rec in self.orderLines_ids:
-				rec.delivered_Qty = 0
-			self.state = 'prod'
+			if self.state == 'delivered':
+				for rec in self.orderLines_ids:
+					rec.delivered_Qty = 0
+				self.state = 'prod'
+			else:
+				pass
 
 	def action_new(self):
 		self.state='new'
