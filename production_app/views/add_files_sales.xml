@@ -22,9 +22,6 @@
             <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position='attributes'>
                    <attribute name="string">Unit Price</attribute>
             </xpath>
-             <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position='after'>
-                    <field name="lineDiscount"/>
-            </xpath>
             <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='tax_ids']" position='attributes'>
                    <attribute name="optional">hide</attribute>
             </xpath>
