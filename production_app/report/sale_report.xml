@@ -47,7 +47,6 @@
                 </DeliveryDetails>
 
                 <InvoiceHeader>
-                <InvRef t-field="o.link_prod_id.main_sales_id.client_order_ref"></InvRef>
                 <InvNbr t-field="o.name"></InvNbr>
                 <InvDate t-field="o.invoice_date"></InvDate>
                 <DueDate t-field="o.invoice_date_due"></DueDate>
