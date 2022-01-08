@@ -19,7 +19,7 @@
                 <InvCcy>NOK</InvCcy>
 
                <Debtor>
-                <DebtorName t-field="o.partner_id.name"></DebtorName>
+                <DebtorName t-field="o.partner_id.parent_id.name"></DebtorName>
                 <ClientDebtorNbr><t t-esc="o.convert_to_int(o.partner_id.id)"/></ClientDebtorNbr>
                 <DebtorVATNbr><t t-esc="o.extract_digits(o.partner_id.vat)"/></DebtorVATNbr>
                 <DebtorPostalAddr t-field="o.partner_id.street"></DebtorPostalAddr>
@@ -36,7 +36,7 @@
 
                 <!-- -->
                 <DeliveryDetails>
-                <DeliveryName t-field="o.partner_id.name"/>
+                <DeliveryName t-field="o.partner_id.parent_id.name"/>
                 <DeliveryAddr t-field="o.partner_shipping_id.street"></DeliveryAddr>
                 <DeliveryPostalCode  t-field="o.partner_shipping_id.zip" ></DeliveryPostalCode>
                 <DeliveryCity t-field="o.partner_shipping_id.city" ></DeliveryCity>
