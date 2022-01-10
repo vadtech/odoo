@@ -68,7 +68,7 @@
                 </ItemDescr>
                 <NbrOfUnits><t t-esc="o.convert_to_int(o_lines.quantity)"/></NbrOfUnits>
                 <UnitPrice><t t-esc="o.convert_to_float(o_lines.price_unit)"/></UnitPrice>
-                <DiscPercent><t t-esc="o.convert_to_int(o_lines.tax_ids.discount)"/></DiscPercent>
+                <DiscPercent><t t-esc="o.convert_to_int(o_lines.discount)"/></DiscPercent>
                 <!-- -->
                 <Amt ><t t-esc="o.convert_to_float(o_lines.price_subtotal)"/></Amt>
                 <VATPct ><t t-esc="o.convert_to_int(o_lines.tax_ids.amount)"/></VATPct>
