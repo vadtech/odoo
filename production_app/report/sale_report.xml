@@ -47,7 +47,7 @@
                 </DeliveryDetails>
 
                 <InvoiceHeader>
-                <InvRef t-field=""></InvRef>
+                <InvRef/>
                 <InvNbr t-field="o.name"></InvNbr>
                 <InvDate><t t-esc="o.invoice_date.strftime('%Y-%m-%d')"/></InvDate>
                 <DueDate><t t-esc="o.invoice_date_due.strftime('%Y-%m-%d')"/></DueDate>
