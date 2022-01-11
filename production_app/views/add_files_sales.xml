@@ -9,7 +9,7 @@
              <xpath expr="//form/sheet/group/group[@id='header_left_group']/field[@name='partner_id']" position='after'>
                 <field name="link_prod_id" groups="base.group_user" invisible="1"/>
             </xpath>
-             
+            
             <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='product_id']" position='before'>
                   <field name="id"/>
             </xpath>
@@ -44,6 +44,12 @@
                 <field name="delv_terms"/>
                 <field name="detailed_terms"/>
             </xpath>
+             
+             <xpath expr="//form/sheet/div[hasclass('oe_title')]/h1/field[@name='name']" position='after'>
+                <br/>
+                <h1>ID: <field name="id"/> </h1>
+            </xpath>
+             
         </field>
      </record>
     
