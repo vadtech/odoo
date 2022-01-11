@@ -20,6 +20,5 @@ class add_into_sales(models.Model):
 				}
 			)
 		else:
-			print("created_all--------------",created_all)
 			pass
 		return super().action_confirm()
