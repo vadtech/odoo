@@ -56,7 +56,6 @@
                 <PmtTermsText t-field="o.link_prod_id.main_sales_id.payment_term_id"></PmtTermsText>
                 </PmtTerms>
                 <OrderRef t-field="o.ref"></OrderRef>
-                <Kid t-field="o.payment_reference"/>
                 </InvoiceHeader>
                 <!-- -->
                 <t t-foreach="o.invoice_line_ids" t-as="o_lines">
