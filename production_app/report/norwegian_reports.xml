@@ -223,7 +223,7 @@
             </p>
         </div>
                  <br/>
-                        <p t-if="doc.state not in ['draft','sent']" >Leveringsvilkår:</p>   
+<!--                         <p t-if="doc.state not in ['draft','sent']" >Leveringsvilkår:</p>   
                         <t t-foreach="doc.partner_id" t-as="user">
                         <p t-if="doc.state not in ['draft','sent']" t-field="user.detailed_terms"/>
                         </t>
@@ -232,7 +232,9 @@
                         </span>
                           <span t-if="doc.state not in ['draft','sent']">
                            <p>VAD AS har salgspant i de leverte varer inntil kjopesummen med tillegg av eventuelle renter og omkostninger er betalt i sin helhet Jmfr. Pantelovens 3-14</p>   
-                        </span>
+                        </span> -->
+                         <p>Tilbudet er gjeldende til 30 dager fra d.d. for levering innen 4 mnd. fra fabrikk. Fritt levert til forhandlers adresse ved netto ordre over kr 7 500,-. Ved levering på annen vareadresse,kan det kreves et tillegg på inntil 6 %, dog minimum netto kr. 900. Prisene er å forstå NOK eks. MVA.
+                         </p>
                     </t>
                 </t>
             </t>
