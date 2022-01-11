@@ -21,6 +21,8 @@
     'report/english_options.xml',
     'report/english_report.xml',
     'report/norw_invoice_report.xml',
+    'report/sale_report_sweden.xml',
+    'report/sale_report_denmark.xml',    
     'report/norwegian_reports.xml',
     'report/invoices_report.xml',
     'report/sale_report.xml', 
