@@ -8,6 +8,8 @@
                      <t t-foreach="o.link_prod_id" t-as="sale_id">
                     <t t-call="web.external_layout">
                         <br/>
+                 <div id="informatios" class="row mt32 mb32">
+                        <div class="col-auto col-3 mw-100 mb-2">
                    <h4>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</span>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
@@ -17,6 +19,14 @@
                         <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
                         <span t-if="o.name != '/'" t-field="o.name"/>
                     </h4>
+                        </div>
+                       <div class="col-auto col-3 mw-100 mb-2" >
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2" >
+                            <h4 class="m-0" t-field="o.partner_id.id"/>
+                        </div>
+                    </div>
+
 
                      <br/>
 
@@ -24,7 +34,7 @@
                 <t t-set="address">                    
                          <strong>Invoice Address:</strong>
                     <address t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
-                    <p class="m-0" t-field="o.partner_id.id"/>
+                    
                         </t>
                         <t t-set="information_block">
                 <strong>Customer Address:</strong>
