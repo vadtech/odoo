@@ -20,10 +20,13 @@
                         <span t-if="o.name != '/'" t-field="o.name"/>
                     </h4>
                         </div>
-           
-                        <t t-set="address">  
-                            <h4 class="m-0" t-esc="o.convert_to_int(o.partner_id.id)"/>
-                          </t>
+                        <div class="col-auto col-3 mw-100 mb-2" >
+                        </div>
+                     
+                      <div  class="col-auto col-3 mw-100 mb-2" style="margin-left:-50px">
+                        <h4 class="m-0" t-esc="o.convert_to_int(o.partner_id.id)"/>
+                      </div>
+        
                     </div>
 
 
