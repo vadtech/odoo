@@ -58,10 +58,9 @@
                 <OrderRef t-field="o.ref"></OrderRef>
                 <Kid t-field="o.payment_reference"/>
                 </InvoiceHeader>
-                <!-- -->
-                <t t-foreach="o.invoice_line_ids" t-as="o_lines">
                 <Items>
                 <OrderDetails>
+                <t t-foreach="o.invoice_line_ids" t-as="o_lines">    
                 <Item>
                 <ItemId><t t-esc="o.convert_to_int(o_lines.id)"/></ItemId>
                 <ItemDescr t-field="o_lines.name">
@@ -69,13 +68,12 @@
                 <NbrOfUnits><t t-esc="o.convert_to_int(o_lines.quantity)"/></NbrOfUnits>
                 <UnitPrice><t t-esc="o.convert_to_float(o_lines.price_unit)"/></UnitPrice>
                 <DiscPercent><t t-esc="o.convert_to_int(o_lines.discount)"/></DiscPercent>
-                <!-- -->
                 <Amt ><t t-esc="o.convert_to_float(o_lines.price_subtotal)"/></Amt>
                 <VATPct ><t t-esc="o.convert_to_int(o_lines.tax_ids.amount)"/></VATPct>
                 </Item>
+                </t>
                 </OrderDetails>
                 </Items>
-                  </t>
                 <Total>
                 <NetAmt><t t-esc="o.convert_to_float(o.amount_untaxed)"/></NetAmt>
                 <VATAmt><t t-esc="o.amount_tax"/></VATAmt>
