@@ -48,7 +48,7 @@
 
                 <InvoiceHeader>
                 <InvRef></InvRef>
-                <InvNbr><t-esc="o.convert_to_int(o.id)"></InvNbr>
+                <InvNbr><t-esc="o.convert_to_int(o.id)"/></InvNbr>
                 <InvDate><t t-esc="o.invoice_date.strftime('%Y-%m-%d')"/></InvDate>
                 <DueDate><t t-esc="o.invoice_date_due.strftime('%Y-%m-%d')"/></DueDate>
                 <PmtMethod/>
