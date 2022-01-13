@@ -17,7 +17,7 @@
                         <span t-if="o.move_type == 'out_refund'">Kredittnota</span>
                         <span t-if="o.move_type == 'in_refund'">Leverandørkredittnota</span>
                         <span t-if="o.move_type == 'in_invoice'">Leverandørregning</span>
-                        <span t-if="o.name != '/'" t-field="o.name"/>
+                        <span t-if="o.name != '/'" t-field="o.id"/>
                     </h4>
                         
                         </div>
