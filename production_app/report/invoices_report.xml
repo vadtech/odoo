@@ -15,7 +15,7 @@
                         <span t-if="o.move_type == 'out_refund'">Credit Note</span>
                         <span t-if="o.move_type == 'in_refund'">Vendor Credit Note</span>
                         <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
-                        <span><t-esc="o.convert_to_int(o.id)"/></span>
+                        <span><t t-esc="o.convert_to_int(o.id)"/></span>
                     </h4>
                      <br/>
  
