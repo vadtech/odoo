@@ -9,7 +9,7 @@
             <BatchDate><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></BatchDate>
             <BatchNbr><t t-esc="docs.count_banch()"/></BatchNbr>
             <t t-foreach="docs" t-as="o">
-            <Invoice> 
+            <Invoice>  
                         <InvType t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</InvType>
                         <InvType t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</InvType>
                         <InvType t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</InvType>
