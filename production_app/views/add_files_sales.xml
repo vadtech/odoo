@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-     
+          
+        <record id="account_move_tree" model="ir.ui.view">
+        <field name="name">account.move.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//tree/field[@name='name']" position='replace'>
+                <field name="id" string="Number" decoration-bf="1" />
+            </xpath>
+
+        </field>
+     </record>
+
         <record id="account_move_inherit" model="ir.ui.view">
         <field name="name">account.move.inherit</field>
         <field name="model">account.move</field>
@@ -8,6 +21,16 @@
         <field name="arch" type="xml">
              <xpath expr="//form/sheet/group/group[@id='header_left_group']/field[@name='partner_id']" position='after'>
                 <field name="link_prod_id" groups="base.group_user" invisible="1"/>
+            </xpath>
+             
+             <xpath expr="//form/sheet/div[hasclass('oe_title')]/h1[hasclass('mt0')]/field[@name='name']" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//form/sheet/div[hasclass('oe_title')]/h1[hasclass('mt0')]/field[@name='name']" position='after'>
+                <h1 class="mt0">
+                    <field name="id"/>
+                </h1>
             </xpath>
             
             <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='product_id']" position='before'>
