@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="edit_report_invoice_with_payments">
+        <template id="edit_report_invoice_with_payments"> 
 
               <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
