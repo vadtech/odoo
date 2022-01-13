@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="edit_report_invoice_with_payments">
+        <template id="edit_report_invoice_with_payments"> 
 
               <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
@@ -17,7 +17,7 @@
                         <span t-if="o.move_type == 'out_refund'">Credit Note</span>
                         <span t-if="o.move_type == 'in_refund'">Vendor Credit Note</span>
                         <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
-                        <span t-if="o.name != '/'" t-field="o.id"/>
+                        <span><t t-esc="o.convert_to_int(o.id)"/></span>
                     </h4>
                         </div>
                         <div class="col-auto col-3 mw-100 mb-2" >
@@ -34,7 +34,7 @@
 
 
                      <br/>
-
+ 
                 <t t-set="o" t-value="o.with_context(lang=lang)" />
                 <t t-set="address">                    
                          <strong>Invoice Address:</strong>
