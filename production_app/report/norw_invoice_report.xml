@@ -8,6 +8,8 @@
                      <t t-foreach="o.link_prod_id" t-as="sale_id">
                     <t t-call="web.external_layout">
                         <br/>
+      <div id="informatios" class="row mt32 mb32">
+                        <div class="col-auto col-3 mw-100 mb-2">
                    <h4>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Faktura</span>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Utkast til faktura</span>
@@ -17,6 +19,19 @@
                         <span t-if="o.move_type == 'in_invoice'">Leverandørregning</span>
                         <span><t t-esc="o.convert_to_int(o.id)"/></span>
                     </h4>
+                        
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2" >
+                        </div>
+                     
+                      <div  class="col-auto col-3 mw-100 mb-2" style="margin-left:-220px">
+                           <h4> 
+                          <span>Kundenr ID-Nr</span>
+                          <span class="m-0" t-esc="o.convert_to_int(o.partner_id.id)"/>
+                           </h4>
+                      </div>
+        
+                    </div>                        
                      <br/>
                 <t t-set="o" t-value="o.with_context(lang=lang)" />
                 <t t-set="address">
