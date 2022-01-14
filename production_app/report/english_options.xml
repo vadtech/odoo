@@ -29,7 +29,7 @@
             <field name="name">Faktura</field>
             <field name="model">account.move</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">production_app.edit_norw_repo_invoice</field>
+            <field name="report_name">('Faktura - %s' % (object.id))</field>
             <field name="report_file">production_app.edit_norw_repo_invoice</field>
             <field name="print_report_name">('Faktura - %s' % (object.id))</field>
             <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
