@@ -76,7 +76,6 @@ class prod_order_app(models.Model):
 						'name': line.name,
 						'discount': line.discount,
 						'price_unit': line.price_unit,
-						'acc_lineDiscount':line.lineDiscount,
 						'quantity': line.product_uom_qty,
 						'product_id': line.product_id.id,
 						'product_uom_id': line.product_uom.id,
