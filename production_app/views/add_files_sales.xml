@@ -10,6 +10,11 @@
             <xpath expr="//tree/field[@name='name']" position='replace'>
                 <field name="id" string="Number" decoration-bf="1" />
             </xpath>
+            <xpath expr="//tree/field[@name='invoice_date']" position='before'>
+                <field name="sales_char" string="Sales Order Number"/>
+            </xpath>
+
+            
 
         </field>
      </record>
