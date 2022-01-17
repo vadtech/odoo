@@ -74,8 +74,8 @@ class prod_order_app(models.Model):
 				for line in record.orderLines_ids:
 					vals = {
 						'name': line.name,
-						'discount': line.discount,
 						'price_unit': line.price_unit,
+						'acc_disAmount': line.disAmount,
 						'quantity': line.product_uom_qty,
 						'product_id': line.product_id.id,
 						'product_uom_id': line.product_uom.id,
