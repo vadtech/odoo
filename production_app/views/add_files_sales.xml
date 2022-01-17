@@ -61,7 +61,8 @@
                    <attribute name="optional">hide</attribute>
             </xpath>
              <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position='before'>
-                    <field name="discount"/>
+                     <field name="acc_lineDiscount"/>
+                     <field name="acc_disAmount"/>
             </xpath>
         </field>
      </record>
