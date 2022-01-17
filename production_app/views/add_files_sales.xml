@@ -6,7 +6,7 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_invoice_tree"/>
         <field name="arch" type="xml">
-
+ 
             <xpath expr="//tree/field[@name='name']" position='replace'>
                 <field name="id" string="Number" decoration-bf="1" />
             </xpath>
@@ -61,7 +61,7 @@
                    <attribute name="optional">hide</attribute>
             </xpath>
              <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position='before'>
-                    <field name="discount"/>
+                     <field name="acc_disAmount"/>
             </xpath>
         </field>
      </record>
@@ -120,8 +120,7 @@
             </xpath>
 
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='discount']" position="before">
-                    <field name="lineDiscount" optional="show"/>
-                    <field name="disAmount" optional="hide"/>
+                    <field name="disAmount" optional="show"/>
             </xpath>
             
              <xpath expr="//page/field[@name='order_line']/tree/field[@name='tax_id']" position="attributes">
