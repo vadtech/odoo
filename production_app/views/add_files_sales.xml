@@ -6,7 +6,7 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_invoice_tree"/>
         <field name="arch" type="xml">
-
+ 
             <xpath expr="//tree/field[@name='name']" position='replace'>
                 <field name="id" string="Number" decoration-bf="1" />
             </xpath>
