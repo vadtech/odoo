@@ -13,7 +13,7 @@
             <xpath expr="//tree/field[@name='invoice_date']" position='before'>
                 <field name="sales_char" string="Sales Order Number"/>
             </xpath>
-
+ 
             
 
         </field>
