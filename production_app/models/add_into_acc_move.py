@@ -22,9 +22,7 @@ class add_into_res(models.Model):
 	for record in self:
 		record_to_update = self.env["account.move"].search([('id', '=', record.id)])
 		if record_to_update.exists():
-			vali = {
-				'inv_state': 'invc',
-		}
+			vali = {'inv_state': 'invc'}
 			record_to_update.write(vali)
 	
 	@api.model
