@@ -54,7 +54,7 @@
         <field name="arch" type="xml">
             <tree multi_edit="1">   
                 <field name="customer_ref"/>
-                <field name="main_sales_id"/>
+                <field name="sales_id_char"/>
                 <field name="state"/>
                 <field name="delivery_week"/>
                 <field name="create_date"/>
@@ -85,7 +85,7 @@
                         <!--this splts form into 2 -->
                         <group>
                             <field name="customer_ref" string="Customer" default="New"/>
-                            <field name="main_sales_id" />
+                            <field name="sales_id_char" />
                             <field name="order" />
                             <field name="deli_address" />
                         </group>
