@@ -13,7 +13,7 @@
     #security -- data -- views --reports
     'data/increment.xml',
     'security/ir.model.access.csv',
-    'views/main_prod_app.xml',
+    'views/main_prod_app.xml', 
     'views/stage_options_views.xml',
     'views/add_files_sales.xml',
     'views/inv_stage.xml',    
