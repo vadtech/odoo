@@ -27,7 +27,8 @@
     'report/norwegian_reports.xml',
     'report/invoices_report.xml',
     'report/inv_bunch_pdf.xml',  
-        
+    'report/sale_report.xml,   
+       
     ],
     'demo': [],
     'qweb': [],
