@@ -17,6 +17,16 @@ class add_into_res(models.Model):
 			('invc', 'Invoiced'),
 			('not_invc', 'Not Invoiced')])
 	
+	def auto_mate(self):
+	vali={}
+	for record in self:
+		record_to_update = self.env["account.move"].search([('id', '=', record.id)])
+		if record_to_update.exists():
+			vali = {
+				'inv_state': 'invc',
+		}
+			record_to_update.write(vali)
+	
 	@api.model
 	def convert_to_float(self,convert):
 		save=float(convert)

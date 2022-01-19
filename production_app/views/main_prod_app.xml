@@ -8,6 +8,15 @@
     <field name="state">code</field>
     <field name="code">action = records.action_prod()</field>
 </record>
+     
+   <record id="automate" model="ir.actions.server">
+    <field name="name">Automate</field>
+    <field name="model_id" ref="model_account_move"/>
+    <field name="binding_model_id" ref="model_account_move"/>
+    <field name="binding_view_types">form,list</field>
+    <field name="state">code</field>
+    <field name="code">action = records.auto_mate()</field>
+</record>
 
 
     <record id="action_confirm_to_cancel" model="ir.actions.server">
