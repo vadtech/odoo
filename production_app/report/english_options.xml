@@ -73,7 +73,7 @@
             <field name="model">account.move</field>
             <field name="report_type">qweb-xml</field>
             <field name="report_name">production_app.report_xml_denmark</field>
-            <field name="report_file">production_app.report_xml_denmark</field>
+            <field name="report_file">production_app.report_xml_denmark</field>     
             <field name="binding_model_id" ref="account.model_account_move"/>
         </record>
         
