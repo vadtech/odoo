@@ -19,7 +19,7 @@
         name="Invoiced"
         parent="account.menu_finance"
         action="new_inv_view"
-        sequence="-60"/>
+        sequence="-50"/>
 
     <!-- this is the main view for invoice application-->
 <record id="new_non_inv_view" model="ir.actions.act_window">
@@ -40,5 +40,5 @@
         name="Not Invoiced"
         parent="account.menu_finance"
         action="new_non_inv_view"
-        sequence="-50"/>
+        sequence="-60"/>
 </odoo>
