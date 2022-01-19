@@ -76,5 +76,14 @@
             <field name="report_file">production_app.report_xml_denmark</field>
             <field name="binding_model_id" ref="account.model_account_move"/>
         </record>
+        
+        <record id="Bunch_edited_xml" model="ir.actions.report">
+            <field name="name">Bunch Invoice Reports</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">production_app.bunch_report_pdf</field>
+            <field name="report_file">production_app.bunch_report_pdf</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+        </record>
     </data>
 </odoo>

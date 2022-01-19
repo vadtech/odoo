@@ -14,6 +14,8 @@ class prod_order_app(models.Model):
 	customer_ref=fields.Many2one('sale.order.line',string="sale_order_lines",tracking=True)
 	main_sales_id=fields.Many2one('sale.order',string="Production_order",tracking=True,index=True,required=True)
 	orderLines_ids=fields.One2many(related='main_sales_id.order_line', string="")
+	sales_id_char=fields.Char(string="Sales Order Number", related="main_sales_id.name",required=True)
+
 
 	order=fields.Datetime(related='main_sales_id.date_order' ,string="Order Date")
 	customer_ref= fields.Char(related='main_sales_id.partner_id.name')

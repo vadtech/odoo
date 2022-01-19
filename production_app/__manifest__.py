@@ -16,6 +16,7 @@
     'views/main_prod_app.xml',
     'views/stage_options_views.xml',
     'views/add_files_sales.xml',
+    'views/inv_stage.xml',    
     'report/production_report.xml', 
     'report/prod_report.xml',
     'report/english_options.xml',
@@ -25,7 +26,8 @@
     'report/sale_report_denmark.xml',    
     'report/norwegian_reports.xml',
     'report/invoices_report.xml',
-    'report/sale_report.xml', 
+    'report/inv_bunch_pdf.xml',  
+        
     ],
     'demo': [],
     'qweb': [],
