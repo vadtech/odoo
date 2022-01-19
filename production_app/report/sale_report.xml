@@ -5,7 +5,7 @@
         <TransferDateTime><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%dT%H:%M:%S')"/></TransferDateTime>
         <Batch>
             <ClientId>09891</ClientId>
-            <ClientName>VAD AS</ClientName>
+            <ClientName>VAD AS</ClientName>    
             <BatchDate><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></BatchDate>
             <BatchNbr><t t-esc="docs.count_banch()"/></BatchNbr>
             <t t-foreach="docs" t-as="o">
