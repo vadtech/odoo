@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+    <data> 
         <!--this is a report action-->
         <record id="english_sales_reports" model="ir.actions.report">
             <field name="name">Quotation / Order</field>
