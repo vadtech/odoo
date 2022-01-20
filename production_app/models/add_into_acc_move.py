@@ -8,7 +8,7 @@ class add_into_acc(models.Model):
 	link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
 	banch_no=fields.Integer(string="Banch No")
 	sales_char=fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
-	
+	    
 	inv_state = fields.Selection(
 		string='Invoice Status',
 		tracking=True, 
