@@ -1,7 +1,0 @@
-id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-access_prod_order_model,access_prod_order_model,model_prod_order_model,base.group_user,1,1,1,1
-access_logs_model,access_logs_model,model_logs_model,base.group_user,1,1,1,1
-access_log_wiz_model,access_log_wiz_model,model_log_wiz_model,base.group_user,1,1,1,1
-
- 
-
