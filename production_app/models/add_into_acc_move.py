@@ -11,7 +11,7 @@ class add_into_res(models.Model):
 	
 	inv_state = fields.Selection(
 		string='Invoice Status',
-		tracking=True,
+		tracking=True, 
 		default='not_invc',
 		selection=[
 			('invc', 'Invoiced'),
