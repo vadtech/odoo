@@ -1,6 +1,6 @@
 from odoo import fields, models, api ,_
 
-class add_into_res(models.Model):
+class add_into_acc(models.Model):
 	"""real name of the model"""
 	_inherit ="account.move"
 	_description="Invoicing Application edits"
