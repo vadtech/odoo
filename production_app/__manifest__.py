@@ -13,7 +13,7 @@
     #security -- data -- views --reports
     'data/increment.xml',
     'security/ir.model.access.csv',
-    'views/main_prod_app.xml',
+    'views/main_prod_app.xml',   
     'views/stage_options_views.xml',
     'views/add_files_sales.xml',
     'views/inv_stage.xml',    
@@ -29,6 +29,7 @@
     'report/invoices_report.xml',
     'report/inv_bunch_pdf.xml',  
     'report/sale_report.xml',
+    'report/log_report.xml',    
     ],
     'demo': [],
     'qweb': [],
