@@ -3,5 +3,5 @@ access_prod_order_model,access_prod_order_model,model_prod_order_model,base.grou
 access_logs_model,access_logs_model,model_logs_model,base.group_user,1,1,1,1
 access_log_wiz_model,access_log_wiz_model,model_log_wiz_model,base.group_user,1,1,1,1
 
-
+ 
 
