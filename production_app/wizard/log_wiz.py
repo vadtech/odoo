@@ -14,4 +14,4 @@ class report_logs(models.TransientModel):
 			'form':self.read()[0],
 			'search_result':search_result,
 		}
-		return self.env.ref('hos_production_app.log_report_option').report_action(self,data=data)
+		return self.env.ref('production_app.log_report_option').report_action(self,data=data)
