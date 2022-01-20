@@ -40,9 +40,8 @@
                                <h6>Antall bilag: &#160; &#160; 2</h6>
                                <h6>Sendt: &#160; &#160; YES</h6>
                             </t>
-                    </div>
                       <div>
-                      <table class="table table-sm o_main_table">
+                      <table class="table table-sm">
                         <thead>
                             <tr>
                                <th name="art_no" class="text-left"><span>Kundenr</span></th>
