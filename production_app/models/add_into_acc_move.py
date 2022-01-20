@@ -25,6 +25,18 @@ class add_into_acc(models.Model):
 				vali = {
 					'inv_state': 'invc',}
 			record_to_update.write(vali)
+	def write(self, val):
+		self.env['logs.model'].create({
+		'acc_move_id': self.id,
+		'log_state': 'update',
+		'inv_date': self.invoice_date,
+		'due_date': self.invoice_date_due,
+		'customer_no': self.partner_id.name,
+		'untaxed_amt': self.amount_untaxed,
+		'mva': self.amount_tax,
+		'total': self.amount_total,})
+		res = super(add_into_acc, self).write(val)
+		return res
 	
 	@api.model
 	def convert_to_float(self,convert):
