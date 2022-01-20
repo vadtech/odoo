@@ -21,7 +21,7 @@
     'report/prod_report.xml',
     'report/english_options.xml',
     'report/english_report.xml',
-    'report/packaging_list.xml'   
+    'report/packaging_list.xml',   
     'report/norw_invoice_report.xml',
     'report/sale_report_sweden.xml',
     'report/sale_report_denmark.xml',    
