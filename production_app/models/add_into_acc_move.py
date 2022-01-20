@@ -17,6 +17,20 @@ class add_into_res(models.Model):
 			('invc', 'Invoiced'),
 			('not_invc', 'Not Invoiced')])
 	
+	def write(self, val):
+		self.env['logs.model'].create({
+			'acc_move_id': self.id,
+			'log_state': 'update',
+			'inv_date': self.invoice_date,
+			'due_date': self.invoice_date_due,
+			'customer_no': self.partner_id.name,
+			'untaxed_amt': self.amount_untaxed,
+			'mva': self.amount_tax,
+			'total': self.amount_total,
+		})
+		res = super(add_into_acc, self).write(val)
+		return res
+	
 	def auto_mate(self):
 		vali={}
 		for record in self:
