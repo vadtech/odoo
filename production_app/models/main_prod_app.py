@@ -104,9 +104,7 @@ class prod_order_app(models.Model):
 					vali = {
 						'state': 'posted',
 						'invoice_date':date.today(),
-						'invoice_date_due':date.today() + timedelta(days=30),
-
-					}
+						'invoice_date_due':date.today() + timedelta(days=30),}
 					record_to_update.write(vali)
 					self.env['logs.model'].create({
 						'acc_move_id': self.id,
@@ -116,8 +114,7 @@ class prod_order_app(models.Model):
 						'customer_no': self.partner_id.name,
 						'untaxed_amt': self.amount_untaxed,
 						'mva': self.amount_tax,
-						'total': self.amount_total,
-					})
+						'total': self.amount_total,})
 					
 class log_invoice_app(models.Model):
 	"""real name of the model"""
@@ -131,7 +128,6 @@ class log_invoice_app(models.Model):
 	untaxed_amt = fields.Integer(string="Untaxed Amt")
 	mva = fields.Integer(string="mva")
 	total = fields.Integer(string="total")
-
 	log_state = fields.Selection(
 		string='log_state',
 		selection=[
@@ -139,5 +135,3 @@ class log_invoice_app(models.Model):
 			('delete', 'Delete'),
 			('update', 'Update')])
 					
-
-
