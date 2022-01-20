@@ -30,7 +30,7 @@
     'report/invoices_report.xml',
     'report/inv_bunch_pdf.xml',  
     'report/sale_report.xml',
-    'wizard/log_wiz_view.xml',    
+    #'wizard/log_wiz_view.xml',    
     ],
     'demo': [],
     'qweb': [],
