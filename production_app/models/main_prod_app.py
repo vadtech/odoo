@@ -75,15 +75,15 @@ class prod_order_app(models.Model):
 				invoice_lines = []
 				for line in record.orderLines_ids:
 					vals = {
-						'name': line.name,
-						'discount': line.discount,
-						'price_unit': line.price_unit,
-						'acc_disAmount': line.disAmount,
-						'quantity': line.product_uom_qty,
-						'product_id': line.product_id.id,
-						'product_uom_id': line.product_uom.id,
-						'tax_ids': [(6, 0, line.tax_id.ids)],
-						'sale_line_ids': [(6, 0, [line.id])],
+					'name': line.name,
+					'discount': line.discount,
+					'price_unit': line.price_unit,
+					'acc_disAmount': line.disAmount,
+					'quantity': line.product_uom_qty,
+					'product_id': line.product_id.id,
+					'product_uom_id': line.product_uom.id,
+					'tax_ids': [(6, 0, line.tax_id.ids)],
+					'sale_line_ids': [(6, 0, [line.id])],
 					}
 					invoice_lines.append((0, 0, vals))
 				self.env['account.move'].create({
@@ -102,19 +102,19 @@ class prod_order_app(models.Model):
 				record_to_update = self.env["account.move"].search([('link_prod_id', '=',record.id )])
 				if record_to_update.exists():
 					vali = {
-						'state': 'posted',
-						'invoice_date':date.today(),
-						'invoice_date_due':date.today() + timedelta(days=30),}
+					'state': 'posted',
+					'invoice_date':date.today(),
+					'invoice_date_due':date.today() + timedelta(days=30),}
 					record_to_update.write(vali)
 					self.env['logs.model'].create({
-						'acc_move_id': self.id,
-						'log_state': 'create',
-						'inv_date': self.invoice_date,
-						'due_date': self.invoice_date_due,
-						'customer_no': self.partner_id.name,
-						'untaxed_amt': self.amount_untaxed,
-						'mva': self.amount_tax,
-						'total': self.amount_total,})
+					'acc_move_id': self.id,
+					'log_state': 'create',
+					'inv_date': self.invoice_date,
+					'due_date': self.invoice_date_due,
+					'customer_no': self.partner_id.name,
+					'untaxed_amt': self.amount_untaxed,
+					'mva': self.amount_tax,
+					'total': self.amount_total,})
 					
 class log_invoice_app(models.Model):
 	"""real name of the model"""
@@ -131,7 +131,7 @@ class log_invoice_app(models.Model):
 	log_state = fields.Selection(
 		string='log_state',
 		selection=[
-			('create', 'Create'),
-			('delete', 'Delete'),
-			('update', 'Update')])
+		('create', 'Create'),
+		('delete', 'Delete'),
+		('update', 'Update')])
 					
