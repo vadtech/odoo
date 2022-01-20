@@ -41,7 +41,7 @@
                                <h6>Sendt: &#160; &#160; YES</h6>
                             </t>
                       <div>
-                      <table class="table table-sm">
+                      <table class="table table-sm o_main_table" >
                         <thead>
                             <tr>
                                <th name="art_no" class="text-left"><span>Kundenr</span></th>
