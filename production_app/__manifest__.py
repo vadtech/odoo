@@ -15,7 +15,8 @@
     'security/ir.model.access.csv',
     'views/main_prod_app.xml',
     'views/stage_options_views.xml',
-    'views/add_files_sales.xml',
+    'views/add_files_sales.xml', model_account_move hlvhp:Bj:m;
+
     'views/inv_stage.xml',    
     'report/production_report.xml', 
     'report/prod_report.xml',
