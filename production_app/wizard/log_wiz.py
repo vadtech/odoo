@@ -7,7 +7,6 @@ class report_logs(models.TransientModel):
 
 	date_form = fields.Date(required=True ,string="Date From")
 	date_to = fields.Date(required=True ,string="Date To")
-
 	def report_logs_appoint(self):
 		search_result=self.env['logs.model'].search_read(["&",('create_date','>=',self.date_form),('create_date','<=',self.date_to)])
 		data={
