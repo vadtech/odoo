@@ -25,7 +25,9 @@
                                 </div>
                                 </div>
 
-                  <t t-set="address">
+
+                      <div>
+                        <t t-set="address">
                                     <h6>Valutakode på konto: &#160; &#160;NOK</h6>
                                     <h6>Valutakode for bunten: &#160; &#160;89898</h6>
                                     <h6>Registrert av: &#160; &#160;Per Magne Mork</h6>
@@ -40,7 +42,6 @@
                                <h6>Antall bilag: &#160; &#160; 2</h6>
                                <h6>Sendt: &#160; &#160; YES</h6>
                             </t>
-                      <div>
                       <table class="table table-sm o_main_table" >
                         <thead>
                             <tr>
