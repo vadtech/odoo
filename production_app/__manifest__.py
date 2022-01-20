@@ -25,7 +25,7 @@
     'report/norw_invoice_report.xml',
     'report/sale_report_sweden.xml',
     'report/sale_report_denmark.xml',
-    'report/log_report.xml',
+    #'report/log_report.xml',
     'report/norwegian_reports.xml',
     'report/invoices_report.xml',
     'report/inv_bunch_pdf.xml',  
