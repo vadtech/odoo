@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <template id="logs_rep_xml">
+            <t t-call="web.html_container">
+				 <t t-call="web.external_layout">
+                     <div style="margin-left:0px;margin-top:-55px;">
+						<h3>Fakturalogg</h3>
+						<h5>Periode:</h5>
+						<h5>Selgernr:</h5>
+						<h5>Kundenr:</h5>
+						<h5>Kjede-id:</h5>
+                    </div>
+<!--                     t-if="search_result['inv_date']=='create'" -->
+						<table  class="table">
+                            <br/>
+                        <thead>
+                            <tr>
+                               <th name="art_no" class="text-left"><span>Faktura nr</span></th>
+                                <th name="th_description" class="text-left"><span>Fakturadato</span></th>
+                                <th name="th_descpion" class="text-left"><span>Forfallsdato</span></th>
+                                <th name="th_escption" class="text-left"><span>Kundenr</span></th>
+                                <th name="th_detion" class="text-right"><span>Netto</span></th>
+                                <th name="th_dscption" class="text-right"><span>MVA</span></th>
+                                <th name="th_descpon" class="text-right"><span>Brutto</span></th>
+                            </tr>
+                        </thead>
+
+                     <t t-set="log_count" t-value="0"/>
+						<t t-foreach="search_result" t-as="line">
+							<t	t-set="log_count" t-value="log_count +1"/>
+                        <tbody  class="invoice_tbody">
+                                        <td name="invooice_id"><span t-esc="line['acc_move_id']" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_name"><span  t-esc="line['inv_date']" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_inoice_line_name"><span  t-esc="line['due_date']" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_indvoice_line_name"><span  t-esc="line['customer_no']" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_indvoice_ine_name"><span  t-esc="line['untaxed_amt']" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_indvoiceline_name"><span  t-esc="line['mva']" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_indvoic_line_name"><span  t-esc="line['total']" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                    </table>
+				 </t>
+            </t>
+        </template>
+   	</data>
+</odoo>
+
