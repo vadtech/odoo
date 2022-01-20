@@ -108,6 +108,16 @@ class prod_order_app(models.Model):
 
 					}
 					record_to_update.write(vali)
+					self.env['logs.model'].create({
+						'acc_move_id': self.id,
+						'log_state': 'create',
+						'inv_date': self.invoice_date,
+						'due_date': self.invoice_date_due,
+						'customer_no': self.partner_id.name,
+						'untaxed_amt': self.amount_untaxed,
+						'mva': self.amount_tax,
+						'total': self.amount_total,
+					})
 					
 class log_invoice_app(models.Model):
 	"""real name of the model"""
