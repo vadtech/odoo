@@ -1,6 +1,6 @@
 from odoo import fields, models, api ,_
 
-class add_into_res(models.Model):
+class add_into_acc(models.Model):
 	"""real name of the model"""
 	_inherit ="account.move"
 	_description="Invoicing Application edits"
@@ -28,7 +28,7 @@ class add_into_res(models.Model):
 			'mva': self.amount_tax,
 			'total': self.amount_total,
 		})
-		res = super(add_into_res, self).write(val)
+		res = super(add_into_acc, self).write(val)
 		return res
 	
 	def auto_mate(self):
