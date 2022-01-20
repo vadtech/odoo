@@ -90,8 +90,8 @@
             <field name="name">Log Reports</field>
             <field name="model">account.move</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">hos_production_app.logs_rep_xml</field>
-            <field name="report_file">hos_production_app.logs_rep_xml</field>
+            <field name="report_name">production_app.logs_rep_xml</field>
+            <field name="report_file">production_app.logs_rep_xml</field>
             <field name="binding_model_id" ref="account.model_account_move"/>
         </record>
     </data>
