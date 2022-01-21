@@ -42,7 +42,7 @@
                             </t>
                           </div>
                           <div class="row mb8" >
-                      <table class="table table-sm o_main_table">
+                      <table class="table table-sm o_main_table" style="margin-top:220px">
                         <thead>
                             <tr>
                                <th name="art_no" class="text-left"><span>Kundenr</span></th>
