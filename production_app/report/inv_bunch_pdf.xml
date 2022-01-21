@@ -3,6 +3,13 @@
     <data>
         <template id="bunch_report_pdf">
                 <t t-call="web.html_container">
+                 <div t-attf-class="article o_report_layout_boxed o_company_#{user.company_id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                                <div class="pt-5">
+                                    <!-- This div ensures that the address is not cropped by the header. -->
+                                    <t t-call="web.address_layout"/>
+                                </div>
+                                <t t-raw="0"/>
+                            </div>
 
                   <div t-attf-class="header o_company_#{user.company_id}_layout" t-att-style="report_header_style">
                       <div class="o_boxed_header">
