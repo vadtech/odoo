@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--this is a report action-->
+        <record id="english_sales_reports" model="ir.actions.report">
+            <field name="name">Quotation / Order</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)</field>
+            <field name="report_file">production_app.english_reports</field>
+            <field name="report_name">production_app.english_reports</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+        </record>
+        <record id="edited_account_invoices" model="ir.actions.report">
+            <field name="name">Invoices</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">production_app.edit_report_invoice_with_payments</field>
+            <field name="report_file">production_app.edit_report_invoice_with_payments</field>
+            <field name="print_report_name">('Invoices - %s' % (object.id))</field>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice')),
+ (4, ref('account.group_account_readonly'))]"/>
+        </record>
+        
+                <record id="norwegian_account_invoices" model="ir.actions.report">
+            <field name="name">Faktura</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">production_app.edit_norw_repo_invoice</field>
+            <field name="report_file">production_app.edit_norw_repo_invoice</field>
+            <field name="print_report_name">('Faktura - %s' % (object.id))</field>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice')),
+ (4, ref('account.group_account_readonly'))]"/>
+        </record>
+
+        
+        <record id="norwegian_sales_reports" model="ir.actions.report">
+            <field name="name">Tilbud/Ordre</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">(object.state in ('draft', 'sent') and 'Tilbud - %s' % (object.name)) or 'Ordre - %s' % (object.name)</field>
+            <field name="report_file">production_app.norwegian_reports</field>
+            <field name="report_name">production_app.norwegian_reports</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+        </record>
+        
+         <record id="edited_xml" model="ir.actions.report">
+            <field name="name">Xml Norwegian</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-xml</field>
+            <field name="report_name">production_app.report_xmlr</field>
+            <field name="report_file">production_app.report_xmlr</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+        </record>
+        
+        
+        <record id="log_report_option" model="ir.actions.report">
+            <field name="name">Log Reports</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">production_app.logs_rep_xml</field>
+            <field name="report_file">production_app.logs_rep_xml</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+        </record>
+        
+         <record id="sweden_xml" model="ir.actions.report">
+            <field name="name">Xml Sweden</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-xml</field>
+            <field name="report_name">production_app.report_xml_sweden</field>
+            <field name="report_file">production_app.report_xml_sweden</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+        </record>
+        
+         <record id="denmark_xml" model="ir.actions.report">
+            <field name="name">Xml Demark</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-xml</field>
+            <field name="report_name">production_app.report_xml_denmark</field>
+            <field name="report_file">production_app.report_xml_denmark</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+        </record>
+        
+        <record id="Bunch_edited_xml" model="ir.actions.report">
+            <field name="name">Bunch Invoice Reports</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">production_app.bunch_report_pdf</field>
+            <field name="report_file">production_app.bunch_report_pdf</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+        </record>
+    </data>
+</odoo>

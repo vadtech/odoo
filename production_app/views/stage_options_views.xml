@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- this is the main view for hosiptial-->
+<record id="new_orders_view" model="ir.actions.act_window">
+    <field name="name">New Orders</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">prod_order.model</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="context">{'default_state':'new'}</field>
+    <field name="domain">[('state','=','new')]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Create A New Order!
+    	</p>
+    </field>
+</record>
+
+<menuitem id="new_orders_views"
+        name="New Orders"
+        parent="production_app_root"
+        action="new_orders_view"
+        sequence="10"/>
+
+            <record id="in_production_views" model="ir.actions.act_window">
+    <field name="name">In Production Orders</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">prod_order.model</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="context">{'default_state':'prod'}</field>
+    <field name="domain">[('state','=','prod')]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Export A Order To Production Stage!
+    	</p>
+    </field>
+</record>
+
+<menuitem id="in_production_stage"
+        name="In Production Orders"
+        parent="production_app_root"
+        action="in_production_views"
+        sequence="20"/>
+
+                <record id="delivered_stage" model="ir.actions.act_window">
+    <field name="name">Delivered Orders</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">prod_order.model</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="context">{'default_state':'delivered'}</field>
+    <field name="domain">[('state','=','delivered')]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Export A Order To Delivered Stage!
+    	</p>
+    </field>
+</record>
+
+<menuitem id="in_delivered_stage"
+        name="Delivered Orders"
+        parent="production_app_root"
+        action="delivered_stage"
+        sequence="40"/>
+
+
+</odoo>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_xmlr"> 
+      <BatchCollection xmlns="http://www.dnbnorfinans.no/Factoring/2004" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" DefinedBy="DnB NOR Finans" Version="3.0" xsi:schemaLocation="http://www.dnbnorfinans.no/Factoring/2004 FACTINV-3-0.XSD">
+        <TransferDateTime><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%dT%H:%M:%S')"/></TransferDateTime>
+        <Batch>
+            <ClientId>09891</ClientId>
+            <ClientName>VAD AS</ClientName>
+            <BatchDate><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></BatchDate>
+            <BatchNbr><t t-esc="docs.count_banch()"/></BatchNbr>
+            <t t-foreach="docs" t-as="o">
+            <Invoice>
+                        <InvType t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</InvType>
+                        <InvType t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</InvType>
+                        <InvType t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</InvType>
+                        <InvType t-if="o.move_type == 'out_refund'">Credit Note</InvType>
+                        <InvType t-if="o.move_type == 'in_refund'">Vendor Credit Note</InvType>
+                        <InvType t-if="o.move_type == 'in_invoice'">Vendor Bill</InvType>
+                <InvCcy>NOK</InvCcy>
+
+               <Debtor>
+                <DebtorName t-field="o.partner_id.parent_id.name"></DebtorName>
+                <ClientDebtorNbr><t t-esc="o.convert_to_int(o.partner_id.id)"/></ClientDebtorNbr>
+                <DebtorVATNbr><t t-esc="o.extract_digits(o.partner_id.vat)"/></DebtorVATNbr>
+                <DebtorPostalAddr t-field="o.partner_id.street"></DebtorPostalAddr>
+                <DebtorSuplAddr t-field="o.partner_id.street2"></DebtorSuplAddr>
+                <DebtorPostalCode  t-field="o.partner_id.zip">3511</DebtorPostalCode>
+                <DebtorCity  t-field="o.partner_id.city">HØNEFOSS</DebtorCity>
+                <DebtorCtryCode  t-field="o.partner_id.state_id">NO</DebtorCtryCode>
+                <DebtorPhone  t-field="o.partner_id.phone" ></DebtorPhone>
+                <DebtorMobile t-field="o.partner_id.mobile"></DebtorMobile>
+                <DebtorEmail  t-field="o.partner_id.email"></DebtorEmail>
+                <DebtorRef  t-field="o.link_prod_id.main_sales_id.client_order_ref"></DebtorRef>
+
+                </Debtor>
+
+                <!-- -->
+                <DeliveryDetails>
+                <DeliveryName t-field="o.partner_id.parent_id.name"/>
+                <DeliveryAddr t-field="o.partner_shipping_id.street"></DeliveryAddr>
+                <DeliveryPostalCode  t-field="o.partner_shipping_id.zip" ></DeliveryPostalCode>
+                <DeliveryCity t-field="o.partner_shipping_id.city" ></DeliveryCity>
+                <DeliveryCtryCode t-field="o.partner_shipping_id.state_id" ></DeliveryCtryCode>
+                <DeliveryDate><t t-esc="o.link_prod_id.main_sales_id.expected_date.strftime('%Y-%m-%d')"/></DeliveryDate>
+                <DeliveryType>Bil</DeliveryType>
+                <DeliveryTerms t-field="o.partner_id.delv_terms"></DeliveryTerms>
+                </DeliveryDetails>
+
+                <InvoiceHeader>
+                <InvRef></InvRef>
+                <InvNbr><t t-esc="o.convert_to_int(o.id)"/></InvNbr>
+                <InvDate><t t-esc="o.invoice_date.strftime('%Y-%m-%d')"/></InvDate>
+                <DueDate><t t-esc="o.invoice_date_due.strftime('%Y-%m-%d')"/></DueDate>
+                <PmtMethod/>
+                <PmtTerms>
+                <PmtTermsText t-field="o.link_prod_id.main_sales_id.payment_term_id"></PmtTermsText>
+                </PmtTerms>
+                <OrderRef t-field="o.ref"></OrderRef>
+                <Kid t-field="o.payment_reference"/>
+                </InvoiceHeader>
+                <Items>
+                <OrderDetails>
+                <t t-foreach="o.invoice_line_ids" t-as="o_lines">    
+                <Item>
+                <ItemId><t t-esc="o.convert_to_int(o_lines.id)"/></ItemId>
+                <ItemDescr t-field="o_lines.name">
+                </ItemDescr>
+                <NbrOfUnits><t t-esc="o.convert_to_int(o_lines.quantity)"/></NbrOfUnits>
+                <UnitPrice><t t-esc="o.convert_to_float(o_lines.price_unit)"/></UnitPrice>
+                <DiscPercent><t t-esc="o.convert_to_int(o_lines.discount)"/></DiscPercent>
+                <Amt ><t t-esc="o.convert_to_float(o_lines.price_subtotal)"/></Amt>
+                <VATPct ><t t-esc="o.convert_to_int(o_lines.tax_ids.amount)"/></VATPct>
+                </Item>
+                </t>
+                </OrderDetails>
+                </Items>
+                <Total>
+                <NetAmt><t t-esc="o.convert_to_float(o.amount_untaxed)"/></NetAmt>
+                <VATAmt><t t-esc="o.amount_tax"/></VATAmt>
+                <TotalAmt><t t-esc="o.convert_to_float(o.amount_residual)"/></TotalAmt>
+                </Total>
+                <!-- -->
+                <AssignClause>
+                Fordringer etter nærværende faktura er overdratt DNB Bank ASA Postboks 1600 Sentrum 0021 Oslo til eiendom. Befriende betaling kan kun skje til DNB Bank ASA. Bankkonto 7032.05.16038 Ved betaling vennligst oppgi KIDreferanse eller fakturanummer og leverandør
+                </AssignClause>
+                </Invoice>
+            </t>
+        </Batch>
+      </BatchCollection>
+    </template>
+</odoo>
