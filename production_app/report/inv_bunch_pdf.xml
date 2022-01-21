@@ -41,7 +41,16 @@
                                <h6>Sendt: &#160; &#160; YES</h6>
                             </t>
                           </div>
-                          <div class="row mb8">
+
+                     </div>
+                            </div>
+                               <div t-attf-class="article o_report_layout_boxed o_company_#{user.company_id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                                <div class="pt-5">
+                                    <!-- This div ensures that the address is not cropped by the header. -->
+                                    <t t-call="web.address_layout"/>
+                                </div>
+                                <t t-raw="0"/>
+                                                             <div class="row mb8">
                       <table class="table table-sm o_main_table" >
                         <thead>
                             <tr>
@@ -67,14 +76,6 @@
                         </t>
                     </table>
                           </div>
-                     </div>
-                            </div>
-                               <div t-attf-class="article o_report_layout_boxed o_company_#{user.company_id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
-                                <div class="pt-5">
-                                    <!-- This div ensures that the address is not cropped by the header. -->
-                                    <t t-call="web.address_layout"/>
-                                </div>
-                                <t t-raw="0"/>
                             </div>
 
                             <div t-attf-class="footer o_boxed_footer o_company_#{user.company_id}_layout">
