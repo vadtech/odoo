@@ -116,14 +116,14 @@ class prod_order_app(models.Model):
 					}
 					record_to_update.write(vali)
 					self.env['logs.model'].create({
-						'acc_move_id': self.id,
+						'acc_move_id': record_to_update.id,
 						'log_state': 'create',
-						'inv_date': self.invoice_date,
-						'due_date': self.invoice_date_due,
-						'customer_no': self.partner_id.name,
-						'untaxed_amt': self.amount_untaxed,
-						'mva': self.amount_tax,
-						'total': self.amount_total,
+						'inv_date': record_to_update.invoice_date,
+						'due_date': record_to_update.invoice_date_due,
+						'customer_no': record_to_update.partner_id.name,
+						'untaxed_amt': record_to_update.amount_untaxed,
+						'mva': record_to_update.amount_tax,
+						'total': record_to_update.amount_total,
 					})
 					
 					
