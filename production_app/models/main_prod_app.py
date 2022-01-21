@@ -39,12 +39,12 @@ class prod_order_app(models.Model):
         ('cancel','Cancel'),
         ('delivered','Delivered')])
 	
- 	def _del_week(self):
- 		for rec in self:
- 			if rec.delivery_date==False:
- 				pass
- 			else:
- 				rec.delivery_week=rec.delivery_date.strftime("%w")
+#  	def _del_week(self):
+#  		for rec in self:
+#  			if rec.delivery_date==False:
+#  				pass
+#  			else:
+#  				rec.delivery_week=rec.delivery_date.strftime("%w")
 	
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
