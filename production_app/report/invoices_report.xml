@@ -12,11 +12,11 @@
                         <div class="col-auto col-3 mw-100 mb-2">
                    <h4>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</span>
-                        <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
-                        <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
-                        <span t-if="o.move_type == 'out_refund'">Credit Note</span>
-                        <span t-if="o.move_type == 'in_refund'">Vendor Credit Note</span>
-                        <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">DraftInvoice</span>
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">CancelledInvoice</span>
+                        <span t-if="o.move_type == 'out_refund'">CreditNote</span>
+                        <span t-if="o.move_type == 'in_refund'">VendorCredit Note</span>
+                        <span t-if="o.move_type == 'in_invoice'">VendorBill</span>
                         <span><t t-esc="o.convert_to_int(o.id)"/></span>
                     </h4>
                         </div>
