@@ -45,6 +45,8 @@
                 <strong>Customer Address:</strong>
                 <div t-field="o.partner_id"
                 t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'/>
+                <p  class="m-0" style="margin-top:-120px" t-field="o.partner_shipping_id.vat"/>
+
             </t>
                    
                 <div class="page">
