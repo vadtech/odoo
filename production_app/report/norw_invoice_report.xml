@@ -37,7 +37,7 @@
                 <t t-set="address">
                          <strong>Kundeadresse:</strong>
                     <address t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
-                    <p  class="m-0" style="margin-top:-20px" t-field="o.partner_shipping_id.vat"/>
+                    <p  class="m-0" style="margin-top:-60px" t-field="o.partner_shipping_id.vat"/>
                         </t>
                         
                         <t t-set="information_block">
