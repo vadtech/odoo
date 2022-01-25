@@ -61,7 +61,52 @@ class add_into_acc(models.Model):
 		for record in self:
 			reference= self.env['ir.sequence'].next_by_code('banch_no.seq') or _('New')
 			break
+		for rec in self:
+			self.env['inv_pdfs.model'].create({
+				'link_acc_id': rec.id,
+				'isPrinted': False,
+				'brch_no': reference
+			})
 		return reference
+	
+class branch_pdf_ids(models.Model):
+	"""real name of the model"""
+	_name = "inv_pdfs.model"
+	_description = "For keeping all branched pdfs with their Branch no"
+
+	link_acc_id = fields.Many2one('account.move', string="Inovince ID")
+	isPrinted = fields.Boolean(string="IS Printed", default=False)
+	brch_no=fields.Integer(string="branch No")
+
+	def print_pdf_aut(self):
+		records_to_print = self.env["inv_pdfs.model"].search_read([('isPrinted', '=', False)])
+		data={
+			'records_to_print':records_to_print
+		}
+		return self.env.ref('hos_production_app.Bunch_edited_xml').report_action(self,data=data)
+
+		# addd this line please
+
+	@api.model
+	def update_banch(self):
+		for record in self:
+			reference = record.brch_no
+			break
+		return reference
+
+	@api.model
+	def count_records(self):
+		refi=0
+		for record in self:
+			refi = refi+1
+		return refi
+
+	@api.model
+	def cal_total(self):
+		total_amt =0
+		for record in self:
+			total_amt += record.link_acc_id.amount_total_signed
+		return total_amt
 
 	
 	
