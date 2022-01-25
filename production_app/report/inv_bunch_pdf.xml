@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <template id="bunch_report_pdf">
+            <t t-call="web.html_container">
+				 <t t-call="web.external_layout">
+                       <t t-set="address">
+                           <br/>
+                           <br/>
+                           <br/>
+                          <h6>Valutakode på konto: &#160; &#160;NOK</h6>
+                        <h6>Valutakode for bunten: &#160; &#160;89898</h6>
+                        <h6>Registrert av: &#160; &#160;Per Magne Mork</h6>
+                        <h6>Kundenr hos factoringselskap:&#160; &#160;09891</h6>
+                        <h6>Debitor FCI: &#160; &#160;530</h6>
+                        </t>
+                     <t t-set="information_block">
+                            <div style="margin-top:-100%">
+                                 <h5>Factoringbunt DNB Factoring</h5>
+
+                            </div>
+
+                             <br/>
+
+                               <h6>Bunt nr: &#160; &#160;<t t-esc="docs.update_banch()"/></h6>
+                               <h6>Buntdato: &#160; &#160; <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%dT%H:%M:%S')"/></h6>
+                               <h6>Bunttype: &#160; &#160;1</h6>
+                               <h6>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total()"/></h6>
+                               <h6>Antall bilag: &#160; &#160; <t t-esc="docs.count_records()"/></h6>
+                               <h6>Sendt: &#160; &#160; YES</h6>
+                     </t>
+                     <br/>
+
+                     <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th name="art_no" class="text-left"><span>Kundenr</span></th>
+                                <th name="th_description" class="text-left"><span>Navn</span></th>
+                                <th name="th_quantity" class="text-left">Fakturanr</th>
+                                <th name="th_priceunit" class="text-left">Fakturadato</th>
+                                <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
+                                <th name="th_price_unit" class="text-right"><span>Beløp</span></th>
+                            </tr>
+                            </thead>
+                         <t t-foreach="docs" t-as="doc">
+                            <tbody>
+                                        <td name="account_invoice_line_id"><span  t-esc="doc.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_name"><span t-field="doc.link_acc_id.partner_id.name" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="doc.link_acc_id.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoic_line"><t t-esc="doc.link_acc_id.invoice_date.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoicline"><t t-esc="doc.link_acc_id.invoice_date_due.strftime('%Y-%m-%d')"/></td>
+                                        <td class="text-right">
+                                            <span t-field="doc.link_acc_id.amount_total_signed"/>
+                                        </td>
+                            </tbody>
+                             <br/>
+                         </t>
+                     </table>
+                     <table align="right" class="table table-striped" style="width:40%">
+                              <tr>
+                                <th>Subtotal</th>
+                                <th>kr<t t-esc="docs.cal_total()"/></th>
+                              </tr>
+                              <tr>
+                                <td>Total</td>
+                                <td>kr<t t-esc="docs.cal_total()"/></td>
+                              </tr>
+                            </table>
+                     <t><t t-esc="docs.change_state()"/></t>
+                 </t>
+            </t>
+        </template>
+    </data>
+</odoo>
