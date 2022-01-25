@@ -24,10 +24,12 @@
                         <div class="col-auto col-3 mw-100 mb-2" >M
                         </div>
                      
-                      <div  class="col-auto col-3 mw-100 mb-2" style="margin-left:-220px">
+                      <div  class="col-auto col-3 mw-100 mb-2" style="margin-left:-220px; font-size:50px>
                            <h4> 
                           <span>Kundenr ID-Nr</span>
                           <span class="m-0" t-esc="o.convert_to_int(o.partner_id.id)"/>
+                           <span>VAD Org.no</span>
+                          <span>NO819075832MVA</span>
                            </h4>
                       </div>
         
@@ -36,7 +38,7 @@
                 <t t-set="o" t-value="o.with_context(lang=lang)" />
                 <t t-set="address">
                          <strong>Kundeadresse:</strong>
-                    <address t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name","N0819075832MVA"], "no_marker": True}' />
+                    <address t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
                 </t>
                         <t t-set="information_block">
                 <strong>Fakturaadresse::</strong>
