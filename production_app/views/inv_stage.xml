@@ -70,7 +70,7 @@
    </record>
 
 
-<menuitem id="new_non_ivn_views"
+<menuitem id="new_no_ivn_views"
         name="Branched Invoices"
         parent="account.menu_finance"
         action="invs_models"
