@@ -12,7 +12,7 @@ class add_into_acc(models.Model):
 	inv_state = fields.Selection(
 		string='Invoice Status',
 		tracking=True,
-		default='not_invc',
+		default='not_invc', 
 		selection=[
 			('invc', 'Invoiced'),
 			('not_invc', 'Not Invoiced')])
