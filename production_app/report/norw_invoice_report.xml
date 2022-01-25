@@ -19,11 +19,7 @@
                         <span t-if="o.move_type == 'in_invoice'">Leverandørregning</span>
                         <span><t t-esc="o.convert_to_int(o.id)"/></span>
                     </h4>
-                        
-                        </div>
-                        <div class="col-auto col-3 mw-100 mb-2" >M
-                        </div>
-                     
+                    
                       <div  class="col-auto col-3 mw-100 mb-2" style="margin-left:-220px; font-size:50px>
                            <h4> 
                           <span>Kundenr ID-Nr</span>
