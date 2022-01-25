@@ -19,13 +19,16 @@
                         <span t-if="o.move_type == 'in_invoice'">Leverandørregning</span>
                         <span><t t-esc="o.convert_to_int(o.id)"/></span>
                     </h4>
-                    
-                      <div  class="col-auto col-3 mw-100 mb-2" style="margin-left:-220px; font-size:50px>
+                        
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2" >
+                        </div>
+                     
+                      <div  class="col-auto col-3 mw-100 mb-2" style="margin-left:-220px; font-size:30px;">
                            <h4> 
                           <span>Kundenr ID-Nr</span>
                           <span class="m-0" t-esc="o.convert_to_int(o.partner_id.id)"/>
-                           <span>VAD Org.no</span>
-                          <span>NO819075832MVA</span>
+                            <span>VAD Org.no 982812046MVA</span>
                            </h4>
                       </div>
         
