@@ -8,6 +8,8 @@ class add_into_acc(models.Model):
 	link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
 	banch_no=fields.Integer(string="Banch No")
 	sales_char=fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
+	invoice_no_name=fields.Char(string="Invoice Number",compute="id_to_int")
+
 	
 	inv_state = fields.Selection(
 		string='Invoice Status',
@@ -16,6 +18,11 @@ class add_into_acc(models.Model):
 		selection=[
 			('invc', 'Invoiced'),
 			('not_invc', 'Not Invoiced')])
+	
+	@api.model
+	def id_to_int(self):
+		for rec in self:
+			rec.invoice_no_name=str(rec.id)
 	
 	def write(self, val):
 		self.env['logs.model'].create({
