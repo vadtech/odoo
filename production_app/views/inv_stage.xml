@@ -42,13 +42,13 @@
         action="new_non_inv_view"
         sequence="-60"/>
     
-    <record id="invs_models" model="ir.actions.act_window">
+
+<record id="invs_models" model="ir.actions.act_window">
     <field name="name">Branched Invoices</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">inv_pdfs.model</field>
-    <field name="view_mode">tree,form,kanban</field>
+    <field name="view_mode">tree,kanban</field>
     <field name="context"></field>
-    <field name="domain">[('isPrinted','=',False)]</field>
     <field name="help" type="html">
     	<p class="o_view_nocontent_smiling_face">
     	Download XMl Report to Create Bunced invoices!
@@ -61,7 +61,6 @@
         <field name="model">inv_pdfs.model</field>
         <field name="arch" type="xml">
             <tree multi_edit="1">
-                <field name="id"/>
                 <field name="link_acc_id"/>
                 <field name="brch_no"/>
                 <field name="isPrinted"/>
@@ -70,9 +69,49 @@
    </record>
 
 
-<menuitem id="new_no_ivn_views"
+<menuitem id="non_ivn_views"
         name="Branched Invoices"
         parent="account.menu_finance"
         action="invs_models"
         sequence="70"/>
+
+    <record id="invs_not_down" model="ir.actions.act_window">
+    <field name="name">Printed Bunched Invoices</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">inv_pdfs.model</field>
+    <field name="view_mode">tree</field>
+    <field name="context"></field>
+    <field name="domain">[('isPrinted','=',True)]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Download XMl Report to Create Bunced invoices!
+    	</p>
+    </field>
+</record>
+
+<menuitem id="non_ivn_print_views"
+        name="Printed Bunched Invoices"
+        parent="non_ivn_views"
+        action="invs_not_down"
+        sequence="10"/>
+
+    <record id="un_invs_not_down" model="ir.actions.act_window">
+    <field name="name">Unprinted Bunched Invoices</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">inv_pdfs.model</field>
+    <field name="view_mode">tree</field>
+    <field name="context"></field>
+    <field name="domain">[('isPrinted','=',False)]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Download XMl Report to Create Bunced invoices!
+    	</p>
+    </field>
+</record>
+
+<menuitem id="no_ivn_print_views"
+        name="Unprinted Bunched Invoices"
+        parent="non_ivn_views"
+        action="un_invs_not_down"
+        sequence="20"/>
 </odoo>
