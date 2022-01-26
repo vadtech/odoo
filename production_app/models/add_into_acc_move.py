@@ -128,6 +128,11 @@ class branch_pdf_ids(models.Model):
 		for record in self:
 			total_tax += record.link_acc_id.amount_tax
 		return total_tax
+	
+	@api.model
+	def change_state(self):
+		for record in self:
+			record.isPrinted=True
 
 	
 	
