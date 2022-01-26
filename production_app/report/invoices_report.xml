@@ -29,16 +29,13 @@
                           <p t-field="o.partner_id.vat"/>
                           </span> <br/>   
                           <span>
-                            <p Customer ID-number />
+                            <p>Customer ID-number</p>
                            </span>
                           <span>
                               <p t-esc="o.convert_to_int(o.partner_id.id)" />
                           </span>
                       </div>
-        
                     </div>
-
-
                      <br/>
  
                 <t t-set="o" t-value="o.with_context(lang=lang)" />
