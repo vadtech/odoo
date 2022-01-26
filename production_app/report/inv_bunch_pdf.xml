@@ -9,7 +9,6 @@
                            <br/>
                            <br/>
                           <h6>Valutakode på konto: &#160; &#160;NOK</h6>
-                        <h6>Valutakode for bunten: &#160; &#160;89898</h6>
                         <h6>Registrert av: &#160; &#160;Per Magne Mork</h6>
                         <h6>Kundenr hos factoringselskap:&#160; &#160;09891</h6>
                         <h6>Debitor FCI: &#160; &#160;530</h6>
@@ -39,18 +38,26 @@
                                 <th name="th_quantity" class="text-left">Fakturanr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
-                                <th name="th_price_unit" class="text-right"><span>Beløp</span></th>
+                                <th name="th_price_unit" class="text-right"><span>Beløp uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp med MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp</span></th>
                             </tr>
                             </thead>
                          <t t-foreach="docs" t-as="doc">
                             <tbody>
                                         <td name="account_invoice_line_id"><span  t-esc="doc.id" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line_name"><span t-field="doc.link_acc_id.partner_id.name" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_name"><span t-field="doc.link_acc_id.partner_id.parent_id.name" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoice_line"><span t-field="doc.link_acc_id.id" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoic_line"><t t-esc="doc.link_acc_id.invoice_date.strftime('%Y-%m-%d')"/></td>
                                         <td name="account_invoicline"><t t-esc="doc.link_acc_id.invoice_date_due.strftime('%Y-%m-%d')"/></td>
                                         <td class="text-right">
-                                            <span t-field="doc.link_acc_id.amount_total_signed"/>
+                                            <span t-field="doc.link_acc_id.amount_untaxed"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.link_acc_id.amount_tax"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.link_acc_id.amount_residual"/>
                                         </td>
                             </tbody>
                              <br/>
@@ -58,11 +65,15 @@
                      </table>
                      <table align="right" class="table table-striped" style="width:40%">
                               <tr>
-                                <th>Subtotal</th>
-                                <th>kr<t t-esc="docs.cal_total()"/></th>
+                                <th>totalbeløp uten mva</th>
+                                <th>kr<t t-esc="docs.cal_no_tax()"/></th>
                               </tr>
                               <tr>
-                                <td>Total</td>
+                                <td>totalbeløp med</td>
+                                <td>kr<t t-esc="docs.cal_in_tax()"/></td>
+                              </tr>
+                                <tr>
+                                <td>totale mengden</td>
                                 <td>kr<t t-esc="docs.cal_total()"/></td>
                               </tr>
                             </table>
