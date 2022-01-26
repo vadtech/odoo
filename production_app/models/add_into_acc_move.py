@@ -114,6 +114,20 @@ class branch_pdf_ids(models.Model):
 		for record in self:
 			total_amt += record.link_acc_id.amount_total_signed
 		return total_amt
+	
+	@api.model
+	def cal_no_tax(self):
+		total_not =0
+		for record in self:
+			total_not += record.link_acc_id.amount_untaxed
+		return total_not
+
+	@api.model
+	def cal_in_tax(self):
+		total_tax =0
+		for record in self:
+			total_tax += record.link_acc_id.amount_tax
+		return total_tax
 
 	
 	
