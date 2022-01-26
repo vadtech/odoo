@@ -27,7 +27,7 @@
                       <div  class="col-auto col-3 mw-100 mb-2" style="margin-left:-220px; font-size:18px">
                           
                           <span t-esc="o.partner_id.vat"/> <br/>  
-                          <span>Customer ID-number</span>
+                          <span>Kundenummer ID</span>
                           <span class="m-0" t-esc="o.convert_to_int(o.partner_id.id)"/>
     
                       </div>
