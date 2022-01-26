@@ -98,7 +98,7 @@
         
         <record id="Bunch_edited_xml" model="ir.actions.report">
             <field name="name">Bunch Invoice Reports</field>
-            <field name="model">account.move</field>
+            <field name="model">inv_pdfs.model</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">production_app.bunch_report_pdf</field>
             <field name="report_file">production_app.bunch_report_pdf</field>
