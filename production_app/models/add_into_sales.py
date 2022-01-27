@@ -20,7 +20,7 @@ class add_into_sales(models.Model):
 				for line in record.order_line:
 					vals = {
 						'name_id': int(line.id),
-						'line_mark': line.line_marking,
+						'line_mark': line.linMarking,
 						'product_order': line.name,
 						'product_ints': line.prod_ist,
 						'qunt': line.product_uom_qty,
