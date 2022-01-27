@@ -78,7 +78,7 @@
                     </div>
                     <br/>
                     <h5>KID</h5>
-                    <p class="m-0" t-field="o.convert_to_int(o.id)"/>
+                    <p class="m-0"><t t-esc="o.convert_to_int(o.id)"/></p>
                     <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
 
                     <table class="table table-sm o_main_table" name="invoice_line_table">
