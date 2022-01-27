@@ -51,13 +51,13 @@ class prod_order_app(models.Model):
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
 		if self.all_del == True and self.state == 'prod':
-			for rec in self.orderLines_ids:
-				rec.delivered_Qty = rec.product_uom_qty
+			for rec in self.pro_order_ids:
+				rec.del_qunt = rec.qunt
 			self.state = 'delivered'
 		else:
 			if self.state == 'delivered':
-				for rec in self.orderLines_ids:
-					rec.delivered_Qty = 0
+				for rec in self.pro_order_ids:
+					rec.del_qunt = 0
 				self.state = 'prod'
 			else:
 				pass
@@ -130,25 +130,25 @@ class prod_order_app(models.Model):
 					
 					
 
-	class log_invoice_app(models.Model):
-		"""real name of the model"""
-		_name = "logs.model"
-		_description = "For Logging Account Movement"
+class log_invoice_app(models.Model):
+	"""real name of the model"""
+	_name = "logs.model"
+	_description = "For Logging Account Movement"
 
-		acc_move_id= fields.Integer(string="Account Move")
-		inv_date = fields.Date(string="Invoice Date")
-		due_date = fields.Date(string="Due Date")
-		customer_no = fields.Text(string="Customer NO")
-		untaxed_amt = fields.Integer(string="Untaxed Amt")
-		mva = fields.Integer(string="mva")
-		total = fields.Integer(string="total")
+	acc_move_id= fields.Integer(string="Account Move")
+	inv_date = fields.Date(string="Invoice Date")
+	due_date = fields.Date(string="Due Date")
+	customer_no = fields.Text(string="Customer NO")
+	untaxed_amt = fields.Integer(string="Untaxed Amt")
+	mva = fields.Integer(string="mva")
+	total = fields.Integer(string="total")
 
-		log_state = fields.Selection(
-			string='log_state',
-			selection=[
-				('create', 'Create'),
-				('delete', 'Delete'),
-				('update', 'Update')])
+	log_state = fields.Selection(
+		string='log_state',
+		selection=[
+			('create', 'Create'),
+			('delete', 'Delete'),
+			('update', 'Update')])
 
 		
 class pro_ord(models.Model):
