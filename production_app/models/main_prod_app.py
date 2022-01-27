@@ -51,13 +51,13 @@ class prod_order_app(models.Model):
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
 		if self.all_del == True and self.state == 'prod':
-			for rec in self.orderLines_ids:
-				rec.delivered_Qty = rec.product_uom_qty
+			for rec in self.pro_order_ids:
+				rec.del_qunt = rec.qunt
 			self.state = 'delivered'
 		else:
 			if self.state == 'delivered':
-				for rec in self.orderLines_ids:
-					rec.delivered_Qty = 0
+				for rec in self.pro_order_ids:
+					rec.del_qunt = 0
 				self.state = 'prod'
 			else:
 				pass
