@@ -126,6 +126,8 @@
                                                  <field string="Quantity" name="qunt" />
                                                  <field string="Delivered Quantity" name="del_qunt" />
                                             </tree>
+                                             <form>
+                                             </form>
                                     </field>
                             </page>
                      </notebook>
