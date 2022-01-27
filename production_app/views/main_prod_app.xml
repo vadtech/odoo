@@ -17,8 +17,16 @@
     <field name="state">code</field>
     <field name="code">action = records.auto_mate()</field>
 </record>
-
-
+     
+     <record id="action_confirm_to" model="ir.actions.server">
+    <field name="name">Mark Quotation as Confirmed</field>
+    <field name="model_id" ref="model_sale_order"/>
+    <field name="binding_model_id" ref="model_sale_order"/>
+    <field name="binding_view_types">form,list</field>
+    <field name="state">code</field>
+    <field name="code">action = records.custom_action_confirm()</field>
+</record>
+     
     <record id="action_confirm_to_cancel" model="ir.actions.server">
     <field name="name">Cancel Order</field>
     <field name="model_id" ref="model_prod_order_model"/>
@@ -108,23 +116,19 @@
                         </group> 
                     </group>
                     <notebook>
-                            <page name="order_lines" string="Order Lines">
-                                       <field name="orderLines_ids" force_save="1"> 
-                                            <tree>
-                                                 <field string="id" name="id"  readonly="1"/>
-                                                 <field string="Marking" name="x_marking"  readonly="1"/>
-                                                 <field string="Art_No and description" name="product_template_id"  readonly="1"/>
-                                                 <field string="Product Instruction" name="x_production_instruction"  readonly="1"/>
-                                                 <field string="Quantity" name="product_uom_qty"  readonly="1"/>
-                                                 <field string="Delivered Quantity" name="delivered_Qty" readonly="0"/>
+                           <page name="order_lines" string="Order Lines">
+                                       <field name="pro_order_ids" force_save="1">
+                                            <tree editable="top">
+                                                 <field string="Id" name="name_id"/>
+                                                 <field string="Line Marking" name="line_mark"/>
+                                                 <field string="Art_No and description" name="product_order"/>
+                                                 <field string="Product Instruction" name="product_ints"/>
+                                                 <field string="Quantity" name="qunt" />
+                                                 <field string="Delivered Quantity" name="del_qunt" />
                                             </tree>
-                                                <form>
-                                            </form>
-
-                                    </field>    
-                                  
+                                    </field>
                             </page>
-                        </notebook>
+                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids"/>
