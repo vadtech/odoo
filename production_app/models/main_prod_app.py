@@ -17,8 +17,6 @@ class prod_order_app(models.Model):
 	sales_id_char=fields.Char(string="Sales Order Number", related="main_sales_id.name",required=True)
 	pro_order_ids = fields.One2many('pro_order.model', 'prod_ids', string="Product Order")
 
-
-
 	order=fields.Datetime(related='main_sales_id.date_order' ,string="Order Date")
 	customer_ref= fields.Char(related='main_sales_id.partner_id.name')
 	deli_address=fields.Many2one(related='main_sales_id.partner_invoice_id' ,string="Delivery Address")
@@ -77,9 +75,33 @@ class prod_order_app(models.Model):
 
 	def action_delivered(self):
 		self.state='delivered'
-
-					
-					
+		for record in self:
+			created_all = self.env["account.move"].search_count([('link_prod_id', '=', record.id)])
+			if created_all == 0:
+				invoice_lines = []
+				for line in record.orderLines_ids:
+					vals = {
+						'name': line.name,
+						'discount':line.discount,
+						'price_unit': line.price_unit,
+						'quantity': line.product_uom_qty,
+						'product_id': line.product_id.id,
+						'product_uom_id': line.product_uom.id,
+						'tax_ids': [(6, 0, line.tax_id.ids)],
+						'sale_line_ids': [(6, 0, [line.id])],
+					}
+					invoice_lines.append((0, 0, vals))
+				self.env['account.move'].create({
+					'link_prod_id':record.id,
+					'ref': record.main_sales_id.client_order_ref,
+					'state':'draft',
+					'move_type': 'out_invoice',
+					'invoice_origin': record.main_sales_id.name,
+					'invoice_user_id': record.main_sales_id.user_id.id,
+					'partner_id': record.main_sales_id.partner_invoice_id.id,
+					'currency_id': record.main_sales_id.pricelist_id.currency_id.id,
+					'invoice_line_ids': invoice_lines
+				})
 
 class log_invoice_app(models.Model):
 	"""real name of the model"""
