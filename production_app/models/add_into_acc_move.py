@@ -9,6 +9,8 @@ class add_into_acc(models.Model):
 	banch_no=fields.Integer(string="Banch No")
 	sales_char=fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
 	invoice_no_name=fields.Char(string="Invoice Number",compute="id_to_int")
+	payment_ref = fields.Char(compute="_pay_ref", string="Payment Reference")
+
 
 	
 	inv_state = fields.Selection(
@@ -18,6 +20,27 @@ class add_into_acc(models.Model):
 		selection=[
 			('invc', 'Invoiced'),
 			('not_invc', 'Not Invoiced')])
+	
+	def _pay_ref(self):
+		for rec in self:
+			bn = 8 - len(str(rec.id))
+			y = '0' * bn
+			x = self.luhn_checksum(rec.id)
+			ne_p = '609891' + str(y) + str(rec.id) + str(x)
+			rec.payment_ref=ne_p
+
+	def luhn_checksum(self,card_number):
+		def digits_of(n):
+			return [int(d) for d in str(n)]
+
+		digits = digits_of(card_number)
+		odd_digits = digits[-1::-2]
+		even_digits = digits[-2::-2]
+		checksum = 0
+		checksum += sum(odd_digits)
+		for d in even_digits:
+			checksum += sum(digits_of(d * 2))
+		return checksum % 10
 	
 	@api.model
 	def id_to_int(self):
