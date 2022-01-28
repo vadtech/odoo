@@ -19,7 +19,11 @@ class prod_order_app(models.Model):
 
 	order=fields.Datetime(related='main_sales_id.date_order' ,string="Order Date")
 	customer_ref= fields.Char(related='main_sales_id.partner_id.name')
-	deli_address=fields.Many2one(related='main_sales_id.partner_invoice_id' ,string="Delivery Address")
+	deli_address=fields.Many2one(related='main_sales_id.partner_shipping_id' ,string="Delivery Address")
+	street=fields.Char(related='main_sales_id.partner_shipping_id.street')
+	city=fields.Char(related='main_sales_id.partner_shipping_id.city')
+	count_zw=fields.Char(related='main_sales_id.partner_shipping_id.country_id.name')
+	
 	delivery_date=fields.Datetime(related='main_sales_id.expected_date', string="Delivery Date",tracking=True)
 	delivery_week=fields.Integer(compute="_del_week",string="Delivered Week",tracking=True)
 	delivered_date=fields.Date(string="Delivered Date",tracking=True)
