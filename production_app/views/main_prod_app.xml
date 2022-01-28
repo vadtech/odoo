@@ -101,10 +101,15 @@
                     <group>
                         <!--this splts form into 2 -->
                         <group>
+                             <field name="deli_address" />
+                            <field name="street" string=""/>
+                            <field name="city" string=""/>
+                            <field name="count_zw" string=""/>
+                            <br/>
                             <field name="customer_ref" string="Customer" default="New"/>
                             <field name="sales_id_char" />
                             <field name="order" />
-                            <field name="deli_address" />
+                   
                         </group>
                         <group>
                             <field name="delivery_date" />
