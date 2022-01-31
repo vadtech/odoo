@@ -97,6 +97,7 @@ class prod_order_app(models.Model):
 					invoice_lines.append((0, 0, vals))
 				self.env['account.move'].create({
 					'link_prod_id':record.id,
+					'inv_state':'invc',
 					'ref': record.main_sales_id.client_order_ref,
 					'state':'draft',
 					'move_type': 'out_invoice',
