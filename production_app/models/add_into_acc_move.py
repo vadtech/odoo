@@ -5,12 +5,14 @@ class add_into_acc(models.Model):
 	_inherit ="account.move"
 	_description="Invoicing Application edits"
 
-	link_acc_id = fields.Many2one('account.move', string="Inovince ID")
-	isPrinted = fields.Boolean(string="IS Printed", default=False)
-	brch_no=fields.Integer(string="branch No")
-	sale_order = fields.Char(related='link_acc_id.sales_id_char')
-	custmer = fields.Char(related='link_acc_id.invoice_partner_display_name')
-	inv_no= fields.Char(related='link_acc_id.invoice_no_name')
+	link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
+	payment_ref = fields.Char(compute="_pay_ref", string="Payment Reference")
+
+
+	banch_no=fields.Integer(string="Banch No")
+	reference = fields.Char(string="Referece", readonly=True, required=True, copy=False, default=lambda self: _('New'))
+	sales_char=fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
+	invoice_no_name=fields.Char(string="Number",compute="id_to_int")
 
 
 	
@@ -108,6 +110,9 @@ class branch_pdf_ids(models.Model):
 	link_acc_id = fields.Many2one('account.move', string="Inovince ID")
 	isPrinted = fields.Boolean(string="IS Printed", default=False)
 	brch_no=fields.Integer(string="branch No")
+	sale_order = fields.Char(related='link_acc_id.sales_char')
+	custmer = fields.Char(related='link_acc_id.invoice_partner_display_name')
+	inv_no= fields.Char(related='link_acc_id.invoice_no_name')
 
 	def print_pdf_aut(self):
 		records_to_print = self.env["inv_pdfs.model"].search_read([('isPrinted', '=', False)])
