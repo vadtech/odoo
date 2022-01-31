@@ -106,6 +106,25 @@ class prod_order_app(models.Model):
 					'currency_id': record.main_sales_id.pricelist_id.currency_id.id,
 					'invoice_line_ids': invoice_lines
 				})
+				
+				record_to_update = self.env["account.move"].search([('link_prod_id', '=',record.id )])
+				if record_to_update.exists():
+					vali = {
+						'state': 'posted',
+						'invoice_date':date.today(),
+						'invoice_date_due':date.today() + timedelta(days=30),
+					}
+					record_to_update.write(vali)
+					self.env['logs.model'].create({
+						'acc_move_id': record_to_update.id,
+						'log_state': 'create',
+						'inv_date': record_to_update.invoice_date,
+						'due_date': record_to_update.invoice_date_due,
+						'customer_no': record_to_update.partner_id.name,
+						'untaxed_amt': record_to_update.amount_untaxed,
+						'mva': record_to_update.amount_tax,
+						'total': record_to_update.amount_total,
+					})
 
 class log_invoice_app(models.Model):
 	"""real name of the model"""
