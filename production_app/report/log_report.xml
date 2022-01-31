@@ -4,9 +4,9 @@
         <template id="logs_rep_xml">
             <t t-call="web.html_container">
 				 <t t-call="web.external_layout">
-                     <div style="margin-left:0px;margin-top:-55px;">
+                     <div style="margin-left:0px;margin-top:-45px;">
 						<h3>Fakturalogg</h3>
-						<h5>Periode:</h5>
+						<h5>Periode:<t t-esc="form['date_form']"/> -- <t t-esc="form['date_to']"/> </h5>
 						<h5>Selgernr:</h5>
 						<h5>Kundenr:</h5>
 						<h5>Kjede-id:</h5>
