@@ -16,13 +16,10 @@
                      <t t-set="information_block">
                             <div style="margin-top:-100%">
                                  <h5>Factoringbunt DNB Factoring</h5>
-
                             </div>
-
                              <br/>
-
                                <h6>Bunt nr: &#160; &#160;<t t-esc="docs.update_banch()"/></h6>
-                               <h6>Buntdato: &#160; &#160; <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%dT%H:%M:%S')"/></h6>
+                               <h6>Buntdato: &#160; &#160; <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></h6>
                                <h6>Bunttype: &#160; &#160;1</h6>
                                <h6>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total()"/></h6>
                                <h6>Antall bilag: &#160; &#160; <t t-esc="docs.count_records()"/></h6>
