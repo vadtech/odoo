@@ -81,6 +81,8 @@
                     <t t-set="current_subtotal" t-value="0"/>
 
                     <t t-foreach="doc.order_line" t-as="line">
+                    <t t-foreach="prod_order.pro_order_ids" t-as="lin">
+
 
                         <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                         <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
@@ -93,10 +95,11 @@
                                     <span t-field="line.product_uom_qty"/>
                                 </td>
                                 <td name="td_priceunit" class="text-right">
-                                    <span t-field="line.delivered_Qty"/>
+                                    <span t-field="lin.qunt"/>
                                 </td>
                             </t>
                         </tr>
+                    </t>
                     </t>
                 </tbody>
             </table>
