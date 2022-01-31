@@ -25,7 +25,7 @@ class prod_order_app(models.Model):
 	count_zw=fields.Char(related='main_sales_id.partner_shipping_id.country_id.name')
 	
 	delivery_date=fields.Datetime(related='main_sales_id.expected_date', string="Delivery Date",tracking=True)
-	delivery_week=fields.Integer(compute="_del_week",string="Delivered Week",tracking=True)
+	delivery_week=fields.Integer(string="Delivered Week",tracking=True)
 	delivered_date=fields.Date(string="Delivered Date",tracking=True)
 
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
@@ -43,12 +43,12 @@ class prod_order_app(models.Model):
         ('cancel','Cancel'),
         ('delivered','Delivered')])
 	
-	def _del_week(self):
-		for rec in self:
-			if rec.delivery_date==False:
-				pass
-			else:
-				rec.delivery_week=rec.delivery_date.strftime("%w")
+# 	def _del_week(self):
+# 		for rec in self:
+# 			if rec.delivery_date==False:
+# 				pass
+# 			else:
+# 				rec.delivery_week=rec.delivery_date.strftime("%w")
 	
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
