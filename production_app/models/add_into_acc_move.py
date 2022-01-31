@@ -5,11 +5,12 @@ class add_into_acc(models.Model):
 	_inherit ="account.move"
 	_description="Invoicing Application edits"
 
-	link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
-	banch_no=fields.Integer(string="Banch No")
-	sales_char=fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
-	invoice_no_name=fields.Char(string="Invoice Number",compute="id_to_int")
-	payment_ref = fields.Char(compute="_pay_ref", string="Payment Reference")
+	link_acc_id = fields.Many2one('account.move', string="Inovince ID")
+	isPrinted = fields.Boolean(string="IS Printed", default=False)
+	brch_no=fields.Integer(string="branch No")
+	sale_order = fields.Char(related='link_acc_id.sales_char')
+	custmer = fields.Char(related='link_acc_id.invoice_partner_display_name')
+	inv_no= fields.Char(related='link_acc_id.invoice_no_name')
 
 
 	
