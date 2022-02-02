@@ -80,6 +80,8 @@
              <xpath expr="//form/sheet/notebook/page[@name='sales_purchases']/group/group[@name='sale']/field[@name='user_id']" position='after'>
                 <field name="delv_terms"/>
                 <field name="detailed_terms"/>
+                <field name="payment_fact"/>
+                <field name="jurid_info"/>
             </xpath>
              
              <xpath expr="//form/sheet/div[hasclass('oe_title')]/h1/field[@name='name']" position='after'>
