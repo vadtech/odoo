@@ -36,7 +36,7 @@
 
                 <div class="col-auto col-3 mw-100 mb-2">
                     <strong>No of Package:</strong>
-                    <p class="m-0" t-field="prod_order.total_ite"/>
+                    <p class="m-0"><t t-esc="prod_order.pro_order_ids.count_records()"/></p>
                 </div>
 
                 <div  class="col-auto col-3 mw-100 mb-2">
