@@ -6,17 +6,17 @@ class add_into_res(models.Model):
 	_description="Res Partner edits"
 
 	delv_terms = fields.Selection(
-		string='Delivery Terms 2',
+		string='Delivery Terms',
 		default='del_1',
 		selection=[ 
 			('del_1', 'incoterms 2020-Ex.works'),
 			('del_2', 'incoterms 2020-CPT'),
 			('del_3', 'incoterms 2020-CIP'),
 			('del_4', 'incoterms 2020-DPU')])
-	detailed_terms=fields.Text(string='Detailed Delivery Terms 2')
+	detailed_terms=fields.Text(string='Detailed Delivery Terms')
 
 	payment_fact = fields.Selection(
-		string='Payment Factoring 2',
+		string='Payment Factoring',
 		default='pay_1',
 		selection=[
 			('pay_1', 'Factoring Norway'),
@@ -26,7 +26,7 @@ class add_into_res(models.Model):
 			('pay_5', 'Norway without factoring to VIPPS'),
 			('pay_6', 'Norway without factoring to bank account'),
 		])
-	jurid_info=fields.Text(string='Jurisdictional Information 2' ,default="Fordringer etter nærværende faktura er overdratt DNB Bank ASA, Postboks 1600 Sentrum, 0021 Oslo, tileiendom. Befriende betaling kan kun skje til DNB Bank ASA. Bankkonto 7032.05.16038. Ved betaling vennligst oppgi KIDreferanse eller fakturanummer og leverandør.")
+	jurid_info=fields.Text(string='Jurisdictional Information' ,default="Fordringer etter nærværende faktura er overdratt DNB Bank ASA, Postboks 1600 Sentrum, 0021 Oslo, tileiendom. Befriende betaling kan kun skje til DNB Bank ASA. Bankkonto 7032.05.16038. Ved betaling vennligst oppgi KIDreferanse eller fakturanummer og leverandør.")
 	
 	@api.onchange("delv_terms")
 	def _onchange_delvterms(self):
