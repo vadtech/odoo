@@ -216,7 +216,7 @@
                     </p>
                     
                     <p>Juridictional Information:</p>
-                    <p>Fordringer etter nærværende faktura er overdratt DNB Bank ASA, Postboks 1600 Sentrum, 0021 Oslo, til eiendom. Befriende betaling kan kun skje til DNB Bank ASA. Bankkonto 7032.05.16038. Ved betaling vennligst oppgi KIDreferanse eller fakturanummer og leverandør.</p>
+                      <span t-field="sale_id.main_sales_id.partner_id.jurid_info"/>
                     
                     
                     <p t-if="o.narration" name="comment">
