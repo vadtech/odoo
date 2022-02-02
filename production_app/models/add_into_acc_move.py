@@ -13,6 +13,7 @@ class add_into_acc(models.Model):
 	reference = fields.Char(string="Referece", readonly=True, required=True, copy=False, default=lambda self: _('New'))
 	sales_char=fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
 	invoice_no_name=fields.Char(string="Number",compute="id_to_int")
+	customer_name=fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
 
 
 	
