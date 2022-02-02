@@ -30,8 +30,8 @@
             </h4>
             <div class="row mt32 mb32" id="informations">
                 <div  class="col-auto col-3 mw-100 mb-2">
-                    <strong>Delivery Term:</strong>
-                    <p class="m-0"/>
+                   <strong>Delivery Term:</strong>
+                        <p  class="m-0" t-field="doc.partner_id.delv_terms"/>
                 </div>
 
                 <div class="col-auto col-3 mw-100 mb-2">
