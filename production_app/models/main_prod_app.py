@@ -161,3 +161,10 @@ class pro_ord(models.Model):
 	product_ints = fields.Text(string="Product Instruction")
 	qunt = fields.Integer(string="Quantity")
 	del_qunt = fields.Integer(string="Delivered Quantity")
+	
+	@api.model
+	def count_records(self):
+		refi = 0
+		for record in self:
+			refi = refi + 1
+		return refi
