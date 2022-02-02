@@ -54,7 +54,7 @@
 
                 <div class="col-auto col-3 mw-100 mb-2">
                     <strong>Marking:</strong>
-                    <p class="m-0" t-field="doc.main_sales_id.newMarking"/>
+                    <p class="m-0" t-field="doc.newMarking"/>
                 </div>
 
                 <div class="col-auto col-3 mw-100 mb-2">
