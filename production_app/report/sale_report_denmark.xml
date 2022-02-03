@@ -16,7 +16,7 @@
                         <InvType t-if="o.move_type == 'out_refund'">Credit Note</InvType>
                         <InvType t-if="o.move_type == 'in_refund'">Vendor Credit Note</InvType>
                         <InvType t-if="o.move_type == 'in_invoice'">Vendor Bill</InvType>
-                <InvCcy>NOK</InvCcy>
+                <InvCcy>DKK</InvCcy>
 
                <Debtor>
                 <DebtorName t-field="o.partner_id.parent_id.name"></DebtorName>
