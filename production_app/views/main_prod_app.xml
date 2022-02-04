@@ -72,6 +72,7 @@
             <tree multi_edit="1">   
                 <field name="customer_ref"/>
                 <field name="sales_id_char"/>
+                <field name="sales_person" /> 
                 <field name="state"/>
                 <field name="delivery_week"/>
                 <field name="create_date"/>
@@ -108,6 +109,7 @@
                             <br/>
                             <field name="customer_ref" string="Customer" default="New"/>
                             <field name="sales_id_char" />
+                            <field name="sales_person" />
                             <field name="order" />
                    
                         </group>
