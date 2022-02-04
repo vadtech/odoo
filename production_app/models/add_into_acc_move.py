@@ -47,6 +47,28 @@ class add_into_acc(models.Model):
 		return checksum % 10
 	
 	@api.model
+	def check_currency(self,convert):
+		for record in self:
+			if record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
+				new_money='dkk %s' %convert
+			elif record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
+				new_money='sek %s' %convert
+			else:
+				new_money = 'kr %s' %convert
+		return new_money
+	
+	@api.model
+	def check_u_currency(self):
+		for record in self:
+			if record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
+				new_sign = 'dkk'
+			elif record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
+				new_sign = 'sek'
+			else:
+				new_sign = 'nok'
+		return new_sign
+	
+	@api.model
 	def id_to_int(self):
 		for rec in self:
 			rec.invoice_no_name=str(rec.id)
