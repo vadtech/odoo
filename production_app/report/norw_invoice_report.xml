@@ -90,8 +90,8 @@
                                 <th name="th_priceunit" class="text-right">ENHETSPRIS<span style="font-size:9px" t-esc="o.check_u_currency()"/></th>
                               
                                 <th name="th_subtotal" class="text-right">
-                                    <span groups="account.group_show_line_subtotals_tax_excluded">BELØP<t t-esc="o.check_u_currency()"/></span>
-                                    <span groups="account.group_show_line_subtotals_tax_included">Total Price<t t-esc="o.check_u_currency()"/></span>
+                                    <span groups="account.group_show_line_subtotals_tax_excluded">BELØP<span style="font-size:9px">(<t t-esc="o.check_u_currency()"/>)</span></span>
+                                    <span groups="account.group_show_line_subtotals_tax_included">Total Price<span style="font-size:9px">(<t t-esc="o.check_u_currency()"/>)</span></span>
                                 </th>
                             </tr>
                         </thead>
