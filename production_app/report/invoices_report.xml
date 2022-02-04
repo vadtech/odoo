@@ -87,10 +87,10 @@
                                <th name="art_no" class="text-left"><span>Orderline NO</span></th>
                                 <th name="th_description" class="text-left"><span>Description</span></th>
                                 <th name="th_quantity" class="text-right">Quantity<span style="font-size:10px">PCS</span></th>
-                                <th name="th_priceunit" class="text-right">Unit Price<span style="font-size:10px"  t-esc="o.check_u_currency()"/></th>
+                                <th name="th_priceunit" class="text-right">Unit Price<span style="font-size:9px">(<t t-esc="o.check_u_currency()"/>)</span></th>
                                 <th name="th_subtotal" class="text-right">
-                                    <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
-                                    <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
+                                    <span groups="account.group_show_line_subtotals_tax_excluded">Amount<span style="font-size:9px">(<t t-esc="o.check_u_currency()"/>)</span></span>
+                                    <span groups="account.group_show_line_subtotals_tax_included">Total Price<span style="font-size:9px">(<t t-esc="o.check_u_currency()"/>)</span></span>
                                 </th>
                             </tr>
                         </thead>
