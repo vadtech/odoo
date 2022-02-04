@@ -48,12 +48,7 @@ class add_into_acc(models.Model):
 	@api.model
 	def check_currency(self,convert):
 		for record in self:
-			if record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
-				new_money='dkk %s' %convert
-			elif record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
-				new_money='sek %s' %convert
-			else:
-				new_money = 'kr %s' %convert
+			new_money=float(convert)
 		return new_money
 	
 	@api.model
