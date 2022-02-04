@@ -93,7 +93,7 @@
                                     <span groups="account.group_show_line_subtotals_tax_included">Total Price<span style="font-size:9px">(<t t-esc="o.check_u_currency()"/>)</span></span>
                                 </th>
                             </tr>
-                        </thead>
+                        </thead><span style="font-size:9px">(<t t-esc="o.check_u_currency()"/>)</span>
                         <tbody class="invoice_tbody">
                             <t t-set="current_subtotal" t-value="0"/>
                             <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
