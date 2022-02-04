@@ -86,8 +86,8 @@
                             <tr>
                                <th name="art_no" class="text-left"><span>Ordrelinje NR</span></th>
                                 <th name="th_description" class="text-left"><span>BELSKRIVELSE</span></th>
-                                <th name="th_quantity" class="text-right">ANTALL<span style="font-size:10px">PCS</span></th>
-                                <th name="th_priceunit" class="text-right">ENHETSPRIS<span style="font-size:9px" t-esc="o.check_u_currency()"/></th>
+                                <th name="th_quantity" class="text-right">ANTALL<span style="font-size:9px">(<t t-esc="o.check_u_currency()"/>)</span></th>
+                                <th name="th_priceunit" class="text-right">ENHETSPRIS<span style="font-size:9px">(<t t-esc="o.check_u_currency()"/>)</span></th>
                               
                                 <th name="th_subtotal" class="text-right">
                                     <span groups="account.group_show_line_subtotals_tax_excluded">BELØP<span style="font-size:9px">(<t t-esc="o.check_u_currency()"/>)</span></span>
