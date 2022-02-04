@@ -36,12 +36,12 @@
                 <t t-set="o" t-value="o.with_context(lang=lang)" />
                 <t t-set="address">                    
                          <strong>Invoice Address:</strong>
-                    <address t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                    <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
                     
                         </t>
                         <t t-set="information_block">
                 <strong>Customer Address:</strong>
-                <div t-field="o.partner_id"
+                <div t-field="o.customer_name"
                 t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'/>
             </t>
                    
