@@ -86,11 +86,11 @@
                             <tr>
                                <th name="art_no" class="text-left"><span>Ordrelinje NR</span></th>
                                 <th name="th_description" class="text-left"><span>BELSKRIVELSE</span></th>
-                                <th name="th_quantity" class="text-right">ANTALL<span style="font-size:10px">(PCS)</span></th>
-                                <th name="th_priceunit" class="text-right">ENHETSPRIS<span style="font-size:9px">(NOK)</span></th>
+                                <th name="th_quantity" class="text-right">ANTALL<span style="font-size:10px">PCS</span></th>
+                                <th name="th_priceunit" class="text-right">ENHETSPRIS<span style="font-size:9px" t-esc="o.check_u_currency()"/></th>
                               
                                 <th name="th_subtotal" class="text-right">
-                                    <span groups="account.group_show_line_subtotals_tax_excluded">BELØP<span style="font-size:9px">(NOK)</span></span>
+                                    <span groups="account.group_show_line_subtotals_tax_excluded">BELØP</span>
                                     <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
                                 </th>
                             </tr>
@@ -116,8 +116,8 @@
                                         </td>
                               
                                         <td class="text-right o_price_total">
-                                            <span class="text-nowrap" t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
-                                            <span class="text-nowrap" t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                                            <span class="text-nowrap"  groups="account.group_show_line_subtotals_tax_excluded"><t t-esc="o.check_currency(line.price_subtotal)"/></span>
+                                            <span class="text-nowrap" groups="account.group_show_line_subtotals_tax_included"><t t-esc="o.check_currency(line.price_total)"/></span>
                                         </td>
                                     </t>
                                     <t t-if="line.display_type == 'line_section'">
@@ -159,6 +159,7 @@
                                             <span t-field="o.amount_untaxed"/>
                                         </td>
                                     </tr>
+                                     <t t-if="o.link_prod_id.main_sales_id.partner_id.payment_fact != 'pay_2' and o.link_prod_id.main_sales_id.partner_id.payment_fact != 'pay_3'">
                                     <t t-foreach="o.amount_by_group" t-as="amount_by_group">
                                         <tr style="">
                                             <t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and float_compare(o.amount_untaxed, amount_by_group[2], precision_rounding=o.currency_id.rounding) == 0">
@@ -180,6 +181,7 @@
                                             </t>
                                         </tr>
                                     </t>
+                                    </t>     
                                     <tr class="border-black o_total">
                                         <td><strong>Total</strong></td>
                                         <td class="text-right">
