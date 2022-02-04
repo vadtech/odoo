@@ -16,7 +16,6 @@ class add_into_acc(models.Model):
 	customer_name=fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
 
 
-	
 	inv_state = fields.Selection(
 		string='Invoice Status',
 		tracking=True,
@@ -49,9 +48,9 @@ class add_into_acc(models.Model):
 	@api.model
 	def check_currency(self,convert):
 		for record in self:
-			if record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
+			if record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
 				new_money='dkk %s' %convert
-			elif record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
+			elif record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
 				new_money='sek %s' %convert
 			else:
 				new_money = 'kr %s' %convert
@@ -60,9 +59,9 @@ class add_into_acc(models.Model):
 	@api.model
 	def check_u_currency(self):
 		for record in self:
-			if record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
+			if record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
 				new_sign = 'dkk'
-			elif record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
+			elif record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
 				new_sign = 'sek'
 			else:
 				new_sign = 'nok'
