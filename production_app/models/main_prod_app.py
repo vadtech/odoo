@@ -25,7 +25,7 @@ class prod_order_app(models.Model):
 	count_zw=fields.Char(related='main_sales_id.partner_shipping_id.country_id.name')
 	
 	delivery_date=fields.Datetime(related='main_sales_id.expected_date', string="Delivery Date",tracking=True)
-	delivery_week=fields.Integer(string="Delivered Week",tracking=True)
+	delivery_week=fields.Integer(string="Delivery Week",tracking=True)
 	delivered_date=fields.Date(compute="_del_week",string="Delivered Date",tracking=True)
 
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
