@@ -23,6 +23,8 @@ class prod_order_app(models.Model):
 	street=fields.Char(related='main_sales_id.partner_shipping_id.street')
 	city=fields.Char(related='main_sales_id.partner_shipping_id.city')
 	count_zw=fields.Char(related='main_sales_id.partner_shipping_id.country_id.name')
+	sales_person=fields.Many2one(string="Sales Person", related="main_sales_id.user_id")
+
 	
 	delivery_date=fields.Datetime(related='main_sales_id.expected_date', string="Delivery Date",tracking=True)
 	delivery_week=fields.Integer(string="Delivery Week",tracking=True)
