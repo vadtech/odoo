@@ -90,11 +90,11 @@
                                 <th name="th_priceunit" class="text-right">ENHETSPRIS<span style="font-size:9px" t-esc="o.check_u_currency()"/></th>
                               
                                 <th name="th_subtotal" class="text-right">
-                                    <span groups="account.group_show_line_subtotals_tax_excluded">BELØP</span>
-                                    <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
+                                    <span groups="account.group_show_line_subtotals_tax_excluded"  t-esc="o.check_u_currency()">BELØP</span>
+                                    <span groups="account.group_show_line_subtotals_tax_included"  t-esc="o.check_u_currency()">Total Price</span>
                                 </th>
                             </tr>
-                        </thead><span style="font-size:9px">(NOK)</span>
+                        </thead>
                         <tbody class="invoice_tbody">
                             <t t-set="current_subtotal" t-value="0"/>
                             <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
