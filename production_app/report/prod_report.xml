@@ -9,7 +9,7 @@
 				                <div class="row mt32 mb32" id="set_into_row">
 				                <div class="col-auto col-3 mw-100 mb-2">
 				                   <h5><strong>Order ID:</strong></h5>
-				                    <p class="m-0" t-field="prod_order.id"/>
+				                    <p class="m-0" t-field="prod_order.sales_id_char"/>
 				                </div>
 
 				                <div class="col-auto col-3 mw-100 mb-2">
