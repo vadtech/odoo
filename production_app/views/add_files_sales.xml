@@ -97,14 +97,16 @@
                 <field name="jurid_info"/>
 
             </xpath>
-
-
                   
              <xpath expr="//form/sheet/div[hasclass('oe_title')]/h1/field[@name='name']" position='after'>
                 <br/>
                 <h1>ID: <field name="id"/> </h1>
             </xpath>
              
+            <xpath expr="//form/sheet/group/group/field[@name='vat']" position='after'>
+                <field name="new_vat_id"/>
+            </xpath>
+                  
         </field>
      </record>
     
