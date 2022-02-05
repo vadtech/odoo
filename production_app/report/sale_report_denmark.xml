@@ -21,7 +21,7 @@
                <Debtor>
                 <DebtorName t-field="o.partner_id.parent_id.name"></DebtorName>
                 <ClientDebtorNbr><t t-esc="o.convert_to_int(o.partner_id.id)"/></ClientDebtorNbr>
-                <DebtorVATNbr><t t-esc="o.extract_digits(o.partner_id.vat)"/></DebtorVATNbr>
+                <DebtorVATNbr><t t-esc="o.extract_digits(o.partner_id.new_vat_id)"/></DebtorVATNbr>
                 <DebtorPostalAddr t-field="o.partner_id.street"></DebtorPostalAddr>
                 <DebtorSuplAddr t-field="o.partner_id.street2"></DebtorSuplAddr>
                 <DebtorPostalCode  t-field="o.partner_id.zip">3511</DebtorPostalCode>
