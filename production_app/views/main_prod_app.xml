@@ -18,6 +18,15 @@
     <field name="code">action = records.auto_mate()</field>
 </record>
      
+     <record id="action_quto" model="ir.actions.server">
+    <field name="name">Automate me</field>
+    <field name="model_id" ref="model_res_partner"/>
+    <field name="binding_model_id" ref="model_res_partner"/>
+    <field name="binding_view_types">form,list</field>
+    <field name="state">code</field>
+    <field name="code">action = records.automate_change()</field>
+</record>
+     
      <record id="action_confirm_to" model="ir.actions.server">
     <field name="name">Mark Quotation as Confirmed</field>
     <field name="model_id" ref="model_sale_order"/>
