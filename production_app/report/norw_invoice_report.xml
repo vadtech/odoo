@@ -27,7 +27,7 @@
                       <div  class="col-auto col-3 mw-100 mb-2" style="margin-left:-220px; font-size:18px">
                           
                           <t t-if="o.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1' or o.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2'">
-                          <span t-esc="o.partner_id.new_vat_id"/> <br/>
+                          <span t-esc="o.customer_name.new_vat_id"/> <br/>
                           </t>    
                           <span>Kundenummer ID</span>
                           <span class="m-0" t-esc="o.convert_to_int(o.partner_id.id)"/>
