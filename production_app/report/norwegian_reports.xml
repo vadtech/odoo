@@ -125,8 +125,8 @@
                                     <span t-field="line.discount"/>
                                 </td>
                                 <td name="td_subtotal" class="text-right o_price_total">
-                                    <span t-field="line.price_subtotal" t-field="line.price_total" groups="account.group_show_line_subtotals_tax_excluded"/>
-                                    <span t-field="line.price_total" t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                                    <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
                                 </td>
                             </t>
                             <t t-if="line.display_type == 'line_section'">
