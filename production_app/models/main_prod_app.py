@@ -33,7 +33,7 @@ class prod_order_app(models.Model):
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
 	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
 	total_wei=fields.Float(string="Total Weight(kg)",default="0.00")
-	total_ite=fields.Char(string="Total iteams")
+	total_ite=fields.Char(string="Total Iteams")
 
 	state=fields.Selection(
         string='Status',
@@ -99,7 +99,7 @@ class prod_order_app(models.Model):
 					invoice_lines.append((0, 0, vals))
 				self.env['account.move'].create({
 					'link_prod_id':record.id,
-					'inv_state':'invc',
+					'inv_state':'not_invc',
 					'ref': record.main_sales_id.client_order_ref,
 					'state':'draft',
 					'move_type': 'out_invoice',
