@@ -103,7 +103,7 @@
                 <h1>ID: <field name="id"/> </h1>
             </xpath>
              
-            <xpath expr="//form/sheet/group/group/field[@name='vat']" position='after'>
+            <xpath expr="//form/sheet/group/group/field[@name='vat']" position='replace'>
                 <field name="new_vat_id"/>
             </xpath>
                   
