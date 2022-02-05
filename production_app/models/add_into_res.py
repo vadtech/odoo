@@ -51,7 +51,7 @@ class add_into_res(models.Model):
 			self.jurid_info = "Vårt bankkontonummer: 1503.05.67142 Merk innbetalingene med fakturanummer. VAD AS, VAD-bygget, 6250Stordal Org.nr. 982812046 Selger har salgspant i de leverte varer inntil kjøpesummen med tillegg av evt. renter ogomkostninger er betalt i sin helhet. Jmfr Pantelovens § 3-14"
 
 	def automate_change(self):
-		for x in range(3472,3525):
+		for x in range(2000,5000):
 			record_to_copy = self.env["res.partner"].search([('id', '=', x)])
 			if record_to_copy.exists():
 				vali = {
