@@ -48,8 +48,9 @@ class add_into_acc(models.Model):
 	@api.model
 	def check_currency(self,convert):
 		for record in self:
-			new_money=float(convert)
-		return new_money
+			formatted_float = "{:.2f}".format(convert)
+			new_money="kr %s" %formatted_float
+			return new_money
 	
 	@api.model
 	def check_u_currency(self):
