@@ -14,6 +14,8 @@ class add_into_res(models.Model):
 			('del_3', 'incoterms 2020-CIP'),
 			('del_4', 'incoterms 2020-DPU')])
 	detailed_terms=fields.Text(string='Detailed Delivery Terms')
+	new_vat_id=fields.Char(string='VAT')
+
 
 	payment_fact = fields.Selection(
 		string='Payment Factoring',
@@ -48,3 +50,12 @@ class add_into_res(models.Model):
 		if self.payment_fact == 'pay_5' or self.payment_fact == 'pay_6':
 			self.jurid_info = "Vårt bankkontonummer: 1503.05.67142 Merk innbetalingene med fakturanummer. VAD AS, VAD-bygget, 6250Stordal Org.nr. 982812046 Selger har salgspant i de leverte varer inntil kjøpesummen med tillegg av evt. renter ogomkostninger er betalt i sin helhet. Jmfr Pantelovens § 3-14"
 
+	def automate_change(self):
+		for x in range(36):
+			record_to_copy = self.env["res.partner"].search([('id', '=', x)])
+			if record_to_copy.exists():
+				vali = {
+					'new_vat_id': record_to_copy.vat,
+				}
+				record_to_copy.write(vali)
+			print("22222222222222222222222222222222222222222222222",record_to_copy.vat)
