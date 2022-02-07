@@ -13,10 +13,7 @@
 				                    <p class="m-0" t-field="prod_order.sales_id_char"/>
 				                </div>
 
-				                <div class="col-auto col-3 mw-100 mb-2">
-									<h5> <strong style="font-size:20px" >Order Line Id:</strong></h5>
-				                    <p class="m-0" t-field="od_lines.name_id"/>
-				                </div>
+				                
 				         		<div class="col-auto col-3 mw-100 mb-2">
 									<h5>  <strong>Delivery Week:</strong></h5>
 				                    <p class="m-0" t-field="prod_order.delivery_week"/>
@@ -40,6 +37,10 @@
 				                    <h6></h6>
 				                </div>
 				            	</div>
+							 <div class="col-auto col-3 mw-100 mb-2">
+									<h5> <strong style="font-size:20px" >Order Line Id:</strong></h5>
+				                    <p class="m-0" t-field="od_lines.name_id"/>
+				                </div>
 
 				            	<div>
 									<h5>  <strong>Product</strong></h5>
@@ -56,10 +57,7 @@
 				                    <p class="m-0" t-field="prod_order.sales_id_char"/>
 				                </div>
 
-				                <div class="col-auto col-3 mw-100 mb-2">
-									<h5> <strong style="font-size:20px" >Ordrelinje-ID:</strong></h5>
-				                    <p class="m-0" t-field="od_lines.name_id"/>
-				                </div>
+				                
 				         		<div class="col-auto col-3 mw-100 mb-2">
 									<h5>  <strong>Leveringsuke:</strong></h5>
 				                    <p class="m-0" t-field="prod_order.delivery_week"/>
@@ -83,6 +81,12 @@
 				                    <h6></h6>
 				                </div>
 				            	</div>
+				 
+				 			<div class="col-auto col-3 mw-100 mb-2">
+									<h5> <strong style="font-size:20px" >Ordrelinje-ID:</strong></h5>
+				                    <p class="m-0" t-field="od_lines.name_id"/>
+				                </div>
+				 		
 
 				            	<div>
 									<h5>  <strong>Produkt</strong></h5>
