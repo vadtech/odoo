@@ -37,7 +37,7 @@
 				                    <h6></h6>
 				                </div>
 				            	</div>
-							 <div class="col-auto col-3 mw-100 mb-2">
+							 <div>
 									<h5> <strong style="font-size:20px" >Order Line Id:</strong></h5>
 				                    <p class="m-0" t-field="od_lines.name_id"/>
 				                </div>
@@ -82,7 +82,7 @@
 				                </div>
 				            	</div>
 				 
-				 			<div class="col-auto col-3 mw-100 mb-2">
+				 			<div>
 									<h5> <strong style="font-size:20px" >Ordrelinje-ID:</strong></h5>
 				                    <p class="m-0" t-field="od_lines.name_id"/>
 				                </div>
