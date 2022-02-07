@@ -6,239 +6,228 @@
                 <t t-foreach="docs" t-as="prod_order">
 			        <t t-foreach="prod_order.main_sales_id" t-as="doc">
                     <t t-call="web.external_layout">
-                        <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
-                         <t  t-if="prod_order.main_sales_id.partner_id.payment_fact != 'pay_1'">
-        <t t-set="address">
-            <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
-                    <strong>Delivery Address:</strong>
-                    <div t-field="doc.partner_shipping_id"
-                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
-                </t>
-        </t>
-            <t t-set="information_block">
-                <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Customer and Delivery Address:</strong>
-                <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Customer Address:</strong>
-                <div t-field="doc.partner_invoice_id"
-                t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
-            </t>
-        <div class="page">
-            <div class="oe_structure"/>
-             <h4 class="mt16">
-                    <span>Packaging</span>
-                <span t-field="doc.name"/>
-            </h4>
-            <div class="row mt32 mb32" id="informations">
-                <div  class="col-auto col-3 mw-100 mb-2">
-                   <strong>Delivery Term:</strong>
-                        <p  class="m-0" t-field="doc.partner_id.delv_terms"/>
-                </div>
+                    <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+                                    <t  t-if="prod_order.main_sales_id.partner_id.payment_fact != 'pay_1'">
+                                    <t t-set="address">
+                                    <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
+                                    <strong>Delivery Address:</strong>
+                                    <div t-field="doc.partner_shipping_id"
+                                    t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                                    </t>
+                                    </t>
+                                    <t t-set="information_block">
+                                    <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Customer and Delivery Address:</strong>
+                                    <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Customer Address:</strong>
+                                    <div t-field="doc.partner_invoice_id"
+                                    t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                                    </t>
+                                    <div class="page">
+                                    <div class="oe_structure"/>
+                                    <h4 class="mt16">
+                                    <span>Packaging</span>
+                                    <span t-field="doc.name"/>
+                                    </h4>
+                                    <div class="row mt32 mb32" id="informations">
+                                    <div  class="col-auto col-3 mw-100 mb-2">
+                                    <strong>Delivery Term:</strong>
+                                    <p  class="m-0" t-field="doc.partner_id.delv_terms"/>
+                                    </div>
+                                    <div class="col-auto col-3 mw-100 mb-2">
+                                    <strong>No of Package:</strong>
+                                    <p class="m-0"><t t-esc="prod_order.pro_order_ids.count_records()"/></p>
+                                    </div>
+                                    <div  class="col-auto col-3 mw-100 mb-2">
+                                    <strong>Weight:</strong>
+                                    <p class="m-0" t-field="prod_order.total_wei"/>
+                                    </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row mt32 mb32" id="informations">
+                                    <div class="col-auto col-3 mw-100 mb-2">
+                                    <strong>Delivery Date::</strong>
+                                    <p class="m-0" t-field="doc.commitment_date"/>
+                                    </div>
+                                    <div class="col-auto col-3 mw-100 mb-2">
+                                    <strong>Marking:</strong>
+                                    <p class="m-0" t-field="doc.newMarking"/>
+                                    </div>
 
-                <div class="col-auto col-3 mw-100 mb-2">
-                    <strong>No of Package:</strong>
-                    <p class="m-0"><t t-esc="prod_order.pro_order_ids.count_records()"/></p>
-                </div>
-
-                <div  class="col-auto col-3 mw-100 mb-2">
-                    <strong>Weight:</strong>
-                    <p class="m-0" t-field="prod_order.total_wei"/>
-                </div>
-            </div>
-        <br/>
-            <div class="row mt32 mb32" id="informations">
-
-                <div class="col-auto col-3 mw-100 mb-2">
-                    <strong>Delivery Date::</strong>
-                    <p class="m-0" t-field="doc.commitment_date"/>
-                </div>
-
-                <div class="col-auto col-3 mw-100 mb-2">
-                    <strong>Marking:</strong>
-                    <p class="m-0" t-field="doc.newMarking"/>
-                </div>
-
-                <div class="col-auto col-3 mw-100 mb-2">
-                    <strong>Volume:</strong>
-                    <p class="m-0" t-field="prod_order.total_vol"/>
-                </div>
-            </div>
-
-            <!-- Is there a discount on at least one line? -->
-            <t t-set="display_discount" t-value="any(l.discount for l in doc.order_line)"/>
-
-            <table class="table table-sm o_main_table">
-                <!-- In case we want to repeat the header, remove "display: table-row-group" -->
-                <thead style="display: table-row-group">
-                    <tr>
-                        <th name="th_artno" class="text-left">Order Line</th>
-                        <th name="th_description" class="text-left">Description</th>
-                        <th name="th_quantity" class="text-right">Ordered Units<span style="font-size:10px">(PCS)</span></th>
-                        <th name="th_priceunit" class="text-right">Delivered Units<span style="font-size:10px">(PCS)</span></th>
-                    </tr>
-                </thead>
-                <tbody class="sale_tbody">
-
-                    <t t-set="current_subtotal" t-value="0"/>
-
-                    <t t-foreach="prod_order.pro_order_ids" t-as="lin">
-                        <tr t-att-class="'bg-200 font-italic o_line_note'">
-                            <t>
-                                <td name="td_artno"><span t-field="lin.name_id"/></td>
-                                <td name="td_name"><span t-field="lin.product_order"/></td>
-                                <td name="td_quantity" class="text-right">
+                                    <div class="col-auto col-3 mw-100 mb-2">
+                                    <strong>Volume:</strong>
+                                    <p class="m-0" t-field="prod_order.total_vol"/>
+                                    </div>
+                                    </div>
+                                    <!-- Is there a discount on at least one line? -->
+                                    <t t-set="display_discount" t-value="any(l.discount for l in doc.order_line)"/>
+                                    <table class="table table-sm o_main_table">
+                                    <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                                    <thead style="display: table-row-group">
+                                    <tr>
+                                    <th name="th_artno" class="text-left">Order Line</th>
+                                    <th name="th_description" class="text-left">Description</th>
+                                    <th name="th_quantity" class="text-right">Ordered Units<span style="font-size:10px">(PCS)</span></th>
+                                    <th name="th_priceunit" class="text-right">Delivered Units<span style="font-size:10px">(PCS)</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="sale_tbody">
+                                    <t t-set="current_subtotal" t-value="0"/>
+                                    <t t-foreach="prod_order.pro_order_ids" t-as="lin">
+                                    <tr t-att-class="'bg-200 font-italic o_line_note'">
+                                    <t>
+                                    <td name="td_artno"><span t-field="lin.name_id"/></td>
+                                    <td name="td_name"><span t-field="lin.product_order"/></td>
+                                    <td name="td_quantity" class="text-right">
                                     <span t-field="lin.qunt"/>
-                                </td>
-                                <td name="td_priceunit" class="text-right">
+                                    </td>
+                                    <td name="td_priceunit" class="text-right">
                                     <span t-field="lin.del_qunt"/>
-                                </td>
-                            </t>
-                        </tr>
+                                    </td>
+                                    </t>
+                                    </tr>
+                                    </t>
+                                    </tbody>
+                                    </table>
+                                    <div t-if="doc.signature" class="mt32 ml64 mr4" name="signature">
+                                    <div class="offset-8">
+                                    <strong>Signature</strong>
+                                    </div>
+                                    <div class="offset-8">
+                                    <img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>
+                                    </div>
+                                    <div class="offset-8 text-center">
+                                    <p t-field="doc.signed_by"/>
+                                    </div>
+                                    </div>
+                                    <div class="oe_structure"/>
+                                    <p t-field="doc.note" />
+                                    <p t-if="doc.payment_term_id.note">
+                                    <span t-field="doc.payment_term_id.note"/>
+                                    </p>
+                                    <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
+                                    <strong>Fiscal Position Remark:</strong>
+                                    <span t-field="doc.fiscal_position_id.sudo().note"/>
+                                    </p>
+                                    </div>
+                                    </t>
+                                    <t  t-if="prod_order.main_sales_id.partner_id.payment_fact != 'pay_1'">
+                                        <t t-set="address">
+                                        <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
+                                        <strong>Leveringsadresse:</strong>
+                                        <div t-field="doc.partner_shipping_id"
+                                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                                        </t>
+                                        </t>
+                                        <t t-set="information_block">
+                                        <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Kunde og leveringsadresse:</strong>
+                                        <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Kundeadresse:</strong>
+                                        <div t-field="doc.partner_invoice_id"
+                                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                                        </t>
+                                        <div class="page">
+                                        <div class="oe_structure"/>
+                                        <h4 class="mt16">
+                                        <span>Emballasje</span>
+                                        <span t-field="doc.name"/>
+                                        </h4>
+                                        <div class="row mt32 mb32" id="informations">
+                                        <div  class="col-auto col-3 mw-100 mb-2">
+                                        <strong>Leveringsperiode:</strong>
+                                        <p  class="m-0" t-field="doc.partner_id.delv_terms"/>
+                                        </div>
+                                        
+                                        <div class="col-auto col-3 mw-100 mb-2">
+                                        <strong>Antall pakke:</strong>
+                                        <p class="m-0"><t t-esc="prod_order.pro_order_ids.count_records()"/></p>
+                                        </div>
+                                        
+                                        <div  class="col-auto col-3 mw-100 mb-2">
+                                        <strong>Vekt:</strong>
+                                        <p class="m-0" t-field="prod_order.total_wei"/>
+                                        </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row mt32 mb32" id="informations">
+                                        
+                                        <div class="col-auto col-3 mw-100 mb-2">
+                                        <strong>Leveringsdato:</strong>
+                                        <p class="m-0" t-field="doc.commitment_date"/>
+                                        </div>
+                                        
+                                        <div class="col-auto col-3 mw-100 mb-2">
+                                        <strong>Merking:</strong>
+                                        <p class="m-0" t-field="doc.newMarking"/>
+                                        </div>
+                                        
+                                        <div class="col-auto col-3 mw-100 mb-2">
+                                        <strong>Volum:</strong>
+                                        <p class="m-0" t-field="prod_order.total_vol"/>
+                                        </div>
+                                        </div>
+                                        
+                                        <!-- Is there a discount on at least one line? -->
+                                        <t t-set="display_discount" t-value="any(l.discount for l in doc.order_line)"/>
+                                        
+                                        <table class="table table-sm o_main_table">
+                                        <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                                        <thead style="display: table-row-group">
+                                        <tr>
+                                        <th name="th_artno" class="text-left">Ordrelinje</th>
+                                        <th name="th_description" class="text-left">Beskrivelse</th>
+                                        <th name="th_quantity" class="text-right">Bestilte enheter<span style="font-size:10px">(PCS)</span></th>
+                                        <th name="th_priceunit" class="text-right">Leverte enheter<span style="font-size:10px">(PCS)</span></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="sale_tbody">
+                                        
+                                        <t t-set="current_subtotal" t-value="0"/>
+                                        
+                                        <t t-foreach="prod_order.pro_order_ids" t-as="lin">
+                                        <tr t-att-class="'bg-200 font-italic o_line_note'">
+                                        <t>
+                                        <td name="td_artno"><span t-field="lin.name_id"/></td>
+                                        <td name="td_name"><span t-field="lin.product_order"/></td>
+                                        <td name="td_quantity" class="text-right">
+                                        <span t-field="lin.qunt"/>
+                                        </td>
+                                        <td name="td_priceunit" class="text-right">
+                                        <span t-field="lin.del_qunt"/>
+                                        </td>
+                                        </t>
+                                        </tr>
+                                        </t>
+                                        </tbody>
+                                        </table>
+                                        
+                                        
+                                        <div t-if="doc.signature" class="mt32 ml64 mr4" name="signature">
+                                        <div class="offset-8">
+                                        <strong>Signatur</strong>
+                                        </div>
+                                        <div class="offset-8">
+                                        <img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>
+                                        </div>
+                                        <div class="offset-8 text-center">
+                                        <p t-field="doc.signed_by"/>
+                                        </div>
+                                        </div>
+                                        
+                                        <div class="oe_structure"/>
+                                        
+                                        <p t-field="doc.note" />
+                                        <p t-if="doc.payment_term_id.note">
+                                        <span t-field="doc.payment_term_id.note"/>
+                                        </p>
+                                        <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
+                                        <strong>Finanspolitisk posisjon Anmerkning:</strong>
+                                        <span t-field="doc.fiscal_position_id.sudo().note"/>
+                                        </p>
+                                        </div>
+                                    </t>
                     </t>
-                </tbody>
-            </table>
-
-
-            <div t-if="doc.signature" class="mt32 ml64 mr4" name="signature">
-                <div class="offset-8">
-                    <strong>Signature</strong>
-                </div>
-                <div class="offset-8">
-                    <img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>
-                </div>
-                <div class="offset-8 text-center">
-                    <p t-field="doc.signed_by"/>
-                </div>
-            </div>
-
-            <div class="oe_structure"/>
-
-            <p t-field="doc.note" />
-            <p t-if="doc.payment_term_id.note">
-                <span t-field="doc.payment_term_id.note"/>
-            </p>
-            <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
-                <strong>Fiscal Position Remark:</strong>
-                <span t-field="doc.fiscal_position_id.sudo().note"/>
-            </p>
-        </div>
-                    </t>
-                            </t>
-                        <t  t-if="prod_order.main_sales_id.partner_id.payment_fact == 'pay_1'">
-        <t t-set="address">
-            <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
-                    <strong>Leveringsadresse:</strong>
-                    <div t-field="doc.partner_shipping_id"
-                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
                 </t>
-        </t>
-            <t t-set="information_block">
-                <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Kunde og leveringsadresse:</strong>
-                <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Kundeadresse:</strong>
-                <div t-field="doc.partner_invoice_id"
-                t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
             </t>
-        <div class="page">
-            <div class="oe_structure"/>
-             <h4 class="mt16">
-                    <span>Emballasje</span>
-                <span t-field="doc.name"/>
-            </h4>
-            <div class="row mt32 mb32" id="informations">
-                <div  class="col-auto col-3 mw-100 mb-2">
-                   <strong>Leveringsperiode:</strong>
-                        <p  class="m-0" t-field="doc.partner_id.delv_terms"/>
-                </div>
-
-                <div class="col-auto col-3 mw-100 mb-2">
-                    <strong>Antall pakke:</strong>
-                    <p class="m-0"><t t-esc="prod_order.pro_order_ids.count_records()"/></p>
-                </div>
-
-                <div  class="col-auto col-3 mw-100 mb-2">
-                    <strong>Vekt:</strong>
-                    <p class="m-0" t-field="prod_order.total_wei"/>
-                </div>
-            </div>
-        <br/>
-            <div class="row mt32 mb32" id="informations">
-
-                <div class="col-auto col-3 mw-100 mb-2">
-                    <strong>Leveringsdato:</strong>
-                    <p class="m-0" t-field="doc.commitment_date"/>
-                </div>
-
-                <div class="col-auto col-3 mw-100 mb-2">
-                    <strong>Merking:</strong>
-                    <p class="m-0" t-field="doc.newMarking"/>
-                </div>
-
-                <div class="col-auto col-3 mw-100 mb-2">
-                    <strong>Volum:</strong>
-                    <p class="m-0" t-field="prod_order.total_vol"/>
-                </div>
-            </div>
-
-            <!-- Is there a discount on at least one line? -->
-            <t t-set="display_discount" t-value="any(l.discount for l in doc.order_line)"/>
-
-            <table class="table table-sm o_main_table">
-                <!-- In case we want to repeat the header, remove "display: table-row-group" -->
-                <thead style="display: table-row-group">
-                    <tr>
-                        <th name="th_artno" class="text-left">Ordrelinje</th>
-                        <th name="th_description" class="text-left">Beskrivelse</th>
-                        <th name="th_quantity" class="text-right">Bestilte enheter<span style="font-size:10px">(PCS)</span></th>
-                        <th name="th_priceunit" class="text-right">Leverte enheter<span style="font-size:10px">(PCS)</span></th>
-                    </tr>
-                </thead>
-                <tbody class="sale_tbody">
-
-                    <t t-set="current_subtotal" t-value="0"/>
-
-                    <t t-foreach="prod_order.pro_order_ids" t-as="lin">
-                        <tr t-att-class="'bg-200 font-italic o_line_note'">
-                            <t>
-                                <td name="td_artno"><span t-field="lin.name_id"/></td>
-                                <td name="td_name"><span t-field="lin.product_order"/></td>
-                                <td name="td_quantity" class="text-right">
-                                    <span t-field="lin.qunt"/>
-                                </td>
-                                <td name="td_priceunit" class="text-right">
-                                    <span t-field="lin.del_qunt"/>
-                                </td>
-                            </t>
-                        </tr>
-                    </t>
-                </tbody>
-            </table>
-
-
-            <div t-if="doc.signature" class="mt32 ml64 mr4" name="signature">
-                <div class="offset-8">
-                    <strong>Signatur</strong>
-                </div>
-                <div class="offset-8">
-                    <img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>
-                </div>
-                <div class="offset-8 text-center">
-                    <p t-field="doc.signed_by"/>
-                </div>
-            </div>
-
-            <div class="oe_structure"/>
-
-            <p t-field="doc.note" />
-            <p t-if="doc.payment_term_id.note">
-                <span t-field="doc.payment_term_id.note"/>
-            </p>
-            <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
-                <strong>Finanspolitisk posisjon Anmerkning:</strong>
-                <span t-field="doc.fiscal_position_id.sudo().note"/>
-            </p>
-        </div>
-                    </t>
-                            </t>
-                </t>
             </t>
         </template>
+
     </data>
 </odoo>
