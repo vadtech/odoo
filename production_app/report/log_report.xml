@@ -26,7 +26,7 @@
                         </thead>
 
 						<t t-foreach="search_result" t-as="line">
-                            <t t-if="line['log_state']=='create' and t-if=line['customer_no']!='' and t-if=line['acc_move_id']!='' ">
+                            <t t-if="line['log_state']=='create' and line['customer_no']!='' and line['acc_move_id']!='' ">
                         <tbody  class="invoice_tbody">
                                         <td name="invooice_id"><span  t-esc="line['acc_move_id']" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoice_line_name"><span  t-esc="line['inv_date']" t-options="{'widget': 'text'}"/></td>
@@ -56,7 +56,7 @@
                             </tr>
                         </thead>
 						<t t-foreach="search_result" t-as="line">
-						<t t-if="line['log_state']=='update' and t-if=line['customer_no']!='' and t-if=line['acc_move_id']!='' ">
+						<t t-if="line['log_state']=='update' and line['customer_no']!='' and line['acc_move_id']!='' ">
                         <tbody  class="invoice_tbody">
                                         <td name="invooice_id"><span  t-esc="line['acc_move_id']" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoice_line_name"><span  t-esc="line['inv_date']" t-options="{'widget': 'text'}"/></td>
