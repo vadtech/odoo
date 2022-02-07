@@ -45,7 +45,7 @@
                                     <div class="row mt32 mb32" id="informations">
                                     <div class="col-auto col-3 mw-100 mb-2">
                                     <strong>Delivery Date::</strong>
-                                    <p class="m-0" t-field="doc.commitment_date"/>
+                                    <p class="m-0" t-field="doc.commitment_date" t-options='{"widget": "date"}'/>
                                     </div>
                                     <div class="col-auto col-3 mw-100 mb-2">
                                     <strong>Marking:</strong>
@@ -126,7 +126,7 @@
                                         <div class="page">
                                         <div class="oe_structure"/>
                                         <h4 class="mt16">
-                                        <span>Emballasje</span>
+                                        <span>Pakkseddel</span>
                                         <span t-field="doc.name"/>
                                         </h4>
                                         <div class="row mt32 mb32" id="informations">
@@ -150,7 +150,7 @@
                                         
                                         <div class="col-auto col-3 mw-100 mb-2">
                                         <strong>Leveringsdato:</strong>
-                                        <p class="m-0" t-field="doc.commitment_date"/>
+                                        <p class="m-0" t-field="doc.commitment_date" t-options='{"widget": "date"}'/>
                                         </div>
                                         
                                         <div class="col-auto col-3 mw-100 mb-2">
