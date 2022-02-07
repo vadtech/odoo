@@ -123,7 +123,7 @@ class prod_order_app(models.Model):
 						'log_state': 'create',
 						'inv_date': record_to_update.invoice_date,
 						'due_date': record_to_update.invoice_date_due,
-						'customer_no': record_to_update.partner_id.name,
+						'customer_no': record_to_update.customer_name,
 						'untaxed_amt': record_to_update.amount_untaxed,
 						'mva': record_to_update.amount_tax,
 						'total': record_to_update.amount_total,
