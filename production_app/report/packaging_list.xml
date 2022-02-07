@@ -7,7 +7,7 @@
 			        <t t-foreach="prod_order.main_sales_id" t-as="doc">
                     <t t-call="web.external_layout">
                     <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
-                                    <t  t-if="prod_order.main_sales_id.partner_id.payment_fact != 'pay_1'">
+                                    <t  t-if="doc.partner_id.payment_fact != 'pay_1'">
                                     <t t-set="address">
                                     <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
                                     <strong>Delivery Address:</strong>
@@ -109,7 +109,7 @@
                                     </p>
                                     </div>
                                     </t>
-                                    <t  t-if="prod_order.main_sales_id.partner_id.payment_fact != 'pay_1'">
+                                    <t  t-if="doc.partner_id.payment_fact == 'pay_1'">
                                         <t t-set="address">
                                         <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
                                         <strong>Leveringsadresse:</strong>
