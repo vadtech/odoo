@@ -5,7 +5,7 @@
     <field name="name">Export To Production</field>
     <field name="model_id" ref="model_prod_order_model"/>
     <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field>
+    <field name="state">code</field> 
     <field name="code">action = records.action_prod()</field>
 </record>
      
