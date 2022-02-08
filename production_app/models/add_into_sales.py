@@ -35,8 +35,11 @@ class add_into_sales(models.Model):
 			else:
 				pass
 		return super().action_confirm()
-
-
+	
+	
+	def custom_action_draft(self):
+		for record in self:
+			record.state='draft'
 
 	def custom_action_confirm(self):
 		self.state=""
