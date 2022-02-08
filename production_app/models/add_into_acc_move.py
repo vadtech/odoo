@@ -56,7 +56,8 @@ class add_into_acc(models.Model):
 	def check_taxC(self,convert=[]):
 		for record in self:
 			for x in convert:
-				formatted_float = "{:.2f}".format(x)
+				res = ''.join(filter(lambda i: i.isdigit(), x))
+				formatted_float = "{:.2f}".format(res)
 				new_money="kr %s" %formatted_float
 		return new_money	
 	
