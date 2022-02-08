@@ -143,7 +143,7 @@
                                             <strong class="mr16">Subtotal</strong>
                                             <span
                                                 t-esc="current_subtotal"
-                                                t-options='{"widget": "display_currency": o.currency_id}'
+                                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
                                             />
                                         </td>
                                     </tr>
