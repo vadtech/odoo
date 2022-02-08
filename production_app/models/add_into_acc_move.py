@@ -53,6 +53,14 @@ class add_into_acc(models.Model):
 			return new_money
 	
 	@api.model
+	def check_taxC(self,convert=[]):
+		for record in self:
+			for x in convert:
+				formatted_float = "{:.2f}".format(x)
+				new_money="kr %s" %formatted_float
+		return new_money	
+	
+	@api.model
 	def check_u_currency(self):
 		for record in self:
 			if record.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
