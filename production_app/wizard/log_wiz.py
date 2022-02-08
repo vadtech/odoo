@@ -15,3 +15,13 @@ class report_logs(models.TransientModel):
 			'search_result':search_result,
 		}
 		return self.env.ref('production_app.log_report_option').report_action(self,data=data)
+	
+	
+class send_print_eidts(models.TransientModel):
+	_inherit = 'account.invoice.send'
+	_description = 'edit account send'
+
+	def send_and_print_action(self):
+		for record in self:
+			record.invoice_ids.inv_state='invc'	
+	
