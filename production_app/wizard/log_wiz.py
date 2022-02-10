@@ -23,5 +23,6 @@ class send_print_eidts(models.TransientModel):
 
 	def send_and_print_action(self):
 		for record in self:
-			record.invoice_ids.inv_state='invc'	
+			record.invoice_ids.inv_state='invc'
+		return super().send_and_print_action()	
 	
