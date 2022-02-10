@@ -43,6 +43,7 @@
              
              <xpath expr="//form/sheet/group/group[@id='header_left_group']/field[@name='partner_id']" position='after'>
                 <field name="sales_char"/>
+                <field name="inv_state"/>       
             </xpath>
              
              <xpath expr="//form/sheet/div[hasclass('oe_title')]/h1[hasclass('mt0')]/field[@name='name']" position='attributes'>
