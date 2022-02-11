@@ -109,7 +109,7 @@
                     <separator/>
                     <filter string="My Orders" name="my_orders" domain="[('sales_person', '=', uid)]"/>
                     <group expand="1" string="Group By">
-                    <filter string="Created Today" name="cre_today" domain="[('create_date', '=', datetime.now())]"/>
+                    <filter string="Created Today" name="cre_today" domain="[('create_date', '=', datetime.datetime.now())]"/>
                     <separator/>
                     <filter string="Create Date" name="filter_create_date" date="create_date"/>
                     </group>
