@@ -146,15 +146,15 @@ class prod_order_app(models.Model):
 		for x in range(2103):
 			record_to_copy = self.env["product.template"].search([('id', '=', x)])
 			print(record_to_copy.name)
-			check1 ="lean" in str(record_to_copy.name).lower()
-			check2 ="zeta" in str(record_to_copy.name).lower()
-			check3 ="pivot" in str(record_to_copy.name).lower()
-			check4 ="nexus" in str(record_to_copy.name).lower()
-			check5 ="meet" in str(record_to_copy.name).lower()
-			check6 ="salina" in str(record_to_copy.name).lower()
-			check7 ="santana" in str(record_to_copy.name).lower()
-			check8 ="bankett" in str(record_to_copy.name).lower()
-			check9 ="other" in str(record_to_copy.name).lower()
+			check1 ="lean" in str(record_to_copy.name).lower().replace(',', '')
+			check2 ="zeta" in str(record_to_copy.name).lower().replace(',', '')
+			check3 ="pivot" in str(record_to_copy.name).lower().replace(',', '')
+			check4 ="nexus" in str(record_to_copy.name).lower().replace(',', '')
+			check5 ="meet" in str(record_to_copy.name).lower().replace(',', '')
+			check6 ="salina" in str(record_to_copy.name).lower().replace(',', '')
+			check7 ="santana" in str(record_to_copy.name).lower().replace(',', '')
+			check8 ="bankett" in str(record_to_copy.name).lower().replace(',', '')
+			check9 ="other" in str(record_to_copy.name).lower().replace(',', '')
 			if check1 == True:
 				record_to_copy.model="lean"
 			elif check2 == True:
