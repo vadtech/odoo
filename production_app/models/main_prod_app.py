@@ -54,7 +54,7 @@ class prod_order_app(models.Model):
 	def _del_date(self):
 		for rec in self:
 			if rec.main_sales_id.commitment_date==False:
-				if rec.main_sales_id.expected_date=True:
+				if rec.main_sales_id.expected_date==True:
 					rec.delivery_date=rec.main_sales_id.expected_date
 				else:
 					pass
