@@ -143,36 +143,38 @@ class prod_order_app(models.Model):
 		# 		}
 		# 		record_to_copy.write(vali)
 		
-		for x in range(2103):
+		for x in range(7555):
 			record_to_copy = self.env["product.template"].search([('id', '=', x)])
-			print(record_to_copy.name)
-			check1 ="lean" in str(record_to_copy.name).lower().replace(',', '')
-			check2 ="zeta" in str(record_to_copy.name).lower().replace(',', '')
-			check3 ="pivot" in str(record_to_copy.name).lower().replace(',', '')
-			check4 ="nexus" in str(record_to_copy.name).lower().replace(',', '')
-			check5 ="meet" in str(record_to_copy.name).lower().replace(',', '')
-			check6 ="salina" in str(record_to_copy.name).lower().replace(',', '')
-			check7 ="santana" in str(record_to_copy.name).lower().replace(',', '')
-			check8 ="bankett" in str(record_to_copy.name).lower().replace(',', '')
-			check9 ="other" in str(record_to_copy.name).lower().replace(',', '')
-			if check1 == True:
-				record_to_copy.model="lean"
-			elif check2 == True:
-				record_to_copy.model = "zeta"
-			elif check3 == True:
-				record_to_copy.model = "pivot"
-			elif check4 == True:
-				record_to_copy.model = "nexus"
-			elif check5 == True:
-				record_to_copy.model = "meet"
-			elif check6 == True:
-				record_to_copy.model = "salina"
-			elif check7 == True:
-				record_to_copy.model = "santana"
-			elif check8 == True:
-				record_to_copy.model = "bankett"
+			if record_to_copy.exists():
+				check1 ="lean" in str(record_to_copy.name).lower().replace(',', '')
+				check2 ="zeta" in str(record_to_copy.name).lower().replace(',', '')
+				check3 ="pivot" in str(record_to_copy.name).lower().replace(',', '')
+				check4 ="nexus" in str(record_to_copy.name).lower().replace(',', '')
+				check5 ="meet" in str(record_to_copy.name).lower().replace(',', '')
+				check6 ="salina" in str(record_to_copy.name).lower().replace(',', '')
+				check7 ="santana" in str(record_to_copy.name).lower().replace(',', '')
+				check8 ="bankett" in str(record_to_copy.name).lower().replace(',', '')
+				check9 ="other" in str(record_to_copy.name).lower().replace(',', '')
+				if check1 == True:
+					record_to_copy.model="lean"
+				elif check2 == True:
+					record_to_copy.model = "zeta"
+				elif check3 == True:
+					record_to_copy.model = "pivot"
+				elif check4 == True:
+					record_to_copy.model = "nexus"
+				elif check5 == True:
+					record_to_copy.model = "meet"
+				elif check6 == True:
+					record_to_copy.model = "salina"
+				elif check7 == True:
+					record_to_copy.model = "santana"
+				elif check8 == True:
+					record_to_copy.model = "bankett"
+				else:
+					record_to_copy.model = "other"
 			else:
-				record_to_copy.model = "other"
+				pass
 					
 					
 
