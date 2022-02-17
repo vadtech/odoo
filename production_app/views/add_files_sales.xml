@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="product_template_only_view" model="ir.ui.view">
+    <field name="name">product.template.product.form1</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product.product_template_form_view"/>
+    <field name="arch" type="xml">
+        <xpath expr="//form/sheet/div[hasclass('oe_title')]" position="after">
+                <group>
+                    <group>
+                         <field name="model" string="Model"/>
+                    </group>
+                </group>
+        </xpath>
+    </field>
+    </record>
           
         <record id="account_move_tree" model="ir.ui.view">
         <field name="name">account.move.tree</field>
