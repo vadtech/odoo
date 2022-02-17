@@ -42,7 +42,7 @@ class add_into_sales(models.Model):
 			record.state='draft'
 
 	def custom_action_confirm(self):
-		self.state=""
+		self.state="done"
 		for record in self:
 			created_all = self.env["prod_order.model"].search_count([('main_sales_id', '=', record.id)])
 			temp_ids=[]

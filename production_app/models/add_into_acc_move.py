@@ -129,6 +129,27 @@ class add_into_acc(models.Model):
 			})
 		return reference
 	
+	def cal_tot_untaxed_amt(self,date_form,date_to):
+		total=0
+		search_result = self.env['logs.model'].search_read(["&", ('create_date', '>=',date_form), ('create_date', '<=',date_to)])
+		for rec in search_result:
+			total+=rec['untaxed_amt']
+		return total
+
+	def cal_tot_mva(self, date_form, date_to):
+		mva_total=0
+		search_result = self.env['logs.model'].search_read(["&", ('create_date', '>=', date_form), ('create_date', '<=', date_to)])
+		for rec in search_result:
+			mva_total += rec['mva']
+		return mva_total
+
+	def cal_log_total(self, date_form, date_to):
+		mv_totals=0
+		search_result = self.env['logs.model'].search_read(["&", ('create_date', '>=', date_form), ('create_date', '<=', date_to)])
+		for rec in search_result:
+			mv_totals += rec['total']
+		return mv_totals
+	
 class branch_pdf_ids(models.Model):
 	"""real name of the model"""
 	_name = "inv_pdfs.model"

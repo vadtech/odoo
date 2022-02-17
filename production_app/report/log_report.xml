@@ -3,13 +3,12 @@
 	<data>
         <template id="logs_rep_xml">
             <t t-call="web.html_container">
-				 <t t-call="web.external_layout">
+		<t t-call="web.external_layout">
                      <div style="margin-left:0px;margin-top:-45px;">
-                         <h3>Fakturalogg:</h3>
-						<h5>Periode: <t t-esc="form['date_form']"/> -- <t t-esc="form['date_to']"/></h5>
+                     <h3>Fakturalogg:</h3>
+			<h5>Periode: <t t-esc="form['date_form']"/> -- <t t-esc="form['date_to']"/></h5>
                     </div>
                      <t>
-                 
                         <table  class="table">
                             <br/>
                         <thead>
@@ -17,30 +16,40 @@
                                <th name="art_no" class="text-left"><span>Faktura nr</span></th>
                                 <th name="th_description" class="text-left"><span>Fakturadato</span></th>
                                 <th name="th_descpion" class="text-left"><span>Forfallsdato</span></th>
-                                <th name="th_escption" class="text-left"><span>Kundenr</span></th>
+                                <th name="th_escption" class="text-left"><span>Kundenavn</span></th>
                                 <th name="th_detion" class="text-right"><span>Netto</span></th>
                                 <th name="th_dscption" class="text-right"><span>MVA</span></th>
                                 <th name="th_descpon" class="text-right"><span>Brutto</span></th>
                             </tr>
                         </thead>
-
-						<t t-foreach="search_result" t-as="line">
-                            
+			<t t-foreach="search_result" t-as="line">    
                         <tbody  class="invoice_tbody">
-                                        <td name="invooice_id"><span  t-esc="line['acc_move_id']" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line_name"><span  t-esc="line['inv_date']" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_inoice_line_name"><span  t-esc="line['due_date']" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_indvoice_line_name"><span t-esc="line['customer_no']" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_indvoice_ine_name"><span  t-esc="line['untaxed_amt']" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_indvoiceline_name"><span  t-esc="line['mva']" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_indvoic_line_name"><span  t-esc="line['total']" t-options="{'widget': 'text'}"/></td>
+				<td name="invooice_id"><span  t-esc="line['acc_move_id']" t-options="{'widget': 'text'}"/></td>
+				<td name="account_invoice_line_name"><span  t-esc="line['inv_date']" t-options="{'widget': 'text'}"/></td>
+				<td name="account_inoice_line_name"><span  t-esc="line['due_date']" t-options="{'widget': 'text'}"/></td>
+				<td name="account_indvoice_line_name"><span t-esc="line['customer_no']" t-options="{'widget': 'text'}"/></td>
+				<td name="account_indvoice_ine_name"><span  t-if="line['untaxed_amt']==False" t-options="{'widget': 'text'}">0,00</span><span t-if="line['untaxed_amt']!=False" t-esc="line['untaxed_amt']" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_indvoiceline_name"><span t-if="line['mva']==False"  t-options="{'widget': 'text'}">0,00</span><span t-if="line['mva']!=False" t-esc="line['mva']" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_indvoic_line_name"><span t-if="line['total']==False" t-options="{'widget': 'text'}">0,00</span><span t-if="line['total']!=False" t-esc="line['total']" t-options="{'widget': 'text'}"/></td>
                         </tbody>
-                           
                         </t>
-                    </table>
+                    	</table>    
                      </t>
- 
-				 </t>
+			 <table align="right" class="table table-striped" style="width:40%">
+                              <tr>
+                                <th>Sum uten MVA</th>
+                                <th>kr <t t-esc="docs.cal_tot_untaxed_amt(form['date_form'],form['date_to'])"/></th>
+                              </tr>
+                              <tr>
+                                <td>Sum MVA</td>
+                                <td>kr <t t-esc="docs.cal_tot_mva(form['date_form'],form['date_to'])"/></td>
+                              </tr>
+                                <tr>
+                                <td>Sum med MVA</td>
+                                <td>kr <t t-esc="docs.cal_log_total(form['date_form'],form['date_to'])"/></td>
+                              </tr>
+                            </table>
+		 </t>
                  </t>
         </template>
    	</data>
