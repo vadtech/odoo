@@ -27,7 +27,7 @@ class prod_order_app(models.Model):
 
 	
 	delivery_date=fields.Datetime(compute="_del_date", string="Delivery Date",tracking=True)
-	delivery_week=fields.Integer(compute="_del_week",string="Delivery Week",tracking=True)
+	delivery_week=fields.Integer(string="Delivery Week",tracking=True)
 	delivered_date=fields.Date(string="Delivered Date",tracking=True)
 
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
