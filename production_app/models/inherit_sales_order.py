@@ -12,5 +12,8 @@ class add_into_order_line(models.Model):
 
 	def _cal_disamount(self):
 		for rec in self:
-			total = self.price_subtotal * 100 / self.discount
-			rec.disAmount = self.discount/100 * total
+			if rec.discount!=0
+				total = rec.price_subtotal * 100 / rec.discount
+				rec.disAmount = rec.discount/100 * total
+			else:
+				pass
