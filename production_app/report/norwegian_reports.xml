@@ -119,7 +119,7 @@
                                     <span t-field="line.product_uom"/>
                                 </td>
                                 <td name="td_priceunit" class="text-right">
-                                    <span t-field="line.price_unit"/>
+                                    <span t-field="line.price_subtotal"/>
                                 </td>
                                 <td t-if="display_discount" class="text-right" groups="product.group_discount_per_so_line">
                                     <span t-field="line.discount"/>
