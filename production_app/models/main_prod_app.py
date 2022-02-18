@@ -137,6 +137,49 @@ class prod_order_app(models.Model):
 						'mva': record_to_update.amount_tax,
 						'total': record_to_update.amount_total,
 					})
+	def test_me_stan(self):
+		# for x in range(100):
+		# 	record_to_copy = self.env["account.move"].search([('id', '=', x)])
+		# 	if record_to_copy.exists():
+		# 		vali = {
+		# 			'new_invoice_no': record_to_copy.id,
+		# 		}
+		# 		record_to_copy.write(vali)
+		
+		for x in range(7555):
+			record_to_copy = self.env["product.template"].search([('id', '=', x)])
+			if record_to_copy.exists():
+				check1 ="lean" in str(record_to_copy.name).lower().replace(',', '')
+				check2 ="zeta" in str(record_to_copy.name).lower().replace(',', '')
+				check3 ="pivot" in str(record_to_copy.name).lower().replace(',', '')
+				check4 ="nexus" in str(record_to_copy.name).lower().replace(',', '')
+				check5 ="meet" in str(record_to_copy.name).lower().replace(',', '')
+				check6 ="salina" in str(record_to_copy.name).lower().replace(',', '')
+				check7 ="santana" in str(record_to_copy.name).lower().replace(',', '')
+				check8 ="bankett" in str(record_to_copy.name).lower().replace(',', '')
+				check9 ="other" in str(record_to_copy.name).lower().replace(',', '')
+				if check1 == True:
+					record_to_copy.model="lean"
+				elif check2 == True:
+					record_to_copy.model = "zeta"
+				elif check3 == True:
+					record_to_copy.model = "pivot"
+				elif check4 == True:
+					record_to_copy.model = "nexus"
+				elif check5 == True:
+					record_to_copy.model = "meet"
+				elif check6 == True:
+					record_to_copy.model = "salina"
+				elif check7 == True:
+					record_to_copy.model = "santana"
+				elif check8 == True:
+					record_to_copy.model = "bankett"
+				else:
+					record_to_copy.model = "other"
+			else:
+				pass
+					
+					
 
 class log_invoice_app(models.Model):
 	"""real name of the model"""

@@ -8,6 +8,14 @@
     <field name="state">code</field> 
     <field name="code">action = records.action_prod()</field>
 </record>
+    
+ <record id="action_test_me" model="ir.actions.server">
+    <field name="name">Lest Run</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.test_me_stan()</field>
+</record>
      
    <record id="automate" model="ir.actions.server">
     <field name="name">Automate</field>
