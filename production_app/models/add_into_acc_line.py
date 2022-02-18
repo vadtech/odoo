@@ -6,6 +6,7 @@ class add_into_order_line(models.Model):
 	_description="Moddification of aacount move line"
 
 	acc_disAmount=fields.Integer( string='line Discount Amount')
+	linediscPerct=fields.Integer( string='line Discount %')
 
 
 
