@@ -5,8 +5,8 @@ class add_into_order_line(models.Model):
 	_inherit ="account.move.line"
 	_description="Moddification of aacount move line"
 
-	acc_disAmount=fields.Integer( string='line Discount Amount', compute="sale_line_ids.acc_disAmount")
-	linediscPerct=fields.Integer( string='line Discount %', compute="sale_line_ids.linediscPerct")
+	acc_disAmount=fields.Integer( string='line Discount Amount')
+	linediscPerct=fields.Integer( string='line Discount %')
 
 
 
