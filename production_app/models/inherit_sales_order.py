@@ -16,4 +16,4 @@ class add_into_order_line(models.Model):
 				total = rec.price_subtotal * 100 / rec.discount
 				rec.disAmount = rec.discount/100 * total
 			else:
-				pass
+				rec.disAmount=0
