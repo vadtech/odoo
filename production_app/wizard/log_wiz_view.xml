@@ -50,7 +50,7 @@
                         <field name="year"/>
                     </group>
                     <footer>
-                        <button name="royalties_logs_appoint" type="object" string="Print" class="btn-secondary" />
+                        <button name="royalties_lean_report" type="object" string="Print" class="btn-secondary" />
                         <button string="Cancel" class="btn-secondary" special="cancel"/>
                     </footer>
                 </form>
