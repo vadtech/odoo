@@ -1,13 +1,13 @@
 from odoo import fields, models, api , _
 from datetime import datetime
-from datetime import timedelta
+from datetime import timedelta 
 
 
 class report_logs(models.TransientModel):
 	"""real name of the model"""
 	_name = "log_wiz.model"
 	_description = "report logs"
-
+ 
 	date_form = fields.Date(required=True ,string="Date From")
 	date_to = fields.Date(required=True ,string="Date To")
 
