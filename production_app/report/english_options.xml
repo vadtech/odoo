@@ -11,6 +11,16 @@
             <field name="report_name">production_app.english_reports</field>
             <field name="binding_model_id" ref="model_sale_order"/>
         </record> 
+        
+         <record id="royalties_option" model="ir.actions.report">
+            <field name="name">Royaties Reports</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">production_app.royaties_report</field>
+            <field name="report_file">production_app.royaties_report</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+        </record>
+        
         <record id="Bunch_edited_xml" model="ir.actions.report">
             <field name="name">Bunch Reports</field>
             <field name="model">inv_pdfs.model</field>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="royaties_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div style="margin-left:0px;margin-top:-45px;">
+						<h3>Period: <t t-esc="month"/> -- <t t-esc="year"/></h3>
+                    </div>
+                    <h4 style="text-transform: uppercase;" >Model : <t t-esc="model"/></h4>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                                <th name="th_description" class="text-left"><span>ART NO /  PRODUCT NAME</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="model_need" t-as="line">
+                        <tbody  class="invoice_tbody">
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="'%.2f'%(line['units'])" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="'%.2f'%(line['amount'])" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="1">Summary :</th>
+                                  <td><t t-esc="'%.2f'%(lean_tot_units)"/></td>
+                                  <td><t t-esc="'%.2f'%(lean_tot_amt)"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+
+                    <br/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

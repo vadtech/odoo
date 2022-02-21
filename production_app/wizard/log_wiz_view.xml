@@ -34,4 +34,41 @@
         parent="account.menu_finance_reports"
         action="report_logs_action"
         sequence="-50"/>
+        
+            <record id="royalties_logs_form" model="ir.ui.view">
+            <field name="name">royalties.logs.form</field>
+            <field name="model">royalties.model</field>
+            <field name="arch" type="xml">
+                <form string="royalties appoint">
+                    <group>
+                        <field name="model"/>
+                    </group>    
+                    <group>
+                        <field name="date_month"/>
+                    </group>
+                    <group>
+                        <field name="year"/>
+                    </group>
+                    <footer>
+                        <button name="royalties_lean_report" type="object" string="Print" class="btn-secondary" />
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+    <record id="royalties_logs_action" model="ir.actions.act_window">
+            <field name="name">Royalties Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">royalties.model</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="royalties_logs_form"/>
+            <field name="target">new</field>
+        </record>
+
+<menuitem id="new_royalties"
+        name="Royalties Report"
+        parent="account.menu_finance_reports"
+        action="royalties_logs_action"
+        sequence="-60"/>
 </odoo>
