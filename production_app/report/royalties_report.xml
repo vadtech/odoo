@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="royaties_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div style="margin-left:0px;margin-top:-45px;">
+						<h3>Period: <t t-esc="month"/> -- <t t-esc="year"/></h3>
+                    </div>
+                    <br/>
+                        <h4>Model : Lean</h4>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                               <th name="art_no" class="text-left"><span>Art No</span></th>
+                                <th name="th_description" class="text-left"><span>Product Name</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="lean" t-as="line">
+                        <tbody  class="invoice_tbody">
+                            <td name="invooice_id"><span t-options="{'widget': 'text'}"/></td>
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="line['units']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="line['amount']" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="2">Summary :</th>
+                                  <td><t t-esc="lean_tot_units"/></td>
+                                  <td><t t-esc="lean_tot_amt"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+
+                        <h4>Model : Zeta</h4>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                               <th name="art_no" class="text-left"><span>Art No</span></th>
+                                <th name="th_description" class="text-left"><span>Product Name</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="zeta" t-as="line">
+                        <tbody  class="invoice_tbody">
+                            <td name="invooice_id"><span t-options="{'widget': 'text'}"/></td>
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="line['units']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="line['amount']" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="2">Summary :</th>
+                                  <td><t t-esc="zeta_tot_units"/></td>
+                                  <td><t t-esc="zeta_tot_amt"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+
+                     <h4>Model : Pivot</h4>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                               <th name="art_no" class="text-left"><span>Art No</span></th>
+                                <th name="th_description" class="text-left"><span>Product Name</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="pivot" t-as="line">
+                        <tbody  class="invoice_tbody">
+                            <td name="invooice_id"><span t-options="{'widget': 'text'}"/></td>
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="line['units']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="line['amount']" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="2">Summary :</th>
+                                  <td><t t-esc="pivot_tot_units"/></td>
+                                  <td><t t-esc="pivot_tot_amt"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+
+
+                     <h4>Model : Nexus</h4>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                               <th name="art_no" class="text-left"><span>Art No</span></th>
+                                <th name="th_description" class="text-left"><span>Product Name</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="nexus" t-as="line">
+                        <tbody  class="invoice_tbody">
+                            <td name="invooice_id"><span t-options="{'widget': 'text'}"/></td>
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="line['units']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="line['amount']" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="2">Summary :</th>
+                                  <td><t t-esc="nexus_tot_units"/></td>
+                                  <td><t t-esc="nexus_tot_amt"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+
+
+                    <h4>Model : Meet</h4>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                               <th name="art_no" class="text-left"><span>Art No</span></th>
+                                <th name="th_description" class="text-left"><span>Product Name</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="meet" t-as="line">
+                        <tbody  class="invoice_tbody">
+                            <td name="invooice_id"><span t-options="{'widget': 'text'}"/></td>
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="line['units']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="line['amount']" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="2">Summary :</th>
+                                  <td><t t-esc="meet_tot_units"/></td>
+                                  <td><t t-esc="meet_tot_amt"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+
+                    <h4>Model : Salina</h4>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                               <th name="art_no" class="text-left"><span>Art No</span></th>
+                                <th name="th_description" class="text-left"><span>Product Name</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="salina" t-as="line">
+                        <tbody  class="invoice_tbody">
+                            <td name="invooice_id"><span t-options="{'widget': 'text'}"/></td>
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="line['units']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="line['amount']" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="2">Summary :</th>
+                                  <td><t t-esc="salina_tot_units"/></td>
+                                  <td><t t-esc="salina_tot_amt"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+
+                     <h4>Model : Santan</h4>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                               <th name="art_no" class="text-left"><span>Art No</span></th>
+                                <th name="th_description" class="text-left"><span>Product Name</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="santan" t-as="line">
+                        <tbody  class="invoice_tbody">
+                            <td name="invooice_id"><span t-options="{'widget': 'text'}"/></td>
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="line['units']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="line['amount']" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="2">Summary :</th>
+                                  <td><t t-esc="santana_tot_units"/></td>
+                                  <td><t t-esc="santana_tot_amt"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+
+                       <h4>Model : Bankett</h4>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                               <th name="art_no" class="text-left"><span>Art No</span></th>
+                                <th name="th_description" class="text-left"><span>Product Name</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="bankett" t-as="line">
+                        <tbody  class="invoice_tbody">
+                            <td name="invooice_id"><span t-options="{'widget': 'text'}"/></td>
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="line['units']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="line['amount']" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="2">Summary :</th>
+                                  <td><t t-esc="bankett_tot_units"/></td>
+                                  <td><t t-esc="bankett_tot_amt"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+
+                       <h4>Model : Other</h4>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                               <th name="art_no" class="text-left"><span>Art No</span></th>
+                                <th name="th_description" class="text-left"><span>Product Name</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="other" t-as="line">
+                        <tbody  class="invoice_tbody">
+                            <td name="invooice_id"><span t-options="{'widget': 'text'}"/></td>
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="line['units']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="line['amount']" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="2">Summary :</th>
+                                  <td><t t-esc="other_tot_units"/></td>
+                                  <td><t t-esc="other_tot_amt"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
