@@ -290,5 +290,5 @@ class report_royalties(models.TransientModel):
 			'santana': [i for i in santana if i],
 			'bankett': [i for i in bankett if i],
 		}
-		return self.env.ref('hos_production_app.royalties_option').report_action(self, data=data)
+		return self.env.ref('production_app.royalties_option').report_action(self, data=data)
 	
