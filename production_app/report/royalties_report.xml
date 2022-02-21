@@ -28,7 +28,7 @@
                         </t>
                              <tfoot>
                                 <tr>
-                                  <th colspan="2">Summary :</th>
+                                  <th colspan="1">Summary :</th>
                                   <td><t t-esc="lean_tot_units"/></td>
                                   <td><t t-esc="lean_tot_amt"/></td>
                                 </tr>
@@ -54,7 +54,7 @@
                         </t>
                              <tfoot>
                                 <tr>
-                                  <th colspan="2">Summary :</th>
+                                  <th colspan="1">Summary :</th>
                                   <td><t t-esc="'%.2f'%(zeta_tot_units)"/></td>
                                   <td><t t-esc="'%.2f'%(zeta_tot_amt)"/></td>
                                 </tr>
@@ -80,7 +80,7 @@
                         </t>
                              <tfoot>
                                 <tr>
-                                  <th colspan="2">Summary :</th>
+                                  <th colspan="1">Summary :</th>
                                   <td><t t-esc="'%.2f'%(pivot_tot_units)"/></td>
                                   <td><t t-esc="'%.2f'%(pivot_tot_amt)"/></td>
                                 </tr>
@@ -107,7 +107,7 @@
                         </t>
                              <tfoot>
                                 <tr>
-                                  <th colspan="2">Summary :</th>
+                                  <th colspan="1">Summary :</th>
                                   <td><t t-esc="'%.2f'%(nexus_tot_units)"/></td>
                                   <td><t t-esc="'%.2f'%(nexus_tot_amt)"/></td>
                                 </tr>
@@ -134,7 +134,7 @@
                         </t>
                              <tfoot>
                                 <tr>
-                                  <th colspan="2">Summary :</th>
+                                  <th colspan="1">Summary :</th>
                                   <td><t t-esc="'%.2f'%(meet_tot_units)"/></td>
                                   <td><t t-esc="'%.2f'%(meet_tot_amt)"/></td>
                                 </tr>
@@ -160,7 +160,7 @@
                         </t>
                              <tfoot>
                                 <tr>
-                                  <th colspan="2">Summary :</th>
+                                  <th colspan="1">Summary :</th>
                                   <td><t t-esc="'%.2f'%(salina_tot_units)"/></td>
                                   <td><t t-esc="'%.2f'%(salina_tot_amt)"/></td>
                                 </tr>
@@ -186,7 +186,7 @@
                         </t>
                              <tfoot>
                                 <tr>
-                                  <th colspan="2">Summary :</th>
+                                  <th colspan="1">Summary :</th>
                                   <td><t t-esc="'%.2f'%(santana_tot_units)"/></td>
                                   <td><t t-esc="'%.2f'%(santana_tot_amt)"/></td>
                                 </tr>
@@ -212,7 +212,7 @@
                         </t>
                              <tfoot>
                                 <tr>
-                                  <th colspan="2">Summary :</th>
+                                  <th colspan="1">Summary :</th>
                                   <td><t t-esc="'%.2f'%(bankett_tot_units)"/></td>
                                   <td><t t-esc="'%.2f'%(bankett_tot_amt)"/></td>
                                 </tr>
@@ -238,7 +238,7 @@
                         </t>
                              <tfoot>
                                 <tr>
-                                  <th colspan="2">Summary :</th>
+                                  <th colspan="1">Summary :</th>
                                   <td><t t-esc="'%.2f'%(other_tot_units)"/></td>
                                   <td><t t-esc="'%.2f'%(other_tot_amt)"/></td>
                                 </tr>
