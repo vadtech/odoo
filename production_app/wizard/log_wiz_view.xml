@@ -6,9 +6,6 @@
             <field name="arch" type="xml">
                 <form string="report appoint">
                     <group>
-                        <field name="model"/>
-                    </group>    
-                    <group>
                         <field name="date_form"/>
                     </group>
                     <group>
@@ -43,6 +40,9 @@
             <field name="model">royalties.model</field>
             <field name="arch" type="xml">
                 <form string="royalties appoint">
+                    <group>
+                        <field name="model"/>
+                    </group>    
                     <group>
                         <field name="date_month"/>
                     </group>
