@@ -115,7 +115,7 @@ class report_royalties(models.TransientModel):
 			'lean_tot_amt': lean_tot_amt,
 			'model_need': [i for i in model_need if i],
 		}
-		return self.env.ref('hos_production_app.royalties_option').report_action(self, data=data)
+		return self.env.ref('production_app.royalties_option').report_action(self, data=data)
 
 
 
