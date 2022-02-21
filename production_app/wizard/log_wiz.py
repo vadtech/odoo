@@ -188,7 +188,7 @@ class report_royalties(models.TransientModel):
 					if pivot[rec]['prod_name'] == pivot[sub_rec]['prod_name']:
 						pivot[rec]['units'] += pivot[sub_rec]['units']
 						pivot[rec]['amount'] += pivot[sub_rec]['amount']
-						pivot_tot_unitspivot[sub_rec].clear()
+						pivot[sub_rec].clear()
 			if pivot[rec] != {}:
 				pivot_tot_units += pivot[rec]['units']
 				pivot_tot_amt += pivot[rec]['amount']
