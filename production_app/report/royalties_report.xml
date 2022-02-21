@@ -27,8 +27,8 @@
                              <tfoot>
                                 <tr>
                                   <th colspan="1">Summary :</th>
-                                  <td><t t-esc="lean_tot_units"/></td>
-                                  <td><t t-esc="lean_tot_amt"/></td>
+                                  <td><t t-esc="'%.2f'%(lean_tot_units)"/></td>
+                                  <td><t t-esc="'%.2f'%(lean_tot_amt)"/></td>
                                 </tr>
                            </tfoot>
                     </table>
