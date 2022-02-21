@@ -6,6 +6,9 @@
             <field name="arch" type="xml">
                 <form string="report appoint">
                     <group>
+                        <field name="model"/>
+                    </group>    
+                    <group>
                         <field name="date_form"/>
                     </group>
                     <group>
