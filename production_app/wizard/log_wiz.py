@@ -1,4 +1,7 @@
 from odoo import fields, models, api , _
+from datetime import datetime
+from datetime import timedelta
+
 
 class report_logs(models.TransientModel):
 	"""real name of the model"""
