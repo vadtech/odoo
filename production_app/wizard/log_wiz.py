@@ -103,9 +103,9 @@ class report_royalties(models.TransientModel):
 						model_need[rec]['amount'] += model_need[sub_rec]['amount']
 						model_need[sub_rec].clear()
 
-		if model_need[rec] != {}:
-			lean_tot_units += model_need[rec]['units']
-			lean_tot_amt += model_need[rec]['amount']
+			if model_need[rec] != {}:
+				lean_tot_units += model_need[rec]['units']
+				lean_tot_amt += model_need[rec]['amount']
 
 		data = {
 			'model':self.model,
