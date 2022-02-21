@@ -12,7 +12,6 @@
                         <table  class="table">
                         <thead>
                             <tr>
-                               <th name="art_no" class="text-left"><span>Art No</span></th>
                                 <th name="th_description" class="text-left"><span>Art/No Product Name</span></th>
                                 <th name="th_descpion" class="text-left"><span>Units</span></th>
                                 <th name="th_descpion" class="text-left"><span>Amount</span></th>
@@ -20,7 +19,6 @@
                         </thead>
 						<t t-foreach="lean" t-as="line">
                         <tbody  class="invoice_tbody">
-                            <td name="invooice_id"><span t-options="{'widget': 'text'}"/></td>
                             <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
                             <td name="account_inoice_line_name"><span  t-esc="'%.2f'%(line['units'])" t-options="{'widget': 'text'}"/></td>
                             <td name="account_inoice_line_ame"><span  t-esc="'%.2f'%(line['amount'])" t-options="{'widget': 'text'}"/></td>
