@@ -27,7 +27,7 @@ class prod_order_app(models.Model):
 
 	
 	delivery_date=fields.Datetime(compute="_del_date", string="Delivery Date",tracking=True)
-	delivery_week=fields.Integer(string="Delivery Week",tracking=True)
+	delivery_week=fields.Integer(compute="_del_week" ,string="Delivery Week",tracking=True)
 	delivered_date=fields.Date(string="Delivered Date",tracking=True)
 
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
@@ -48,18 +48,21 @@ class prod_order_app(models.Model):
 	def _del_week(self):
 		for rec in self:
 			if rec.delivery_date==False:
-				rec.delivery_week=0
+				pass
 			else:
-				rec.delivery_week=rec.delivery_date.strftime("%w")
+				rec.delivery_week = rec.delivery_date.strftime("%w")
+
+
 	def _del_date(self):
 		for rec in self:
-			if rec.main_sales_id.commitment_date==False:
-				if rec.main_sales_id.expected_date==True:
-					rec.delivery_date=rec.main_sales_id.expected_date
-				else:
-					pass
-			else:
+			if rec.main_sales_id.commitment_date!=False:
 				rec.delivery_date=rec.main_sales_id.commitment_date
+				rec.delivery_week = rec.delivery_date.strftime("%w")
+			elif rec.main_sales_id.expected_date!=False:
+				rec.delivery_date = rec.main_sales_id.expected_date
+				rec.delivery_week = rec.delivery_date.strftime("%w")
+			else:
+				rec.delivery_date = rec.create_date
 	
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
