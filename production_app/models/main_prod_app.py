@@ -113,7 +113,6 @@ class prod_order_app(models.Model):
 					invoice_lines.append((0, 0, vals))
 				self.env['account.move'].create({
 						'name': line.name,
-						'discount':line.discount,
 						'price_unit': line.price_unit,
 						'quantity': line.product_uom_qty,
 						'product_id': line.product_id.id,
