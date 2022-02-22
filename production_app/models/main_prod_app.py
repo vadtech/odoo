@@ -111,18 +111,21 @@ class prod_order_app(models.Model):
 						'sale_line_ids': [(6, 0, [line.id])],
 					}
 					invoice_lines.append((0, 0, vals))
+				last_id = self.env['account.move'].search([], order='id desc')[0].id
+				n_last_id=str(last_id+1)
 				self.env['account.move'].create({
-						'name': line.name,
-						'price_unit': line.price_unit,
-						'quantity': line.product_uom_qty,
-						'product_id': line.product_id.id,
-						'product_uom_id': line.product_uom.id,
-						'acc_disAmount': line.disAmount,
-						'linediscPerct':line.linediscPerct,
-						'tax_ids': [(6, 0, line.tax_id.ids)],
-						'sale_line_ids': [(6, 0, [line.id])],
+					'new_invoice_no':n_last_id,
+					'link_prod_id':record.id,
+					'inv_state':'invc',
+					'ref': record.main_sales_id.client_order_ref,
+					'state':'draft',
+					'move_type': 'out_invoice',
+					'invoice_origin': record.main_sales_id.name,
+					'invoice_user_id': record.main_sales_id.user_id.id,
+					'partner_id': record.main_sales_id.partner_invoice_id.id,
+					'currency_id': record.main_sales_id.pricelist_id.currency_id.id,
+					'invoice_line_ids': invoice_lines
 				})
-				
 				record_to_update = self.env["account.move"].search([('link_prod_id', '=',record.id )])
 				if record_to_update.exists():
 					vali = {
