@@ -5,10 +5,16 @@ class add_into_order_line(models.Model):
 	_inherit ="account.move.line"
 	_description="Moddification of aacount move line"
 
-	acc_disAmount=fields.Integer( string='line Discount Amount')
+	acc_disAmount=fields.Integer( string='line Discount Amount', compute="_cal_disamount")
 	linediscPerct=fields.Integer( string='line Discount %')
 
-
+	
+	def _cal_disamount(self):
+		for rec in self:
+			rec.acc_disAmount = rec.linediscPerct / 100 * rec.price_unit * rec.quantity
+			rec.price_subtotal = rec.price_subtotal - rec.acc_disAmount
+	
+	
 
  
 

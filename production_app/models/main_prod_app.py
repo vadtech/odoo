@@ -107,16 +107,16 @@ class prod_order_app(models.Model):
 					}
 					invoice_lines.append((0, 0, vals))
 				self.env['account.move'].create({
-					'link_prod_id':record.id,
-					'inv_state':'not_invc',
-					'ref': record.main_sales_id.client_order_ref,
-					'state':'draft',
-					'move_type': 'out_invoice',
-					'invoice_origin': record.main_sales_id.name,
-					'invoice_user_id': record.main_sales_id.user_id.id,
-					'partner_id': record.main_sales_id.partner_invoice_id.id,
-					'currency_id': record.main_sales_id.pricelist_id.currency_id.id,
-					'invoice_line_ids': invoice_lines
+						'name': line.name,
+						'discount':line.discount,
+						'price_unit': line.price_unit,
+						'quantity': line.product_uom_qty,
+						'product_id': line.product_id.id,
+						'product_uom_id': line.product_uom.id,
+						'acc_disAmount': line.disAmount,
+						'linediscPerct':line.linediscPerct,
+						'tax_ids': [(6, 0, line.tax_id.ids)],
+						'sale_line_ids': [(6, 0, [line.id])],
 				})
 				
 				record_to_update = self.env["account.move"].search([('link_prod_id', '=',record.id )])
