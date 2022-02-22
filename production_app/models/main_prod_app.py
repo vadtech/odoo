@@ -62,7 +62,7 @@ class prod_order_app(models.Model):
 				rec.delivery_date = rec.main_sales_id.expected_date
 				rec.delivery_week = rec.delivery_date.strftime("%w")
 			else:
-				rec.delivery_date = rec.create_date
+				pass
 	
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
@@ -113,7 +113,7 @@ class prod_order_app(models.Model):
 					invoice_lines.append((0, 0, vals))
 				self.env['account.move'].create({
 					'link_prod_id':record.id,
-					'inv_state':'invc',
+					'inv_state':'not_invc',
 					'ref': record.main_sales_id.client_order_ref,
 					'state':'draft',
 					'move_type': 'out_invoice',
