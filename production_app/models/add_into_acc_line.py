@@ -13,6 +13,7 @@ class add_into_order_line(models.Model):
 		for rec in self:
 			rec.acc_disAmount = rec.linediscPerct / 100 * rec.price_unit * rec.quantity
 			rec.price_subtotal = rec.price_subtotal - rec.acc_disAmount
+			rec.amount_untaxed=rec.amount_untaxed-rec.acc_disAmount
 	
 	
 
