@@ -111,10 +111,7 @@ class prod_order_app(models.Model):
 						'sale_line_ids': [(6, 0, [line.id])],
 					}
 					invoice_lines.append((0, 0, vals))
-				last_id = self.env['account.move'].search([], order='id desc')[0].id
-				n_last_id=str(last_id+1)
 				self.env['account.move'].create({
-					'new_invoice_no':n_last_id,
 					'link_prod_id':record.id,
 					'inv_state':'invc',
 					'ref': record.main_sales_id.client_order_ref,
