@@ -10,7 +10,7 @@ class add_into_order_line(models.Model):
 	prod_ist=fields.Text(string='Product Instruction')
 	linMarking=fields.Text(string='Line Marking')
 	
-	linediscPerct=fields.Integer(string='line Discount %' )
+	linediscPerct=fields.Integer(string='line Discount %' ) 
 
 	def _cal_disamount(self):
 		for rec in self:
