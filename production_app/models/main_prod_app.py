@@ -105,6 +105,8 @@ class prod_order_app(models.Model):
 						'quantity': line.product_uom_qty,
 						'product_id': line.product_id.id,
 						'product_uom_id': line.product_uom.id,
+						'acc_disAmount': line.disAmount,
+						'linediscPerct':line.linediscPerct,
 						'tax_ids': [(6, 0, line.tax_id.ids)],
 						'sale_line_ids': [(6, 0, [line.id])],
 					}
