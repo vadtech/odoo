@@ -102,10 +102,14 @@
                     </tr>
                 </thead>
                 <tbody class="sale_tbody">
+
                     <t t-set="current_subtotal" t-value="0"/>
+
                     <t t-foreach="doc.order_line" t-as="line">
+
                         <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                         <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+
                         <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
                             <t t-if="not line.display_type">
                                 <td name="td_artno"><span t-field="line.id"/></td>
@@ -121,7 +125,8 @@
                                     <span t-field="line.discount"/>
                                 </td>
                                 <td name="td_subtotal" class="text-right o_price_total">
-                                    <span t-field="line.price_subtotal"/>
+                                    <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
                                 </td>
                             </t>
                             <t t-if="line.display_type == 'line_section'">
