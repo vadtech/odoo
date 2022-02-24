@@ -9,6 +9,18 @@ class add_into_sales(models.Model):
 	total_dis_line=fields.Integer(string='Total line')
 	client_order_ref2 = fields.Char(string='Customer Reference 2', copy=False)
 	newMarking = fields.Char(string='Marking', copy=False)
+	
+	
+	@api.model
+	def check_u_currency(self):
+		for record in self:
+			if record.partner_id.payment_fact == 'pay_3':
+				new_sign = 'dkk'
+			elif record.partner_id.payment_fact == 'pay_2':
+				new_sign = 'sek'
+			else:
+				new_sign = 'nok'
+		return new_sign
 
 
 	def action_confirm(self):
