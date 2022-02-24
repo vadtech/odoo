@@ -91,12 +91,12 @@
                         <th name="th_artno" class="text-left">ARTNO</th>
                         <th name="th_description" class="text-left">Description</th>
                         <th name="th_quantity" class="text-right">Quantity<span style="font-size:10px">(PCS)</span></th>
-                        <th name="th_priceunit" class="text-right"> Unit Price <span style="font-size:10px">(NOK)</span></th>
+                        <th name="th_priceunit" class="text-right"> Unit Price <span style="font-size:10px">(<t t-esc="doc.check_u_currency()"/>(<t t-esc="doc.check_u_currency()"/>)</span></th>
                         <th name="th_discount" t-if="display_discount" class="text-right" groups="product.group_discount_per_so_line">
                             <span>Disc.%</span>
                         </th>
                         <th name="th_subtotal" class="text-right">
-                            <span groups="account.group_show_line_subtotals_tax_excluded">Amount<span style="font-size:10px" >(NOK)</span></span>
+                            <span groups="account.group_show_line_subtotals_tax_excluded">Amount<span style="font-size:10px" >(<t t-esc="doc.check_u_currency()"/>)</span></span>
                             <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
                         </th>
                     </tr>
