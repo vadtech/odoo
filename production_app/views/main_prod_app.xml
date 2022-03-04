@@ -8,6 +8,14 @@
     <field name="state">code</field> 
     <field name="code">action = records.action_prod()</field>
 </record>
+     
+      <record id="action_test_me" model="ir.actions.server">
+    <field name="name">Lest fix Invoice NO</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.fix_invocie_no()</field>
+</record>
     
  <record id="action_test_me" model="ir.actions.server">
     <field name="name">Lest Run</field>
