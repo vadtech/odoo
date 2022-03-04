@@ -64,6 +64,15 @@ class prod_order_app(models.Model):
 			else:
 				pass
 	
+	def test_me_stan(self):
+		for x in range(25000, 30000):
+			record_to_copy = self.env["account.move"].search([('id', '=', x)])
+			if record_to_copy.exists():
+				vali = {
+					'new_invoice_no': record_to_copy.id,
+				}
+				record_to_copy.write(vali)	
+				
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
 		if self.all_del == True and self.state == 'prod':
