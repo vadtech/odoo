@@ -26,9 +26,8 @@ class prod_order_app(models.Model):
 	sales_person=fields.Many2one(string="Sales Person", related="main_sales_id.user_id")
 
 	
-	delivery_date=fields.Datetime(compute="_del_date", string="Delivery Date",tracking=True)
-	delivery_week=fields.Integer(compute="_del_week" ,string="Delivery Week",tracking=True)
-	delivered_date=fields.Date(string="Delivered Date",tracking=True)
+	delivery_date=fields.Datetime(string="Delivery Date")
+	delivery_week=fields.Integer(compute="_del_date" ,string="Delivery Week")
 
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
 	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
@@ -57,10 +56,10 @@ class prod_order_app(models.Model):
 		for rec in self:
 			if rec.main_sales_id.commitment_date!=False:
 				rec.delivery_date=rec.main_sales_id.commitment_date
-				rec.delivery_week = rec.delivery_date.strftime("%w")
+				rec.delivery_week = rec.delivery_date.strftime("%U")
 			elif rec.main_sales_id.expected_date!=False:
 				rec.delivery_date = rec.main_sales_id.expected_date
-				rec.delivery_week = rec.delivery_date.strftime("%w")
+				rec.delivery_week = rec.delivery_date.strftime("%U")
 			else:
 				pass
 	
