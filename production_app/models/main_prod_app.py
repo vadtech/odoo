@@ -64,7 +64,7 @@ class prod_order_app(models.Model):
 			else:
 				pass
 	
-	def test_me_stan(self):
+	def fix_invocie_no(self):
 		for x in range(25000, 30000):
 			record_to_copy = self.env["account.move"].search([('id', '=', x)])
 			if record_to_copy.exists():
