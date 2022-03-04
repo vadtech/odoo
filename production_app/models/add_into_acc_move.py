@@ -12,8 +12,9 @@ class add_into_acc(models.Model):
 	banch_no=fields.Integer(string="Banch No")
 	reference = fields.Char(string="Referece", readonly=True, required=True, copy=False, default=lambda self: _('New'))
 	sales_char=fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
-	invoice_no_name=fields.Char(string="Number",compute="id_to_int")
+	invoice_no_name=fields.Char(string="Inovice Number")
 	customer_name=fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
+
 
 
 	inv_state = fields.Selection(
@@ -71,11 +72,7 @@ class add_into_acc(models.Model):
 			else:
 				new_sign = 'nok'
 		return new_sign
-	
-	@api.model
-	def id_to_int(self):
-		for rec in self:
-			rec.invoice_no_name=str(rec.id)
+
 	
 # 	def write(self, val):
 # 		self.env['logs.model'].create({
