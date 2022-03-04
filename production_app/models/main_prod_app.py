@@ -69,7 +69,7 @@ class prod_order_app(models.Model):
 			record_to_copy = self.env["account.move"].search([('id', '=', x)])
 			if record_to_copy.exists():
 				vali = {
-					'new_invoice_no': record_to_copy.id,
+					'invoice_no_name': record_to_copy.id,
 				}
 				record_to_copy.write(vali)	
 				
@@ -122,6 +122,7 @@ class prod_order_app(models.Model):
 					invoice_lines.append((0, 0, vals))
 				self.env['account.move'].create({
 					'link_prod_id':record.id,
+					'invoice_no_name' : self.env['ir.sequence'].next_by_code('invoice.seq'),
 					'inv_state':'not_invc',
 					'ref': record.main_sales_id.client_order_ref,
 					'state':'draft',
