@@ -21,7 +21,43 @@ class add_into_sales(models.Model):
 			else:
 				new_sign = 'nok'
 		return new_sign
-
+	
+	def lest_fix_line_disc(self):
+		current_rec = self.env['sale.order'].search([])
+		for rec in current_rec:
+			created_all = self.env["account.move"].search([('sales_char', '=', rec.name)])
+			created_no = self.env["account.move"].search_count([('sales_char', '=', rec.name)])
+			if created_no == 1:
+				copy_rec = self.env["sale.order"].search([('name', '=', rec.name)])
+				for line in copy_rec.order_line:
+					for cp_line in created_all.invoice_line_ids:
+						if line.product_id==cp_line.product_id:
+							cp_line.acc_disAmount= line.disAmount
+							cp_line.linediscPerct =line.linediscPerct
+							
+			elif created_no > 1:
+				for single_rec in created_all:
+					copy_rec = self.env["sale.order"].search([('name', '=', rec.name)])
+					for line in copy_rec.order_line:
+						for cp_line in single_rec.invoice_line_ids:
+							if line.product_id==cp_line.product_id:
+								cp_line.acc_disAmount= line.disAmount
+								cp_line.linediscPerct =line.linediscPerct
+						
+	def amount_all(self):
+		for single_rec in self:
+			subtot = amount_untaxed = amount_tax = disc = 0.0
+			for rec in single_rec.order_line:
+				dicAmnt = rec.linediscPerct / 100 * rec.price_unit * rec.product_uom_qty
+				disc = rec.discount / 100 * rec.price_unit * rec.product_uom_qty
+				subtot = rec.price_unit * rec.product_uom_qty - dicAmnt - disc
+				rec.disAmount =	dicAmnt
+				rec.price_subtotal = subtot
+				amount_untaxed += subtot
+				amount_tax +=  rec.tax_id.amount / 100 * subtot
+			single_rec.amount_untaxed = amount_untaxed
+			single_rec.amount_tax = amount_tax
+			single_rec.amount_total = amount_untaxed + amount_tax
 
 	def action_confirm(self):
 		self.state=""
