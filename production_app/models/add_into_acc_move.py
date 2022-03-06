@@ -25,6 +25,22 @@ class add_into_acc(models.Model):
 			('invc', 'Invoiced'),
 			('not_invc', 'Not Invoiced')])
 	
+	def fix_updating_fields(self):
+		current_rec = self.env['account.move'].search([])
+		for single_rec in current_rec:
+			amount_untaxed = amount_tax = dismount = 0.0
+			for rec in single_rec.invoice_line_ids:
+				rec.acc_disAmount = rec.linediscPerct / 100 * rec.price_unit * rec.quantity
+				dismount = rec.discount / 100 * rec.price_unit * rec.quantity
+				rec.price_subtotal = rec.price_unit * rec.quantity - rec.acc_disAmount - dismount
+				amount_untaxed += rec.price_subtotal
+				amount_tax += rec.tax_ids.amount / 100 * rec.price_subtotal
+			single_rec.amount_untaxed = amount_untaxed
+			single_rec.amount_tax = amount_tax
+			single_rec.amount_total = amount_untaxed + amount_tax	
+	
+	
+	
 	def _pay_ref(self):
 		for rec in self:
 			bn = 8 - len(str(rec.id))
