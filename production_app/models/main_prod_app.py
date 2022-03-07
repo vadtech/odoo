@@ -9,7 +9,7 @@ class prod_order_app(models.Model):
 	_description = "For Production application"
 	_inherit =["mail.thread","mail.activity.mixin"]
 	_rec_name="customer_ref"
-	_order="id,state"
+	_order="id desc"
 
 	customer_ref=fields.Many2one('sale.order.line',string="sale_order_lines",tracking=True)
 	main_sales_id=fields.Many2one('sale.order',string="Production_order",tracking=True,index=True,required=True)
