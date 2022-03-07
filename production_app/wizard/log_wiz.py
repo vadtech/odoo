@@ -76,9 +76,15 @@ class report_royalties(models.TransientModel):
 		('other', 'Other')])
 
 	def royalties_lean_report(self):
-		date_from = "01/" + str(self.date_month) + "/" + str(self.year)
-		Begindate = datetime.strptime(date_from, "%d/%m/%Y")
-		Enddate = Begindate + timedelta(days=30)
+		if self.date_month == "02":
+			date_from = "03/" + str(self.date_month) + "/" + str(self.year)
+			Begindate = datetime.strptime(date_from, "%d/%m/%Y")
+			Enddate = Begindate + timedelta(days=25)
+		else:
+			date_from = "01/" + str(self.date_month) + "/" + str(self.year)
+			Begindate = datetime.strptime(date_from, "%d/%m/%Y")
+			Enddate = Begindate + timedelta(days=30)
+		
 		search_result = self.env['account.move'].search(["&", ('create_date', '>=', Begindate), ('create_date', '<=', Enddate)])
 		model_need = []
 		print(self.model)
