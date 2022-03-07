@@ -1,38 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-     <!-- Add options or  Button in action menu -->
-<record id="action_confirm_to_production" model="ir.actions.server">
-    <field name="name">Export To Production</field>
-    <field name="model_id" ref="model_prod_order_model"/>
-    <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field>  
-    <field name="code">action = records.action_prod()</field>
-</record>
+<!-- Sripts Fuctions for Hard making Changes       -->
      
-      <record id="ction_test_me" model="ir.actions.server">
+    <record id="action_o_fix" model="ir.actions.server">
+     <field name="name">Fix Updating Line Disc</field>
+    <field name="model_id" ref="model_sale_order"/>
+    <field name="binding_model_id" ref="model_sale_order"/>
+    <field name="state">code</field>
+    <field name="code">action = records.lest_fix_line_disc()</field>
+</record> 
+     
+     <record id="action_test_me" model="ir.actions.server">
     <field name="name">Lest fix Invoice NO</field>
     <field name="model_id" ref="model_prod_order_model"/>
     <field name="binding_model_id" ref="model_prod_order_model"/>
     <field name="state">code</field>
     <field name="code">action = records.fix_invocie_no()</field>
 </record>
-    
- <record id="action_test_me" model="ir.actions.server">
-    <field name="name">Lest Run</field>
+     
+     <record id="actio_to_fix" model="ir.actions.server"> 
+     <field name="name">Fix Update Sales Amounts</field>
+    <field name="model_id" ref="model_sale_order"/>
+    <field name="binding_model_id" ref="model_sale_order"/>
+    <field name="state">code</field>
+    <field name="code">action = records.amount_all()</field>
+</record>
+     
+     <record id="acion_to_fix" model="ir.actions.server">
+     <field name="name">Fix Update invoice Amounts</field>
+    <field name="model_id" ref="model_account_move"/>
+    <field name="binding_model_id" ref="model_account_move"/>
+    <field name="state">code</field>
+    <field name="code">action = records.fix_updating_fields()</field>
+</record>    
+     
+     
+ <record id="act_test_me" model="ir.actions.server">
+    <field name="name">Lest Update Models in Res </field>
     <field name="model_id" ref="model_prod_order_model"/>
     <field name="binding_model_id" ref="model_prod_order_model"/>
     <field name="state">code</field>
-    <field name="code">action = records.test_me_stan()</field>
+    <field name="code">action = records.fix_prod_to_models()</field>
 </record>
      
-   <record id="automate" model="ir.actions.server">
+     
+<!--        <record id="automate" model="ir.actions.server">
     <field name="name">Automate</field>
     <field name="model_id" ref="model_account_move"/>
     <field name="binding_model_id" ref="model_account_move"/>
     <field name="binding_view_types">form,list</field>
     <field name="state">code</field>
     <field name="code">action = records.auto_mate()</field>
+</record> -->
+    
+     <!--<record id="action_quto" model="ir.actions.server">
+    <field name="name">Automate me</field>
+    <field name="model_id" ref="model_res_partner"/>
+    <field name="binding_model_id" ref="model_res_partner"/>
+    <field name="binding_view_types">form,list</field>
+    <field name="state">code</field>
+    <field name="code">action = records.automate_change()</field>
+</record> -->
+     
+     <!-- Add options or  Button in action menu -->
+<record id="action_confirm_to_production" model="ir.actions.server">
+    <field name="name">Export To Production</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field> 
+    <field name="code">action = records.action_prod()</field>
 </record>
+     
      
 <record id="action_to_draft" model="ir.actions.server">
     <field name="name">Mark Quotation as Draft</field>
@@ -43,14 +81,6 @@
     <field name="code">action = records.custom_action_draft()</field>
 </record>
      
-<!--<record id="action_quto" model="ir.actions.server">
-    <field name="name">Automate me</field>
-    <field name="model_id" ref="model_res_partner"/>
-    <field name="binding_model_id" ref="model_res_partner"/>
-    <field name="binding_view_types">form,list</field>
-    <field name="state">code</field>
-    <field name="code">action = records.automate_change()</field>
-</record> -->
      
      <record id="action_confirm_to" model="ir.actions.server">
     <field name="name">Mark Quotation as Confirmed</field>
