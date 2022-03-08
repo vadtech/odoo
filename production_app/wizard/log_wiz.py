@@ -80,6 +80,10 @@ class report_royalties(models.TransientModel):
 			date_from = "03/" + str(self.date_month) + "/" + str(self.year)
 			Begindate = datetime.strptime(date_from, "%d/%m/%Y")
 			Enddate = Begindate + timedelta(days=25)
+		elif self.date_month == "01":
+			date_from = "01/" + str(self.date_month) + "/" + str(self.year)
+			Begindate = datetime.strptime(date_from, "%d/%m/%Y")
+			Enddate = Begindate + timedelta(days=32)	
 		else:
 			date_from = "01/" + str(self.date_month) + "/" + str(self.year)
 			Begindate = datetime.strptime(date_from, "%d/%m/%Y")
