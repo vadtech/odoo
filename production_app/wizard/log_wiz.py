@@ -79,15 +79,15 @@ class report_royalties(models.TransientModel):
 		if self.date_month == "02":
 			date_from = "03/" + str(self.date_month) + "/" + str(self.year)
 			Begindate = datetime.strptime(date_from, "%d/%m/%Y")
-			Enddate = Begindate + timedelta(days=25)
+			Enddate = Begindate + timedelta(days=25,hours=11,minutes=59)
 		elif self.date_month == "01":
 			date_from = "01/" + str(self.date_month) + "/" + str(self.year)
 			Begindate = datetime.strptime(date_from, "%d/%m/%Y")
-			Enddate = Begindate + timedelta(days=33)	
+			Enddate = Begindate + timedelta(days=33,hours=11,minutes=59)	
 		else:
 			date_from = "01/" + str(self.date_month) + "/" + str(self.year)
 			Begindate = datetime.strptime(date_from, "%d/%m/%Y")
-			Enddate = Begindate + timedelta(days=30)
+			Enddate = Begindate + timedelta(days=30,hours=11,minutes=59)
 		
 		search_result = self.env['account.move'].search(["&", ('create_date', '>=', Begindate), ('create_date', '<=', Enddate)])
 		model_need = []
