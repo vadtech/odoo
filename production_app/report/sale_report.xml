@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="report_xmlr"> 
+    <template id="report_xmlr">
       <BatchCollection xmlns="http://www.dnbnorfinans.no/Factoring/2004" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" DefinedBy="DnB NOR Finans" Version="3.0" xsi:schemaLocation="http://www.dnbnorfinans.no/Factoring/2004 FACTINV-3-0.XSD">
         <TransferDateTime><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%dT%H:%M:%S')"/></TransferDateTime>
         <Batch>
@@ -48,7 +48,7 @@
 
                 <InvoiceHeader>
                 <InvRef></InvRef>
-                <InvNbr><t t-esc="o.convert_to_int(o.id)"/></InvNbr>
+                <InvNbr><t t-esc="o.convert_to_int(o.invoice_no_name)"/></InvNbr>
                 <InvDate><t t-esc="o.invoice_date.strftime('%Y-%m-%d')"/></InvDate>
                 <DueDate><t t-esc="o.invoice_date_due.strftime('%Y-%m-%d')"/></DueDate>
                 <PmtMethod/>
@@ -60,7 +60,7 @@
                 </InvoiceHeader>
                 <Items>
                 <OrderDetails>
-                <t t-foreach="o.invoice_line_ids" t-as="o_lines">    
+                <t t-foreach="o.invoice_line_ids" t-as="o_lines">
                 <Item>
                 <ItemId><t t-esc="o.convert_to_int(o_lines.id)"/></ItemId>
                 <ItemDescr t-field="o_lines.name">
