@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="edit_report_invoice_with_payments"> 
+        <template id="edit_report_invoice_with_payments">
 
               <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
@@ -17,35 +17,35 @@
                         <span t-if="o.move_type == 'out_refund'">CreditNote</span>
                         <span t-if="o.move_type == 'in_refund'">VendorCredit Note</span>
                         <span t-if="o.move_type == 'in_invoice'">VendorBill</span>
-                        <span><t t-esc="o.convert_to_int(o.id)"/></span>
+                        <span><t t-esc="o.convert_to_int(o.invoice_no_name)"/></span>
                     </h4>
                         </div>
                         <div class="col-auto col-3 mw-100 mb-2">
-                           
+
                         </div>
-                     
+
                       <div  class="col-auto col-3 mw-100 mb-2" style="margin-left:-220px; font-size:18px">
                           <t t-if="o.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1' or o.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2'">
                           <span t-esc="o.customer_name.new_vat_id"/> <br/>
-                          </t>    
+                          </t>
                           <span>Customer ID-number</span>
                           <span class="m-0" t-esc="o.convert_to_int(o.partner_id.id)"/>
                       </div>
                     </div>
                      <br/>
- 
+
                 <t t-set="o" t-value="o.with_context(lang=lang)" />
-                <t t-set="address">                    
+                <t t-set="address">
                          <strong>Invoice Address:</strong>
                     <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
-                    
+
                         </t>
                         <t t-set="information_block">
                 <strong>Customer Address:</strong>
                 <div t-field="o.customer_name"
                 t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'/>
             </t>
-                   
+
                 <div class="page">
                     <div id="informatios" class="row mt32 mb32">
                         <div class="col-auto col-3 mw-100 mb-2">
@@ -78,12 +78,12 @@
                         </div>
                     </div>
                     <br/>
-                    
+
                     <t t-if="o.link_prod_id.main_sales_id.partner_id.payment_fact != 'pay_3'">
                     <h5>KID</h5>
                     <p class="m-0" t-field="o.payment_ref"/>
                     </t>
-                    
+
                     <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
 
                     <table class="table table-sm o_main_table" name="invoice_line_table">
@@ -152,7 +152,7 @@
                         </tbody>
                     </table>
 
-                    <div class="clearfix"> 
+                    <div class="clearfix">
                         <div id="total" class="row">
                             <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
                                 <table class="table table-sm" style="page-break-inside: avoid;">
@@ -160,7 +160,7 @@
                                         <td><strong>Subtotal</strong></td>
                                         <td class="text-right">
                                            <span  t-esc="o.check_currency(o.amount_untaxed)"/>
-                                           
+
                                         </td>
                                     </tr>
                                      <t t-if="o.link_prod_id.main_sales_id.partner_id.payment_fact != 'pay_2' and o.link_prod_id.main_sales_id.partner_id.payment_fact != 'pay_3'">
@@ -185,9 +185,9 @@
                                             </t>
                                         </tr>
                                     </t>
-                                         
+
                                     </t>
-                                    
+
                                     <tr class="border-black o_total">
                                         <td><strong>Total</strong></td>
                                         <td class="text-right">
@@ -224,11 +224,11 @@
                     <p t-if="o.invoice_payment_term_id" name="payment_term">
                         <span t-field="o.invoice_payment_term_id.note"/>
                     </p>
-                    
+
                     <p>Juridictional Information:</p>
                     <p>Fordringer etter nærværende faktura er overdratt DNB Bank ASA, Postboks 1600 Sentrum, 0021 Oslo, til eiendom. Befriende betaling kan kun skje til DNB Bank ASA. Bankkonto 7032.05.16038. Ved betaling vennligst oppgi KIDreferanse eller fakturanummer og leverandør.</p>
-                    
-                    
+
+
                     <p t-if="o.narration" name="comment">
                         <span t-field="o.narration"/>
                     </p>
@@ -247,7 +247,7 @@
                 </div>
             </t>
             </t>
-            </t> 
+            </t>
               </t>
         </template>
     </data>
