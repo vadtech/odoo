@@ -1,33 +1,30 @@
-from odoo import fields, models, api, _
-
+from odoo import fields, models, api ,_
 
 class add_into_acc(models.Model):
 	"""real name of the model"""
-	_inherit = "account.move"
-	_description = "Invoicing Application edits"
+	_inherit ="account.move"
+	_description="Invoicing Application edits"
 
 	link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
 	payment_ref = fields.Char(compute="_pay_ref", string="Payment Reference")
 
 
-	banch_no = fields.Integer(string="Banch No")
+	banch_no=fields.Integer(string="Banch No")
 	reference = fields.Char(string="Referece", readonly=True, required=True, copy=False, default=lambda self: _('New'))
-	sales_char = fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
-	invoice_no_name = fields.Char(string="Inovice Number")
-	customer_name = fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
-	inv_state = fields.Selection(
-	string='Invoice Status',
-	tracking=True,
-	default='not_invc',
-	selection=[
-	    ('invc', 'Invoiced'),
-	    ('not_invc', 'Not Invoiced')]
+	sales_char=fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
+	invoice_no_name=fields.Char(string="Inovice Number")
+	customer_name=fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
 
-	""""fake fields"""
-	fake_sales_id=fields.Char(string="Sales Order Number")
+
+
+	inv_state = fields.Selection(
+		string='Invoice Status',
+		tracking=True,
+		default='not_invc', 
+		selection=[
+			('invc', 'Invoiced'),
+			('not_invc', 'Not Invoiced')])
 	
-	""""fake functions"""
-		
 	def fix_updating_fields(self):
 		current_rec = self.env['account.move'].search([])
 		for single_rec in current_rec:
@@ -38,32 +35,24 @@ class add_into_acc(models.Model):
 				rec.price_subtotal = rec.price_unit * rec.quantity - rec.acc_disAmount - dismount
 				amount_untaxed += rec.price_subtotal
 				amount_tax += rec.tax_ids.amount / 100 * rec.price_subtotal
-		single_rec.amount_untaxed = amount_untaxed
-		single_rec.amount_tax = amount_tax
-		single_rec.amount_total = amount_untaxed + amount_tax
-			
-	def auto_mate(self):
-		vali={}
-		for record in self:
-			record_to_update = self.env["account.move"].search([('id', '=', record.id)])
-			if record_to_update.exists():
-				vali = {
-					'inv_state': 'invc',}
-			record_to_update.write(vali)
-		
-	""""fake functions"""	
-		
+			single_rec.amount_untaxed = amount_untaxed
+			single_rec.amount_tax = amount_tax
+			single_rec.amount_total = amount_untaxed + amount_tax	
+	
+	
+	
 	def _pay_ref(self):
 		for rec in self:
 			bn = 8 - len(str(rec.invoice_no_name))
 			y = '0' * bn
 			x = self.luhn_checksum(rec.invoice_no_name)
 			ne_p = '609891' + str(y) + str(rec.invoice_no_name) + str(x)
-			rec.payment_ref = ne_p
-	
-	def luhn_checksum(self, card_number):
+			rec.payment_ref=ne_p
+
+	def luhn_checksum(self,card_number):
 		def digits_of(n):
 			return [int(d) for d in str(n)]
+
 		digits = digits_of(card_number)
 		odd_digits = digits[-1::-2]
 		even_digits = digits[-2::-2]
@@ -74,21 +63,21 @@ class add_into_acc(models.Model):
 		return checksum % 10
 	
 	@api.model
-	def check_currency(self, convert):
+	def check_currency(self,convert):
 		for record in self:
 			formatted_float = "{:.2f}".format(convert)
-			new_money = "kr %s" % formatted_float
+			new_money="kr %s" %formatted_float
 			return new_money
-
+	
 	@api.model
-	def check_taxC(self, convert=[]):
+	def check_taxC(self,convert=[]):
 		for record in self:
 			for x in convert:
 				res = ''.join(filter(lambda i: i.isdigit(), x))
 				formatted_float = "{:.2f}".format(res)
-				new_money = "kr %s" % formatted_float
-        	return new_money
-		
+				new_money="kr %s" %formatted_float
+		return new_money	
+	
 	@api.model
 	def check_u_currency(self):
 		for record in self:
@@ -99,6 +88,30 @@ class add_into_acc(models.Model):
 			else:
 				new_sign = 'nok'
 		return new_sign
+
+	
+# 	def write(self, val):
+# 		self.env['logs.model'].create({
+# 			'acc_move_id': self.id,
+# 			'log_state': 'update',
+# 			'inv_date': self.invoice_date,
+# 			'due_date': self.invoice_date_due,
+# 			'customer_no': self.partner_id.name,
+# 			'untaxed_amt': self.amount_untaxed,
+# 			'mva': self.amount_tax,
+# 			'total': self.amount_total,
+# 		})
+# 		res = super(add_into_acc, self).write(val)
+# 		return res
+	
+	def auto_mate(self):
+		vali={}
+		for record in self:
+			record_to_update = self.env["account.move"].search([('id', '=', record.id)])
+			if record_to_update.exists():
+				vali = {
+					'inv_state': 'invc',}
+			record_to_update.write(vali)
 	
 	@api.model
 	def convert_to_float(self,convert):
@@ -114,8 +127,8 @@ class add_into_acc(models.Model):
 	def extract_digits(self,convert):
 		change=str(convert)
 		res = ''.join(filter(lambda i: i.isdigit(), change))
-		return res	
-
+		return res
+	
 	@api.model
 	def count_banch(self):
 		for record in self:
@@ -123,12 +136,12 @@ class add_into_acc(models.Model):
 			break
 		for rec in self:
 			self.env['inv_pdfs.model'].create({
-				'link_acc_id': rec.invoice_no_name,
+				'link_acc_id': rec.id,
 				'isPrinted': False,
 				'brch_no': reference
 			})
-		return reference	
-
+		return reference
+	
 	def cal_tot_untaxed_amt(self,date_form,date_to):
 		total=0
 		search_result = self.env['logs.model'].search_read(["&", ('create_date', '>=',date_form), ('create_date', '<=',date_to)])
@@ -149,7 +162,7 @@ class add_into_acc(models.Model):
 		for rec in search_result:
 			mv_totals += rec['total']
 		return mv_totals
-
+	
 class branch_pdf_ids(models.Model):
 	"""real name of the model"""
 	_name = "inv_pdfs.model"
@@ -209,7 +222,4 @@ class branch_pdf_ids(models.Model):
 	@api.model
 	def change_state(self):
 		for record in self:
-			record.isPrinted
-
-
-
+			record.isPrinted=True
