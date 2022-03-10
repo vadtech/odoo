@@ -23,7 +23,8 @@ class add_into_acc(models.Model):
             ('invc', 'Invoiced'),
             ('not_invc', 'Not Invoiced')]
 		
-	fake_sales_id=fields.Char(string="Sales Order Number")
+    """"fake fields"""
+    fake_sales_id=fields.Char(string="Sales Order Number")
 	    
     def fix_updating_fields(self):
         current_rec = self.env['account.move'].search([])
