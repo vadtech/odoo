@@ -14,10 +14,6 @@ class add_into_acc(models.Model):
     sales_char = fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
     invoice_no_name = fields.Char(string="Inovice Number")
     customer_name = fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
-    
-    """fake fields"""
-	fake_sales_id=fields.Char(string="Sales Order Number")
-
     inv_state = fields.Selection(
         string='Invoice Status',
         tracking=True,
@@ -25,7 +21,16 @@ class add_into_acc(models.Model):
         selection=[
             ('invc', 'Invoiced'),
             ('not_invc', 'Not Invoiced')])
+	
+	
+	
+    """fake fields"""
+	
+	fake_sales_id=fields.Char(string="Sales Order Number")
+	
 
+	""" fake functions to fix Staff """
+	
     def fix_updating_fields(self):
         current_rec = self.env['account.move'].search([])
         for single_rec in current_rec:
@@ -40,6 +45,7 @@ class add_into_acc(models.Model):
             single_rec.amount_tax = amount_tax
             single_rec.amount_total = amount_untaxed + amount_tax
 
+			
     def _pay_ref(self):
         for rec in self:
             bn = 8 - len(str(rec.invoice_no_name))
@@ -60,7 +66,7 @@ class add_into_acc(models.Model):
         for d in even_digits:
             checksum += sum(digits_of(d * 2))
         return checksum % 10
-
+	
     @api.model
     def check_currency(self, convert):
         for record in self:
