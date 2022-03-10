@@ -62,7 +62,7 @@ class prod_order_app(models.Model):
 				rec.delivery_week = rec.delivery_date.strftime("%U")
 			else:
 				pass
-			
+	
 	""" FAKE FUNCTIONS FOR FIXING BUGS """		
 	def fix_sales_char(self):
 		for x in range(25000, 30000):
