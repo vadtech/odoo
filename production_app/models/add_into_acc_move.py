@@ -9,6 +9,7 @@ class add_into_acc(models.Model):
     link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
     payment_ref = fields.Char(compute="_pay_ref", string="Payment Reference")
 
+	
     banch_no = fields.Integer(string="Banch No")
     reference = fields.Char(string="Referece", readonly=True, required=True, copy=False, default=lambda self: _('New'))
     sales_char = fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
@@ -22,10 +23,8 @@ class add_into_acc(models.Model):
             ('invc', 'Invoiced'),
             ('not_invc', 'Not Invoiced')]
 		
-	"""fake fields"""
 	fake_sales_id=fields.Char(string="Sales Order Number")
-		
-	""" fake functions to fix Staff """
+	    
     def fix_updating_fields(self):
         current_rec = self.env['account.move'].search([])
         for single_rec in current_rec:
@@ -48,7 +47,7 @@ class add_into_acc(models.Model):
             x = self.luhn_checksum(rec.invoice_no_name)
             ne_p = '609891' + str(y) + str(rec.invoice_no_name) + str(x)
             rec.payment_ref = ne_p
-
+	
     def luhn_checksum(self, card_number):
         def digits_of(n):
             return [int(d) for d in str(n)]
