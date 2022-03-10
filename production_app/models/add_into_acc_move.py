@@ -14,6 +14,9 @@ class add_into_acc(models.Model):
     sales_char = fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
     invoice_no_name = fields.Char(string="Inovice Number")
     customer_name = fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
+    
+    """fake fields"""
+	fake_sales_id=fields.Char(string="Sales Order Number")
 
     inv_state = fields.Selection(
         string='Invoice Status',
