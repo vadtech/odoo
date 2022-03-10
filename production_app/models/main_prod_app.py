@@ -56,7 +56,7 @@ class prod_order_app(models.Model):
 				record_to_copy.write(vali)
 				
 	def fix_invocie_no(self):
-		for x in range(25000, 30000):
+		for x in range(25000, 32000):
 			record_to_copy = self.env["account.move"].search([('id', '=', x)])
 			if record_to_copy.exists():
 				vali = {
