@@ -13,7 +13,7 @@ class add_into_sales(models.Model):
 	
 	@api.model
 	def check_u_currency(self):
-		for record in self:
+		for record in self: 
 			if record.partner_id.payment_fact == 'pay_3':
 				new_sign = 'dkk'
 			elif record.partner_id.payment_fact == 'pay_2':
@@ -45,7 +45,7 @@ class add_into_sales(models.Model):
 								cp_line.linediscPerct =line.linediscPerct
 						
 	def amount_all(self):
-		for single_rec in self:
+		for single_rec in self:   
 			subtot = amount_untaxed = amount_tax = disc = 0.0
 			for rec in single_rec.order_line:
 				dicAmnt = rec.linediscPerct / 100 * rec.price_unit * rec.product_uom_qty
