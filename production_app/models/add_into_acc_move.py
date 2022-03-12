@@ -26,6 +26,7 @@ class add_into_acc(models.Model):
 			('invc', 'Invoiced'),
 			('not_invc', 'Not Invoiced')])
 	
+	"""ALL FUNCTTION S FOR QUICK FIX """
 	def fix_updating_fields(self):
 		current_rec = self.env['account.move'].search([])
 		for single_rec in current_rec:
@@ -40,8 +41,16 @@ class add_into_acc(models.Model):
 			single_rec.amount_tax = amount_tax
 			single_rec.amount_total = amount_untaxed + amount_tax	
 	
-	
-	
+	def quick_fix_id(self):
+		#initial lise first id
+		correct_id=27751
+		#loop through selected ids
+		for rec in self:
+			# change its id
+			rec.invoice_no_name = correct_id + 1
+			# save now correct id
+			correct_id = int(rec.invoice_no_name)
+
 	def _pay_ref(self):
 		for rec in self:
 			bn = 8 - len(str(rec.invoice_no_name))
