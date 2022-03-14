@@ -50,6 +50,12 @@ class add_into_acc(models.Model):
 			rec.invoice_no_name = correct_id + 1
 			# save now correct id
 			correct_id = int(rec.invoice_no_name)
+	
+	def quick_fix_inv(self):
+		"""Get All Records Selected"""
+		for rec in self:
+			# change the invoice line state
+			rec.inv_state="invc"
 
 	def _pay_ref(self):
 		for rec in self:
