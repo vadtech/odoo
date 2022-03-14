@@ -18,6 +18,15 @@
     <field name="code">action = records.fix_sales_char()</field>
 </record>
      
+      <record id="quick_fix" model="ir.actions.server">
+     <field name="name">Push To Invoiced</field>
+    <field name="model_id" ref="model_account_move"/>
+    <field name="binding_model_id" ref="model_account_move"/>
+    <field name="state">code</field>
+    <field name="code">action = records.quick_fix_inv()</field>
+</record>    
+     
+     
           <record id="action_test_me" model="ir.actions.server">
     <field name="name">Lest fix Invoice NO</field>
     <field name="model_id" ref="model_prod_order_model"/>
