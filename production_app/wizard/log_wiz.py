@@ -76,42 +76,23 @@ class report_royalties(models.TransientModel):
 		('other', 'Other')])
 
 	def royalties_lean_report(self):
-		if self.date_month == "02":
-			date_from = "03/" + str(self.date_month) + "/" + str(self.year)
-			Begindate = datetime.strptime(date_from, "%d/%m/%Y")
-			Enddate = Begindate + timedelta(days=25,hours=11,minutes=59)
-		elif self.date_month == "01":
-			date_from = "01/" + str(self.date_month) + "/" + str(self.year)
-			Begindate = datetime.strptime(date_from, "%d/%m/%Y")
-			Enddate = Begindate + timedelta(days=32,hours=11,minutes=59)	
-		else:
-			date_from = "01/" + str(self.date_month) + "/" + str(self.year)
-			Begindate = datetime.strptime(date_from, "%d/%m/%Y")
-			Enddate = Begindate + timedelta(days=30,hours=11,minutes=59)
 		
+		date_from = "01/" + str(self.date_month) + "/" + str(self.year)
+		Begindate = datetime.strptime(date_from, "%d/%m/%Y")
+		Enddate = Begindate + timedelta(days=30)
 		search_result = self.env['account.move'].search(["&", ('create_date', '>=', Begindate), ('create_date', '<=', Enddate)])
 		model_need = []
 		print(self.model)
 		for rec in search_result:
-			if rec.move_type=="out_refund":
-				for lines in rec.invoice_line_ids:
-					if lines.product_id.model == self.model:
-						product = {
-						'prod_name': lines.product_id.name,
-						'units': lines.quantity,
-						'amount': lines.price_subtotal * -1,
-						}
-						model_need.append(product)
-			else:
-				for lines in rec.invoice_line_ids:
-					if lines.product_id.model == self.model:
-						product = {
-							'prod_name': lines.product_id.name,
-							'units': lines.quantity,
-							'amount': lines.price_subtotal,
-						}
-						model_need.append(product)
-						
+			for lines in rec.invoice_line_ids:
+				if lines.product_id.model == self.model:
+					product = {
+					'prod_name': lines.product_id.name,
+					'units': lines.quantity,
+					'amount': lines.price_subtotal,
+					}
+					model_need.append(product)
+
 		lean_tot_units = 0
 		lean_tot_amt = 0
 
@@ -136,6 +117,5 @@ class report_royalties(models.TransientModel):
 			'model_need': [i for i in model_need if i],
 		}
 		return self.env.ref('production_app.royalties_option').report_action(self, data=data)
-
 
 
