@@ -45,7 +45,7 @@ class add_into_acc(models.Model):
 		correct_id=27665
 		#loop through selected ids
 		for rec in self:
-			# change its id
+			# change its id 
 			rec.invoice_no_name = correct_id + 1
 			# save now correct id
 			correct_id = int(rec.invoice_no_name)
