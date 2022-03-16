@@ -8,7 +8,6 @@ class add_into_acc(models.Model):
 	link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
 	payment_ref = fields.Char(compute="_pay_ref", string="Payment Reference")
 
-
 	banch_no=fields.Integer(string="Banch No")
 	reference = fields.Char(string="Referece", readonly=True, required=True, copy=False, default=lambda self: _('New'))
 	sales_char=fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
@@ -43,7 +42,7 @@ class add_into_acc(models.Model):
 	
 	def quick_fix_id(self):
 		#initial lise first id
-		correct_id=27751
+		correct_id=27665
 		#loop through selected ids
 		for rec in self:
 			# change its id
