@@ -14,7 +14,10 @@ class add_into_acc(models.Model):
 	invoice_no_name=fields.Char(string="Inovice Number")
 	customer_name=fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
 	
+	#FAKE ID
 	fake_sales_id = fields.Char(string="fake_sales_id")
+	fake_id = fields.Integer(string="Fake id")
+	
 
 
 	inv_state = fields.Selection(
@@ -39,12 +42,15 @@ class add_into_acc(models.Model):
 			single_rec.amount_untaxed = amount_untaxed
 			single_rec.amount_tax = amount_tax
 			single_rec.amount_total = amount_untaxed + amount_tax	
+			
+			
 	
 	def quick_fix_id(self):
 		#initial lise first id
 		correct_id=27665
 		#loop through selected ids
-		for rec in self:
+		record_to_update = self.env["account.move"].search([('invoice_no_name', '>=', 27661)])
+		for rec in record_to_update:
 			# change its id 
 			rec.invoice_no_name = correct_id + 1
 			# save now correct id
