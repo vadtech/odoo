@@ -57,7 +57,7 @@ class add_into_acc(models.Model):
 			rec.inv_state="invc"
 
 	def _pay_ref(self):
-		for rec in self:
+		for rec in self:    
 			bn = 8 - len(str(rec.invoice_no_name))
 			y = '0' * bn
 			x = self.luhn_checksum(rec.invoice_no_name)
