@@ -42,7 +42,7 @@ class add_into_acc(models.Model):
 	
 	def quick_fix_id(self):
 		#initial lise first id
-		correct_id=27623
+		correct_id=27628
 		#loop through selected ids
 		for rec in self:
 			# change its id
