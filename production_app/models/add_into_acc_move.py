@@ -49,8 +49,7 @@ class add_into_acc(models.Model):
 		#initial lise first id
 		correct_id=27665
 		#loop through selected ids
-		record_to_update = self.env["account.move"].search([('invoice_no_name', '>=', 27661)])
-		for rec in record_to_update:
+		for rec in self:
 			# change its id 
 			rec.invoice_no_name = correct_id + 1
 			# save now correct id
