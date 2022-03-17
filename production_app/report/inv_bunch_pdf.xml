@@ -44,7 +44,7 @@
                             <tbody>
                                         <td name="account_invoice_line_id"><span  t-esc="doc.id" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoice_line_name"><span t-field="doc.link_acc_id.partner_id.parent_id.name" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line"><span t-field="doc.link_acc_id.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="doc.link_acc_id.invoice_no_name" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoic_line"><t t-esc="doc.link_acc_id.invoice_date.strftime('%Y-%m-%d')"/></td>
                                         <td name="account_invoicline"><t t-esc="doc.link_acc_id.invoice_date_due.strftime('%Y-%m-%d')"/></td>
                                         <td class="text-right">
