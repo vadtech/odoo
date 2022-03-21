@@ -76,7 +76,6 @@ class report_royalties(models.TransientModel):
 		('other', 'Other')])
 
 	def royalties_lean_report(self):
-		
 		date_from = "01/" + str(self.date_month) + "/" + str(self.year)
 		Begindate = datetime.strptime(date_from, "%d/%m/%Y")
 		Enddate = Begindate + timedelta(days=30)
@@ -90,6 +89,13 @@ class report_royalties(models.TransientModel):
 					'prod_name': lines.product_id.name,
 					'units': lines.quantity,
 					'amount': lines.price_subtotal,
+					}
+					model_need.append(product)
+				else:
+					product = {
+						'prod_name': lines.product_id.name,
+						'units': lines.quantity*-1,
+						'amount': lines.price_subtotal*-1,
 					}
 					model_need.append(product)
 
