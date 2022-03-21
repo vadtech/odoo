@@ -85,7 +85,7 @@ class report_royalties(models.TransientModel):
 		print(self.model)
 		for rec in search_result:
 			for lines in rec.invoice_line_ids:
-				if lines.product_id.model == self.model:
+				if lines.product_id.model == self.model and rec.move_type!='out_refund':
 					product = {
 					'prod_name': lines.product_id.name,
 					'units': lines.quantity,
