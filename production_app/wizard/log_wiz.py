@@ -87,6 +87,7 @@ class report_royalties(models.TransientModel):
             for lines in rec.invoice_line_ids:
                 if lines.product_id.model == self.model and rec.move_type=='out_invoice':
                     product = {
+                        'currency': rec.link_prod_id.main_sales_id.partner_id.payment_fact,
                         'prod_name': lines.product_id.name,
                         'units': lines.quantity,
                         'amount': lines.price_subtotal,
@@ -94,6 +95,7 @@ class report_royalties(models.TransientModel):
                     model_need.append(product)
                 else:
                     product = {
+                        'currency': rec.link_prod_id.main_sales_id.partner_id.payment_fact,
                         'prod_name': lines.product_id.name,
                         'units': lines.quantity,
                         'amount': lines.price_subtotal,
@@ -105,7 +107,7 @@ class report_royalties(models.TransientModel):
 
         #lest remove duplicate credit notes created
         for rec in range(len(credit_nt)):
-            for sub_rec in range(0, len(credit_nt)):
+            for sub_rec in range(rec + 1, len(credit_nt)):
                 if credit_nt[rec] != {} and credit_nt[sub_rec] != {}:
                     if credit_nt[rec]['prod_name'] == credit_nt[sub_rec]['prod_name']:
                         credit_nt[rec]['units'] += credit_nt[sub_rec]['units']
