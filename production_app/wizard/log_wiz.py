@@ -110,7 +110,7 @@ class report_royalties(models.TransientModel):
         for rec in range(len(credit_nt)):
             for sub_rec in range(rec + 1, len(credit_nt)):
                 if credit_nt[rec] != {} and credit_nt[sub_rec] != {}:
-                    if credit_nt[rec]['prod_name'] == credit_nt[sub_rec]['prod_name']:
+                    if credit_nt[rec]['prod_name'] == credit_nt[sub_rec]['prod_name'] and credit_nt[rec]['currency'] == credit_nt[sub_rec]['currency']:
                         credit_nt[rec]['units'] += credit_nt[sub_rec]['units']
                         credit_nt[rec]['amount'] += credit_nt[sub_rec]['amount']
                         credit_nt[sub_rec].clear()
@@ -127,7 +127,7 @@ class report_royalties(models.TransientModel):
         for rec in range(len(model_need)):
             for sub_rec in range(rec + 1, len(model_need)):
                 if model_need[rec] != {} and model_need[sub_rec] != {}:
-                    if model_need[rec]['prod_name'] == model_need[sub_rec]['prod_name']:
+                    if model_need[rec]['prod_name'] == model_need[sub_rec]['prod_name'] and model_need[rec]['currency'] == model_need[sub_rec]['currency']:
                         model_need[rec]['units'] += model_need[sub_rec]['units']
                         model_need[rec]['amount'] += model_need[sub_rec]['amount']
                         model_need[sub_rec].clear()
