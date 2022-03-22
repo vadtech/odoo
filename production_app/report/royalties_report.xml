@@ -7,21 +7,38 @@
                     <div style="margin-left:0px;margin-top:-45px;">
 						<h3>Period: <t t-esc="month"/> -- <t t-esc="year"/></h3>
                     </div>
+<!--                    check if nok currecny is true-->
+                    <t t-set="print_nok" t-value="0"/>
+                    <t t-foreach="model_need" t-as="line">
+                            <span t-if="line['currency'] == 'pay_1' " t-set="print_nok" t-value="1"/>
+                            <span t-if="line['currency'] == 'pay_2' " t-set="print_sek" t-value="2"/>
+                            <span t-if="line['currency'] == 'pay_3' " t-set="print_dkk" t-value="3"/>
+                            <span t-if="line['currency'] == 'pay_4' " t-set="print_iban" t-value="4"/>
+                            <span t-if="line['currency'] == 'pay_5' " t-set="print_vipps" t-value="5"/>
+                            <span t-if="line['currency'] == 'pay_6' " t-set="print_bank" t-value="6"/>
+                    </t>
                     <h4 style="text-transform: uppercase;" >Model : <t t-esc="model"/></h4>
+
+
+                    <!--                    Catogeorise according to nok currency-->
+                    <span t-if="print_nok==1">
+                    <br/>
                         <table  class="table">
                         <thead>
                             <tr>
                                 <th name="th_description" class="text-left"><span>ART NO /  PRODUCT NAME</span></th>
-                                <th name="th_descpion" class="text-left"><span>Units</span></th>
-                                <th name="th_descpion" class="text-left"><span>Amount</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units (PCS)</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount (NOK)</span></th>
                             </tr>
                         </thead>
 						<t t-foreach="model_need" t-as="line">
+                            <t t-if="line['currency'] == 'pay_1' ">
                         <tbody  class="invoice_tbody">
                             <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
                             <td name="account_inoice_line_name"><span  t-esc="'%.2f'%(line['units'])" t-options="{'widget': 'text'}"/></td>
                             <td name="account_inoice_line_ame"><span  t-esc="'%.2f'%(line['amount'])" t-options="{'widget': 'text'}"/></td>
                         </tbody>
+                            </t>
                         </t>
                              <tfoot>
                                 <tr>
@@ -32,10 +49,74 @@
                            </tfoot>
                     </table>
                     <br/>
+                    </span>
+
+                     <!--                    Catogeorise according to sek currency-->
+                    <span t-if="print_sek==2">
+                    <br/>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                                <th name="th_description" class="text-left"><span>ART NO /  PRODUCT NAME</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units (PCS)</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount (SEK)</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="model_need" t-as="line">
+                            <t t-if="line['currency'] == 'pay_2' ">
+                        <tbody  class="invoice_tbody">
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="'%.2f'%(line['units'])" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="'%.2f'%(line['amount'])" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                            </t>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="1">Summary :</th>
+                                  <td><t t-esc="'%.2f'%(lean_tot_units)"/></td>
+                                  <td><t t-esc="'%.2f'%(lean_tot_amt)"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+                    </span>
+
+                     <!--                    Catogeorise according to dkk currency-->
+                    <span t-if="print_dkk==3">
+                    <br/>
+                        <table  class="table">
+                        <thead>
+                            <tr>
+                                <th name="th_description" class="text-left"><span>ART NO /  PRODUCT NAME</span></th>
+                                <th name="th_descpion" class="text-left"><span>Units (PCS)</span></th>
+                                <th name="th_descpion" class="text-left"><span>Amount (DKK)</span></th>
+                            </tr>
+                        </thead>
+						<t t-foreach="model_need" t-as="line">
+                        <t t-if="line['currency'] == 'pay_3' ">
+
+                        <tbody  class="invoice_tbody">
+                            <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_name"><span  t-esc="'%.2f'%(line['units'])" t-options="{'widget': 'text'}"/></td>
+                            <td name="account_inoice_line_ame"><span  t-esc="'%.2f'%(line['amount'])" t-options="{'widget': 'text'}"/></td>
+                        </tbody>
+                        </t>
+                        </t>
+                             <tfoot>
+                                <tr>
+                                  <th colspan="1">Summary :</th>
+                                  <td><t t-esc="'%.2f'%(lean_tot_units)"/></td>
+                                  <td><t t-esc="'%.2f'%(lean_tot_amt)"/></td>
+                                </tr>
+                           </tfoot>
+                    </table>
+                    <br/>
+                    </span>
 
                     <br/>
                 </t>
-            </t>
+                </t>
         </template>
     </data>
 </odoo>
