@@ -94,13 +94,14 @@ class report_royalties(models.TransientModel):
                     }
                     model_need.append(product)
                 else:
-                    product = {
-                        'currency': rec.link_prod_id.main_sales_id.partner_id.payment_fact,
-                        'prod_name': lines.product_id.name,
-                        'units': lines.quantity,
-                        'amount': lines.price_subtotal,
-                    }
-                    credit_nt.append(product)
+                    if rec.move_type=='out_refund':
+                        product = {
+                            'currency': rec.link_prod_id.main_sales_id.partner_id.payment_fact,
+                            'prod_name': lines.product_id.name,
+                            'units': lines.quantity,
+                            'amount': lines.price_subtotal,
+                        }
+                        credit_nt.append(product)
 
         credit_tot_units = 0
         credit_tot_amt = 0
