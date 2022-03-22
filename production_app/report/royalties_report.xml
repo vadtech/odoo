@@ -7,6 +7,7 @@
                     <div style="margin-left:0px;margin-top:-45px;">
 						<h3>Period: <t t-esc="month"/> -- <t t-esc="year"/></h3>
                     </div>
+
 <!--                    check if nok currecny is true-->
                     <t t-set="print_nok" t-value="0"/>
                     <t t-set="print_sek" t-value="0"/>
@@ -14,6 +15,7 @@
                     <t t-set="print_iban" t-value="0"/>
                     <t t-set="print_vipps" t-value="0"/>
                     <t t-set="print_bank" t-value="0"/>
+
                     <t t-foreach="model_need" t-as="line">
                             <span t-if="line['currency'] == 'pay_1' " t-set="print_nok" t-value="1"/>
                             <span t-if="line['currency'] == 'pay_2' " t-set="print_sek" t-value="2"/>
@@ -24,8 +26,7 @@
                     </t>
                     <h4 style="text-transform: uppercase;" >Model : <t t-esc="model"/></h4>
 
-
-                    <!--                    Catogeorise according to nok currency-->
+                    <!--Catogeorise according to nok currency-->
                     <span t-if="print_nok==1">
                     <br/>
                         <table  class="table">
@@ -37,7 +38,7 @@
                             </tr>
                         </thead>
 						<t t-foreach="model_need" t-as="line">
-                            <t t-if="line['currency'] == 'pay_1' ">
+                            <t t-if="line['currency'] == 'pay_1'">
                         <tbody  class="invoice_tbody">
                             <td name="account_invoice_line_name"><span  t-esc="line['prod_name']" t-options="{'widget': 'text'}"/></td>
                             <td name="account_inoice_line_name"><span  t-esc="'%.2f'%(line['units'])" t-options="{'widget': 'text'}"/></td>
@@ -118,7 +119,6 @@
                     </table>
                     <br/>
                     </span>
-
                     <br/>
                 </t>
                 </t>
