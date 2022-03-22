@@ -9,6 +9,11 @@
                     </div>
 <!--                    check if nok currecny is true-->
                     <t t-set="print_nok" t-value="0"/>
+                    <t t-set="print_sek" t-value="0"/>
+                    <t t-set="print_dkk" t-value="0"/>
+                    <t t-set="print_iban" t-value="0"/>
+                    <t t-set="print_vipps" t-value="0"/>
+                    <t t-set="print_bank" t-value="0"/>
                     <t t-foreach="model_need" t-as="line">
                             <span t-if="line['currency'] == 'pay_1' " t-set="print_nok" t-value="1"/>
                             <span t-if="line['currency'] == 'pay_2' " t-set="print_sek" t-value="2"/>
