@@ -18,14 +18,25 @@
 
                     <t t-foreach="model_need" t-as="line">
                             <span t-if="line['currency'] == 'pay_1' " t-set="print_nok" t-value="1"/>
+                         </t>
+                    <t t-foreach="model_need" t-as="line">
                             <span t-if="line['currency'] == 'pay_2' " t-set="print_sek" t-value="2"/>
+                      </t>
+                    <t t-foreach="model_need" t-as="line">
                             <span t-if="line['currency'] == 'pay_3' " t-set="print_dkk" t-value="3"/>
+                        </t>
+                    <t t-foreach="model_need" t-as="line">
                             <span t-if="line['currency'] == 'pay_4' " t-set="print_iban" t-value="4"/>
+                              </t>
+                    <t t-foreach="model_need" t-as="line">
                             <span t-if="line['currency'] == 'pay_5' " t-set="print_vipps" t-value="5"/>
+                         </t>
+                    <t t-foreach="model_need" t-as="line">
                             <span t-if="line['currency'] == 'pay_6' " t-set="print_bank" t-value="6"/>
                     </t>
-                    <h4 style="text-transform: uppercase;" >Model : <t t-esc="model"/></h4>
 
+
+                    <h4 style="text-transform: uppercase;" >Model : <t t-esc="model"/></h4>
                     <!--Catogeorise according to nok currency-->
                     <span t-if="print_nok==1">
                     <br/>
