@@ -93,7 +93,6 @@ class report_royalties(models.TransientModel):
             ["&", ('create_date', '>=', Begindate), ('create_date', '<=', Enddate)])
         model_need = []
         credit_nt=[]
-        print(self.model)
         for rec in search_result:
             for lines in rec.invoice_line_ids:
                 #check model ivoice and currecncy
@@ -146,20 +145,29 @@ class report_royalties(models.TransientModel):
                 lean_tot_units += model_need[rec]['units']
                 lean_tot_amt += model_need[rec]['amount']
 
-        print("invoices")
-        print(lean_tot_units)
 
-        #remove credit notes in those invoice records
-        for rec in range(len(model_need)):
-            for sub_rec in range(0, len(credit_nt)):
-                if model_need[rec] != {} and credit_nt[sub_rec] != {}:
-                    if model_need[rec]['prod_name'] == credit_nt[sub_rec]['prod_name']:
-                        #subtract credit notes
-                        model_need[rec]['units'] -= credit_nt[sub_rec]['units']
-                        model_need[rec]['amount'] -= credit_nt[sub_rec]['amount']
 
-        lean_tot_units-=credit_tot_units
-        lean_tot_amt-=credit_tot_amt
+        if self.date_month == '02' and self.year =='2022':
+            # remove credit notes in those invoice records in Feb
+            for rec in range(len(model_need)):
+                for sub_rec in range(0, len(credit_nt)):
+                    if model_need[rec] != {} and credit_nt[sub_rec] != {}:
+                        if model_need[rec]['prod_name'] == credit_nt[sub_rec]['prod_name']:
+                            #subtract credit notes
+                            model_need[rec]['amount'] -= credit_nt[sub_rec]['amount']
+            lean_tot_amt-=credit_tot_amt
+        else:
+            #remove credit notes in those invoice records not in febrauary
+            for rec in range(len(model_need)):
+                for sub_rec in range(0, len(credit_nt)):
+                    if model_need[rec] != {} and credit_nt[sub_rec] != {}:
+                        if model_need[rec]['prod_name'] == credit_nt[sub_rec]['prod_name']:
+                            # subtract credit notes
+                            model_need[rec]['units'] -= credit_nt[sub_rec]['units']
+                            model_need[rec]['amount'] -= credit_nt[sub_rec]['amount']
+
+            lean_tot_units -= credit_tot_units
+            lean_tot_amt -= credit_tot_amt
 
         data = {
             'currency':self.currency,
