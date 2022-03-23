@@ -104,7 +104,7 @@ class report_royalties(models.TransientModel):
                     }
                     model_need.append(product)
                 else:
-                    if rec.move_type=='out_refund' and rec.link_prod_id.main_sales_id.partner_id.payment_fact== self.currency:
+                    if lines.product_id.model == self.model and rec.move_type=='out_refund' and rec.link_prod_id.main_sales_id.partner_id.payment_fact== self.currency:
                         product = {
                             'prod_name': lines.product_id.name,
                             'units': lines.quantity,
