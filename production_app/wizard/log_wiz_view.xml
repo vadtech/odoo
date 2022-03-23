@@ -42,13 +42,17 @@
                 <form string="royalties appoint">
                     <group>
                         <field name="model"/>
-                    </group>    
+                    </group>
+                     <group>
+                        <field name="currency"/>
+                    </group>
                     <group>
                         <field name="date_month"/>
                     </group>
                     <group>
                         <field name="year"/>
                     </group>
+
                     <footer>
                         <button name="royalties_lean_report" type="object" string="Print" class="btn-secondary" />
                         <button string="Cancel" class="btn-secondary" special="cancel"/>
