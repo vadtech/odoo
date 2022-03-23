@@ -74,6 +74,17 @@ class report_royalties(models.TransientModel):
             ('bankett', 'Bankett'),
             ('other', 'Other')])
 
+    currency = fields.Selection(
+        string='Payment Factoring',
+        default='pay_1',
+        selection=[
+            ('pay_1', 'Factoring Norway'),
+            ('pay_2', 'Factoring Sweden'),
+            ('pay_3', 'Factoring Denmark')])
+            # ('pay_4', 'English without factoring with IBAN/SWIFT'),
+            # ('pay_5', 'Norway without factoring to VIPPS'),
+            # ('pay_6', 'Norway without factoring to bank account'),
+
     def royalties_lean_report(self):
         date_from = "01/" + str(self.date_month) + "/" + str(self.year)
         Begindate = datetime.strptime(date_from, "%d/%m/%Y")
@@ -85,18 +96,17 @@ class report_royalties(models.TransientModel):
         print(self.model)
         for rec in search_result:
             for lines in rec.invoice_line_ids:
-                if lines.product_id.model == self.model and rec.move_type=='out_invoice':
+                #check model ivoice and currecncy
+                if lines.product_id.model == self.model and rec.move_type=='out_invoice' and rec.link_prod_id.main_sales_id.partner_id.payment_fact== self.currency:
                     product = {
-                        'currency': rec.link_prod_id.main_sales_id.partner_id.payment_fact,
                         'prod_name': lines.product_id.name,
                         'units': lines.quantity,
                         'amount': lines.price_subtotal,
                     }
                     model_need.append(product)
                 else:
-                    if rec.move_type=='out_refund':
+                    if rec.move_type=='out_refund' and rec.link_prod_id.main_sales_id.partner_id.payment_fact== self.currency:
                         product = {
-                            'currency': rec.link_prod_id.main_sales_id.partner_id.payment_fact,
                             'prod_name': lines.product_id.name,
                             'units': lines.quantity,
                             'amount': lines.price_subtotal,
@@ -110,7 +120,7 @@ class report_royalties(models.TransientModel):
         for rec in range(len(credit_nt)):
             for sub_rec in range(rec + 1, len(credit_nt)):
                 if credit_nt[rec] != {} and credit_nt[sub_rec] != {}:
-                    if credit_nt[rec]['prod_name'] == credit_nt[sub_rec]['prod_name'] and credit_nt[rec]['currency'] == credit_nt[sub_rec]['currency']:
+                    if credit_nt[rec]['prod_name'] == credit_nt[sub_rec]['prod_name']:
                         credit_nt[rec]['units'] += credit_nt[sub_rec]['units']
                         credit_nt[rec]['amount'] += credit_nt[sub_rec]['amount']
                         credit_nt[sub_rec].clear()
@@ -127,7 +137,7 @@ class report_royalties(models.TransientModel):
         for rec in range(len(model_need)):
             for sub_rec in range(rec + 1, len(model_need)):
                 if model_need[rec] != {} and model_need[sub_rec] != {}:
-                    if model_need[rec]['prod_name'] == model_need[sub_rec]['prod_name'] and model_need[rec]['currency'] == model_need[sub_rec]['currency']:
+                    if model_need[rec]['prod_name'] == model_need[sub_rec]['prod_name']:
                         model_need[rec]['units'] += model_need[sub_rec]['units']
                         model_need[rec]['amount'] += model_need[sub_rec]['amount']
                         model_need[sub_rec].clear()
@@ -152,6 +162,7 @@ class report_royalties(models.TransientModel):
         lean_tot_amt-=credit_tot_amt
 
         data = {
+            'currency':self.currency,
             'model': self.model,
             'month': self.date_month,
             'year': self.year,
