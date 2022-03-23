@@ -8,6 +8,10 @@
 						<h3>Period: <t t-esc="month"/> -- <t t-esc="year"/></h3>
                     </div>
                     <h4 style="text-transform: uppercase;" >Model : <t t-esc="model"/></h4>
+                    <br/>
+                    <h4 t-if="currency=='pay_1'">CURRENCY : NOK</h4>
+                    <h4 t-if="currency=='pay_2'">CURRENCY : SEK</h4>
+                    <h4 t-if="currency=='pay_3'">CURRENCY : DKK</h4>
                         <table  class="table">
                         <thead>
                             <tr>
