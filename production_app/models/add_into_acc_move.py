@@ -13,8 +13,8 @@ class add_into_acc(models.Model):
 	sales_char=fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
 	invoice_no_name=fields.Char(string="Inovice Number")
 	customer_name=fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
+	fake_sales_id = fields.Char(string="fake_sales_id")
 	
-
 	inv_state = fields.Selection(
 		string='Invoice Status',
 		tracking=True,
@@ -24,6 +24,11 @@ class add_into_acc(models.Model):
 			('not_invc', 'Not Invoiced')])
 	
 	"""ALL FUNCTTION S FOR QUICK FIX """
+	def fix_sales_char(self):
+		for rec in self:
+			rec.fake_sales_char = rec.sales_char
+			
+			
 	def fix_updating_fields(self):
 		current_rec = self.env['account.move'].search([])
 		for single_rec in current_rec:
