@@ -13,7 +13,7 @@ class report_logs(models.TransientModel):
 
     def report_logs_appoint(self):
         search_result = self.env['logs.model'].search_read(
-            ["&", ('create_date', '>=', self.date_form), ('create_date', '<=', self.date_to)])
+            ["&", ('dte_create', '>=', self.date_form), ('dte_create', '<=', self.date_to)])
         data = {
             'form': self.read()[0],
             'search_result': search_result,
