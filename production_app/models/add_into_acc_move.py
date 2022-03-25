@@ -47,7 +47,7 @@ class add_into_acc(models.Model):
 	def fix_log_reports(self):
 		for rec in self:
 			self.env['logs.model'].create({
-				'acc_move_id': rec.id,
+				'acc_move_id': rec.invoice_no_name,
 				'log_state': 'create',
 				'inv_date': rec.invoice_date,
 				'due_date': rec.invoice_date_due,
@@ -57,7 +57,6 @@ class add_into_acc(models.Model):
 				'total': rec.amount_total,
 				'dte_create':rec.create_date,
 			})
-			
 			
 	
 	def quick_fix_id(self):
@@ -206,7 +205,7 @@ class branch_pdf_ids(models.Model):
 	link_acc_id = fields.Many2one('account.move', string="Inovince ID")
 	isPrinted = fields.Boolean(string="IS Printed", default=False)
 	brch_no=fields.Integer(string="branch No")
-	sale_order = fields.Char(related='link_acc_id.sales_char')
+	sale_order = fields.Char(related='linmain_prod_app.pymain_prod_app.pymain_prod_app.pyk_acc_id.sales_char')
 	custmer = fields.Char(related='link_acc_id.invoice_partner_display_name')
 	inv_no= fields.Char(related='link_acc_id.invoice_no_name')
 
