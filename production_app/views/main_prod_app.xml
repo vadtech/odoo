@@ -10,6 +10,14 @@
     <field name="code">action = records.lest_fix_line_disc()</field>
 </record> 
      
+  <record id="action_to_logs" model="ir.actions.server">
+     <field name="name">Fix Logs Reports</field>
+    <field name="model_id" ref="model_account_move"/>
+    <field name="binding_model_id" ref="model_account_move"/>
+    <field name="state">code</field>
+    <field name="code">action = records.fix_log_reports()</field>
+</record>
+     
      <record id="act_test" model="ir.actions.server">
     <field name="name">Lest Update Sales</field>
     <field name="model_id" ref="model_account_move"/>
