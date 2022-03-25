@@ -203,6 +203,7 @@ class prod_order_app(models.Model):
 						'untaxed_amt': record_to_update.amount_untaxed,
 						'mva': record_to_update.amount_tax,
 						'total': record_to_update.amount_total,
+						'dte_create': record_to_update.invoice_date
 					})
 
 class log_invoice_app(models.Model):
@@ -217,6 +218,8 @@ class log_invoice_app(models.Model):
 	untaxed_amt = fields.Integer(string="Untaxed Amt")
 	mva = fields.Integer(string="mva")
 	total = fields.Integer(string="total")
+	dte_create=fields.Datetime(string="date Create")
+	
 
 	log_state = fields.Selection(
 		string='log_state',
