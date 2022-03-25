@@ -44,6 +44,21 @@ class add_into_acc(models.Model):
 			single_rec.amount_total = amount_untaxed + amount_tax	
 			
 			
+	def fix_log_reports(self):
+		for rec in self:
+			self.env['logs.model'].create({
+				'acc_move_id': rec.id,
+				'log_state': 'create',
+				'inv_date': rec.invoice_date,
+				'due_date': rec.invoice_date_due,
+				'customer_no': rec.customer_name.name,
+				'untaxed_amt': rec.amount_untaxed,
+				'mva': rec.amount_tax,
+				'total': rec.amount_total,
+				'dte_create':rec.create_date,
+			})
+			
+			
 	
 	def quick_fix_id(self):
 		#initial lise first id
