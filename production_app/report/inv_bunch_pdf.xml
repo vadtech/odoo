@@ -28,7 +28,7 @@
                      <t t-set="pay_1" t-value="1"/>
                      <t t-set="pay_2" t-value="1"/>
                      <t t-set="pay_3" t-value="1"/>
-                     <t t-foreach="docs" t-as="doc">
+                     <t t-foreach="docs" t-as="doc">  
                     <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1'">
                           <t t-set="pay_1" t-value="2"/>
                     </span>
