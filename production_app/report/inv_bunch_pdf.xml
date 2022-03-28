@@ -41,7 +41,7 @@
                      </t>
 <!--                     Not Contant data to be printed also if currency = NOK-->
 <!--                     check if any record have Nok curency-->
-                     <div i-if="pa_1=='2'" class="page">
+                     <div i-if="pay_1=='2'" class="page">
                     <div id="informatios" class="row mt32 mb32">
                              <div class="col-auto col-3 mw-100 mb-2">
                                   <h6>Valutakode på konto: &#160; &#160;NOK</h6>
@@ -108,6 +108,7 @@
 
 <!--                     Not Constant data to be printed also if currency = SEK-->
 <!--                     check if any record have Nok curency-->
+                     <p style="page-break-before:always;"> </p>
                     <div i-if="pay_2=='3'" class="page">
                     <div id="informatios" class="row mt32 mb32">
                              <div class="col-auto col-3 mw-100 mb-2">
@@ -174,6 +175,7 @@
 
 <!--                     Not Constant data to be printed also if currency = DKK -->
 <!--                     check if any record have Nok curency-->
+                     <p style="page-break-before:always;"> </p>
                     <div i-if="pay_3=='4'" class="page">
                     <div id="informatios" class="row mt32 mb32">
                              <div class="col-auto col-3 mw-100 mb-2">
