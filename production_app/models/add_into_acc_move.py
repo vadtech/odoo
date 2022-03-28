@@ -49,7 +49,7 @@ class add_into_acc(models.Model):
 	def fix_log_reports(self):
 		for rec in self:
 			self.env['logs.model'].create({
-				'acc_move_id': str(rec.invoice_no_name),
+				'acc_move_id': rec.invoice_no_name,
 				'log_state': 'create',
 				'inv_date': rec.invoice_date,
 				'due_date': rec.invoice_date_due,
@@ -181,21 +181,21 @@ class add_into_acc(models.Model):
 	
 	def cal_tot_untaxed_amt(self,date_form,date_to):
 		total=0
-		search_result = self.env['logs.model'].search_read(["&", ('create_date', '>=',date_form), ('create_date', '<=',date_to)])
+		search_result = self.env['logs.model'].search_read(["&", ('dte_create', '>=',date_form), ('dte_create', '<=',date_to)])
 		for rec in search_result:
 			total+=rec['untaxed_amt']
 		return total
 
 	def cal_tot_mva(self, date_form, date_to):
 		mva_total=0
-		search_result = self.env['logs.model'].search_read(["&", ('create_date', '>=', date_form), ('create_date', '<=', date_to)])
+		search_result = self.env['logs.model'].search_read(["&", ('dte_create', '>=', date_form), ('dte_create', '<=', date_to)])
 		for rec in search_result:
 			mva_total += rec['mva']
 		return mva_total
 
 	def cal_log_total(self, date_form, date_to):
 		mv_totals=0
-		search_result = self.env['logs.model'].search_read(["&", ('create_date', '>=', date_form), ('create_date', '<=', date_to)])
+		search_result = self.env['logs.model'].search_read(["&", ('dte_create', '>=', date_form), ('dte_create', '<=', date_to)])
 		for rec in search_result:
 			mv_totals += rec['total']
 		return mv_totals
