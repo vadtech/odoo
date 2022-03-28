@@ -261,6 +261,7 @@ class branch_pdf_ids(models.Model):
 			# if record is in sek
 			elif cur == 4 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
 				total_amt += record.link_acc_id.amount_total_signed
+			round(total_amt, 2)	
 		return total_amt
 	
 	@api.model
@@ -273,6 +274,7 @@ class branch_pdf_ids(models.Model):
 				total_not += record.link_acc_id.amount_untaxed
 			if cur==4 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
 				total_not += record.link_acc_id.amount_untaxed
+			round(total_not, 2)	
 		return total_not
 
 	@api.model
@@ -285,6 +287,7 @@ class branch_pdf_ids(models.Model):
 				total_tax += record.link_acc_id.amount_tax
 			if cur==4 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
 				total_tax += record.link_acc_id.amount_tax
+			round(total_tax, 2)	
 		return total_tax
 	
 	@api.model
