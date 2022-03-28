@@ -25,7 +25,6 @@
                      </t>
                      <br/>
                      <br/>
-
                      <t t-set="pay_1" t-value="1"/>
                      <t t-set="pay_2" t-value="1"/>
                      <t t-set="pay_3" t-value="1"/>
@@ -178,7 +177,7 @@
                     <div i-if="pay_3=='4'" class="page">
                     <div id="informatios" class="row mt32 mb32">
                              <div class="col-auto col-3 mw-100 mb-2">
-                                 <h6>Valutakode på konto: &#160; &#160;SEK</h6>
+                                 <h6>Valutakode på konto: &#160; &#160;DKK</h6>
                              </div>
                              <div class="col-auto col-3 mw-100 mb-2">
                                     <h6>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total(pay_3)"/></h6>
