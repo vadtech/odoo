@@ -10,7 +10,7 @@
                        <br/>
 <!--                           constant data to be printed-->
                         <h6>Registrert av: &#160; &#160;Per Magne Mork</h6>
-                        <h6>Kundenr hos factoringselskap:&#160; &#160;09891</h6>
+                        <h6>Kundenr hos factoringselskap:&#160; &#160;09891</h6> 
                         <h6>Debitor FCI: &#160; &#160;530</h6>
                         </t>
                      <t t-set="information_block">
