@@ -4,11 +4,11 @@
         <template id="bunch_report_pdf">
             <t t-call="web.html_container">
 				 <t t-call="web.external_layout">
-                       <t t-set="address">
-                           <br/>
-                           <br/>
-                           <br/>
-                          <h6>Valutakode på konto: &#160; &#160;NOK</h6>
+                     <t t-set="address">
+                       <br/>
+                       <br/>
+                       <br/>
+<!--                           constant data to be printed-->
                         <h6>Registrert av: &#160; &#160;Per Magne Mork</h6>
                         <h6>Kundenr hos factoringselskap:&#160; &#160;09891</h6>
                         <h6>Debitor FCI: &#160; &#160;530</h6>
@@ -21,12 +21,39 @@
                                <h6>Bunt nr: &#160; &#160;<t t-esc="docs.update_banch()"/></h6>
                                <h6>Buntdato: &#160; &#160; <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></h6>
                                <h6>Bunttype: &#160; &#160;1</h6>
-                               <h6>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total()"/></h6>
-                               <h6>Antall bilag: &#160; &#160; <t t-esc="docs.count_records()"/></h6>
                                <h6>Sendt: &#160; &#160; YES</h6>
                      </t>
                      <br/>
+                     <br/>
 
+                     <t t-set="pay_1" t-value="1"/>
+                     <t t-set="pay_2" t-value="1"/>
+                     <t t-set="pay_3" t-value="1"/>
+                     <t t-foreach="docs" t-as="doc">
+                    <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1'">
+                          <t t-set="pay_1" t-value="2"/>
+                    </span>
+                    <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2'">
+                     <t t-set="pay_2" t-value="3"/>
+                    </span>
+                    <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3'">
+                     <t t-set="pay_3" t-value="4"/>
+                    </span>
+                     </t>
+<!--                     Not Contant data to be printed also if currency = NOK-->
+<!--                     check if any record have Nok curency-->
+                     <div i-if="pa_1=='2'" class="page">
+                    <div id="informatios" class="row mt32 mb32">
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                  <h6>Valutakode på konto: &#160; &#160;NOK</h6>
+                             </div>
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                    <h6>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total(pay_1)"/></h6>
+                             </div>
+                              <div class="col-auto col-3 mw-100 mb-2">
+                                     <h6>Antall bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_1)"/></h6>
+                             </div>
+                    </div>
                      <table class="table table-striped">
                             <thead>
                             <tr>
@@ -41,8 +68,76 @@
                             </tr>
                             </thead>
                          <t t-foreach="docs" t-as="doc">
+                             <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact =='pay_1'">
                             <tbody>
-                                        <td name="account_invoice_line_id"><span  t-esc="doc.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_id"><span  t-esc="doc.inv_no" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_name"><span t-field="doc.link_acc_id.partner_id.parent_id.name" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="doc.link_acc_id.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoic_line"><t t-esc="doc.link_acc_id.invoice_date.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoicline"><t t-esc="doc.link_acc_id.invoice_date_due.strftime('%Y-%m-%d')"/></td>
+                                        <td class="text-right">
+                                            <span t-field="doc.link_acc_id.amount_untaxed"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.link_acc_id.amount_tax"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.link_acc_id.amount_residual"/>
+                                        </td>
+                            </tbody>
+                             </span>
+                         </t>
+                         </table>
+                         <table align="right" class="table table-striped" style="width:40%">
+                                  <tr>
+                                    <th>totalbeløp uten mva</th>
+                                    <th>kr<t t-esc="docs.cal_no_tax(pay_1)"/></th>
+                                  </tr>
+                                  <tr>
+                                    <td>totalbeløp med</td>
+                                    <td>kr<t t-esc="docs.cal_in_tax(pay_1)"/></td>
+                                  </tr>
+                                    <tr>
+                                    <td>totale mengden</td>
+                                    <td>kr<t t-esc="docs.cal_total(pay_1)"/></td>
+                                  </tr>
+                                </table>
+                         <t><t t-esc="docs.change_state()"/></t>
+                         <br/>
+                        </div>
+
+
+<!--                     Not Constant data to be printed also if currency = SEK-->
+<!--                     check if any record have Nok curency-->
+                    <div i-if="pay_2=='3'" class="page">
+                    <div id="informatios" class="row mt32 mb32">
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                 <h6>Valutakode på konto: &#160; &#160;SEK</h6>
+                             </div>
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                    <h6>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total(pay_2)"/></h6>
+                             </div>
+                              <div class="col-auto col-3 mw-100 mb-2">
+                                     <h6>Antall bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_2)"/></h6>
+                             </div>
+                             </div>
+                     <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th name="art_no" class="text-left"><span>Kundenr</span></th>
+                                <th name="th_description" class="text-left"><span>Navn</span></th>
+                                <th name="th_quantity" class="text-left">Fakturanr</th>
+                                <th name="th_priceunit" class="text-left">Fakturadato</th>
+                                <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
+                                <th name="th_price_unit" class="text-right"><span>Beløp uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp med MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp</span></th>
+                            </tr>
+                            </thead>
+                         <t t-foreach="docs" t-as="doc">
+                             <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact =='pay_2'">
+                            <tbody>
+                                        <td name="account_invoice_line_id"><span  t-esc="doc.inv_no" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoice_line_name"><span t-field="doc.link_acc_id.partner_id.parent_id.name" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoice_line"><span t-field="doc.link_acc_id.id" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoic_line"><t t-esc="doc.link_acc_id.invoice_date.strftime('%Y-%m-%d')"/></td>
@@ -58,23 +153,94 @@
                                         </td>
                             </tbody>
                              <br/>
+                             </span>
                          </t>
-                     </table>
-                     <table align="right" class="table table-striped" style="width:40%">
-                              <tr>
-                                <th>totalbeløp uten mva</th>
-                                <th>kr<t t-esc="docs.cal_no_tax()"/></th>
-                              </tr>
-                              <tr>
-                                <td>totalbeløp med</td>
-                                <td>kr<t t-esc="docs.cal_in_tax()"/></td>
-                              </tr>
-                                <tr>
-                                <td>totale mengden</td>
-                                <td>kr<t t-esc="docs.cal_total()"/></td>
-                              </tr>
-                            </table>
-                     <t><t t-esc="docs.change_state()"/></t>
+                         </table>
+                         <table align="right" class="table table-striped" style="width:40%">
+                                  <tr>
+                                    <th>totalbeløp uten mva</th>
+                                    <th>kr<t t-esc="docs.cal_no_tax(pay_2)"/></th>
+                                  </tr>
+                                  <tr>
+                                    <td>totalbeløp med</td>
+                                    <td>kr<t t-esc="docs.cal_in_tax(pay_2)"/></td>
+                                  </tr>
+                                    <tr>
+                                    <td>totale mengden</td>
+                                    <td>kr<t t-esc="docs.cal_total(pay_2)"/></td>
+                                  </tr>
+                                </table>
+                         <t><t t-esc="docs.change_state()"/></t>
+                        </div>
+
+<!--                     Not Constant data to be printed also if currency = DKK -->
+<!--                     check if any record have Nok curency-->
+                    <div i-if="pay_3=='4'" class="page">
+                    <div id="informatios" class="row mt32 mb32">
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                 <h6>Valutakode på konto: &#160; &#160;SEK</h6>
+                             </div>
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                    <h6>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total(pay_3)"/></h6>
+                             </div>
+                              <div class="col-auto col-3 mw-100 mb-2">
+                                     <h6>Antall bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_3)"/></h6>
+                             </div>
+                             </div>
+                     <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th name="art_no" class="text-left"><span>Kundenr</span></th>
+                                <th name="th_description" class="text-left"><span>Navn</span></th>
+                                <th name="th_quantity" class="text-left">Fakturanr</th>
+                                <th name="th_priceunit" class="text-left">Fakturadato</th>
+                                <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
+                                <th name="th_price_unit" class="text-right"><span>Beløp uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp med MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp</span></th>
+                            </tr>
+                            </thead>
+                         <t t-foreach="docs" t-as="doc">
+                             <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact =='pay_3'">
+                            <tbody>
+                                        <td name="account_invoice_line_id"><span  t-esc="doc.inv_no" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_name"><span t-field="doc.link_acc_id.partner_id.parent_id.name" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="doc.link_acc_id.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoic_line"><t t-esc="doc.link_acc_id.invoice_date.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoicline"><t t-esc="doc.link_acc_id.invoice_date_due.strftime('%Y-%m-%d')"/></td>
+                                        <td class="text-right">
+                                            <span t-field="doc.link_acc_id.amount_untaxed"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.link_acc_id.amount_tax"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="doc.link_acc_id.amount_residual"/>
+                                        </td>
+                            </tbody>
+                             <br/>
+                             </span>
+                         </t>
+                         </table>
+                         <table align="right" class="table table-striped" style="width:40%">
+                                  <tr>
+                                    <th>totalbeløp uten mva</th>
+                                    <th>kr<t t-esc="docs.cal_no_tax(pay_3)"/></th>
+                                  </tr>
+                                  <tr>
+                                    <td>totalbeløp med</td>
+                                    <td>kr<t t-esc="docs.cal_in_tax(pay_3)"/></td>
+                                  </tr>
+                                    <tr>
+                                    <td>totale mengden</td>
+                                    <td>kr<t t-esc="docs.cal_total(pay_3)"/></td>
+                                  </tr>
+                                </table>
+                         <t><t t-esc="docs.change_state()"/></t>
+                        <br/>
+                        </div>
+
+<!--                     thus where external layout close-->
                  </t>
             </t>
         </template>
