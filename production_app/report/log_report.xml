@@ -13,7 +13,6 @@
                             <br/>
                         <thead>
                             <tr>
-				<th name="id" class="text-left"><span>faktura id</span></th>
                                <th name="art_no" class="text-left"><span>Faktura nr</span></th>
                                 <th name="th_description" class="text-left"><span>Fakturadato</span></th>
                                 <th name="th_descpion" class="text-left"><span>Forfallsdato</span></th>
@@ -25,7 +24,6 @@
                         </thead>
 			<t t-foreach="search_result" t-as="line">    
                         <tbody  class="invoice_tbody">
-				<td name="invooic_id"><span  t-esc="line['id']" t-options="{'widget': 'text'}"/></td>
 				<td name="invooice_id"><span  t-esc="line['acc_move_id']" t-options="{'widget': 'text'}"/></td>
 				<td name="account_invoice_line_name"><span  t-esc="line['inv_date']" t-options="{'widget': 'text'}"/></td>
 				<td name="account_inoice_line_name"><span  t-esc="line['due_date']" t-options="{'widget': 'text'}"/></td>
