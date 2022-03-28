@@ -60,6 +60,7 @@
                      <table class="table table-striped">
                             <thead>
                             <tr>
+				  <th name="art_o" class="text-left"><span>id</span></th>   
                                 <th name="art_no" class="text-left"><span>Kundenr</span></th>
                                 <th name="th_description" class="text-left"><span>Navn</span></th>
                                 <th name="th_quantity" class="text-left">Fakturanr</th>
@@ -73,6 +74,8 @@
                          <t t-foreach="docs" t-as="doc">
                              <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact =='pay_1'">
                             <tbody>
+                                        <td name="accouinvoice_line_id"><span  t-esc="doc.id" t-options="{'widget': 'text'}"/></td>
+			
                                         <td name="account_invoice_line_id"><span  t-esc="doc.inv_no" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoice_line_name"><span t-field="doc.link_acc_id.partner_id.parent_id.name" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoice_line"><span t-field="doc.link_acc_id.id" t-options="{'widget': 'text'}"/></td>
