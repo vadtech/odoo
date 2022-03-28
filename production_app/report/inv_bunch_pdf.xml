@@ -32,9 +32,13 @@
                     <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1'">
                           <t t-set="pay_1" t-value="2"/>
                     </span>
+                     </t>
+                      <t t-foreach="docs" t-as="doc">
                     <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2'">
                      <t t-set="pay_2" t-value="3"/>
                     </span>
+                      </t>
+                      <t t-foreach="docs" t-as="doc">
                     <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3'">
                      <t t-set="pay_3" t-value="4"/>
                     </span>
@@ -108,8 +112,8 @@
 
 <!--                     Not Constant data to be printed also if currency = SEK-->
 <!--                     check if any record have Nok curency-->
-                     <p style="page-break-before:always;"> </p>
                     <div i-if="pay_2=='3'" class="page">
+                    <p style="page-break-before:always;"> </p>
                     <div id="informatios" class="row mt32 mb32">
                              <div class="col-auto col-3 mw-100 mb-2">
                                  <h6>Valutakode på konto: &#160; &#160;SEK</h6>
@@ -175,8 +179,8 @@
 
 <!--                     Not Constant data to be printed also if currency = DKK -->
 <!--                     check if any record have Nok curency-->
-                     <p style="page-break-before:always;"> </p>
                     <div i-if="pay_3=='4'" class="page">
+                    <p style="page-break-before:always;"> </p>
                     <div id="informatios" class="row mt32 mb32">
                              <div class="col-auto col-3 mw-100 mb-2">
                                  <h6>Valutakode på konto: &#160; &#160;DKK</h6>
