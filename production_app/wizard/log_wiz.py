@@ -147,7 +147,7 @@ class report_royalties(models.TransientModel):
 
 
 
-        if self.date_month == '02' and self.year =='2022':
+        if self.date_month == '01' and self.year =='2022':
             # remove credit notes in those invoice records in Feb
             for rec in range(len(model_need)):
                 for sub_rec in range(0, len(credit_nt)):
