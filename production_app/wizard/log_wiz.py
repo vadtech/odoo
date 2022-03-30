@@ -87,10 +87,11 @@ class report_royalties(models.TransientModel):
 
     def royalties_lean_report(self):
         date_from = "01/" + str(self.date_month) + "/" + str(self.year)
+        last_day = calendar.monthrange(int(self.year), int(self.date_month))
         Begindate = datetime.strptime(date_from, "%d/%m/%Y")
-        Enddate = Begindate + timedelta(days=30)
-        search_result = self.env['account.move'].search(
-            ["&", ('create_date', '>=', Begindate), ('create_date', '<=', Enddate)])
+        date_end = str(last_day[1])+ "/" + str(self.date_month) + "/" + str(self.year)
+        Enddate = datetime.strptime(date_end, "%d/%m/%Y").replace(hour=23, minute=59)
+        search_result = self.env['account.move'].search(["&", ('create_date', '>=', Begindate), ('create_date', '<=', Enddate)])
         model_need = []
         credit_nt=[]
         for rec in search_result:
