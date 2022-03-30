@@ -1,7 +1,7 @@
 from odoo import fields, models, api, _
 from datetime import datetime
 from datetime import timedelta
-
+import calendar
 
 class report_logs(models.TransientModel):
     """real name of the model"""
@@ -13,7 +13,7 @@ class report_logs(models.TransientModel):
 
     def report_logs_appoint(self):
         search_result = self.env['logs.model'].search_read(
-            ["&", ('create_date', '>=', self.date_form), ('create_date', '<=', self.date_to)])
+            ["&", ('dte_create', '>=', self.date_form), ('dte_create', '<=', self.date_to)])
         data = {
             'form': self.read()[0],
             'search_result': search_result,
@@ -87,10 +87,11 @@ class report_royalties(models.TransientModel):
 
     def royalties_lean_report(self):
         date_from = "01/" + str(self.date_month) + "/" + str(self.year)
+        last_day = calendar.monthrange(int(self.year), int(self.date_month))
         Begindate = datetime.strptime(date_from, "%d/%m/%Y")
-        Enddate = Begindate + timedelta(days=30)
-        search_result = self.env['account.move'].search(
-            ["&", ('create_date', '>=', Begindate), ('create_date', '<=', Enddate)])
+        date_end = str(last_day[1])+ "/" + str(self.date_month) + "/" + str(self.year)
+        Enddate = datetime.strptime(date_end, "%d/%m/%Y").replace(hour=23, minute=59)
+        search_result = self.env['account.move'].search(["&", ('create_date', '>=', Begindate), ('create_date', '<=', Enddate)])
         model_need = []
         credit_nt=[]
         for rec in search_result:
@@ -147,7 +148,7 @@ class report_royalties(models.TransientModel):
 
 
 
-        if self.date_month == '02' and self.year =='2022':
+        if self.date_month == '01' and self.year =='2022':
             # remove credit notes in those invoice records in Feb
             for rec in range(len(model_need)):
                 for sub_rec in range(0, len(credit_nt)):

@@ -13,7 +13,10 @@ class add_into_acc(models.Model):
 	sales_char=fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
 	invoice_no_name=fields.Char(string="Inovice Number")
 	customer_name=fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
+	fake_sales_char = fields.Char(string="Sales Order Number")
 	
+	fake_sales_id = fields.Char(string="fake_sales_id")
+
 
 	inv_state = fields.Selection(
 		string='Invoice Status',
@@ -24,6 +27,11 @@ class add_into_acc(models.Model):
 			('not_invc', 'Not Invoiced')])
 	
 	"""ALL FUNCTTION S FOR QUICK FIX """
+	def fix_sales_char(self):
+		for rec in self:
+			rec.fake_sales_char = rec.sales_char
+
+
 	def fix_updating_fields(self):
 		current_rec = self.env['account.move'].search([])
 		for single_rec in current_rec:
@@ -36,16 +44,30 @@ class add_into_acc(models.Model):
 				amount_tax += rec.tax_ids.amount / 100 * rec.price_subtotal
 			single_rec.amount_untaxed = amount_untaxed
 			single_rec.amount_tax = amount_tax
-			single_rec.amount_total = amount_untaxed + amount_tax	
-			
-			
-	
+			single_rec.amount_total = amount_untaxed + amount_tax
+
+	def fix_log_reports(self):
+		for rec in self:
+			self.env['logs.model'].create({
+				'acc_move_id': rec.invoice_no_name,
+				'log_state': 'create',
+				'inv_date': rec.invoice_date,
+				'due_date': rec.invoice_date_due,
+				'customer_no': rec.customer_name.name,
+				'untaxed_amt': rec.amount_untaxed,
+				'mva': rec.amount_tax,
+				'total': rec.amount_total,
+				'dte_create':rec.create_date,
+			})
+
+
 	def quick_fix_id(self):
 		#initial lise first id
 		correct_id=27665
 		#loop through selected ids
 		for rec in self:
-			# change its id 
+			print(rec.invoice_no_name)
+			# change its id
 			rec.invoice_no_name = correct_id + 1
 			# save now correct id
 			correct_id = int(rec.invoice_no_name)
@@ -159,21 +181,21 @@ class add_into_acc(models.Model):
 	
 	def cal_tot_untaxed_amt(self,date_form,date_to):
 		total=0
-		search_result = self.env['logs.model'].search_read(["&", ('create_date', '>=',date_form), ('create_date', '<=',date_to)])
+		search_result = self.env['logs.model'].search_read(["&", ('dte_create', '>=',date_form), ('dte_create', '<=',date_to)])
 		for rec in search_result:
 			total+=rec['untaxed_amt']
 		return total
 
 	def cal_tot_mva(self, date_form, date_to):
 		mva_total=0
-		search_result = self.env['logs.model'].search_read(["&", ('create_date', '>=', date_form), ('create_date', '<=', date_to)])
+		search_result = self.env['logs.model'].search_read(["&", ('dte_create', '>=', date_form), ('dte_create', '<=', date_to)])
 		for rec in search_result:
 			mva_total += rec['mva']
 		return mva_total
 
 	def cal_log_total(self, date_form, date_to):
 		mv_totals=0
-		search_result = self.env['logs.model'].search_read(["&", ('create_date', '>=', date_form), ('create_date', '<=', date_to)])
+		search_result = self.env['logs.model'].search_read(["&", ('dte_create', '>=', date_form), ('dte_create', '<=', date_to)])
 		for rec in search_result:
 			mv_totals += rec['total']
 		return mv_totals
@@ -207,31 +229,65 @@ class branch_pdf_ids(models.Model):
 		return reference
 
 	@api.model
-	def count_records(self):
+	def update_banch(self):
+		x=0
+		return x
+
+	@api.model
+	def cal_records(self, cur):
 		refi=0
 		for record in self:
-			refi = refi+1
+			#if record is in nok
+			if cur==2 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1':
+				refi = refi+1
+			#if record is in sek
+			elif cur==3 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
+				refi = refi+1
+			#if record is in dkk
+			elif cur == 4 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
+				refi = refi + 1
 		return refi
 
 	@api.model
-	def cal_total(self):
+	def cal_total(self,cur):
 		total_amt =0
 		for record in self:
-			total_amt += record.link_acc_id.amount_total_signed
+			#if record is in nok
+			if cur==2 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1':
+				total_amt += record.link_acc_id.amount_total_signed
+			# if record is in sek
+			elif cur == 3 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
+				total_amt += record.link_acc_id.amount_total_signed
+			# if record is in sek
+			elif cur == 4 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
+				total_amt += record.link_acc_id.amount_total_signed
+			round(total_amt, 2)	
 		return total_amt
 	
 	@api.model
-	def cal_no_tax(self):
+	def cal_no_tax(self,cur):
 		total_not =0
 		for record in self:
-			total_not += record.link_acc_id.amount_untaxed
+			if cur==2 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1':
+				total_not += record.link_acc_id.amount_untaxed
+			if cur==3 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
+				total_not += record.link_acc_id.amount_untaxed
+			if cur==4 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
+				total_not += record.link_acc_id.amount_untaxed
+			round(total_not, 2)	
 		return total_not
 
 	@api.model
-	def cal_in_tax(self):
+	def cal_in_tax(self,cur):
 		total_tax =0
 		for record in self:
-			total_tax += record.link_acc_id.amount_tax
+			if cur==2 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1':
+				total_tax += record.link_acc_id.amount_tax
+			if cur==3 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
+				total_tax += record.link_acc_id.amount_tax
+			if cur==4 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
+				total_tax += record.link_acc_id.amount_tax
+			round(total_tax, 2)	
 		return total_tax
 	
 	@api.model
