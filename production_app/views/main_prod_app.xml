@@ -5,7 +5,7 @@
     <record id="action_o_fix" model="ir.actions.server">
      <field name="name">Fix Updating Line Disc</field>
     <field name="model_id" ref="model_sale_order"/>
-    <field name="binding_model_id" ref="model_sale_order"/>
+    <field name="binding_model_id" ref="model_sale_order"/> 
     <field name="state">code</field>
     <field name="code">action = records.lest_fix_line_disc()</field>
 </record> 
