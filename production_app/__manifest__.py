@@ -8,7 +8,7 @@
     'description': """this is for monitoring vad production systems to manage its flow """,
     'category': 'Accounting/Accounting',
     'website': 'https://cyber.sys/hospitial',
-    'depends' : ['sale','mail','report_xml'],
+    'depends' : ['sale','mail','report_xml'], 
     'data': [
     #security -- data -- views --reports
     'data/increment.xml',
