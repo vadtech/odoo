@@ -179,7 +179,7 @@ class add_into_acc(models.Model):
 		self.env['inv_pdfs.model'].create({
 			'banch_no': reference,
 			'no_invoives': x,
-			'isPrinted': True,
+			'isPrinted': False,
 			'bunch_inv_ids': invoice_lines
 		})
 		return reference
