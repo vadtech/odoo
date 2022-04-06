@@ -3,58 +3,60 @@
 	<data>
         <template id="bunch_report_pdf">
             <t t-call="web.html_container">
-		<t t-call="web.external_layout"> 
+            <t t-foreach="docs" t-as="doc">
+				 <t t-call="web.external_layout">
                      <t t-set="address">
                        <br/>
                        <br/>
                        <br/>
 <!--                           constant data to be printed-->
-                        <h6>Registrert av: &#160; &#160;Per Magne Mork</h6>
-                        <h6>Kundenr hos factoringselskap:&#160; &#160;09891</h6> 
-                        <h6>Debitor FCI: &#160; &#160;530</h6>
+                        <h5>Registrert AV: &#160; &#160;Per Magne Mork</h5>
+                        <h5> Kundenr Hos Factoringselskap:&#160; &#160;09891</h5>
+                        <h5>Debitor FCI: &#160; &#160;530</h5>
                         </t>
                      <t t-set="information_block">
                             <div style="margin-top:-100%">
-                                 <h5>Factoringbunt DNB Factoring</h5>
+                                 <h4 style="font-weight:bolder;" >FACTORINGBUNT DNB FACTORING</h4>
                             </div>
                              <br/>
-                               <h6>Bunt nr: &#160; &#160;<t t-esc="docs.update_banch()"/></h6>
-                               <h6>Buntdato: &#160; &#160; <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></h6>
-                               <h6>Bunttype: &#160; &#160;1</h6>
-                               <h6>Sendt: &#160; &#160; YES</h6>
+<!--                            <h6>Bunt nr: &#160; &#160;<t t-esc="docs.update_banch()"/></h6>-->
+
+                               <h5> Bunt Nr: &#160; &#160;<t t-esc="doc.banch_no"/></h5>
+                               <h5> Buntdato: &#160; &#160; <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></h5>
+                               <h5 >Bunttype: &#160; &#160;1</h5>
+                               <h5 >Sendt: &#160; &#160; YES</h5>
                      </t>
                      <br/>
                      <br/>
+<!--                     CHECK FOR FACTORING GROUPS TO BE DISPLAYED-->
                      <t t-set="pay_1" t-value="1"/>
                      <t t-set="pay_2" t-value="1"/>
                      <t t-set="pay_3" t-value="1"/>
-                     <t t-foreach="docs" t-as="doc">  
-                    <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1'">
-                          <t t-set="pay_1" t-value="2"/>
+
+                     <t t-foreach="doc.bunch_inv_ids" t-as="inv_id">
+                    <span t-if="inv_id.payment_fact == 'pay_1'">
+                    <t t-set="pay_1" t-value="2"/>
                     </span>
-                     </t>
-                      <t t-foreach="docs" t-as="doc">
-                    <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2'">
+
+                    <span t-if="inv_id.payment_fact =='pay_2'">
                      <t t-set="pay_2" t-value="3"/>
                     </span>
-                      </t>
-                      <t t-foreach="docs" t-as="doc">
-                    <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3'">
+
+                    <span t-if="inv_id.payment_fact == 'pay_3'">
                      <t t-set="pay_3" t-value="4"/>
                     </span>
                      </t>
-<!--                     Not Contant data to be printed also if currency = NOK-->
-<!--                     check if any record have Nok curency-->
-                     <div t-if="pay_1==2" class="page">
+<!--                DISPLAY DATA ABOUT NOK RECORDS -->
+                     <span t-if="pay_1==2" class="page">
                     <div id="informatios" class="row mt32 mb32">
                              <div class="col-auto col-3 mw-100 mb-2">
-                                  <h6>Valutakode på konto: &#160; &#160;NOK</h6>
+                                  <h5>Valutakode På Konto: &#160; &#160;NOK</h5>
                              </div>
                              <div class="col-auto col-3 mw-100 mb-2">
-                                    <h6>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total(pay_1)"/></h6>
+                                    <h5>Beløp: &#160; &#160; Kr <t t-esc="doc.cal_total(pay_1)"/></h5>
                              </div>
                               <div class="col-auto col-3 mw-100 mb-2">
-                                     <h6>Antall bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_1)"/></h6>
+                                     <h5>Antall Bilag: &#160; &#160; <t t-esc="doc.cal_records(pay_1)"/></h5>
                              </div>
                     </div>
                      <table class="table table-striped">
@@ -65,64 +67,63 @@
                                 <th name="th_quantity" class="text-left">Fakturanr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
-                                <th name="th_price_unit" class="text-right"><span>Beløp uten MVA</span></th>
-                                <th name="th_price_unt" class="text-right"><span>Beløp med MVA</span></th>
+                                <th name="th_price_unit" class="text-right"><span>Beløp Uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp Med MVA</span></th>
                                 <th name="th_price_unt" class="text-right"><span>Beløp</span></th>
                             </tr>
                             </thead>
-                         <t t-foreach="docs" t-as="doc">
-                             <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact =='pay_1'">
+                         <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
+                             <span t-if="inv_ids.payment_fact =='pay_1'">
                             <tbody>
-                                        <td name="account_invoice_line_id"><span  t-esc="doc.inv_no" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line_name"><span t-field="doc.link_acc_id.partner_id.parent_id.name" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line"><span t-field="doc.link_acc_id.id" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoic_line"><t t-esc="doc.link_acc_id.invoice_date.strftime('%Y-%m-%d')"/></td>
-                                        <td name="account_invoicline"><t t-esc="doc.link_acc_id.invoice_date_due.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoice_line_id"><span  t-esc="inv_ids.inv_no" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_name"><span t-field="inv_ids.customer_nme" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="inv_ids.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
                                         <td class="text-right">
-                                            <span t-field="doc.link_acc_id.amount_untaxed"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="doc.link_acc_id.amount_tax"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="doc.link_acc_id.amount_residual"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
                                         </td>
                             </tbody>
                              </span>
                          </t>
                          </table>
                          <table align="right" class="table table-striped" style="width:40%">
-                                  <tr>
-                                    <th>totalbeløp uten mva</th>
-                                    <th>kr<t t-esc="docs.cal_no_tax(pay_1)"/></th>
+                                  <tr class="border-black o_subtotal">
+                                    <th><strong>Totalbeløp Uten MVA</strong></th>
+                                    <th>kr<t t-esc="doc.cal_no_tax(pay_1)"/></th>
                                   </tr>
-                                  <tr>
-                                    <td>totalbeløp med</td>
-                                    <td>kr<t t-esc="docs.cal_in_tax(pay_1)"/></td>
+                                  <tr class="border-black o_subtotal" >
+                                    <td><strong>Totalbeløp Med</strong></td>
+                                    <td>kr<t t-esc="doc.cal_in_tax(pay_1)"/></td>
                                   </tr>
-                                    <tr>
-                                    <td>totale mengden</td>
-                                    <td>kr<t t-esc="docs.cal_total(pay_1)"/></td>
+                                    <tr class="border-black o_subtotal" >
+                                    <td><strong>Totale Mengden</strong></td>
+                                    <td>kr<t t-esc="doc.cal_total(pay_1)"/></td>
                                   </tr>
                                 </table>
-                         <t><t t-esc="docs.change_state()"/></t>
                          <br/>
-                        </div>
+                        </span>
 
-
-<!--                     Not Constant data to be printed also if currency = SEK-->
-<!--                     check if any record have Nok curency-->
-                    <div t-if="pay_2==3" class="page">
+<!--                DISPLAY DATA ABOUT SEK RECORDS -->
+                    <span t-if="pay_2==3" class="page">
                     <p style="page-break-before:always;"> </p>
+                    <br/>
+                     <br/>
                     <div id="informatios" class="row mt32 mb32">
                              <div class="col-auto col-3 mw-100 mb-2">
-                                 <h6>Valutakode på konto: &#160; &#160;SEK</h6>
+                                 <h5>Valutakode På Konto: &#160; &#160;SEK</h5>
                              </div>
                              <div class="col-auto col-3 mw-100 mb-2">
-                                    <h6>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total(pay_2)"/></h6>
+                                    <h5>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total(pay_2)"/></h5>
                              </div>
                               <div class="col-auto col-3 mw-100 mb-2">
-                                     <h6>Antall bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_2)"/></h6>
+                                     <h5>Antall Bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_2)"/></h5>
                              </div>
                              </div>
                      <table class="table table-striped">
@@ -138,22 +139,23 @@
                                 <th name="th_price_unt" class="text-right"><span>Beløp</span></th>
                             </tr>
                             </thead>
-                         <t t-foreach="docs" t-as="doc">
-                             <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact =='pay_2'">
+                         <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
+                             <span t-if="inv_ids.payment_fact =='pay_2'">
                             <tbody>
-                                        <td name="account_invoice_line_id"><span  t-esc="doc.inv_no" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line_name"><span t-field="doc.link_acc_id.partner_id.parent_id.name" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line"><span t-field="doc.link_acc_id.id" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoic_line"><t t-esc="doc.link_acc_id.invoice_date.strftime('%Y-%m-%d')"/></td>
-                                        <td name="account_invoicline"><t t-esc="doc.link_acc_id.invoice_date_due.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoice_line_id"><span  t-esc="inv_ids.inv_no" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_name"><span t-field="inv_ids.customer_nme" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="inv_ids.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
+
                                         <td class="text-right">
-                                            <span t-field="doc.link_acc_id.amount_untaxed"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="doc.link_acc_id.amount_tax"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="doc.link_acc_id.amount_residual"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_residual"/>
                                         </td>
                             </tbody>
                              <br/>
@@ -161,35 +163,36 @@
                          </t>
                          </table>
                          <table align="right" class="table table-striped" style="width:40%">
-                                  <tr>
-                                    <th>totalbeløp uten mva</th>
+                                  <tr class="border-black o_subtotal">
+                                    <th>Totalbeløp Uten MVA</th>
                                     <th>kr<t t-esc="docs.cal_no_tax(pay_2)"/></th>
                                   </tr>
-                                  <tr>
-                                    <td>totalbeløp med</td>
+                                  <tr class="border-black o_subtotal">
+                                    <td>Totalbeløp Med</td>
                                     <td>kr<t t-esc="docs.cal_in_tax(pay_2)"/></td>
                                   </tr>
-                                    <tr>
-                                    <td>totale mengden</td>
+                                    <tr class="border-black o_subtotal">
+                                    <td>Totale Mengden</td>
                                     <td>kr<t t-esc="docs.cal_total(pay_2)"/></td>
                                   </tr>
                                 </table>
-                         <t><t t-esc="docs.change_state()"/></t>
-                        </div>
+                        </span>
 
-<!--                     Not Constant data to be printed also if currency = DKK -->
-<!--                     check if any record have Nok curency-->
-                    <div t-if="pay_3==4" class="page">
+<!--                DISPLAY DATA ABOUT DKK RECORDS -->
+
+                    <span t-if="pay_3==4" class="page">
                     <p style="page-break-before:always;"> </p>
+                        <br/>
+                     <br/>
                     <div id="informatios" class="row mt32 mb32">
                              <div class="col-auto col-3 mw-100 mb-2">
-                                 <h6>Valutakode på konto: &#160; &#160;DKK</h6>
+                                 <h6>Valutakode På Konto: &#160; &#160;DKK</h6>
                              </div>
                              <div class="col-auto col-3 mw-100 mb-2">
                                     <h6>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total(pay_3)"/></h6>
                              </div>
                               <div class="col-auto col-3 mw-100 mb-2">
-                                     <h6>Antall bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_3)"/></h6>
+                                     <h6>Antall Bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_3)"/></h6>
                              </div>
                              </div>
                      <table class="table table-striped">
@@ -200,27 +203,27 @@
                                 <th name="th_quantity" class="text-left">Fakturanr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
-                                <th name="th_price_unit" class="text-right"><span>Beløp uten MVA</span></th>
-                                <th name="th_price_unt" class="text-right"><span>Beløp med MVA</span></th>
+                                <th name="th_price_unit" class="text-right"><span>Beløp Uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp Med MVA</span></th>
                                 <th name="th_price_unt" class="text-right"><span>Beløp</span></th>
                             </tr>
                             </thead>
-                         <t t-foreach="docs" t-as="doc">
-                             <span t-if="doc.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact =='pay_3'">
-                            <tbody>
-                                        <td name="account_invoice_line_id"><span  t-esc="doc.inv_no" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line_name"><span t-field="doc.link_acc_id.partner_id.parent_id.name" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line"><span t-field="doc.link_acc_id.id" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoic_line"><t t-esc="doc.link_acc_id.invoice_date.strftime('%Y-%m-%d')"/></td>
-                                        <td name="account_invoicline"><t t-esc="doc.link_acc_id.invoice_date_due.strftime('%Y-%m-%d')"/></td>
+                         <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
+                             <span t-if="inv_ids.payment_fact=='pay_3'">
+                                  <tbody>
+                                        <td name="account_invoice_line_id"><span  t-esc="inv_ids.inv_no" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_name"><span t-field="inv_ids.customer_nme" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="inv_ids.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
                                         <td class="text-right">
-                                            <span t-field="doc.link_acc_id.amount_untaxed"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="doc.link_acc_id.amount_tax"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="doc.link_acc_id.amount_residual"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
                                         </td>
                             </tbody>
                              <br/>
@@ -229,24 +232,25 @@
                          </table>
                          <table align="right" class="table table-striped" style="width:40%">
                                   <tr>
-                                    <th>totalbeløp uten mva</th>
-                                    <th>kr<t t-esc="docs.cal_no_tax(pay_3)"/></th>
+                                    <th>Totalbeløp Uten MVA</th>
+                                    <th>kr<t t-esc="doc.cal_no_tax(pay_3)"/></th>
                                   </tr>
                                   <tr>
-                                    <td>totalbeløp med</td>
-                                    <td>kr<t t-esc="docs.cal_in_tax(pay_3)"/></td>
+                                    <td>Totalbeløp Med</td>
+                                    <td>kr<t t-esc="doc.cal_in_tax(pay_3)"/></td>
                                   </tr>
                                     <tr>
-                                    <td>totale mengden</td>
-                                    <td>kr<t t-esc="docs.cal_total(pay_3)"/></td>
+                                    <td>Totale Mengden</td>
+                                    <td>kr<t t-esc="doc.cal_total(pay_3)"/></td>
                                   </tr>
                                 </table>
-                         <t><t t-esc="docs.change_state()"/></t>
                         <br/>
-                        </div>
-
+                        </span>
 <!--                     thus where external layout close-->
+                     <t><t t-esc="docs.change_state()"/></t>
                  </t>
+                </t>
+            <p style="page-break-before:always;"> </p>
             </t>
         </template>
     </data>

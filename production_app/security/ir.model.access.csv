@@ -5,6 +5,7 @@ access_logs_model,access_logs_model,model_logs_model,base.group_user,1,1,1,1
 access_log_wiz_model,access_log_wiz_model,model_log_wiz_model,base.group_user,1,1,1,1
 access_inv_pdfs_model,access_inv_pdfs_model,model_inv_pdfs_model,base.group_user,1,1,1,1
 access_royalties_model,access_royalties_model,model_royalties_model,base.group_user,1,1,1,1
+access_bunchinvoices_model,access_bunchinvoices_model,model_bunchinvoices_model,base.group_user,1,1,1,1
 
 
 

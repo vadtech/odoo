@@ -2,86 +2,105 @@
 <odoo>
 <!-- Sripts Fuctions for Hard making Changes       -->
      
-    <record id="action_o_fix" model="ir.actions.server">
-     <field name="name">Fix Updating Line Disc</field>
-    <field name="model_id" ref="model_sale_order"/>
-    <field name="binding_model_id" ref="model_sale_order"/> 
-    <field name="state">code</field>
-    <field name="code">action = records.lest_fix_line_disc()</field>
-</record> 
-     
-  <record id="action_to_logs" model="ir.actions.server">
+<!--    <record id="action_o_fix" model="ir.actions.server">-->
+<!--     <field name="name">Fix Updating Line Disc</field>-->
+<!--    <field name="model_id" ref="model_sale_order"/>-->
+<!--    <field name="binding_model_id" ref="model_sale_order"/>-->
+<!--    <field name="state">code</field>-->
+<!--    <field name="code">action = records.lest_fix_line_disc()</field>-->
+<!--</record>-->
+
+     <record id="action_to_logs" model="ir.actions.server">
      <field name="name">Fix Logs Reports</field>
     <field name="model_id" ref="model_account_move"/>
     <field name="binding_model_id" ref="model_account_move"/>
     <field name="state">code</field>
     <field name="code">action = records.fix_log_reports()</field>
 </record>
-     
-     <record id="act_test" model="ir.actions.server">
-    <field name="name">Lest Update Sales</field>
-    <field name="model_id" ref="model_account_move"/>
-    <field name="binding_model_id" ref="model_account_move"/>
+
+    <record id="action_bached_repo" model="ir.actions.server">
+     <field name="name">Fix Bunched Reports</field>
+    <field name="model_id" ref="model_inv_pdfs_model"/>
+    <field name="binding_model_id" ref="model_inv_pdfs_model"/>
     <field name="state">code</field>
-    <field name="code">action = records.fix_sales_char()</field>
+    <field name="code">action = records.refill_records()</field>
 </record>
-     
-     <record id="action_fix_sales_char" model="ir.actions.server">
-    <field name="name">Lest Sales Char</field>
-    <field name="model_id" ref="model_prod_order_model"/>
-    <field name="binding_model_id" ref="model_prod_order_model"/>
+
+
+    <record id="action_bunched" model="ir.actions.server">
+     <field name="name">Export To Printed</field>
+    <field name="model_id" ref="model_inv_pdfs_model"/>
+    <field name="binding_model_id" ref="model_inv_pdfs_model"/>
     <field name="state">code</field>
-    <field name="code">action = records.fix_sales_char()</field>
+    <field name="code">action = records.change_to_printed()</field>
 </record>
+
+<!--     <record id="action_fix_sales_char" model="ir.actions.server">-->
+<!--    <field name="name">Lest Sales Char</field>-->
+<!--    <field name="model_id" ref="model_prod_order_model"/>-->
+<!--    <field name="binding_model_id" ref="model_prod_order_model"/>-->
+<!--    <field name="state">code</field>-->
+<!--    <field name="code">action = records.fix_sales_char()</field>-->
+<!--</record>-->
      
-      <record id="quick_fix" model="ir.actions.server">
-     <field name="name">Push To Invoiced</field>
-    <field name="model_id" ref="model_account_move"/>
-    <field name="binding_model_id" ref="model_account_move"/>
-    <field name="state">code</field>
-    <field name="code">action = records.quick_fix_inv()</field>
-</record>    
+<!--      <record id="quick_fix" model="ir.actions.server">-->
+<!--     <field name="name">Push To Invoiced</field>-->
+<!--    <field name="model_id" ref="model_account_move"/>-->
+<!--    <field name="binding_model_id" ref="model_account_move"/>-->
+<!--    <field name="state">code</field>-->
+<!--    <field name="code">action = records.quick_fix_inv()</field>-->
+<!--</record>    -->
      
      
-          <record id="action_test_me" model="ir.actions.server">
-    <field name="name">Lest fix Invoice NO</field>
-    <field name="model_id" ref="model_prod_order_model"/>
-    <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.fix_invocie_no()</field>
-</record>
+<!--          <record id="action_test_me" model="ir.actions.server">-->
+<!--    <field name="name">Lest fix Invoice NO</field>-->
+<!--    <field name="model_id" ref="model_prod_order_model"/>-->
+<!--    <field name="binding_model_id" ref="model_prod_order_model"/>-->
+<!--    <field name="state">code</field>-->
+<!--    <field name="code">action = records.fix_invocie_no()</field>-->
+<!--</record>-->
+<!--     -->
+
+
+<!--     <record id="actio_to_fix" model="ir.actions.server"> -->
+<!--     <field name="name">Fix Update Sales Amounts</field>-->
+<!--    <field name="model_id" ref="model_sale_order"/>-->
+<!--    <field name="binding_model_id" ref="model_sale_order"/>-->
+<!--    <field name="state">code</field>-->
+<!--    <field name="code">action = records.amount_all()</field>-->
+<!--</record>-->
      
-     <record id="actio_to_fix" model="ir.actions.server"> 
-     <field name="name">Fix Update Sales Amounts</field>
-    <field name="model_id" ref="model_sale_order"/>
-    <field name="binding_model_id" ref="model_sale_order"/>
-    <field name="state">code</field>
-    <field name="code">action = records.amount_all()</field>
-</record>
+<!--     <record id="acion_to_fix" model="ir.actions.server">-->
+<!--     <field name="name">Fix Update invoice Amounts</field>-->
+<!--    <field name="model_id" ref="model_account_move"/>-->
+<!--    <field name="binding_model_id" ref="model_account_move"/>-->
+<!--    <field name="state">code</field>-->
+<!--    <field name="code">action = records.fix_updating_fields()</field>-->
+<!--</record>    -->
      
-     <record id="acion_to_fix" model="ir.actions.server">
-     <field name="name">Fix Update invoice Amounts</field>
-    <field name="model_id" ref="model_account_move"/>
-    <field name="binding_model_id" ref="model_account_move"/>
-    <field name="state">code</field>
-    <field name="code">action = records.fix_updating_fields()</field>
-</record>    
+<!--     <record id="quick_fix_for_id" model="ir.actions.server">-->
+<!--     <field name="name">Fix ID</field>-->
+<!--    <field name="model_id" ref="model_account_move"/>-->
+<!--    <field name="binding_model_id" ref="model_account_move"/>-->
+<!--    <field name="state">code</field>-->
+<!--    <field name="code">action = records.quick_fix_id()</field>-->
+<!--</record>    -->
      
-     <record id="quick_fix_for_id" model="ir.actions.server">
-     <field name="name">Fix ID</field>
-    <field name="model_id" ref="model_account_move"/>
-    <field name="binding_model_id" ref="model_account_move"/>
-    <field name="state">code</field>
-    <field name="code">action = records.quick_fix_id()</field>
-</record>    
-     
- <record id="act_test_me" model="ir.actions.server">
-    <field name="name">Lest Update Models in Res </field>
-    <field name="model_id" ref="model_prod_order_model"/>
-    <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.fix_prod_to_models()</field>
-</record>
+<!-- <record id="act_test_me" model="ir.actions.server">-->
+<!--    <field name="name">Lest Update Models in Res </field>-->
+<!--    <field name="model_id" ref="model_prod_order_model"/>-->
+<!--    <field name="binding_model_id" ref="model_prod_order_model"/>-->
+<!--    <field name="state">code</field>-->
+<!--    <field name="code">action = records.fix_prod_to_models()</field>-->
+<!--</record>-->
+
+<!--     <record id="act_test" model="ir.actions.server">-->
+<!--    <field name="name">Lest Update Sales</field>-->
+<!--    <field name="model_id" ref="model_account_move"/>-->
+<!--    <field name="binding_model_id" ref="model_account_move"/>-->
+<!--    <field name="state">code</field>-->
+<!--    <field name="code">action = records.fix_sales_char()</field>-->
+<!--</record>-->
      
      
 <!--        <record id="automate" model="ir.actions.server">
@@ -111,7 +130,10 @@
     <field name="code">action = records.action_prod()</field>
 </record>
      
-     
+
+
+
+
 <record id="action_to_draft" model="ir.actions.server">
     <field name="name">Mark Quotation as Draft</field>
     <field name="model_id" ref="model_sale_order"/>

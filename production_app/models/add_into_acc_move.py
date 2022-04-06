@@ -1,8 +1,9 @@
 from odoo import fields, models, api ,_
 
 class add_into_acc(models.Model):
-	"""real name of the model""" 
+	"""real name of the model"""
 	_inherit ="account.move"
+	_rec_name = "invoice_no_name"
 	_description="Invoicing Application edits"
 
 	link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
@@ -14,23 +15,21 @@ class add_into_acc(models.Model):
 	invoice_no_name=fields.Char(string="Inovice Number")
 	customer_name=fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
 	fake_sales_char = fields.Char(string="Sales Order Number")
-	
-	fake_sales_id = fields.Char(string="fake_sales_id")
 
+	fake_sales_id = fields.Char(string="fake_sales_id")
 
 	inv_state = fields.Selection(
 		string='Invoice Status',
 		tracking=True,
-		default='not_invc', 
+		default='not_invc',
 		selection=[
 			('invc', 'Invoiced'),
 			('not_invc', 'Not Invoiced')])
-	
+
 	"""ALL FUNCTTION S FOR QUICK FIX """
 	def fix_sales_char(self):
 		for rec in self:
 			rec.fake_sales_char = rec.sales_char
-
 
 	def fix_updating_fields(self):
 		current_rec = self.env['account.move'].search([])
@@ -49,7 +48,7 @@ class add_into_acc(models.Model):
 	def fix_log_reports(self):
 		for rec in self:
 			self.env['logs.model'].create({
-				'acc_move_id': rec.invoice_no_name,
+				'acc_move_id': str(rec.invoice_no_name),
 				'log_state': 'create',
 				'inv_date': rec.invoice_date,
 				'due_date': rec.invoice_date_due,
@@ -60,18 +59,16 @@ class add_into_acc(models.Model):
 				'dte_create':rec.create_date,
 			})
 
-
 	def quick_fix_id(self):
 		#initial lise first id
 		correct_id=27665
 		#loop through selected ids
 		for rec in self:
-			print(rec.invoice_no_name)
 			# change its id
 			rec.invoice_no_name = correct_id + 1
 			# save now correct id
 			correct_id = int(rec.invoice_no_name)
-	
+
 	def quick_fix_inv(self):
 		"""Get All Records Selected"""
 		for rec in self:
@@ -79,7 +76,7 @@ class add_into_acc(models.Model):
 			rec.inv_state="invc"
 
 	def _pay_ref(self):
-		for rec in self:    
+		for rec in self:
 			bn = 8 - len(str(rec.invoice_no_name))
 			y = '0' * bn
 			x = self.luhn_checksum(rec.invoice_no_name)
@@ -98,14 +95,14 @@ class add_into_acc(models.Model):
 		for d in even_digits:
 			checksum += sum(digits_of(d * 2))
 		return checksum % 10
-	
+
 	@api.model
 	def check_currency(self,convert):
 		for record in self:
 			formatted_float = "{:.2f}".format(convert)
 			new_money="kr %s" %formatted_float
 			return new_money
-	
+
 	@api.model
 	def check_taxC(self,convert=[]):
 		for record in self:
@@ -113,8 +110,8 @@ class add_into_acc(models.Model):
 				res = ''.join(filter(lambda i: i.isdigit(), x))
 				formatted_float = "{:.2f}".format(res)
 				new_money="kr %s" %formatted_float
-		return new_money	
-	
+		return new_money
+
 	@api.model
 	def check_u_currency(self):
 		for record in self:
@@ -126,7 +123,7 @@ class add_into_acc(models.Model):
 				new_sign = 'nok'
 		return new_sign
 
-	
+
 # 	def write(self, val):
 # 		self.env['logs.model'].create({
 # 			'acc_move_id': self.id,
@@ -140,7 +137,7 @@ class add_into_acc(models.Model):
 # 		})
 # 		res = super(add_into_acc, self).write(val)
 # 		return res
-	
+
 	def auto_mate(self):
 		vali={}
 		for record in self:
@@ -149,7 +146,7 @@ class add_into_acc(models.Model):
 				vali = {
 					'inv_state': 'invc',}
 			record_to_update.write(vali)
-	
+
 	@api.model
 	def convert_to_float(self,convert):
 		save=float(convert)
@@ -165,20 +162,28 @@ class add_into_acc(models.Model):
 		change=str(convert)
 		res = ''.join(filter(lambda i: i.isdigit(), change))
 		return res
-	
+
 	@api.model
 	def count_banch(self):
 		for record in self:
 			reference= self.env['ir.sequence'].next_by_code('banch_no.seq') or _('New')
 			break
+		invoice_lines=[]
+		x=0
 		for rec in self:
-			self.env['inv_pdfs.model'].create({
-				'link_acc_id': rec.id,
-				'isPrinted': False,
-				'brch_no': reference
-			})
+			vals = {
+				'acc_mv_ids': rec.id
+			}
+			invoice_lines.append((0, 0, vals))
+			x=x+1
+		self.env['inv_pdfs.model'].create({
+			'banch_no': reference,
+			'no_invoives': x,
+			'isPrinted': False,
+			'bunch_inv_ids': invoice_lines
+		})
 		return reference
-	
+
 	def cal_tot_untaxed_amt(self,date_form,date_to):
 		total=0
 		search_result = self.env['logs.model'].search_read(["&", ('dte_create', '>=',date_form), ('dte_create', '<=',date_to)])
@@ -199,34 +204,51 @@ class add_into_acc(models.Model):
 		for rec in search_result:
 			mv_totals += rec['total']
 		return mv_totals
-	
-class branch_pdf_ids(models.Model):
-	"""real name of the model"""
-	_name = "inv_pdfs.model"
-	_description = "For keeping all branched pdfs with their Branch no"
 
-	link_acc_id = fields.Many2one('account.move', string="Inovince ID")
+
+class branch_pdf_ids(models.Model):
+	"""Data of bunched invoices"""
+	_name = "inv_pdfs.model"
+	_rec_name = "banch_no"
+	_inherit = ["mail.thread", "mail.activity.mixin"]
+	_description = "For keeping all Bunched Pdfs Records"
+	_order = "id desc"
+
+	link_acc_id = fields.Many2one('account.move',tracking=True, string="Inovince ID")
 	isPrinted = fields.Boolean(string="IS Printed", default=False)
 	brch_no=fields.Integer(string="branch No")
 	sale_order = fields.Char(related='link_acc_id.sales_char')
 	custmer = fields.Char(related='link_acc_id.invoice_partner_display_name')
 	inv_no= fields.Char(related='link_acc_id.invoice_no_name')
 
-	def print_pdf_aut(self):
-		records_to_print = self.env["inv_pdfs.model"].search_read([('isPrinted', '=', False)])
-		data={
-			'records_to_print':records_to_print
-		}
-		return self.env.ref('hos_production_app.Bunch_edited_xml').report_action(self,data=data)
+	bunch_inv_ids=fields.One2many('bunchinvoices.model', 'bunch_inv_id', string="Bunch Invoices Pfd's")
 
-		# addd this line please
+	banch_no=fields.Integer(string="Bunch Number")
+	date_generated=fields.Datetime(related='create_date',string="Date Xml Generated")
+	no_invoives=fields.Integer(string="Number of Invoices")
+	iPrinted = fields.Boolean(string="IS Printed", default=False)
 
-	@api.model
-	def update_banch(self):
-		for record in self:
-			reference = record.brch_no
-			break
-		return reference
+	#QUICK FIX BUNCHED INVOIVES
+	def refill_records(self):
+		# detect records with same banch_no
+		for x in range(1,204):
+			invoice_lines=[]
+			record_to_copy = self.env["inv_pdfs.model"].search([('banch_no', '=', x)])
+			count= self.env["inv_pdfs.model"].search_count([('banch_no', '=', x)])
+
+			if record_to_copy.exists():
+				for rec in record_to_copy:
+					vals={
+						'acc_mv_ids' : rec.link_acc_id.id
+					}
+					invoice_lines.append((0,0,vals))
+				self.env['inv_pdfs.model'].create({
+					'banch_no':x,
+					'no_invoives':count,
+					'isPrinted':False,
+					'bunch_inv_ids':invoice_lines
+				})
+
 
 	@api.model
 	def update_banch(self):
@@ -234,63 +256,89 @@ class branch_pdf_ids(models.Model):
 		return x
 
 	@api.model
+	def change_to_printed(self):
+		for rec in self:
+			rec.isPrinted = True
+
+	@api.model
 	def cal_records(self, cur):
 		refi=0
-		for record in self:
+		for record in self.bunch_inv_ids:
 			#if record is in nok
-			if cur==2 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1':
+			if cur==2 and record.payment_fact== 'pay_1':
 				refi = refi+1
 			#if record is in sek
-			elif cur==3 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
+			elif cur==3 and record.payment_fact== 'pay_2':
 				refi = refi+1
 			#if record is in dkk
-			elif cur == 4 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
+			elif cur == 4 and record.payment_fact== 'pay_3':
 				refi = refi + 1
 		return refi
 
 	@api.model
 	def cal_total(self,cur):
 		total_amt =0
-		for record in self:
+		for record in self.bunch_inv_ids:
+			print()
 			#if record is in nok
-			if cur==2 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1':
-				total_amt += record.link_acc_id.amount_total_signed
+			if cur==2 and record.payment_fact== 'pay_1':
+				total_amt += record.acc_mv_ids.amount_total_signed
 			# if record is in sek
-			elif cur == 3 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
-				total_amt += record.link_acc_id.amount_total_signed
+			elif cur == 3 and record.payment_fact == 'pay_2':
+				total_amt += record.acc_mv_ids.amount_total_signed
 			# if record is in sek
-			elif cur == 4 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
-				total_amt += record.link_acc_id.amount_total_signed
-			round(total_amt, 2)	
+			elif cur == 4 and record.payment_fact== 'pay_3':
+				total_amt += record.acc_mv_ids.amount_total_signed
+			round(total_amt, 2)
 		return total_amt
-	
+
 	@api.model
 	def cal_no_tax(self,cur):
 		total_not =0
-		for record in self:
-			if cur==2 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1':
-				total_not += record.link_acc_id.amount_untaxed
-			if cur==3 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
-				total_not += record.link_acc_id.amount_untaxed
-			if cur==4 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
-				total_not += record.link_acc_id.amount_untaxed
-			round(total_not, 2)	
+		for record in self.bunch_inv_ids:
+			if cur==2 and record.payment_fact== 'pay_1':
+				total_not += record.acc_mv_ids.amount_untaxed
+			if cur==3 and record.payment_fact== 'pay_2':
+				total_not += record.acc_mv_ids.amount_untaxed
+			if cur==4 and record.payment_fact== 'pay_3':
+				total_not += record.acc_mv_ids.amount_untaxed
+			round(total_not, 2)
 		return total_not
 
 	@api.model
 	def cal_in_tax(self,cur):
 		total_tax =0
-		for record in self:
-			if cur==2 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_1':
-				total_tax += record.link_acc_id.amount_tax
-			if cur==3 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_2':
-				total_tax += record.link_acc_id.amount_tax
-			if cur==4 and record.link_acc_id.link_prod_id.main_sales_id.partner_id.payment_fact == 'pay_3':
-				total_tax += record.link_acc_id.amount_tax
+		for record in self.bunch_inv_ids:
+			if cur==2 and record.payment_fact== 'pay_1':
+				total_tax += record.acc_mv_ids.amount_tax
+			if cur==3 and record.payment_fact== 'pay_2':
+				total_tax += record.acc_mv_ids.amount_tax
+			if cur==4 and record.payment_fact== 'pay_3':
+				total_tax += record.acc_mv_ids.amount_tax
 			round(total_tax, 2)	
 		return total_tax
-	
+
 	@api.model
 	def change_state(self):
 		for record in self:
 			record.isPrinted=True
+
+class branch_pdf_ids2(models.Model):
+	"""Database for bunched inovies ids"""
+	_name = "bunchinvoices.model"
+	_description = "For keeping all bunched pdfs their ids"
+
+	bunch_inv_id = fields.Many2one('inv_pdfs.model', string="Bunch Invoices id's")
+	acc_mv_ids = fields.Many2one('account.move', string="Inovine ID")
+	inv_no= fields.Char(related='acc_mv_ids.invoice_no_name')
+	inv_id= fields.Integer(related='acc_mv_ids.id')
+	sale_order = fields.Char(related='acc_mv_ids.sales_char')
+	date_due = fields.Date(related='acc_mv_ids.invoice_date_due')
+	inv_date = fields.Date(related='acc_mv_ids.invoice_date')
+	custmer = fields.Char(related='acc_mv_ids.invoice_partner_display_name')
+	payment_fact= fields.Selection(related='acc_mv_ids.customer_name.payment_fact')
+	customer_nme= fields.Char(related='acc_mv_ids.customer_name.name')
+
+	# amt_un_tax= fields.Monetary(related='acc_mv_ids.amount_untaxed')#
+	# amt_tax= fields.Integer(related='acc_mv_ids.amount_tax')
+	# amt_res= fields.Integer(related='acc_mv_ids.amount_residual')
