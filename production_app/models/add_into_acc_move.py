@@ -315,6 +315,7 @@ class branch_pdf_ids(models.Model):
 				total_tax += record.acc_mv_ids.amount_tax
 			if cur==4 and record.payment_fact== 'pay_3':
 				total_tax += record.acc_mv_ids.amount_tax
+			round(total_tax, 2)	
 		return total_tax
 
 	@api.model
