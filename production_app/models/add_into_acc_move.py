@@ -228,7 +228,7 @@ class branch_pdf_ids(models.Model):
 	iPrinted = fields.Boolean(string="IS Printed", default=False)
 
 	#QUICK FIX BUNCHED INVOIVES
-	def refil_records(self):
+	def refill_records(self):
 		# detect records with same banch_no
 		for x in range(40,70,10):
 			invoice_lines=[]
