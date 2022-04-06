@@ -175,7 +175,7 @@ class add_into_acc(models.Model):
 				'acc_mv_ids': rec.id
 			}
 			invoice_lines.append((0, 0, vals))
-			X=+1
+			x=x+1
 		self.env['inv_pdfs.model'].create({
 			'banch_no': reference,
 			'no_invoives': x,
