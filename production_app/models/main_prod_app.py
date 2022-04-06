@@ -3,6 +3,7 @@ import datetime
 from datetime import date
 from datetime import timedelta
 
+
 class prod_order_app(models.Model):
 	"""real name of the model"""
 	_name = "prod_order.model"
@@ -11,6 +12,7 @@ class prod_order_app(models.Model):
 	_rec_name="customer_ref"
 	_order="id desc"
 
+	currency_id = fields.Many2one('res.currency')
 	customer_ref=fields.Many2one('sale.order.line',string="sale_order_lines",tracking=True)
 	main_sales_id=fields.Many2one('sale.order',string="Production_order",tracking=True,index=True,required=True)
 	orderLines_ids=fields.One2many(related='main_sales_id.order_line', string="")
@@ -54,7 +56,7 @@ class prod_order_app(models.Model):
 					'fake_sales_id': record_to_copy.sales_char,
 				}
 				record_to_copy.write(vali)
-				
+
 	def fix_invocie_no(self):
 		for x in range(25000, 32000):
 			record_to_copy = self.env["account.move"].search([('id', '=', x)])
@@ -64,15 +66,7 @@ class prod_order_app(models.Model):
 				}
 				record_to_copy.write(vali)
 				
-	def test_me_stan(self):
-		# for x in range(100):
-		# 	record_to_copy = self.env["account.move"].search([('id', '=', x)])
-		# 	if record_to_copy.exists():
-		# 		vali = {
-		# 			'new_invoice_no': record_to_copy.id,
-		# 		}
-		# 		record_to_copy.write(vali)
-		
+	def fix_prod_to_models(self):
 		for x in range(7555):
 			record_to_copy = self.env["product.template"].search([('id', '=', x)])
 			if record_to_copy.exists():
@@ -124,7 +118,7 @@ class prod_order_app(models.Model):
 				rec.delivery_date = rec.main_sales_id.expected_date
 				rec.delivery_week = rec.delivery_date.strftime("%U")
 			else:
-				pass
+				rec.delivery_week =0
 		
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
@@ -193,6 +187,15 @@ class prod_order_app(models.Model):
 						'invoice_date':date.today(),
 						'invoice_date_due':date.today() + timedelta(days=30),
 					}
+
+					# check if a record is in sek currency
+					# if record_to_update.customer_name.payment_fact =='pay_2':
+					# 	#calaculates rates
+					# 	amt_un_tax=record_to_update.amount_untaxed/134
+					#
+					# 	record_to_update.amount_tax
+					# 	record_to_update.amount_total
+
 					record_to_update.write(vali)
 					self.env['logs.model'].create({
 						'acc_move_id': record_to_update.invoice_no_name,
@@ -203,32 +206,9 @@ class prod_order_app(models.Model):
 						'untaxed_amt': record_to_update.amount_untaxed,
 						'mva': record_to_update.amount_tax,
 						'total': record_to_update.amount_total,
-						'dte_create': record_to_update.invoice_date
 					})
 
-class log_invoice_app(models.Model):
-	"""real name of the model"""
-	_name = "logs.model"
-	_description = "For Logging Account Movement"
 
-	acc_move_id= fields.Integer(string="Account Move")
-	inv_date = fields.Date(string="Invoice Date")
-	due_date = fields.Date(string="Due Date")
-	customer_no = fields.Text(string="Customer NO")
-	untaxed_amt = fields.Integer(string="Untaxed Amt")
-	mva = fields.Integer(string="mva")
-	total = fields.Integer(string="total")
-	dte_create=fields.Datetime(string="date Create")
-	
-
-	log_state = fields.Selection(
-		string='log_state',
-		selection=[
-			('create', 'Create'),
-			('delete', 'Delete'),
-			('update', 'Update')])
-
-		
 class pro_ord(models.Model):
 	"""real name of the model"""
 	_name = "pro_order.model"
@@ -249,3 +229,18 @@ class pro_ord(models.Model):
 		for record in self:
 			refi = refi + 1
 		return refi
+
+class log_invoice_app(models.Model):
+	"""real name of the model"""
+	_name = "logs.model"
+	_description = "For Logging Account Movement"
+
+	acc_move_id= fields.Integer(string="Account Move")
+	inv_date = fields.Date(string="Invoice Date")
+	due_date = fields.Date(string="Due Date")
+	customer_no = fields.Text(string="Customer NO")
+	untaxed_amt = fields.Integer(string="Untaxed Amt")
+	mva = fields.Integer(string="mva")
+	total = fields.Integer(string="total")
+	payment_fact = fields.Char(string="Payment Fact")
+	dte_create=fields.Datetime(string="date Create")
