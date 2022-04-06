@@ -245,7 +245,7 @@ class branch_pdf_ids(models.Model):
 				self.env['inv_pdfs.model'].create({
 					'banch_no':x,
 					'no_invoives':count,
-					'isPrinted':True,
+					'isPrinted':False,
 					'bunch_inv_ids':invoice_lines
 				})
 
