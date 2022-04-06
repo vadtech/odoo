@@ -178,7 +178,8 @@ class prod_order_app(models.Model):
 					'invoice_user_id': record.main_sales_id.user_id.id,
 					'partner_id': record.main_sales_id.partner_invoice_id.id,
 					'currency_id': record.main_sales_id.pricelist_id.currency_id.id,
-					'invoice_line_ids': invoice_lines
+					'invoice_line_ids': invoice_lines,
+					'dte_create': record_to_update.invoice_date,
 				})
 				record_to_update = self.env["account.move"].search([('link_prod_id', '=',record.id )])
 				if record_to_update.exists():
