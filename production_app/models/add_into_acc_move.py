@@ -211,9 +211,10 @@ class branch_pdf_ids(models.Model):
 	_name = "inv_pdfs.model"
 	_rec_name = "banch_no"
 	_inherit = ["mail.thread", "mail.activity.mixin"]
-	_description = "For keeping all branched pdfs with their Branch no"
+	_description = "For keeping all Bunched Pdfs Records"
+	_order = "id desc"
 
-	link_acc_id = fields.Many2one('account.move', string="Inovince ID")
+	link_acc_id = fields.Many2one('account.move',tracking=True, string="Inovince ID")
 	isPrinted = fields.Boolean(string="IS Printed", default=False)
 	brch_no=fields.Integer(string="branch No")
 	sale_order = fields.Char(related='link_acc_id.sales_char')
