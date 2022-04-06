@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name' : 'Production Application',
+    'name' : 'Production Application', 
     'version' : '14.0.1',
     'summary': 'Invoices & Payments',
     'sequence': -100,
