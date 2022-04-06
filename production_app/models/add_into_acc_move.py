@@ -255,6 +255,11 @@ class branch_pdf_ids(models.Model):
 		return x
 
 	@api.model
+	def change_to_printed(self):
+		for rec in self:
+			rec.isPrinted = True
+
+	@api.model
 	def cal_records(self, cur):
 		refi=0
 		for record in self.bunch_inv_ids:
