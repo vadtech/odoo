@@ -230,7 +230,7 @@ class branch_pdf_ids(models.Model):
 	#QUICK FIX BUNCHED INVOIVES
 	def refill_records(self):
 		# detect records with same banch_no
-		for x in range(40,70,10):
+		for x in range(1,204):
 			invoice_lines=[]
 			record_to_copy = self.env["inv_pdfs.model"].search([('banch_no', '=', x)])
 			count= self.env["inv_pdfs.model"].search_count([('banch_no', '=', x)])
