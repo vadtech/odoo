@@ -21,7 +21,7 @@
         action="new_inv_view"
         sequence="-50"/>
 
-<!-- this is the main view for invoice application-->
+<!-- this is the main view for bunched invoice application-->
 <record id="new_non_inv_view" model="ir.actions.act_window">
     <field name="name">Not Invoiced Records</field>
     <field name="type">ir.actions.act_window</field>
@@ -36,6 +36,7 @@
     </field>
 </record>
 
+
 <menuitem id="new_non_ivn_views"
         name="Not Invoiced"
         parent="account.menu_finance"
@@ -44,31 +45,77 @@
     
 
 <record id="invs_models" model="ir.actions.act_window">
-    <field name="name">Branched Invoices</field>
+    <field name="name">Bundle Invoices</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">inv_pdfs.model</field>
-    <field name="view_mode">tree,kanban</field>
+    <field name="view_mode">tree,form,kanban</field>
     <field name="context"></field>
     <field name="help" type="html">
     	<p class="o_view_nocontent_smiling_face">
-    	Download XMl Report to Create Bunced invoices!
+    	Download XMl Reports to Create Bundle invoices!
     	</p>
     </field>
 </record>
+
 
 <record id="inv_pdfs_tree" model="ir.ui.view">
         <field name="name">inv.pdfs.order.tree</field>
         <field name="model">inv_pdfs.model</field>
         <field name="arch" type="xml">
-            <tree multi_edit="1">
-                <field name="inv_no" string="Invoice Number"/>
-                <field name="custmer" string="Customer Name"/>
-                <field name="brch_no"/>
-                <field name="sale_order" string="Sales Order Number"/>
+            <tree >
+                <field name="banch_no" decoration-bf="1"/>
+                <field name="date_generated"/>
+                <field name="no_invoives"/>
                 <field name="isPrinted"/>
             </tree>
         </field>
    </record>
+
+    <record id="inv_pdfs_form" model="ir.ui.view">
+        <field name="name">inv.pdfs.k.form</field>
+        <field name="model">inv_pdfs.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field string="Bunch Number" name="banch_no"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <!--this splts form into 2 -->
+                        <group>
+                             <field name="date_generated" />
+                        </group>
+                        <group>
+                            <field name="no_invoives" />
+                        </group>
+                    </group>
+                    <notebook>
+                           <page name="order_lines" string="Order Lines">
+                                       <field name="bunch_inv_ids" force_save="1">
+                                            <tree>
+                                                 <field string="Id" name="inv_id"/>
+                                                 <field string="Inovoice No" name="inv_no"/>
+                                                 <field string="Sale Order" name="sale_order"/>
+                                                 <field string="Customer" name="custmer"/>
+                                                 <field string="Date Due" name="date_due"/>
+                                            </tree>
+<!--                                             <form>-->
+<!--                                             </form>-->
+                                    </field>
+                            </page>
+                     </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+         </field>
+   </record>
+
 
 
 <menuitem id="non_ivn_views"
@@ -81,7 +128,7 @@
     <field name="name">Printed Bunched Invoices</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">inv_pdfs.model</field>
-    <field name="view_mode">tree</field>
+    <field name="view_mode">tree,form,kanban</field>
     <field name="context"></field>
     <field name="domain">[('isPrinted','=',True)]</field>
     <field name="help" type="html">
@@ -98,15 +145,15 @@
         sequence="10"/>
 
     <record id="un_invs_not_down" model="ir.actions.act_window">
-    <field name="name">Unprinted Bunched Invoices</field>
+    <field name="name">Unprinted Bundle Invoices</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">inv_pdfs.model</field>
-    <field name="view_mode">tree</field>
+    <field name="view_mode">tree,form,kanban</field>
     <field name="context"></field>
     <field name="domain">[('isPrinted','=',False)]</field>
     <field name="help" type="html">
     	<p class="o_view_nocontent_smiling_face">
-    	Download XMl Report to Create Bunced invoices!
+    	Download XMl Report to Create Bundle invoices!
     	</p>
     </field>
 </record>
