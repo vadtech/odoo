@@ -179,6 +179,7 @@ class prod_order_app(models.Model):
 					'partner_id': record.main_sales_id.partner_invoice_id.id,
 					'currency_id': record.main_sales_id.pricelist_id.currency_id.id,
 					'invoice_line_ids': invoice_lines,
+					
 				})
 				record_to_update = self.env["account.move"].search([('link_prod_id', '=',record.id )])
 				if record_to_update.exists():
@@ -187,27 +188,33 @@ class prod_order_app(models.Model):
 						'invoice_date':date.today(),
 						'invoice_date_due':date.today() + timedelta(days=30),
 					}
-
-					# check if a record is in sek currency
-					# if record_to_update.customer_name.payment_fact =='pay_2':
-					# 	#calaculates rates
-					# 	amt_un_tax=record_to_update.amount_untaxed/134
-					#
-					# 	record_to_update.amount_tax
-					# 	record_to_update.amount_total
-
 					record_to_update.write(vali)
+					# check if a record is in sek currency
+					if record_to_update.customer_name.payment_fact =='pay_3':
+						rate_dkk = self.env['res.currency'].search([('name', '=', 'DKK')], limit=1).rate
+						amt_un_tax=record_to_update.amount_untaxed* rate_dkk
+						amt_tax=record_to_update.amount_tax* rate_dkk
+						amt_total=record_to_update.amount_total* rate_dkk
+					elif record_to_update.customer_name.payment_fact =='pay_2':
+						rate_sek = self.env['res.currency'].search([('name', '=', 'SEK')], limit=1).rate
+						amt_un_tax = record_to_update.amount_untaxed * rate_sek
+						amt_tax = record_to_update.amount_tax * rate_sek
+						amt_total = record_to_update.amount_total * rate_sek
+					else:
+						amt_un_tax = record_to_update.amount_untaxed
+						amt_tax = record_to_update.amount_tax
+						amt_total = record_to_update.amount_total
 					self.env['logs.model'].create({
 						'acc_move_id': record_to_update.invoice_no_name,
-						'log_state': 'create',
 						'inv_date': record_to_update.invoice_date,
 						'due_date': record_to_update.invoice_date_due,
 						'customer_no': record_to_update.customer_name.name,
-						'untaxed_amt': record_to_update.amount_untaxed,
-						'mva': record_to_update.amount_tax,
-						'total': record_to_update.amount_total,
+						'untaxed_amt': amt_un_tax,
+						'mva': amt_tax,
+						'total': amt_total,
+						'dte_create': record_to_update.invoice_date,
 					})
-
+					
 
 class pro_ord(models.Model):
 	"""real name of the model"""
@@ -243,4 +250,4 @@ class log_invoice_app(models.Model):
 	mva = fields.Integer(string="mva")
 	total = fields.Integer(string="total")
 	payment_fact = fields.Char(string="Payment Fact")
-	dte_create=fields.Datetime(string="date Create")
+	dte_create = fields.Datetime(string="Create Date")
