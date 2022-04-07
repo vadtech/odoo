@@ -249,4 +249,3 @@ class log_invoice_app(models.Model):
 	mva = fields.Integer(string="mva")
 	total = fields.Integer(string="total")
 	payment_fact = fields.Char(string="Payment Fact")
-	dte_create=fields.Datetime(string="date Create")
