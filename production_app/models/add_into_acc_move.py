@@ -88,15 +88,18 @@ class add_into_acc(models.Model):
 					amt_un_tax = record_to_update.amount_untaxed
 					amt_tax = record_to_update.amount_tax
 					amt_total = record_to_update.amount_total
-				self.env['logs.model'].create({
-					'acc_move_id': record_to_update.invoice_no_name,
-					'inv_date': record_to_update.invoice_date,
-					'due_date': record_to_update.invoice_date_due,
-					'customer_no': record_to_update.customer_name.name,
-					'untaxed_amt': amt_un_tax,
-					'mva': amt_tax,
-					'total': amt_total,
-				})
+					
+			#save record into database			
+			self.env['logs.model'].create({
+				'acc_move_id': record_to_update.invoice_no_name,
+				'inv_date': record_to_update.invoice_date,
+				'due_date': record_to_update.invoice_date_due,
+				'customer_no': record_to_update.customer_name.name,
+				'untaxed_amt': amt_un_tax,
+				'mva': amt_tax,
+				'total': amt_total,
+				'dte_create': record_to_update.invoice_date,
+			})
 
 	def quick_fix_id(self):
 		#initial lise first id
@@ -225,21 +228,21 @@ class add_into_acc(models.Model):
 
 	def cal_tot_untaxed_amt(self,date_form,date_to):
 		total=0
-		search_result = self.env['logs.model'].search_read(["&", ('inv_date', '>=',date_form), ('inv_date', '<=',date_to)])
+		search_result = self.env['logs.model'].search_read(["&", ('dte_create', '>=',date_form), ('dte_create', '<=',date_to)])
 		for rec in search_result:
 			total+=rec['untaxed_amt']
 		return total
 
 	def cal_tot_mva(self, date_form, date_to):
 		mva_total=0
-		search_result = self.env['logs.model'].search_read(["&", ('inv_date', '>=', date_form), ('inv_date', '<=', date_to)])
+		search_result = self.env['logs.model'].search_read(["&", ('dte_create', '>=', date_form), ('dte_create', '<=', date_to)])
 		for rec in search_result:
 			mva_total += rec['mva']
 		return mva_total
 
 	def cal_log_total(self, date_form, date_to):
 		mv_totals=0
-		search_result = self.env['logs.model'].search_read(["&", ('inv_date', '>=', date_form), ('inv_date', '<=', date_to)])
+		search_result = self.env['logs.model'].search_read(["&", ('dte_create', '>=', date_form), ('dte_create', '<=', date_to)])
 		for rec in search_result:
 			mv_totals += rec['total']
 		return mv_totals
