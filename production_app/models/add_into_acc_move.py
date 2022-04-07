@@ -46,17 +46,30 @@ class add_into_acc(models.Model):
 			single_rec.amount_total = amount_untaxed + amount_tax
 
 	def fix_log_reports(self):
-		for rec in self:
+		records= self.env["account.move"].search([('id', '!=', '-1')],order='id ASC')
+		for record_to_update in records:
+			if record_to_update.customer_name.payment_fact == 'pay_3':
+				rate_dkk = self.env['res.currency'].search([('name', '=', 'DKK')], limit=1).rate
+				amt_un_tax = record_to_update.amount_untaxed * rate_dkk
+				amt_tax = record_to_update.amount_tax * rate_dkk
+				amt_total = record_to_update.amount_total * rate_dkk
+			elif record_to_update.customer_name.payment_fact == 'pay_2':
+				rate_sek = self.env['res.currency'].search([('name', '=', 'SEK')], limit=1).rate
+				amt_un_tax = record_to_update.amount_untaxed * rate_sek
+				amt_tax = record_to_update.amount_tax * rate_sek
+				amt_total = record_to_update.amount_total * rate_sek
+			else:
+				amt_un_tax = record_to_update.amount_untaxed
+				amt_tax = record_to_update.amount_tax
+				amt_total = record_to_update.amount_total
 			self.env['logs.model'].create({
-				'acc_move_id': str(rec.invoice_no_name),
-				'log_state': 'create',
-				'inv_date': rec.invoice_date,
-				'due_date': rec.invoice_date_due,
-				'customer_no': rec.customer_name.name,
-				'untaxed_amt': rec.amount_untaxed,
-				'mva': rec.amount_tax,
-				'total': rec.amount_total,
-				'dte_create':rec.create_date,
+				'acc_move_id': record_to_update.invoice_no_name,
+				'inv_date': record_to_update.invoice_date,
+				'due_date': record_to_update.invoice_date_due,
+				'customer_no': record_to_update.customer_name.name,
+				'untaxed_amt': amt_un_tax,
+				'mva': amt_tax,
+				'total': amt_total,
 			})
 
 	def quick_fix_id(self):
