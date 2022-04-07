@@ -17,6 +17,7 @@
                                 <th name="th_description" class="text-left"><span>Fakturadato</span></th>
                                 <th name="th_descpion" class="text-left"><span>Forfallsdato</span></th>
                                 <th name="th_escption" class="text-left"><span>Kundenavn</span></th>
+                                <th name="th_escion" class="text-left"><span>Valuta</span></th>
                                 <th name="th_detion" class="text-right"><span>Netto</span></th>
                                 <th name="th_dscption" class="text-right"><span>MVA</span></th>
                                 <th name="th_descpon" class="text-right"><span>Brutto</span></th>
@@ -24,14 +25,16 @@
                         </thead>
 			<t t-foreach="search_result" t-as="line">    
                         <tbody  class="invoice_tbody">
+                <td name="invooie_id"><span  t-esc="line['id']" t-options="{'widget': 'text'}"/></td>
 				<td name="invooice_id"><span  t-esc="line['acc_move_id']" t-options="{'widget': 'text'}"/></td>
 				<td name="account_invoice_line_name"><span  t-esc="line['inv_date']" t-options="{'widget': 'text'}"/></td>
 				<td name="account_inoice_line_name"><span  t-esc="line['due_date']" t-options="{'widget': 'text'}"/></td>
 				<td name="account_indvoice_line_name"><span t-esc="line['customer_no']" t-options="{'widget': 'text'}"/></td>
+				<td name="acoice_line_name"><span t-esc="line['curncy']" t-options="{'widget': 'text'}"/></td>
 				<td name="account_indvoice_ine_name"><span  t-if="line['untaxed_amt']==False" t-options="{'widget': 'text'}">0,00</span><span t-if="line['untaxed_amt']!=False" t-esc="line['untaxed_amt']" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_indvoiceline_name"><span t-if="line['mva']==False"  t-options="{'widget': 'text'}">0,00</span><span t-if="line['mva']!=False" t-esc="line['mva']" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_indvoic_line_name"><span t-if="line['total']==False" t-options="{'widget': 'text'}">0,00</span><span t-if="line['total']!=False" t-esc="line['total']" t-options="{'widget': 'text'}"/></td>
-                        </tbody>
+                <td name="account_indvoiceline_name"><span t-if="line['mva']==False"  t-options="{'widget': 'text'}">0,00</span><span t-if="line['mva']!=False" t-esc="line['mva']" t-options="{'widget': 'text'}"/></td>
+                <td name="account_indvoic_line_name"><span t-if="line['total']==False" t-options="{'widget': 'text'}">0,00</span><span t-if="line['total']!=False" t-esc="line['total']" t-options="{'widget': 'text'}"/></td>
+            </tbody>
                         </t>
                     	</table>    
                      </t>
