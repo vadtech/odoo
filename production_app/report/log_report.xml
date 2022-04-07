@@ -13,6 +13,7 @@
                             <br/>
                         <thead>
                             <tr>
+				<th name="id" class="text-left"><span>ID</span></th>
                                <th name="art_no" class="text-left"><span>Faktura nr</span></th>
                                 <th name="th_description" class="text-left"><span>Fakturadato</span></th>
                                 <th name="th_descpion" class="text-left"><span>Forfallsdato</span></th>
