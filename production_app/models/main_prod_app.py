@@ -179,7 +179,7 @@ class prod_order_app(models.Model):
 					'partner_id': record.main_sales_id.partner_invoice_id.id,
 					'currency_id': record.main_sales_id.pricelist_id.currency_id.id,
 					'invoice_line_ids': invoice_lines,
-					'dte_create': record_to_update.invoice_date,
+					
 				})
 				record_to_update = self.env["account.move"].search([('link_prod_id', '=',record.id )])
 				if record_to_update.exists():
@@ -212,6 +212,7 @@ class prod_order_app(models.Model):
 						'untaxed_amt': amt_un_tax,
 						'mva': amt_tax,
 						'total': amt_total,
+						'dte_create': record_to_update.invoice_date,
 					})
 					
 
@@ -249,3 +250,4 @@ class log_invoice_app(models.Model):
 	mva = fields.Integer(string="mva")
 	total = fields.Integer(string="total")
 	payment_fact = fields.Char(string="Payment Fact")
+	dte_create = fields.Datetime(string="Create Date")
