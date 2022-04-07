@@ -46,7 +46,7 @@ class add_into_acc(models.Model):
 			single_rec.amount_total = amount_untaxed + amount_tax
 
 	def fix_log_reports(self):
-		records= self.env["account.move"].search([('id', '!=', '-1')],order='id ASC')
+		records= self.env["account.move"].search([('id', '!=', '-1')],order='invoice_no_name ASC')
 		for record_to_update in records:
 			#check if records is an credit note
 			if record_to_update.move_type=='out_refund':
