@@ -49,30 +49,25 @@ class add_into_acc(models.Model):
 		records= self.env["account.move"].search([('id', '!=', '-1')],order='invoice_no_name ASC')
 		for record_to_update in records:
 			#check if records is an credit note
+			cur=''
 			if record_to_update.move_type=='out_refund':
 				if record_to_update.customer_name.payment_fact == 'pay_3':
+					cur = 'DKK'
 					rate_dkk = self.env['res.currency'].search([('name', '=', 'DKK')], limit=1).rate
 					amt_un_tax = record_to_update.amount_untaxed * rate_dkk * -1
 					amt_tax = record_to_update.amount_tax * rate_dkk * -1
 					amt_total = record_to_update.amount_total * rate_dkk * -1
 				elif record_to_update.customer_name.payment_fact == 'pay_2':
+					cur = 'SEK'
 					rate_sek = self.env['res.currency'].search([('name', '=', 'SEK')], limit=1).rate
 					amt_un_tax = record_to_update.amount_untaxed * rate_sek * -1
 					amt_tax = record_to_update.amount_tax * rate_sek * -1
 					amt_total = record_to_update.amount_total * rate_sek * -1
 				else:
+					cur = 'NOK'
 					amt_un_tax = record_to_update.amount_untaxed * -1
 					amt_tax = record_to_update.amount_tax * -1
 					amt_total = record_to_update.amount_total * -1
-				self.env['logs.model'].create({
-					'acc_move_id': record_to_update.invoice_no_name,
-					'inv_date': record_to_update.invoice_date,
-					'due_date': record_to_update.invoice_date_due,
-					'customer_no': record_to_update.customer_name.name,
-					'untaxed_amt': amt_un_tax,
-					'mva': amt_tax,
-					'total': amt_total,
-				})
 			else:
 				if record_to_update.customer_name.payment_fact == 'pay_3':
 					rate_dkk = self.env['res.currency'].search([('name', '=', 'DKK')], limit=1).rate
@@ -88,19 +83,19 @@ class add_into_acc(models.Model):
 					amt_un_tax = record_to_update.amount_untaxed
 					amt_tax = record_to_update.amount_tax
 					amt_total = record_to_update.amount_total
-					
-			#save record into database			
 			self.env['logs.model'].create({
 				'acc_move_id': record_to_update.invoice_no_name,
 				'inv_date': record_to_update.invoice_date,
 				'due_date': record_to_update.invoice_date_due,
 				'customer_no': record_to_update.customer_name.name,
+				'dte_create': record_to_update.invoice_date,
 				'untaxed_amt': amt_un_tax,
 				'mva': amt_tax,
 				'total': amt_total,
-				'dte_create': record_to_update.invoice_date,
+				'curncy': cur,
 			})
 
+	
 	def quick_fix_id(self):
 		#initial lise first id
 		correct_id=27665
