@@ -70,16 +70,19 @@ class add_into_acc(models.Model):
 					amt_total = record_to_update.amount_total * -1
 			else:
 				if record_to_update.customer_name.payment_fact == 'pay_3':
+					cur = 'DKK'
 					rate_dkk = self.env['res.currency'].search([('name', '=', 'DKK')], limit=1).rate
 					amt_un_tax = record_to_update.amount_untaxed * rate_dkk
 					amt_tax = record_to_update.amount_tax * rate_dkk
 					amt_total = record_to_update.amount_total * rate_dkk
 				elif record_to_update.customer_name.payment_fact == 'pay_2':
+					cur = 'SEK'
 					rate_sek = self.env['res.currency'].search([('name', '=', 'SEK')], limit=1).rate
 					amt_un_tax = record_to_update.amount_untaxed * rate_sek
 					amt_tax = record_to_update.amount_tax * rate_sek
 					amt_total = record_to_update.amount_total * rate_sek
 				else:
+					cur = 'NOK'
 					amt_un_tax = record_to_update.amount_untaxed
 					amt_tax = record_to_update.amount_tax
 					amt_total = record_to_update.amount_total
