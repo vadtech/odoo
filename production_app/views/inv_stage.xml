@@ -42,7 +42,7 @@
         parent="account.menu_finance"
         action="new_non_inv_view"
         sequence="-60"/>
-    
+
 
 <record id="invs_models" model="ir.actions.act_window">
     <field name="name">Bunched Invoices</field>
@@ -64,7 +64,7 @@
         <field name="arch" type="xml">
             <tree >
                 <field name="banch_no" decoration-bf="1"/>
-                <field name="date_generated"/>
+                <field name="date_g"/>
                 <field name="no_invoives"/>
                 <field name="isPrinted"/>
             </tree>
@@ -85,7 +85,7 @@
                     <group>
                         <!--this splts form into 2 -->
                         <group>
-                             <field name="date_generated" />
+                             <field name="date_g" />
                         </group>
                         <group>
                             <field name="no_invoives" />
@@ -95,7 +95,8 @@
                            <page name="order_lines" string="Order Lines">
                                        <field name="bunch_inv_ids" force_save="1">
                                             <tree>
-                                                 <field string="Id" name="inv_id"/>
+                                                 <field string="new id" name="inv_no"/>
+                                                 <field string="Old id" name="old_id"/>
                                                  <field string="Inovoice No" name="inv_no"/>
                                                  <field string="Sale Order" name="sale_order"/>
                                                  <field string="Customer" name="custmer"/>
@@ -122,7 +123,7 @@
         name="Bunched Invoices"
         parent="account.menu_finance"
         action="invs_models"
-        sequence="70"/>
+        sequence="60"/>
 
     <record id="invs_not_down" model="ir.actions.act_window">
     <field name="name">Printed Bunched Invoices</field>
