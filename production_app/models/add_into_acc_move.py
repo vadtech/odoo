@@ -34,6 +34,21 @@ class add_into_acc(models.Model):
     def fix_sales_char(self):
         for rec in self:
             rec.fake_sales_char = rec.sales_char
+            
+    def update_now(self):
+        # current_rec = self.env['account.move'].search([])
+        for single_rec in self:
+            amount_untaxed = amount_tax = 0.0
+            for rec in single_rec.invoice_line_ids:
+                # rec.acc_disAmount = rec.linediscPerct / 100 * rec.price_unit * rec.quantity
+                # dismount = rec.discount / 100 * rec.price_unit * rec.quantity
+                # rec.price_subtotal = rec.price_unit * rec.quantity - rec.acc_disAmount - dismount
+                amount_untaxed += rec.price_subtotal
+                amount_tax += rec.tax_ids.amount / 100 * rec.price_subtotal
+            single_rec.amount_untaxed = amount_untaxed
+            single_rec.amount_tax = amount_tax
+            single_rec.amount_total = amount_untaxed + amount_tax
+            single_rec.amount_residual = single_rec.amount_total      
 
     def fix_updating_fields(self):
         current_rec = self.env['account.move'].search([])
