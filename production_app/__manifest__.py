@@ -3,11 +3,11 @@
 {
     'name' : 'Production Application', 
     'version' : '14.0.1',
-    'summary': 'Invoices & Payments',
+    'summary': 'For Recording Records In Production Stage',
     'sequence': -100,
     'description': """this is for monitoring vad production systems to manage its flow """,
     'category': 'Accounting/Accounting',
-    'website': 'https://cyber.sys/hospitial',
+    'website': 'https://www.vad.no/',
     'depends' : ['sale','mail','report_xml'], 
     'data': [
     #security -- data -- views --reports
