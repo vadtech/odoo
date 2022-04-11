@@ -272,22 +272,16 @@ class branch_pdf_ids(models.Model):
     _rec_name = "banch_no"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "For keeping all Bunched Pdfs Records"
-    _order = "id desc"
+    _order = "create_date desc"
 
-    link_acc_id = fields.Many2one('account.move', tracking=True, string="Inovince ID")
-    isPrinted = fields.Boolean(string="IS Printed", default=False)
-    brch_no = fields.Integer(string="branch No")
-    sale_order = fields.Char(related='link_acc_id.sales_char')
-    custmer = fields.Char(related='link_acc_id.invoice_partner_display_name')
-    inv_no = fields.Char(related='link_acc_id.invoice_no_name')
-
+   
     bunch_inv_ids = fields.One2many('bunchinvoices.model', 'bunch_inv_id', string="Bunch Invoices Pfd's")
 
     banch_no = fields.Integer(string="Bunch Number")
     date_generated = fields.Datetime(related='create_date', string="Date Xml Generated")
     date_g = fields.Datetime(string="Date Xml Generated")
-    no_invoives = fields.Integer(string="Number of Invoices")
-    iPrinted = fields.Boolean(string="IS Printed", default=False)
+    no_invoives = fields.Integer(string="Number of Invoices",compute='count_invoices')
+    isPrinted = fields.Boolean(string="IS Printed", default=False)
 
     # QUICK FIX BUNCHED INVOIVES
     def refill_records(self):
@@ -309,6 +303,14 @@ class branch_pdf_ids(models.Model):
                     'isPrinted': False,
                     'bunch_inv_ids': invoice_lines
                 })
+                
+    def count_invoices(self):
+        for rec in self:
+            x=0
+            inv_id = self.env['bunchinvoices.model'].search([('bunch_inv_id', '=', rec.id)])
+            for r in inv_id.acc_mv_ids:
+                x=x+1
+            rec.no_invoives = x
 
     @api.model
     def update_banch(self):
