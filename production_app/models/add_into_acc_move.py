@@ -281,7 +281,7 @@ class branch_pdf_ids(models.Model):
     date_generated = fields.Datetime(related='create_date', string="Date Xml Generated")
     date_g = fields.Datetime(string="Date Xml Generated")
     no_invoives = fields.Integer(string="Number of Invoices",compute='count_invoices')
-    iPrinted = fields.Boolean(string="IS Printed", default=False)
+    isPrinted = fields.Boolean(string="IS Printed", default=False)
 
     # QUICK FIX BUNCHED INVOIVES
     def refill_records(self):
