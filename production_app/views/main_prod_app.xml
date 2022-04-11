@@ -18,6 +18,8 @@
 <!--    <field name="code">action = records.lest_fix_line_disc()</field>-->
 <!--</record>-->
      
+     
+     
 <!--       <record id="action_to_update" model="ir.actions.server">
      <field name="name">Fix Logs Reports</field>
     <field name="model_id" ref="model_account_move"/>
