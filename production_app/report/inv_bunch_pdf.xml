@@ -120,7 +120,7 @@
                                  <h5>Valutakode På Konto: &#160; &#160;SEK</h5>
                              </div>
                              <div class="col-auto col-3 mw-100 mb-2">
-                                    <h5>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total(pay_2)"/></h5>
+                                    <h5>Beløp: &#160; &#160; Kr <t t-esc=" '%.2f'% docs.cal_total(pay_2)"/></h5>
                              </div>
                               <div class="col-auto col-3 mw-100 mb-2">
                                      <h5>Antall Bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_2)"/></h5>
