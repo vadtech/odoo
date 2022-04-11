@@ -10,9 +10,7 @@ class add_into_acc(models.Model):
 
     link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
     payment_ref = fields.Char(compute="_pay_ref", string="Payment Reference")
-
-    banch_no = fields.Integer(string="Banch No")
-    date_g = fields.Datetime(string="DATE G")
+    
     reference = fields.Char(string="Referece", readonly=True, required=True, copy=False, default=lambda self: _('New'))
     sales_char = fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
     invoice_no_name = fields.Char(string="Inovice Number")
@@ -278,8 +276,6 @@ class branch_pdf_ids(models.Model):
     bunch_inv_ids = fields.One2many('bunchinvoices.model', 'bunch_inv_id', string="Bunch Invoices Pfd's")
 
     banch_no = fields.Integer(string="Bunch Number")
-    date_generated = fields.Datetime(related='create_date', string="Date Xml Generated")
-    date_g = fields.Datetime(string="Date Xml Generated")
     no_invoives = fields.Integer(string="Number of Invoices",compute='count_invoices')
     isPrinted = fields.Boolean(string="IS Printed", default=False)
 
@@ -393,9 +389,8 @@ class branch_pdf_ids2(models.Model):
 
     bunch_inv_id = fields.Many2one('inv_pdfs.model', string="Bunch Invoices id's")
     acc_mv_ids = fields.Many2one('account.move', string="Inovine ID")
+    
     inv_no = fields.Char(related='acc_mv_ids.invoice_no_name')
-    inv_id = fields.Integer(related='acc_mv_ids.id')
-    old_id = fields.Integer(string="Old Invoice Number")
     sale_order = fields.Char(related='acc_mv_ids.sales_char')
     date_due = fields.Date(related='acc_mv_ids.invoice_date_due')
     inv_date = fields.Date(related='acc_mv_ids.invoice_date')
