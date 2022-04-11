@@ -3,11 +3,11 @@
 <!-- Sripts Fuctions for Hard making Changes       -->
      
    <record id="quick_sales_char" model="ir.actions.server">
-     <field name="name">Copy Sales Char</field>
+     <field name="name">Fix Log Reportsr</field>
     <field name="model_id" ref="model_account_move"/>
     <field name="binding_model_id" ref="model_account_move"/>
     <field name="state">code</field>
-    <field name="code">action = records.fix_sales_char()</field>
+    <field name="code">action = records.fix_log_reports()</field>
     </record>
      
 <!--    <record id="action_o_fix" model="ir.actions.server">-->
