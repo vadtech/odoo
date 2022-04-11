@@ -2,6 +2,14 @@
 <odoo>
 <!-- Sripts Fuctions for Hard making Changes       -->
      
+   <record id="quick_sales_char" model="ir.actions.server">
+     <field name="name">Fix Log Reportsr</field>
+    <field name="model_id" ref="model_account_move"/>
+    <field name="binding_model_id" ref="model_account_move"/>
+    <field name="state">code</field>
+    <field name="code">action = records.fix_log_reports()</field>
+    </record>
+     
 <!--    <record id="action_o_fix" model="ir.actions.server">-->
 <!--     <field name="name">Fix Updating Line Disc</field>-->
 <!--    <field name="model_id" ref="model_sale_order"/>-->
@@ -10,22 +18,22 @@
 <!--    <field name="code">action = records.lest_fix_line_disc()</field>-->
 <!--</record>-->
      
-      <record id="action_to_update" model="ir.actions.server">
+<!--       <record id="action_to_update" model="ir.actions.server">
      <field name="name">Fix Logs Reports</field>
     <field name="model_id" ref="model_account_move"/>
     <field name="binding_model_id" ref="model_account_move"/>
     <field name="state">code</field>
     <field name="code">action = records.update_now()</field>
 </record>
-
-     <record id="action_to_logs" model="ir.actions.server">
+ -->
+<!--      <record id="action_to_logs" model="ir.actions.server">
      <field name="name">Fix Logs Reports</field>
     <field name="model_id" ref="model_account_move"/>
     <field name="binding_model_id" ref="model_account_move"/>
     <field name="state">code</field>
     <field name="code">action = records.fix_log_reports()</field>
 </record>
-
+ -->
     <record id="action_bached_repo" model="ir.actions.server">
      <field name="name">Fix Bunched Reports</field>
     <field name="model_id" ref="model_inv_pdfs_model"/>
