@@ -223,7 +223,7 @@
                                             <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_due"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_residual"/>
                                         </td>
                             </tbody>
                              <br/>
