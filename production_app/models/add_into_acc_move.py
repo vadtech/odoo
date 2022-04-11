@@ -280,7 +280,7 @@ class branch_pdf_ids(models.Model):
     banch_no = fields.Integer(string="Bunch Number")
     date_generated = fields.Datetime(related='create_date', string="Date Xml Generated")
     date_g = fields.Datetime(string="Date Xml Generated")
-    no_invoives = fields.Integer(string="Number of Invoices")
+    no_invoives = fields.Integer(string="Number of Invoices",,compute='count_invoices')
     iPrinted = fields.Boolean(string="IS Printed", default=False)
 
     # QUICK FIX BUNCHED INVOIVES
