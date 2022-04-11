@@ -14,7 +14,7 @@
                         <h5> Kundenr Hos Factoringselskap:&#160; &#160;09891</h5>
                         <h5>Debitor FCI: &#160; &#160;530</h5>
                         </t>
-                     <t t-set="information_block">
+                     <t t-set="information_block"> 
                             <div style="margin-top:-100%">
                                  <h4 style="font-weight:bolder;" >FACTORINGBUNT DNB FACTORING</h4>
                             </div>
