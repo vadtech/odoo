@@ -7,7 +7,7 @@ class add_into_acc(models.Model):
     _rec_name = "invoice_no_name"
     _description = "Invoicing Application edits"
     _order = "invoice_no_name desc"
-
+ 
     link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
     payment_ref = fields.Char(compute="_pay_ref", string="Payment Reference")
     
