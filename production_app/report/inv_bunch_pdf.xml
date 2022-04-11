@@ -62,9 +62,9 @@
                      <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th name="art_no" class="text-left"><span>Kundenr</span></th>
+                                <th name="art_no" class="text-left"><span>Fakturanr</span></th>
                                 <th name="th_description" class="text-left"><span>Navn</span></th>
-                                <th name="th_quantity" class="text-left">Fakturanr</th>
+                                <th name="th_quantity" class="text-left">Kundenr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
                                 <th name="th_price_unit" class="text-right"><span>Beløp Uten MVA</span></th>
@@ -77,7 +77,7 @@
                             <tbody>
                                         <td name="account_invoice_line_id"><span  t-esc="inv_ids.inv_no" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoice_line_name"><span t-field="inv_ids.customer_nme" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line"><span t-field="inv_ids.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="inv_ids.acc_mv_ids.customer_name.id" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
                                         <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
                                         <td class="text-right">
@@ -87,7 +87,7 @@
                                             <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_residual"/>
                                         </td>
                             </tbody>
                              </span>
@@ -96,15 +96,15 @@
                          <table align="right" class="table table-striped" style="width:40%">
                                   <tr class="border-black o_subtotal">
                                     <th><strong>Totalbeløp Uten MVA</strong></th>
-                                    <th>kr<t t-esc="doc.cal_no_tax(pay_1)"/></th>
+                                    <th>kr <t t-esc="'%.2f'% doc.cal_no_tax(pay_1)"/></th>
                                   </tr>
                                   <tr class="border-black o_subtotal" >
-                                    <td><strong>Totalbeløp Med</strong></td>
-                                    <td>kr<t t-esc="doc.cal_in_tax(pay_1)"/></td>
+                                    <td><strong>Totalbeløp MVA</strong></td>
+                                    <td>kr <t t-esc="'%.2f'% doc.cal_in_tax(pay_1)"/></td>
                                   </tr>
                                     <tr class="border-black o_subtotal" >
-                                    <td><strong>Totale Mengden</strong></td>
-                                    <td>kr<t t-esc="doc.cal_total(pay_1)"/></td>
+                                    <td><strong>Totalbeløp Med MVA</strong></td>
+                                    <td>kr <t t-esc="'%.2f'% doc.cal_total(pay_1)"/></td>
                                   </tr>
                                 </table>
                          <br/>
@@ -120,7 +120,7 @@
                                  <h5>Valutakode På Konto: &#160; &#160;SEK</h5>
                              </div>
                              <div class="col-auto col-3 mw-100 mb-2">
-                                    <h5>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total(pay_2)"/></h5>
+                                    <h5>Beløp: &#160; &#160; Kr <t t-esc=" '%.2f'% docs.cal_total(pay_2)"/></h5>
                              </div>
                               <div class="col-auto col-3 mw-100 mb-2">
                                      <h5>Antall Bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_2)"/></h5>
@@ -129,9 +129,9 @@
                      <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th name="art_no" class="text-left"><span>Kundenr</span></th>
+                                <th name="art_no" class="text-left"><span></span>Fakturanr</th>
                                 <th name="th_description" class="text-left"><span>Navn</span></th>
-                                <th name="th_quantity" class="text-left">Fakturanr</th>
+                                <th name="th_quantity" class="text-left">Kundenr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
                                 <th name="th_price_unit" class="text-right"><span>Beløp uten MVA</span></th>
@@ -144,7 +144,7 @@
                             <tbody>
                                         <td name="account_invoice_line_id"><span  t-esc="inv_ids.inv_no" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoice_line_name"><span t-field="inv_ids.customer_nme" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line"><span t-field="inv_ids.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="inv_ids.acc_mv_ids.customer_name.id" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
                                         <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
 
@@ -165,15 +165,15 @@
                          <table align="right" class="table table-striped" style="width:40%">
                                   <tr class="border-black o_subtotal">
                                     <th>Totalbeløp Uten MVA</th>
-                                    <th>kr<t t-esc="docs.cal_no_tax(pay_2)"/></th>
+                                    <th>kr <t t-esc="'%.2f'% docs.cal_no_tax(pay_2)"/></th>
                                   </tr>
                                   <tr class="border-black o_subtotal">
-                                    <td>Totalbeløp Med</td>
-                                    <td>kr<t t-esc="docs.cal_in_tax(pay_2)"/></td>
+                                    <td>Totalbeløp MVA</td>
+                                    <td>kr <t t-esc="'%.2f'% docs.cal_in_tax(pay_2)"/></td>
                                   </tr>
                                     <tr class="border-black o_subtotal">
-                                    <td>Totale Mengden</td>
-                                    <td>kr<t t-esc="docs.cal_total(pay_2)"/></td>
+                                    <td>Totalbeløp Med MVA</td>
+                                    <td>kr <t t-esc="'%.2f'% docs.cal_total(pay_2)"/></td>
                                   </tr>
                                 </table>
                         </span>
@@ -198,9 +198,9 @@
                      <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th name="art_no" class="text-left"><span>Kundenr</span></th>
+                                <th name="art_no" class="text-left"><span>Fakturanr</span></th>
                                 <th name="th_description" class="text-left"><span>Navn</span></th>
-                                <th name="th_quantity" class="text-left">Fakturanr</th>
+                                <th name="th_quantity" class="text-left">Kundenr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
                                 <th name="th_price_unit" class="text-right"><span>Beløp Uten MVA</span></th>
@@ -213,7 +213,7 @@
                                   <tbody>
                                         <td name="account_invoice_line_id"><span  t-esc="inv_ids.inv_no" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoice_line_name"><span t-field="inv_ids.customer_nme" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line"><span t-field="inv_ids.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="inv_ids.acc_mv_ids.customer_name.id" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
                                         <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
                                         <td class="text-right">
@@ -223,7 +223,7 @@
                                             <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_residual"/>
                                         </td>
                             </tbody>
                              <br/>
@@ -233,15 +233,15 @@
                          <table align="right" class="table table-striped" style="width:40%">
                                   <tr>
                                     <th>Totalbeløp Uten MVA</th>
-                                    <th>kr<t t-esc="doc.cal_no_tax(pay_3)"/></th>
+                                    <th>kr <t t-esc="'%.2f'% doc.cal_no_tax(pay_3)"/></th>
                                   </tr>
                                   <tr>
-                                    <td>Totalbeløp Med</td>
-                                    <td>kr<t t-esc="doc.cal_in_tax(pay_3)"/></td>
+                                    <td>Totalbeløp MVA</td>
+                                    <td>kr <t t-esc="'%.2f'% doc.cal_in_tax(pay_3)"/></td>
                                   </tr>
                                     <tr>
-                                    <td>Totale Mengden</td>
-                                    <td>kr<t t-esc="doc.cal_total(pay_3)"/></td>
+                                    <td>Totalbeløp Med MVA</td>
+                                    <td>kr <t t-esc="'%.2f'% doc.cal_total(pay_3)"/></td>
                                   </tr>
                                 </table>
                         <br/>
