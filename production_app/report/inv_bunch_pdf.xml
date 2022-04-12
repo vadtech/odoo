@@ -80,6 +80,20 @@
                                         <td name="account_invoice_line"><span t-field="inv_ids.acc_mv_ids.customer_name.id" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
                                         <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
+<!--                                CHECK IF ITS CREDIT AND GIVE NEGATIVE VALUES-->
+                                <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
+                                    <td class="text-right">
+                                           kr <span t-esc="'%.2f'% (inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
+                                        </td>
+                                        <td class="text-right">
+                                            kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_tax *-1)"/>
+                                        </td>
+                                        <td class="text-right">
+                                           kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_total *-1)"/>
+                                        </td>
+
+                                </t>
+                                <t t-else="">
                                         <td class="text-right">
                                             <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
                                         </td>
@@ -87,8 +101,10 @@
                                             <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
+                                            <span t-esc="inv_ids.acc_mv_ids.amount_total"/>
                                         </td>
+                                </t>
+
                             </tbody>
                              </span>
                          </t>
@@ -112,7 +128,7 @@
 
 <!--                DISPLAY DATA ABOUT SEK RECORDS -->
                     <span t-if="pay_2==3" class="page">
-                    <p style="page-break-before:always;"> </p>
+                    <p t-if="pay_1==2" style="page-break-before:always;"> </p>
                     <br/>
                      <br/>
                     <div id="informatios" class="row mt32 mb32">
@@ -147,16 +163,29 @@
                                         <td name="account_invoice_line"><span t-field="inv_ids.acc_mv_ids.customer_name.id" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
                                         <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
+                                        <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
+                                            <td class="text-right">
+                                                    kr <span t-esc="inv_ids.acc_mv_ids.amount_untaxed *-1"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_tax *-1)"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_total *-1)"/>
+                                                </td>
 
-                                        <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
-                                        </td>
+                                        </t>
+                                        <t t-else="">
+                                                <td class="text-right">
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="inv_ids.acc_mv_ids.amount_total"/>
+                                                </td>
+                                        </t>
                             </tbody>
                              <br/>
                              </span>
@@ -181,7 +210,7 @@
 <!--                DISPLAY DATA ABOUT DKK RECORDS -->
 
                     <span t-if="pay_3==4" class="page">
-                    <p style="page-break-before:always;"> </p>
+                    <p  t-if="pay_2==3 or pay_1==2" style="page-break-before:always;"> </p>
                         <br/>
                      <br/>
                     <div id="informatios" class="row mt32 mb32">
@@ -216,15 +245,29 @@
                                         <td name="account_invoice_line"><span t-field="inv_ids.acc_mv_ids.customer_name.id" t-options="{'widget': 'text'}"/></td>
                                         <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
                                         <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
-                                        <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
+                                        <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
+                                    <td class="text-right">
+                                            kr <span t-esc="inv_ids.acc_mv_ids.amount_untaxed *-1"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
+                                            kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_tax *-1)"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
+                                            kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_total *-1)"/>
                                         </td>
+
+                                </t>
+                                        <t t-else="">
+                                                <td class="text-right">
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="inv_ids.acc_mv_ids.amount_total"/>
+                                                </td>
+                                        </t>
                             </tbody>
                              <br/>
                              </span>
