@@ -340,13 +340,13 @@ class branch_pdf_ids(models.Model):
             print()
             # if record is in nok
             if cur == 2 and record.payment_fact == 'pay_1':
-                total_amt += record.acc_mv_ids.amount_residual
+                total_amt += record.acc_mv_ids.amount_total
             # if record is in sek
             elif cur == 3 and record.payment_fact == 'pay_2':
-                total_amt += record.acc_mv_ids.amount_residual
+                total_amt += record.acc_mv_ids.amount_total
             # if record is in sek
             elif cur == 4 and record.payment_fact == 'pay_3':
-                total_amt += record.acc_mv_ids.amount_residual
+                total_amt += record.acc_mv_ids.amount_total
         return total_amt
 
     @api.model
