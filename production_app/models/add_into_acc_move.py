@@ -332,45 +332,78 @@ class branch_pdf_ids(models.Model):
             elif cur == 4 and record.payment_fact == 'pay_3':
                 refi = refi + 1
         return refi
-
+    
     @api.model
     def cal_total(self, cur):
+        """CALCULATE FOR TOTAL AMOUNT IN XML FILES"""
         total_amt = 0
+        # CHECK FOR ITS FACTORING AND NEGATIVE AND RECORD WHICH WILL BE A CREDIT NOTE
         for record in self.bunch_inv_ids:
-            print()
             # if record is in nok
             if cur == 2 and record.payment_fact == 'pay_1':
-                total_amt += record.acc_mv_ids.amount_total
+                if record.acc_mv_ids.move_type=='out_refund':
+                    total_amt += record.acc_mv_ids.amount_total * -1
+                else:
+                    total_amt += record.acc_mv_ids.amount_total
             # if record is in sek
             elif cur == 3 and record.payment_fact == 'pay_2':
-                total_amt += record.acc_mv_ids.amount_total
+                if record.acc_mv_ids.move_type == 'out_refund':
+                    total_amt += record.acc_mv_ids.amount_total * -1
+                else:
+                    total_amt += record.acc_mv_ids.amount_total
+
             # if record is in sek
             elif cur == 4 and record.payment_fact == 'pay_3':
-                total_amt += record.acc_mv_ids.amount_total
+                if record.acc_mv_ids.move_type == 'out_refund':
+                    total_amt += record.acc_mv_ids.amount_total * -1
+                else:
+                    total_amt += record.acc_mv_ids.amount_total
         return total_amt
 
     @api.model
     def cal_no_tax(self, cur):
+        """CALCULATE FOR TOTAL AMOUNT TAX IN XML FILES"""
         total_not = 0
+        # CHECK FOR ITS FACTORING AND NEGATIVE AND RECORD WHICH WILL BE A CREDIT NOTE
         for record in self.bunch_inv_ids:
             if cur == 2 and record.payment_fact == 'pay_1':
-                total_not += record.acc_mv_ids.amount_untaxed
+                if record.acc_mv_ids.move_type == 'out_refund':
+                    total_not += record.acc_mv_ids.amount_untaxed * -1
+                else:
+                    total_not += record.acc_mv_ids.amount_untaxed
             if cur == 3 and record.payment_fact == 'pay_2':
-                total_not += record.acc_mv_ids.amount_untaxed
+                if record.acc_mv_ids.move_type == 'out_refund':
+                    total_not += record.acc_mv_ids.amount_untaxed * -1
+                else:
+                    total_not += record.acc_mv_ids.amount_untaxed
             if cur == 4 and record.payment_fact == 'pay_3':
-                total_not += record.acc_mv_ids.amount_untaxed
+                if record.acc_mv_ids.move_type == 'out_refund':
+                    total_not += record.acc_mv_ids.amount_untaxed * -1
+                else:
+                    total_not += record.acc_mv_ids.amount_untaxed
         return total_not
 
     @api.model
     def cal_in_tax(self, cur):
+        """CALCULATE FOR TOTAL AMOUNT WITH TAX IN XML FILES"""
         total_tax = 0
+        # CHECK FOR ITS FACTORING AND NEGATIVE AND RECORD WHICH WILL BE A CREDIT NOTE
         for record in self.bunch_inv_ids:
             if cur == 2 and record.payment_fact == 'pay_1':
-                total_tax += record.acc_mv_ids.amount_tax
+                if record.acc_mv_ids.move_type == 'out_refund':
+                    total_tax += record.acc_mv_ids.amount_tax * -1
+                else:
+                    total_tax += record.acc_mv_ids.amount_tax
             if cur == 3 and record.payment_fact == 'pay_2':
-                total_tax += record.acc_mv_ids.amount_tax
+                if record.acc_mv_ids.move_type == 'out_refund':
+                    total_tax += record.acc_mv_ids.amount_tax * -1
+                else:
+                    total_tax += record.acc_mv_ids.amount_tax
             if cur == 4 and record.payment_fact == 'pay_3':
-                total_tax += record.acc_mv_ids.amount_tax
+                if record.acc_mv_ids.move_type == 'out_refund':
+                    total_tax += record.acc_mv_ids.amount_tax * -1
+                else:
+                    total_tax += record.acc_mv_ids.amount_tax
         return total_tax
 
     @api.model
