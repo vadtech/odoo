@@ -87,7 +87,7 @@
                                             <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_residual"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
                                         </td>
                             </tbody>
                              </span>
@@ -155,7 +155,7 @@
                                             <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_residual"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
                                         </td>
                             </tbody>
                              <br/>
@@ -223,7 +223,7 @@
                                             <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="inv_ids.acc_mv_ids.amount_residual"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
                                         </td>
                             </tbody>
                              <br/>
