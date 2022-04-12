@@ -53,7 +53,7 @@
                                   <h5>Valutakode På Konto: &#160; &#160;NOK</h5>
                              </div>
                              <div class="col-auto col-3 mw-100 mb-2">
-                                    <h5>Beløp: &#160; &#160; Kr <t t-esc="doc.cal_total(pay_1)"/></h5>
+                                    <h5>Beløp: &#160; &#160; Kr <t t-esc=" '%.2f'% doc.cal_total(pay_1)"/></h5>
                              </div>
                               <div class="col-auto col-3 mw-100 mb-2">
                                      <h5>Antall Bilag: &#160; &#160; <t t-esc="doc.cal_records(pay_1)"/></h5>
@@ -134,7 +134,7 @@
                                 <th name="th_quantity" class="text-left">Kundenr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
-                                <th name="th_price_unit" class="text-right"><span>Beløp Uten MVA</span></th>
+                                <th name="th_price_unit" class="text-right"><span>Beløp uten MVA</span></th>
                                 <th name="th_price_unt" class="text-right"><span>Beløp MVA</span></th>
                                 <th name="th_price_unt" class="text-right"><span>Beløp Med MVA</span></th>
                             </tr>
@@ -189,7 +189,7 @@
                                  <h6>Valutakode På Konto: &#160; &#160;DKK</h6>
                              </div>
                              <div class="col-auto col-3 mw-100 mb-2">
-                                    <h6>Beløp: &#160; &#160; Kr <t t-esc="docs.cal_total(pay_3)"/></h6>
+                                    <h6>Beløp: &#160; &#160; Kr <t t-esc=" '%.2f'% docs.cal_total(pay_3)"/></h6>
                              </div>
                               <div class="col-auto col-3 mw-100 mb-2">
                                      <h6>Antall Bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_3)"/></h6>
