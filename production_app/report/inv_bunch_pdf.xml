@@ -94,7 +94,7 @@
 
                                 </t>
                                 <t t-else="">
-                                        <td class="text-right"  style="width:1000px; ">
+                                        <td  style="width:1000px; ">
                                             <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
                                         </td>
                                         <td class="text-right"  style="width:1000px; ">
