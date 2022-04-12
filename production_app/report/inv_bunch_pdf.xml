@@ -146,7 +146,7 @@
                      <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th name="art_no" class="text-left"><span></span style="font-size:30px" >Fakturanr</th>
+                                <th name="art_no" class="text-left"><span style="font-size:30px" >Fakturanr</span ></th>
                                 <th name="th_description" class="text-left"><span style="font-size:30px" >Navn</span></th>
                                 <th name="th_quantity" class="text-left" style="font-size:30px" >Kundenr</th>
                                 <th name="th_priceunit" class="text-left" style="font-size:30px" >Fakturadato</th>
