@@ -347,7 +347,6 @@ class branch_pdf_ids(models.Model):
             # if record is in sek
             elif cur == 4 and record.payment_fact == 'pay_3':
                 total_amt += record.acc_mv_ids.amount_residual
-            round(total_amt, 2)
         return total_amt
 
     @api.model
@@ -360,7 +359,6 @@ class branch_pdf_ids(models.Model):
                 total_not += record.acc_mv_ids.amount_untaxed
             if cur == 4 and record.payment_fact == 'pay_3':
                 total_not += record.acc_mv_ids.amount_untaxed
-            round(total_not, 2)
         return total_not
 
     @api.model
@@ -373,7 +371,6 @@ class branch_pdf_ids(models.Model):
                 total_tax += record.acc_mv_ids.amount_tax
             if cur == 4 and record.payment_fact == 'pay_3':
                 total_tax += record.acc_mv_ids.amount_tax
-            round(total_tax, 2)
         return total_tax
 
     @api.model
