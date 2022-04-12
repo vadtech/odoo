@@ -83,13 +83,13 @@
 <!--                                CHECK IF ITS CREDIT AND GIVE NEGATIVE VALUES-->
                                 <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
                                     <td class="text-right">
-                                           kr <span t-esc="'%.2f'% (inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
+                                         <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
                                         </td>
                                         <td class="text-right">
-                                            kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_tax *-1)"/>
+                                           <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_tax *-1)"/>
                                         </td>
                                         <td class="text-right">
-                                           kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_total *-1)"/>
+                                          <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_total *-1)"/>
                                         </td>
 
                                 </t>
@@ -101,13 +101,14 @@
                                             <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-esc="inv_ids.acc_mv_ids.amount_total"/>
+                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
                                         </td>
                                 </t>
 
                             </tbody>
                              </span>
                          </t>
+
                          </table>
                          <table align="right" class="table table-striped" style="width:40%">
                                   <tr class="border-black o_subtotal">
@@ -165,13 +166,13 @@
                                         <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
                                         <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
                                             <td class="text-right">
-                                                    kr <span t-esc="inv_ids.acc_mv_ids.amount_untaxed *-1"/>
+                                                   <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
                                                 </td>
                                                 <td class="text-right">
-                                                    kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_tax *-1)"/>
+                                                   <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_tax *-1)"/>
                                                 </td>
                                                 <td class="text-right">
-                                                    kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_total *-1)"/>
+                                                   <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_total *-1)"/>
                                                 </td>
 
                                         </t>
@@ -183,7 +184,7 @@
                                                     <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-esc="inv_ids.acc_mv_ids.amount_total"/>
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_total"/>
                                                 </td>
                                         </t>
                             </tbody>
@@ -247,13 +248,13 @@
                                         <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
                                         <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
                                     <td class="text-right">
-                                            kr <span t-esc="inv_ids.acc_mv_ids.amount_untaxed *-1"/>
+                                           <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
                                         </td>
                                         <td class="text-right">
-                                            kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_tax *-1)"/>
+                                           <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_tax *-1)"/>
                                         </td>
                                         <td class="text-right">
-                                            kr <span t-esc="'%.2f'%  (inv_ids.acc_mv_ids.amount_total *-1)"/>
+                                           <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_total *-1)"/>
                                         </td>
 
                                 </t>
@@ -265,7 +266,7 @@
                                                     <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-esc="inv_ids.acc_mv_ids.amount_total"/>
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_total"/>
                                                 </td>
                                         </t>
                             </tbody>
