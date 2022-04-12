@@ -67,9 +67,9 @@
                                 <th name="th_quantity" class="text-left">Kundenr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
-                                <th name="th_price_unit" class="text-right"><span>Beløp Uten MVA</span></th>
-                                <th name="th_price_unt" class="text-right"><span>Beløp MVA</span></th>
-                                <th name="th_price_unt" class="text-right"><span>Beløp Med MVA</span></th>
+                                <th name="th_price_unit" class="text-right" style="width:1000px;"><span>Beløp Uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px;"><span>Beløp MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px;"><span>Beløp Med MVA</span></th>
                             </tr>
                             </thead>
                          <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
@@ -94,7 +94,7 @@
 
                                 </t>
                                 <t t-else="">
-                                        <td  style="width:1000px; ">
+                                        <td class="text-right"  style="width:1000px; ">
                                             <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
                                         </td>
                                         <td class="text-right"  style="width:1000px; ">
@@ -151,9 +151,9 @@
                                 <th name="th_quantity" class="text-left">Kundenr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
-                                <th name="th_price_unit" class="text-right"><span>Beløp uten MVA</span></th>
-                                <th name="th_price_unt" class="text-right"><span>Beløp MVA</span></th>
-                                <th name="th_price_unt" class="text-right"><span>Beløp Med MVA</span></th>
+                                <th name="th_price_unit" class="text-right" style="width:1000px;"><span>Beløp uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px;"><span>Beløp MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px;"><span>Beløp Med MVA</span></th>
                             </tr>
                             </thead>
                          <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
@@ -233,9 +233,9 @@
                                 <th name="th_quantity" class="text-left">Kundenr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
-                                <th name="th_price_unit" class="text-right"><span>Beløp Uten MVA</span></th>
-                                <th name="th_price_unt" class="text-right"><span>Beløp MVA</span></th>
-                                <th name="th_price_unt" class="text-right"><span>Beløp Med MVA</span></th>
+                                <th name="th_price_unit" class="text-right" style="width:1000px;"><span>Beløp Uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px;"><span>Beløp MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px;"><span>Beløp Med MVA</span></th>
                             </tr>
                             </thead>
                          <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
