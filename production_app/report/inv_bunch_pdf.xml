@@ -67,9 +67,9 @@
                                 <th name="th_quantity" class="text-left">Kundenr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
-                                <th name="th_price_unit" ><span>Beløp Uten MVA</span></th>
-                                <th name="th_price_unt" ><span>Beløp MVA</span></th>
-                                <th name="th_price_unt" ><span>Beløp Med MVA</span></th>
+                                <th name="th_price_unit" class="text-right"><span>Beløp Uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp Med MVA</span></th>
                             </tr>
                             </thead>
                          <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
@@ -82,25 +82,25 @@
                                         <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
 <!--                                CHECK IF ITS CREDIT AND GIVE NEGATIVE VALUES-->
                                 <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
-                                    <td >
+                                    <td class="text-right"  style="width:1000px; ">
                                          <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
                                         </td>
-                                        <td >
+                                        <td class="text-right"  style="width:1000px; ">
                                            <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_tax *-1)"/>
                                         </td>
-                                        <td >
+                                        <td class="text-right"  style="width:1000px; ">
                                           <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_total *-1)"/>
                                         </td>
 
                                 </t>
                                 <t t-else="">
-                                        <td >
+                                        <td class="text-right"  style="width:1000px; ">
                                             <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
                                         </td>
-                                        <td >
+                                        <td class="text-right"  style="width:1000px; ">
                                             <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                         </td>
-                                        <td >
+                                        <td class="text-right"  style="width:1000px; ">
                                             <span t-field="inv_ids.acc_mv_ids.amount_total"/>
                                         </td>
                                 </t>
@@ -110,7 +110,7 @@
                          </t>
 
                          </table>
-                         <table align="right" class="table table-striped" style="width:40%">
+                         <table class="table table-striped" style="width:40%;  margin-right: 0px; margin-left: auto;">
                                   <tr class="border-black o_subtotal">
                                     <th><strong>Totalbeløp Uten MVA</strong></th>
                                     <th>kr <t t-esc="'%.2f'% doc.cal_no_tax(pay_1)"/></th>
@@ -151,9 +151,9 @@
                                 <th name="th_quantity" class="text-left">Kundenr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
-                                <th name="th_price_unit" ><span>Beløp uten MVA</span></th>
-                                <th name="th_price_unt" ><span>Beløp MVA</span></th>
-                                <th name="th_price_unt" ><span>Beløp Med MVA</span></th>
+                                <th name="th_price_unit" class="text-right"><span>Beløp uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp Med MVA</span></th>
                             </tr>
                             </thead>
                          <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
@@ -165,25 +165,25 @@
                                         <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
                                         <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
                                         <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
-                                            <td >
+                                            <td class="text-right"  style="width:1000px; ">
                                                    <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
                                                 </td>
-                                                <td >
+                                                <td class="text-right"  style="width:1000px; ">
                                                    <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_tax *-1)"/>
                                                 </td>
-                                                <td >
+                                                <td class="text-right"  style="width:1000px; ">
                                                    <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_total *-1)"/>
                                                 </td>
 
                                         </t>
                                         <t t-else="">
-                                                <td >
+                                                <td class="text-right"  style="width:1000px; ">
                                                     <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
                                                 </td>
-                                                <td >
+                                                <td class="text-right"  style="width:1000px; ">
                                                     <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                                 </td>
-                                                <td >
+                                                <td class="text-right"  style="width:1000px; ">
                                                     <span t-field="inv_ids.acc_mv_ids.amount_total"/>
                                                 </td>
                                         </t>
@@ -233,9 +233,9 @@
                                 <th name="th_quantity" class="text-left">Kundenr</th>
                                 <th name="th_priceunit" class="text-left">Fakturadato</th>
                                 <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
-                                <th name="th_price_unit" ><span>Beløp Uten MVA</span></th>
-                                <th name="th_price_unt" ><span>Beløp MVA</span></th>
-                                <th name="th_price_unt" ><span>Beløp Med MVA</span></th>
+                                <th name="th_price_unit" class="text-right"><span>Beløp Uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp MVA</span></th>
+                                <th name="th_price_unt" class="text-right"><span>Beløp Med MVA</span></th>
                             </tr>
                             </thead>
                          <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
@@ -247,25 +247,25 @@
                                         <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
                                         <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
                                         <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
-                                    <td >
+                                    <td class="text-right"  style="width:1000px; ">
                                            <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
                                         </td>
-                                        <td >
+                                        <td class="text-right"  style="width:1000px; ">
                                            <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_tax *-1)"/>
                                         </td>
-                                        <td >
+                                        <td class="text-right"  style="width:1000px; ">
                                            <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_total *-1)"/>
                                         </td>
 
                                 </t>
                                         <t t-else="">
-                                                <td >
+                                                <td class="text-right"  style="width:1000px; ">
                                                     <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
                                                 </td>
-                                                <td >
+                                                <td class="text-right"  style="width:1000px; ">
                                                     <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
                                                 </td>
-                                                <td >
+                                                <td class="text-right"  style="width:1000px; ">
                                                     <span t-field="inv_ids.acc_mv_ids.amount_total"/>
                                                 </td>
                                         </t>
