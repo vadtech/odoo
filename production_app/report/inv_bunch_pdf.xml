@@ -62,11 +62,11 @@
                      <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th name="art_no" class="text-left"><span>Fakturanr</span></th>
-                                <th name="th_description" class="text-left"><span>Navn</span></th>
-                                <th name="th_quantity" class="text-left">Kundenr</th>
-                                <th name="th_priceunit" class="text-left">Fakturadato</th>
-                                <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
+                                <th name="art_no" class="text-left"><span style="font-size:30px" >Fakturanr</span></th>
+                                <th name="th_description" class="text-left"><span style="font-size:30px" >Navn</span></th>
+                                <th name="th_quantity" class="text-left" style="font-size:30px" >Kundenr</th>
+                                <th name="th_priceunit" class="text-left" style="font-size:30px" >Fakturadato</th>
+                                <th name="th_price_unit" class="text-left"><span style="font-size:30px" >Forfallsdato</span></th>
                                 <th name="th_price_unit" class="text-right" style="width:3000px;"><span>Beløp Uten MVA</span></th>
                                 <th name="th_price_unt" class="text-right" style="width:3000px;"><span>Beløp MVA</span></th>
                                 <th name="th_price_unt" class="text-right" style="width:3000px;"><span>Beløp Med MVA</span></th>
@@ -146,11 +146,11 @@
                      <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th name="art_no" class="text-left"><span></span>Fakturanr</th>
-                                <th name="th_description" class="text-left"><span>Navn</span></th>
-                                <th name="th_quantity" class="text-left">Kundenr</th>
-                                <th name="th_priceunit" class="text-left">Fakturadato</th>
-                                <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
+                                <th name="art_no" class="text-left"><span></span style="font-size:30px" >Fakturanr</th>
+                                <th name="th_description" class="text-left"><span style="font-size:30px" >Navn</span></th>
+                                <th name="th_quantity" class="text-left" style="font-size:30px" >Kundenr</th>
+                                <th name="th_priceunit" class="text-left" style="font-size:30px" >Fakturadato</th>
+                                <th name="th_price_unit" class="text-left"><span style="font-size:30px" >Forfallsdato</span></th>
                                 <th name="th_price_unit" class="text-right" style="width:3000px;"><span>Beløp uten MVA</span></th>
                                 <th name="th_price_unt" class="text-right" style="width:3000px;"><span>Beløp MVA</span></th>
                                 <th name="th_price_unt" class="text-right" style="width:3000px;"><span>Beløp Med MVA</span></th>
@@ -228,11 +228,11 @@
                      <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th name="art_no" class="text-left"><span>Fakturanr</span></th>
-                                <th name="th_description" class="text-left"><span>Navn</span></th>
-                                <th name="th_quantity" class="text-left">Kundenr</th>
-                                <th name="th_priceunit" class="text-left">Fakturadato</th>
-                                <th name="th_price_unit" class="text-left"><span>Forfallsdato</span></th>
+                                <th name="art_no" class="text-left"><span style="font-size:30px" >Fakturanr</span></th>
+                                <th name="th_description" class="text-left"><span style="font-size:30px" >Navn</span></th>
+                                <th name="th_quantity" class="text-left" style="font-size:30px" >Kundenr</th>
+                                <th name="th_priceunit" class="text-left" style="font-size:30px" >Fakturadato</th>
+                                <th name="th_price_unit" class="text-left"><span style="font-size:30px" >Forfallsdato</span></th>
                                 <th name="th_price_unit" class="text-right" style="width:3000px;"><span>Beløp Uten MVA</span></th>
                                 <th name="th_price_unt" class="text-right" style="width:3000px;"><span>Beløp MVA</span></th>
                                 <th name="th_price_unt" class="text-right" style="width:3000px;"><span>Beløp Med MVA</span></th>
