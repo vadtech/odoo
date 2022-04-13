@@ -82,7 +82,7 @@
                                         <td name="account_invoicline" style="font-size:11px"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
 <!--                                CHECK IF ITS CREDIT AND GIVE NEGATIVE VALUES-->
                                 <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
-                                    <td class="text-right"  style="width:3000px; ">
+                                    <td class="text-right"  style="width:1000px; font-size:11px">
                                          <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
                                         </td>
                                         <td class="text-right"  style="width:1000px; font-size:11px ">
