@@ -63,32 +63,32 @@
                             <thead>
                             <tr>
                                 <th name="art_no" class="text-left" style="font-size:11px"><span>Fakturanr</span></th>
-                                <th name="th_description" class="text-left"><span style="font-size:15px" >Navn</span></th>
-                                <th name="th_quantity" class="text-left" style="font-size:15px" >Kundenr</th>
-                                <th name="th_priceunit" class="text-left" style="font-size:15px" >Fakturadato</th>
-                                <th name="th_price_unit" class="text-left"><span style="font-size:15px" >Forfallsdato</span></th>
-                                <th name="th_price_unit" class="text-right" style="width:3000px;"><span>Beløp Uten MVA</span></th>
-                                <th name="th_price_unt" class="text-right" style="width:3000px;"><span>Beløp MVA</span></th>
-                                <th name="th_price_unt" class="text-right" style="width:3000px;"><span>Beløp Med MVA</span></th>
+                                <th name="th_description" class="text-left"><span style="font-size:11px" >Navn</span></th>
+                                <th name="th_quantity" class="text-left" style="font-size:11px" >Kundenr</th>
+                                <th name="th_priceunit" class="text-left" style="font-size:11px" >Fakturadato</th>
+                                <th name="th_price_unit" class="text-left"><span style="font-size:11px" >Forfallsdato</span></th>
+                                <th name="th_price_unit" class="text-right" style="width:200px; font-size:11px"><span>Beløp Uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:200px; font-size:11px"><span>Beløp MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:200px; font-size:11px"><span>Beløp Med MVA</span></th>
                             </tr>
                             </thead>
                          <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
                              <span t-if="inv_ids.payment_fact =='pay_1'">
                             <tbody>
                                         <td name="account_invoice_line_id" style="font-size:11px"><span t-esc="inv_ids.inv_no" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line_name"><span t-field="inv_ids.customer_nme" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoice_line"><span t-field="inv_ids.acc_mv_ids.customer_name.id" t-options="{'widget': 'text'}"/></td>
-                                        <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
-                                        <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoice_line_name" style="font-size:11px"><span t-field="inv_ids.customer_nme" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line" style="font-size:11px"><span t-field="inv_ids.acc_mv_ids.customer_name.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoic_line" style="font-size:11px"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoicline" style="font-size:11px"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
 <!--                                CHECK IF ITS CREDIT AND GIVE NEGATIVE VALUES-->
                                 <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
                                     <td class="text-right"  style="width:3000px; ">
                                          <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
                                         </td>
-                                        <td class="text-right"  style="width:3000px; ">
+                                        <td class="text-right"  style="width:200px; font-size:11px ">
                                            <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_tax *-1)"/>
                                         </td>
-                                        <td class="text-right"  style="width:3000px; ">
+                                        <td class="text-right"  style="width:200px; font-size:11px ">
                                           <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_total *-1)"/>
                                         </td>
 
