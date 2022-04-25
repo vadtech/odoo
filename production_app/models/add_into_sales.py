@@ -1,4 +1,8 @@
-from odoo import fields, models, api ,_
+from odoo import fields, models, api
+import datetime
+from datetime import date
+from datetime import timedelta
+
 
 class add_into_sales(models.Model):
 	"""real name of the model"""
