@@ -32,6 +32,9 @@ class add_into_acc(models.Model):
     def fix_sales_char(self):
         for rec in self:
             rec.fake_sales_char = rec.sales_char
+   
+    def _check_balanced(self):
+        return True
             
     def update_now(self):
         # current_rec = self.env['account.move'].search([])
