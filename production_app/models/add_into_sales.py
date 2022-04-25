@@ -220,12 +220,8 @@ class add_into_sales(models.Model):
                             if lin.price_unit == 0 or lin.quantity == 0:
                                 new_discount = 0
                             else:
-                                new_discount = (
-                                                           100 * to_be_subtotal - 100 * lin.price_unit * lin.quantity) / -lin.price_unit * lin.quantity * 1
-                            print(lin.name)
+                                new_discount =(100*( lin.price_unit * lin.quantity - to_be_subtotal ))/ lin.price_unit * lin.quantity
                             new_rec.discount = new_discount
-                            print(to_be_subtotal)
-                            print(new_discount)
                         else:
                             pass
 
@@ -240,12 +236,8 @@ class add_into_sales(models.Model):
                             if lin.price_unit == 0 or lin.quantity == 0:
                                 new_discount = 0
                             else:
-                                new_discount = (
-                                                           100 * to_be_subtotal - 100 * lin.price_unit * lin.quantity) / -lin.price_unit * lin.quantity * 1
-                            print(lin.name)
+                                new_discount =(100*( lin.price_unit * lin.quantity - to_be_subtotal ))/ lin.price_unit * lin.quantity
                             new_rec.discount = new_discount
-                            print(to_be_subtotal)
-                            print(new_discount)
                         else:
                             pass
 
