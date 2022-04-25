@@ -9,7 +9,7 @@ class add_into_sales(models.Model):
 	total_dis_line=fields.Integer(string='Total line')
 	client_order_ref2 = fields.Char(string='Customer Reference 2', copy=False)
 	newMarking = fields.Char(string='Marking', copy=False)
-	
+	previous_sales_name=fields.Char(string='Marking', copy=False)
 	
 	@api.model
 	def check_u_currency(self):
@@ -21,6 +21,12 @@ class add_into_sales(models.Model):
 			else:
 				new_sign = 'nok'
 		return new_sign
+	
+
+	def copy(self, default=None):
+		default={}
+		default['previous_sales_name']= self.name
+		return super(add_into_sales, self).copy(default)
 	
 	def create_to_invoice(self):
 		"""THIS IS TO PUSH SALES RECORDS INTO CREDIT NOTE AND ITS INVOICES"""
