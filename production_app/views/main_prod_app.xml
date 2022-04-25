@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 <!-- Sripts Fuctions for Hard making Changes       -->
-
+     
    <record id="quick_sales_char" model="ir.actions.server">
      <field name="name">Fix Log Reportsr</field>
     <field name="model_id" ref="model_account_move"/>
@@ -9,15 +9,15 @@
     <field name="state">code</field>
     <field name="code">action = records.fix_log_reports()</field>
     </record>
-
-    <record id="action_push_credit" model="ir.actions.server">
-     <field name="name">Credit To Invoice</field>
-    <field name="model_id" ref="model_sale_order"/>
-    <field name="binding_model_id" ref="model_sale_order"/>
-    <field name="state">code</field>
-    <field name="code">action = records.create_to_invoice()</field>
-</record>
-
+     
+<!--    <record id="action_o_fix" model="ir.actions.server">-->
+<!--     <field name="name">Fix Updating Line Disc</field>-->
+<!--    <field name="model_id" ref="model_sale_order"/>-->
+<!--    <field name="binding_model_id" ref="model_sale_order"/>-->
+<!--    <field name="state">code</field>-->
+<!--    <field name="code">action = records.lest_fix_line_disc()</field>-->
+<!--</record>-->
+     
 <!--       <record id="action_to_update" model="ir.actions.server">
      <field name="name">Fix Logs Reports</field>
     <field name="model_id" ref="model_account_move"/>
@@ -58,7 +58,7 @@
 <!--    <field name="state">code</field>-->
 <!--    <field name="code">action = records.fix_sales_char()</field>-->
 <!--</record>-->
-
+     
 <!--      <record id="quick_fix" model="ir.actions.server">-->
 <!--     <field name="name">Push To Invoiced</field>-->
 <!--    <field name="model_id" ref="model_account_move"/>-->
@@ -66,8 +66,8 @@
 <!--    <field name="state">code</field>-->
 <!--    <field name="code">action = records.quick_fix_inv()</field>-->
 <!--</record>    -->
-
-
+     
+     
 <!--          <record id="action_test_me" model="ir.actions.server">-->
 <!--    <field name="name">Lest fix Invoice NO</field>-->
 <!--    <field name="model_id" ref="model_prod_order_model"/>-->
@@ -85,7 +85,7 @@
 <!--    <field name="state">code</field>-->
 <!--    <field name="code">action = records.amount_all()</field>-->
 <!--</record>-->
-
+     
 <!--     <record id="acion_to_fix" model="ir.actions.server">-->
 <!--     <field name="name">Fix Update invoice Amounts</field>-->
 <!--    <field name="model_id" ref="model_account_move"/>-->
@@ -93,7 +93,7 @@
 <!--    <field name="state">code</field>-->
 <!--    <field name="code">action = records.fix_updating_fields()</field>-->
 <!--</record>    -->
-
+     
 <!--     <record id="quick_fix_for_id" model="ir.actions.server">-->
 <!--     <field name="name">Fix ID</field>-->
 <!--    <field name="model_id" ref="model_account_move"/>-->
@@ -101,7 +101,7 @@
 <!--    <field name="state">code</field>-->
 <!--    <field name="code">action = records.quick_fix_id()</field>-->
 <!--</record>    -->
-
+     
 <!-- <record id="act_test_me" model="ir.actions.server">-->
 <!--    <field name="name">Lest Update Models in Res </field>-->
 <!--    <field name="model_id" ref="model_prod_order_model"/>-->
@@ -117,8 +117,8 @@
 <!--    <field name="state">code</field>-->
 <!--    <field name="code">action = records.fix_sales_char()</field>-->
 <!--</record>-->
-
-
+     
+     
 <!--        <record id="automate" model="ir.actions.server">
     <field name="name">Automate</field>
     <field name="model_id" ref="model_account_move"/>
@@ -127,7 +127,7 @@
     <field name="state">code</field>
     <field name="code">action = records.auto_mate()</field>
 </record> -->
-
+    
      <!--<record id="action_quto" model="ir.actions.server">
     <field name="name">Automate me</field>
     <field name="model_id" ref="model_res_partner"/>
@@ -136,16 +136,16 @@
     <field name="state">code</field>
     <field name="code">action = records.automate_change()</field>
 </record> -->
-
+     
      <!-- Add options or  Button in action menu -->
 <record id="action_confirm_to_production" model="ir.actions.server">
     <field name="name">Export To Production</field>
     <field name="model_id" ref="model_prod_order_model"/>
     <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field>
+    <field name="state">code</field> 
     <field name="code">action = records.action_prod()</field>
 </record>
-
+     
 
 
 
@@ -158,8 +158,8 @@
     <field name="state">code</field>
     <field name="code">action = records.custom_action_draft()</field>
 </record>
-
-
+     
+     
      <record id="action_confirm_to" model="ir.actions.server">
     <field name="name">Mark Quotation as Confirmed</field>
     <field name="model_id" ref="model_sale_order"/>
@@ -168,7 +168,7 @@
     <field name="state">code</field>
     <field name="code">action = records.custom_action_confirm()</field>
 </record>
-
+     
     <record id="action_confirm_to_cancel" model="ir.actions.server">
     <field name="name">Cancel Order</field>
     <field name="model_id" ref="model_prod_order_model"/>
@@ -201,7 +201,7 @@
     <field name="context"></field>
     <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
-        Create Your New Production Order
+        Create Your New Production Order   
         </p>
     </field>
 </record>
@@ -211,17 +211,17 @@
         <field name="name">production.order.tree</field>
         <field name="model">prod_order.model</field>
         <field name="arch" type="xml">
-            <tree multi_edit="1">
-                <field name="customer_re"/>
+            <tree multi_edit="1">   
+                <field name="customer_ref"/>
                 <field name="sales_id_char"/>
-                <field name="sales_person" />
+                <field name="sales_person" /> 
                 <field name="state"/>
                 <field name="delivery_week"/>
                 <field name="create_date"/>
             </tree>
         </field>
-   </record>
-
+   </record> 
+     
       <record id="main_prod_search" model="ir.ui.view">
             <field name="model">prod_order.model</field>
                  <field name="name">production.order.search</field>
@@ -272,7 +272,7 @@
                             <field name="sales_id_char" />
                             <field name="sales_person" />
                             <field name="order" />
-
+                   
                         </group>
                         <group>
                             <field name="delivery_date" />
@@ -281,7 +281,7 @@
                             <field name="total_vol"/>
                             <field name="total_wei"/>
                             <field name="total_ite"/>
-                        </group>
+                        </group> 
                     </group>
                     <notebook>
                            <page name="order_lines" string="Order Lines">
@@ -309,7 +309,7 @@
          </field>
    </record>
 
-<menuitem id="production_app_root"
+<menuitem id="production_app_root" 
         name="Production Application"
         sequence="10"/>
 
