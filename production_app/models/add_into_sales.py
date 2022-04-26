@@ -12,6 +12,7 @@ class add_into_sales(models.Model):
     total_dis = fields.Integer(string='Total Discount')
     total_dis_line = fields.Integer(string='Total line')
     client_order_ref2 = fields.Char(string='Customer Reference 2')
+    client_order_ref = fields.Char(string='Customer Reference')
     newMarking = fields.Char(string='Marking')
     previous_sales_name = fields.Char(string='Marking')
 
