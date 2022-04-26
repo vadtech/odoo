@@ -11,9 +11,9 @@ class add_into_sales(models.Model):
     price_list = fields.Many2one('product.pricelist', string="Price list")
     total_dis = fields.Integer(string='Total Discount')
     total_dis_line = fields.Integer(string='Total line')
-    client_order_ref2 = fields.Char(string='Customer Reference 2', copy=False)
-    newMarking = fields.Char(string='Marking', copy=False)
-    previous_sales_name = fields.Char(string='Marking', copy=False)
+    client_order_ref2 = fields.Char(string='Customer Reference 2')
+    newMarking = fields.Char(string='Marking')
+    previous_sales_name = fields.Char(string='Marking')
 
     @api.model
     def check_u_currency(self):
