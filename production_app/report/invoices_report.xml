@@ -66,7 +66,7 @@
                     <div id="informations" class="row mt32 mb32">
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Order No:</strong>
-                            <p class="m-0"><t t-field="sale_id.main_sales_id.name"/>/<t t-field="sale_id.main_sales_id.previous_sales_name"/></p>
+                            <p class="m-0"><span t-field="sale_id.main_sales_id.name"/>/<span t-field="sale_id.main_sales_id.previous_sales_name"/></p>
                         </div>
 
                         <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
