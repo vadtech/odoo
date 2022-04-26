@@ -5,8 +5,8 @@ class add_into_order_line(models.Model):
 	_inherit ="account.move.line"
 	_description="Moddification of aacount move line"
 
-	acc_disAmount=fields.Integer( string='line Discount Amount', compute="_cal_disamount")
-	linediscPerct=fields.Integer( string='line Discount %')
+	acc_disAmount=fields.Monetary( string='line Discount Amount', compute="_cal_disamount")
+	linediscPerct=fields.Monetary( string='line Discount %')
 
 	def _cal_disamount(self): 
 		list_id=[27665,46,45,44,43]
