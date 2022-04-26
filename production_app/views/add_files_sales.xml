@@ -94,6 +94,10 @@
              <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position='before'>
                      <field name="acc_disAmount"/>
             </xpath>
+            
+            <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position='before'>
+                     <field name="over_rounding"/>
+            </xpath>
         </field>
      </record>
      
@@ -177,9 +181,6 @@
                <attribute name="invisible">1</attribute>
             </xpath>
             
-             <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position='before'>
-                     <field name="over_rounding"/>
-            </xpath>
         </field>
     </record>
 </odoo>
