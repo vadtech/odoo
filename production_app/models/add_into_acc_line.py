@@ -17,7 +17,8 @@ class add_into_order_line(models.Model):
 			if self.move_id.id in list_id and dismount != 0:
 				rec.price_subtotal=dismount
 			else:
-				rec.price_subtotal= rec.price_unit * rec.quantity - rec.acc_disAmount - dismount + rec.over_rounding
+				total = rec.price_unit * rec.quantity - rec.acc_disAmount - dismount + rec.over_rounding
+				rec.price_subtotal= total
 			amount_untaxed = amount_tax = 0.0
 			for line in self.move_id.invoice_line_ids:
 				amount_untaxed += line.price_subtotal
