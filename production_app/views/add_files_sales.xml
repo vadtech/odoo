@@ -8,7 +8,7 @@
         <xpath expr="//form/sheet/div[hasclass('oe_title')]" position="after">
                 <group>
                     <group>
-                         <field name="model" string="Model"/> 
+                         <field name="model" string="Model"/>  
                     </group>
                 </group>
         </xpath>
