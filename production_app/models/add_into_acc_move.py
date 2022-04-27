@@ -15,8 +15,9 @@ class add_into_acc(models.Model):
     sales_char = fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
     invoice_no_name = fields.Char(string="Inovice Number")
     customer_name = fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
-    fake_sales_char = fields.Char(string="Sales Order Number")
+    over_rounding = fields.Monetary(string='Øreavrunding')
 
+    fake_sales_char = fields.Char(string="Sales Order Number")
     fake_sales_id = fields.Char(string="fake_sales_id")
 
     inv_state = fields.Selection(
@@ -141,6 +142,18 @@ class add_into_acc(models.Model):
             x = self.luhn_checksum(rec.invoice_no_name)
             ne_p = '609891' + str(y) + str(rec.invoice_no_name) + str(x)
             rec.payment_ref = ne_p
+    
+    @api.onchange("over_rounding")
+    def over_round(self):
+        """FOR ADDING ROUNDING OFF FIELD"""
+        amount_untaxed = amount_tax = 0.0
+        for line in self.invoice_line_ids:
+            amount_untaxed += line.price_total
+            amount_tax += line.tax_ids.amount / 100 * line.price_total
+        self.amount_untaxed = amount_untaxed
+        self.amount_tax = amount_tax
+        self.amount_total = amount_untaxed + amount_tax + self.over_rounding
+
 
     def luhn_checksum(self, card_number):
         def digits_of(n):
