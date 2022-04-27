@@ -7,7 +7,7 @@ class add_into_order_line(models.Model):
 
 	acc_disAmount=fields.Monetary( string='line Discount Amount', compute="_cal_disamount")
 	linediscPerct=fields.Monetary( string='line Discount %')
-	over_rounding=fields.Float(string='Øreavrunding')
+	over_rounding=fields.Monetary(string='Øreavrunding')
 
 	def _cal_disamount(self): 
 		list_id=[27665,46,45,44,43]
