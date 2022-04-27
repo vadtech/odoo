@@ -95,9 +95,11 @@
                      <field name="acc_disAmount"/>
             </xpath>
             
-            <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position='before'>
+            <xpath expr="//form/sheet/notebook/page[@id='invoice_tab']/group[hasclass('oe_subtotal_footer')]/field[@name='amount_untaxed']" position='after'>
                      <field name="over_rounding"/>
             </xpath>
+            
+            
         </field>
      </record>
      
