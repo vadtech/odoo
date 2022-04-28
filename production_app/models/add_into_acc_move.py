@@ -29,7 +29,6 @@ class add_into_acc(models.Model):
             ('not_invc', 'Not Invoiced')])
 
     """ALL FUNCTTION S FOR QUICK FIX """
-
     def fix_sales_char(self):
         for rec in self:
             rec.fake_sales_char = rec.sales_char
@@ -148,8 +147,8 @@ class add_into_acc(models.Model):
         """FOR ADDING ROUNDING OFF FIELD"""
         amount_untaxed = amount_tax = 0.0
         for line in self.invoice_line_ids:
-            amount_untaxed += line.price_total
-            amount_tax += line.tax_ids.amount / 100 * line.price_total
+            amount_untaxed += line.price_subtotal
+            amount_tax += line.tax_ids.amount / 100 * line.price_subtotal
         self.amount_untaxed = amount_untaxed
         self.amount_tax = amount_tax
         self.amount_total = amount_untaxed + amount_tax + self.over_rounding
