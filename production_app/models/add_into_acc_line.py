@@ -25,7 +25,7 @@ class add_into_order_line(models.Model):
 
 			self.move_id.amount_untaxed = amount_untaxed
 			self.move_id.amount_tax = amount_tax
-			self.move_id.amount_total = amount_untaxed + amount_tax
+			self.move_id.amount_total = amount_untaxed + amount_tax + self.move_id.over_rounding
 
 
 	
