@@ -142,6 +142,16 @@ class add_into_acc(models.Model):
             ne_p = '609891' + str(y) + str(rec.invoice_no_name) + str(x)
             rec.payment_ref = ne_p
     
+    def _reverse_moves(self, default_values_list=None, cancel=False):
+        """FOR OVERIDING CREDIT NOTES TO CREATE WITH NEW INVOICE NUMBER"""
+        if not default_values_list:
+            default_values_list = [{} for move in self]
+        for move, default_values in zip(self, default_values_list):
+            default_values.update({
+                'invoice_no_name':self.env['ir.sequence'].next_by_code('invoice.seq'),
+            })
+        return super()._reverse_moves(default_values_list=default_values_list, cancel=cancel)
+    
     @api.onchange("over_rounding")
     def over_round(self):
         """FOR ADDING ROUNDING OFF FIELD"""
