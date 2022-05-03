@@ -7,7 +7,7 @@
             <ClientId>09891</ClientId>  
             <ClientName>VAD AS</ClientName>
             <BatchDate><t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></BatchDate>
-            <BatchNbr><t t-esc="docs.count_banch()"/></BatchNbr>
+            <BatchNbr><t t-esc="docs.count_banch()"/></BatchNbr> 
             <t t-foreach="docs" t-as="o">
             <Invoice>   
                         <InvType t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</InvType>
