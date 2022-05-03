@@ -22,6 +22,9 @@
         <graph string="Graph View for Upcoming Orders" sample="1">
             <field name="week_number"/>
             <field  name="number_of_rec" type="measure"/>
+            <field  name="amount_total" type="measure"/>
+            <field  name="amount_tax" type="measure"/>
+            <field  name="amount_untaxed" type="measure"/>
         </graph>
     </field>
 </record>
@@ -38,6 +41,10 @@
                     </group>
                     <group>
                         <field name="year" string="Year"/>
+                        <field string="Amount Total" name="amount_total"/>
+                        <field name="amount_untaxed"/>
+                        <field name="amount_tax"/>
+
                     </group>
                 </group>
                 <notebook>
