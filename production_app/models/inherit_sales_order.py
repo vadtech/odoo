@@ -16,7 +16,7 @@ class add_into_order_line(models.Model):
 		for rec in self:
 			rec.disAmount = rec.linediscPerct / 100 * rec.price_unit * rec.product_uom_qty
 			dismount = rec.discount / 100 * rec.price_unit * rec.product_uom_qty
-			rec.price_subtotal= rec.price_unit * rec.product_uom_qty - rec.disAmount - dismount
+			rec.price_subtotal= (rec.price_unit * rec.product_uom_qty )- rec.disAmount - dismount
 			amount_untaxed = amount_tax = 0.0
 			for line in self.order_id.order_line:
 				amount_untaxed += line.price_subtotal
