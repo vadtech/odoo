@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- DASHBOARD TREE ACTION -->
+<record id="dashboard_graph_action" model="ir.actions.act_window">
+    <field name="name">Reports</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">weekly_no.model</field>
+    <field name="view_mode">graph,tree,form</field>
+    <field name="context"></field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+         Monitor all record from sales production and invoice app
+        </p>
+    </field>
+</record>
+
+<!-- DASHBOARD GRAPH VIEW -->
+<record id="dashboard_graph" model="ir.ui.view">
+    <field name="name">dashboard.temp.graph</field>
+    <field name="model">weekly_no.model</field>
+    <field name="arch" type="xml">
+        <graph string="Graph View for Upcoming Orders" sample="1">
+            <field name="week_number"/>
+            <field  name="number_of_rec" type="measure"/>
+        </graph>
+    </field>
+</record>
+
+<record id="dashboard_temp_form" model="ir.ui.view">
+    <field name="name">dashboard.temp.form</field>
+    <field name="model">weekly_no.model</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <group>
+                          <field name="week_number" string="Week Number"/>
+                    </group>
+                    <group>
+                        <field name="year" string="Year"/>
+                    </group>
+                </group>
+                <notebook>
+                       <page name="order_lines" string="Records">
+                                   <field name="weekly_records_ids" force_save="1">
+                                        <tree>
+                                             <field string="Sales No" name="sales_number"/>
+                                             <field string="Creation Date" name="create_dte"/>
+<!--                                             <field string="Salesperson" name="salesperson"/>-->
+<!--                                             <field string="Total" name="amount_total"/>-->
+                                             <field string="State" name="state"/>
+                                        </tree>
+                                </field>
+                        </page>
+                 </notebook>
+            </sheet>
+        </form>
+     </field>
+</record>
+
+    <record id="dashboard_temp_views" model="ir.ui.view">
+    <field name="name">dashboard.week.form</field>
+    <field name="model">weekly_sales_records.model</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <group>
+                          <field name="sales_order_ids" string=""/>
+                    </group>
+                    <group>
+                        <field name="sales_number" />
+                        <field name="create_dte" />
+                        <field name="state" />
+                    </group>
+                </group>
+            </sheet>
+        </form>
+     </field>
+</record>
+<!-- TREE VIEW FOR DASHBOARD        -->
+<record id="dashboard_tree" model="ir.ui.view">
+<field name="name">dashboard.tree</field>
+<field name="model">weekly_no.model</field>
+<field name="arch" type="xml">
+    <tree >
+        <field name="week_number" string="Week Number"/>
+        <field name="year" string="Year"/>
+        <field name="number_of_rec"/>
+    </tree>
+</field>
+</record>
+
+<!--DASHBOARD OPTION-->
+<menuitem id="dashboard_root_menu"
+    name="Report"
+    parent="production_app_root"
+    action="dashboard_graph_action"
+    sequence="70"/>
+</odoo>
