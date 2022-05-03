@@ -79,7 +79,7 @@
                 <Total>
                 <NetAmt><t t-esc="o.convert_to_float(o.amount_untaxed)"/></NetAmt>
                 <VATAmt><t t-esc="o.amount_tax"/></VATAmt>
-                <TotalAmt><t t-esc="o.convert_to_float(o.amount_residual)"/></TotalAmt>
+                <TotalAmt><t t-esc="o.convert_to_float(o.amount_total)"/></TotalAmt>
                 </Total>
                 <!-- -->
                 <AssignClause>
