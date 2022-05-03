@@ -5,8 +5,8 @@ class add_into_order_line(models.Model):
 	_inherit ="account.move.line"
 	_description="Moddification of aacount move line"
 
-	acc_disAmount=fields.Integer( string='line Discount Amount', compute="_cal_disamount")
-	linediscPerct=fields.Integer( string='line Discount %')
+	acc_disAmount=fields.Monetary( string='line Discount Amount', compute="_cal_disamount")
+	linediscPerct=fields.Monetary( string='line Discount %')
 
 	def _cal_disamount(self): 
 		list_id=[27665,46,45,44,43]
@@ -16,7 +16,8 @@ class add_into_order_line(models.Model):
 			if self.move_id.id in list_id and dismount != 0:
 				rec.price_subtotal=dismount
 			else:
-				rec.price_subtotal= rec.price_unit * rec.quantity - rec.acc_disAmount - dismount
+				total = rec.price_unit * rec.quantity - rec.acc_disAmount - dismount
+				rec.price_subtotal= total
 			amount_untaxed = amount_tax = 0.0
 			for line in self.move_id.invoice_line_ids:
 				amount_untaxed += line.price_subtotal
@@ -24,7 +25,7 @@ class add_into_order_line(models.Model):
 
 			self.move_id.amount_untaxed = amount_untaxed
 			self.move_id.amount_tax = amount_tax
-			self.move_id.amount_total = amount_untaxed + amount_tax
+			self.move_id.amount_total = amount_untaxed + amount_tax + self.move_id.over_rounding
 
 
 	

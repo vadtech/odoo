@@ -8,7 +8,7 @@
                      <t t-foreach="o.link_prod_id" t-as="sale_id">
                     <t t-call="web.external_layout">
                         <br/>
-      <div id="informatios" class="row mt32 mb32">
+                        <div id="informatios" class="row mt32 mb32">
                         <div class="col-auto col-3 mw-100 mb-2">
                    <h4>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Faktura</span>
@@ -66,8 +66,8 @@
                     <div id="informations" class="row mt32 mb32">
                         <div class="col-auto col-3 mw-100 mb-2">
                             <strong>Ordre Nr:</strong>
-                            <p class="m-0" t-field="sale_id.main_sales_id.name"/>
-                        </div>
+                            <p class="m-0"><span t-field="sale_id.main_sales_id.name"/>/<span t-field="sale_id.main_sales_id.previous_sales_name"/></p>
+                            </div>
 
                         <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
                             <strong>Fakturadato:</strong>

@@ -4,11 +4,11 @@
     <field name="name">product.template.product.form1</field>
     <field name="model">product.template</field>
     <field name="inherit_id" ref="product.product_template_form_view"/>
-    <field name="arch" type="xml">
+    <field name="arch" type="xml"> 
         <xpath expr="//form/sheet/div[hasclass('oe_title')]" position="after">
                 <group>
                     <group>
-                         <field name="model" string="Model"/>
+                         <field name="model" string="Model"/>  
                     </group>
                 </group>
         </xpath>
@@ -94,6 +94,12 @@
              <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position='before'>
                      <field name="acc_disAmount"/>
             </xpath>
+            
+            <xpath expr="//form/sheet/notebook/page[@id='invoice_tab']/group[hasclass('oe_subtotal_footer')]/field[@name='amount_untaxed']" position='after'>
+                     <field name="over_rounding"/>
+            </xpath>
+            
+            
         </field>
      </record>
      
@@ -176,6 +182,7 @@
              <xpath expr="//page/group/group[@name='sales_person']/field[@name='require_payment']" position="attributes">
                <attribute name="invisible">1</attribute>
             </xpath>
+            
         </field>
     </record>
 </odoo>

@@ -16,6 +16,7 @@
     'views/main_prod_app.xml',   
     'views/stage_options_views.xml',
     'views/add_files_sales.xml',
+    'views/dashboard.xml',
     'views/inv_stage.xml',    
     'report/production_report.xml', 
     'report/prod_report.xml',

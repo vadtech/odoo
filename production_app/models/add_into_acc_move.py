@@ -7,7 +7,7 @@ class add_into_acc(models.Model):
     _rec_name = "invoice_no_name"
     _description = "Invoicing Application edits"
     _order = "invoice_no_name desc"
- 
+  
     link_prod_id = fields.Many2one('prod_order.model', string="Production ID")
     payment_ref = fields.Char(compute="_pay_ref", string="Payment Reference")
     
@@ -15,8 +15,9 @@ class add_into_acc(models.Model):
     sales_char = fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
     invoice_no_name = fields.Char(string="Inovice Number")
     customer_name = fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
-    fake_sales_char = fields.Char(string="Sales Order Number")
+    over_rounding = fields.Monetary(string='Øreavrunding')
 
+    fake_sales_char = fields.Char(string="Sales Order Number")
     fake_sales_id = fields.Char(string="fake_sales_id")
 
     inv_state = fields.Selection(
@@ -28,10 +29,12 @@ class add_into_acc(models.Model):
             ('not_invc', 'Not Invoiced')])
 
     """ALL FUNCTTION S FOR QUICK FIX """
-
     def fix_sales_char(self):
         for rec in self:
             rec.fake_sales_char = rec.sales_char
+   
+    def _check_balanced(self):
+        return True
             
     def update_now(self):
         # current_rec = self.env['account.move'].search([])
@@ -138,6 +141,28 @@ class add_into_acc(models.Model):
             x = self.luhn_checksum(rec.invoice_no_name)
             ne_p = '609891' + str(y) + str(rec.invoice_no_name) + str(x)
             rec.payment_ref = ne_p
+    
+    def _reverse_moves(self, default_values_list=None, cancel=False):
+        """FOR OVERIDING CREDIT NOTES TO CREATE WITH NEW INVOICE NUMBER"""
+        if not default_values_list:
+            default_values_list = [{} for move in self]
+        for move, default_values in zip(self, default_values_list):
+            default_values.update({
+                'invoice_no_name':self.env['ir.sequence'].next_by_code('invoice.seq'),
+            })
+        return super()._reverse_moves(default_values_list=default_values_list, cancel=cancel)
+    
+    @api.onchange("over_rounding")
+    def over_round(self):
+        """FOR ADDING ROUNDING OFF FIELD"""
+        amount_untaxed = amount_tax = 0.0
+        for line in self.invoice_line_ids:
+            amount_untaxed += line.price_subtotal
+            amount_tax += line.tax_ids.amount / 100 * line.price_subtotal
+        self.amount_untaxed = amount_untaxed
+        self.amount_tax = amount_tax
+        self.amount_total = amount_untaxed + amount_tax + self.over_rounding
+
 
     def luhn_checksum(self, card_number):
         def digits_of(n):
