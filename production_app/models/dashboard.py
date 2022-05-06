@@ -1,63 +1,80 @@
 from odoo import fields, models, api ,_
 
-class dashboard_week(models.Model):
-	"""THIS IS TO MAKE ALL MODELS FOR DASHBOARD"""
-	_name = "weekly_no.model"
-	_description = "For Tracking Dashboard Sales"
-	_inherit =["mail.thread","mail.activity.mixin"]
+class production_date(models.Model):
+	"""THIS IS TO LOG INVOICE'S DASHBOARD"""
+	_name = "production_date.model"
+	_description ="For Tracking Sales Records in Production in A week"
 	_rec_name="id"
 	_order="id desc"
 
-	#LINKS TO OTHER MODELS
-	weekly_records_ids = fields.One2many('weekly_sales_records.model', 'weekly_no_id', string="Week")
-	week_number=fields.Integer(string="Week Number",required=True)
+	# LINKS TO OTHER MODELS
+	production_recs_id = fields.One2many('production_recs.model', 'production_date_ids', string="Week")
+	delivered_week=fields.Integer(string="Delivered Week Number")
 	year=fields.Integer(string="Year")
-	number_of_rec=fields.Integer(string="Number of Sales Created" , compute="_number_of_rec" , compute_sudo=True, store=True,)
-	amount_total=fields.Integer(string="Total Taxed Amount" , compute="_amount_total" , compute_sudo=True, store=True,)
-	amount_untaxed=fields.Integer(string="Total Untaxed Amount" , compute="_untaxed_amount" , compute_sudo=True, store=True,)
-	amount_tax=fields.Integer(string="Total tax" , compute="_amount_tax" , compute_sudo=True, store=True,)
+	number_of_rec = fields.Integer(string="Number of New Orders", compute="_number_of_rec", compute_sudo=True,store=True, )
+	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
+	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,store=True, )
+	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
 
-	@api.depends("weekly_records_ids")
+	def feed_to_dashboard(self):
+		#LOOP ALL PRODUCTION RECORDS
+		production_records = self.env["prod_order.model"].search([])
+		for record in production_records:
+			#CHECK IF IT IS NEW OR IN PROD
+			if record.state == "new" or record.state=="prod":
+				print("record deteced", record.id)
+				production_lines=[]
+				production_records = self.env["production_date.model"].search([('delivered_week','=',record.delivery_week)])
+				if production_records.exists():
+					vali ={
+						'production_lines_ids':record.id
+					}
+					production_lines.append((0, 0, vali))
+					production_records.write({
+						'production_recs_id':production_lines})
+
+	@api.depends("production_recs_id")
 	def _number_of_rec(self):
 		for rec in self:
-			rec.number_of_rec=len(rec.weekly_records_ids)
+			rec.number_of_rec = len(rec.production_recs_id)
 
-	@api.depends("weekly_records_ids")
+	@api.depends("production_recs_id")
 	def _amount_total(self):
 		for recs in self:
 			amount_total=0
-			for rec in recs.weekly_records_ids:
-				amount_total += rec.sales_order_ids.amount_total
+			for rec in recs.production_recs_id:
+				amount_total += rec.production_lines_ids.main_sales_id.amount_total
 			recs.amount_total=amount_total
 
-	@api.depends("weekly_records_ids")
+	@api.depends("production_recs_id")
 	def _untaxed_amount(self):
 		for recs in self:
-			amount_untaxed=0
-			for rec in recs.weekly_records_ids:
-				amount_untaxed += rec.sales_order_ids.amount_untaxed
-			recs.amount_untaxed=amount_untaxed
+			amount_untaxed = 0
+			for rec in recs.production_recs_id:
+				amount_untaxed += rec.production_lines_ids.main_sales_id.amount_untaxed
+			recs.amount_untaxed = amount_untaxed
 
-	@api.depends("weekly_records_ids")
+	@api.depends("production_recs_id")
 	def _amount_tax(self):
 		for recs in self:
 			amount_tax = 0
-			for rec in recs.weekly_records_ids:
-				amount_tax += rec.sales_order_ids.amount_tax
+			for rec in recs.production_recs_id:
+				amount_tax += rec.production_lines_ids.main_sales_id.amount_tax
 			recs.amount_tax = amount_tax
 
-class week_records(models.Model):
+
+class production_recs(models.Model):
 	"""THIS IS TO MAKE ALL MODELS FOR DASHBOARD"""
-	_name = "weekly_sales_records.model"
-	_description = "For Tracking Dashboard Sales Records"
-	_inherit =["mail.thread","mail.activity.mixin"]
+	_name = "production_recs.model"
+	_description = "For Tracking Sales Records in Production in A week"
 	_rec_name="id"
 	_order="id desc"
 
-	#LINKS TO OTHER MODELS
-	weekly_no_id = fields.Many2one('weekly_no.model', string="Weekly Number")
-	sales_order_ids = fields.Many2one('sale.order', string="Sales Order ID")
+	# LINKS TO OTHER MODELS
+	production_date_ids = fields.Many2one('production_date.model', string="Weekly Number")
+	production_lines_ids = fields.Many2one('prod_order.model', string="Production order lines")
 
-	sales_number = fields.Char(related='sales_order_ids.name')
-	create_dte = fields.Datetime(related='sales_order_ids.create_date')
-	state = fields.Selection(related='sales_order_ids.state')
+	street = fields.Char(related='production_lines_ids.street')
+	city = fields.Char(related='production_lines_ids.city')
+	count_zw = fields.Char(related='production_lines_ids.count_zw')
+	sales_person = fields.Many2one(string="Sales Person", related="production_lines_ids.sales_person")

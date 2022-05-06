@@ -6,8 +6,9 @@ access_log_wiz_model,access_log_wiz_model,model_log_wiz_model,base.group_user,1,
 access_inv_pdfs_model,access_inv_pdfs_model,model_inv_pdfs_model,base.group_user,1,1,1,1
 access_royalties_model,access_royalties_model,model_royalties_model,base.group_user,1,1,1,1
 access_bunchinvoices_model,access_bunchinvoices_model,model_bunchinvoices_model,base.group_user,1,1,1,1
-access_weekly_sales_records_model,access_weekly_sales_records_model,model_weekly_sales_records_model,base.group_user,1,1,1,1
-access_weekly_no_model,access_weekly_no_model,model_weekly_no_model,base.group_user,1,1,1,1
+access_production_date_model,access_production_date_model,model_production_date_model,base.group_user,1,1,1,1
+access_production_recs_model,access_production_recs_model,model_production_recs_model,base.group_user,1,1,1,1
+
 
 
 

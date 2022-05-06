@@ -1,61 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!-- DASHBOARD TREE ACTION -->
-<record id="dashboard_graph_action" model="ir.actions.act_window">
-    <field name="name">Reports</field>
+<!-- DASHBOARD ACTION -->
+<record id="dashboard_prod_graph_action" model="ir.actions.act_window">
+    <field name="name">Order stock in future</field>
     <field name="type">ir.actions.act_window</field>
-    <field name="res_model">weekly_no.model</field>
+    <field name="res_model">production_date.model</field>
     <field name="view_mode">graph,tree,form</field>
-    <field name="context"></field> 
+    <field name="context"></field>
     <field name="help" type="html">
-        <p class="o_view_nocontent_smiling_face"> 
-         Monitor all record from sales production and invoice app
+        <p class="o_view_nocontent_smiling_face">
+             Monitor all record in production
         </p>
     </field>
 </record>
-
-<!-- DASHBOARD GRAPH VIEW -->
-<record id="dashboard_graph" model="ir.ui.view">
-    <field name="name">dashboard.temp.graph</field>
-    <field name="model">weekly_no.model</field>
+<!--DASHBOARD INVOICES SALES ACTION-->
+<record id="dashboard_production_graph" model="ir.ui.view">
+    <field name="name">dashboard.production.graph</field>
+    <field name="model">production_date.model</field>
     <field name="arch" type="xml">
-        <graph string="Graph View for Upcoming Orders" sample="1">
-            <field name="week_number"/>
-            <field  name="number_of_rec" type="measure"/>
-            <field  name="amount_total" type="measure"/>
-            <field  name="amount_tax" type="measure"/>
-            <field  name="amount_untaxed" type="measure"/>
+        <graph string="Order stock in future" sample="1">
+                <field name="delivered_week"/>
+                <field  name="number_of_rec" type="measure"/>
+                <field  name="amount_total" type="measure"/>
+                <field  name="amount_tax" type="measure"/>
+                <field  name="amount_untaxed" type="measure"/>
         </graph>
     </field>
 </record>
-
-<record id="dashboard_temp_form" model="ir.ui.view">
-    <field name="name">dashboard.temp.form</field>
-    <field name="model">weekly_no.model</field>
+<record id="dashboard_production_form" model="ir.ui.view">
+    <field name="name">dashboard.production.form</field>
+    <field name="model">production_date.model</field>
     <field name="arch" type="xml">
         <form>
             <sheet>
                 <group>
                     <group>
-                          <field name="week_number" string="Week Number"/>
+                          <field name="delivered_week" string="Week Number"/>
                     </group>
                     <group>
-                        <field name="year" string="Year"/>
-                        <field string="Amount Total" name="amount_total"/>
+                         <field string="Amount Total" name="amount_total"/>
                         <field name="amount_untaxed"/>
                         <field name="amount_tax"/>
-
                     </group>
                 </group>
                 <notebook>
-                       <page name="order_lines" string="Records">
-                                   <field name="weekly_records_ids" force_save="1">
+                       <page name="production_lines" string="Production in week">
+                                   <field name="production_recs_id" force_save="1">
                                         <tree>
-                                             <field string="Sales No" name="sales_number"/>
-                                             <field string="Creation Date" name="create_dte"/>
-<!--                                             <field string="Salesperson" name="salesperson"/>-->
-<!--                                             <field string="Total" name="amount_total"/>-->
-                                             <field string="State" name="state"/>
+                                             <field name="street"/>
+                                             <field  name="city"/>
+                                             <field string="Salesperson" name="sales_person"/>
+<!--                                         <field string="Total" name="amount_total"/>-->
+                                             <field name="count_zw"/>
                                         </tree>
                                 </field>
                         </page>
@@ -64,44 +60,50 @@
         </form>
      </field>
 </record>
-
-    <record id="dashboard_temp_views" model="ir.ui.view">
-    <field name="name">dashboard.week.form</field>
-    <field name="model">weekly_sales_records.model</field>
+<record id="dashboard_production_views" model="ir.ui.view">
+    <field name="name">dashboard.production.form</field>
+    <field name="model">production_recs.model</field>
     <field name="arch" type="xml">
         <form>
             <sheet>
                 <group>
                     <group>
-                          <field name="sales_order_ids" string=""/>
+                          <field name="production_lines_ids" string=""/>
                     </group>
                     <group>
-                        <field name="sales_number" />
-                        <field name="create_dte" />
-                        <field name="state" />
+                        <field name="street" />
+                        <field name="city" />
+                        <field name="count_zw" />
+                        <field name="sales_person" />
                     </group>
                 </group>
             </sheet>
         </form>
      </field>
 </record>
-<!-- TREE VIEW FOR DASHBOARD        -->
-<record id="dashboard_tree" model="ir.ui.view">
-<field name="name">dashboard.tree</field>
-<field name="model">weekly_no.model</field>
+<!-- TREE VIEW FOR DASHBOARD-->
+<record id="dashboard_production_tree" model="ir.ui.view">
+<field name="name">dashboard.production_rec.tree</field>
+<field name="model">production_date.model</field>
 <field name="arch" type="xml">
     <tree >
-        <field name="week_number" string="Week Number"/>
+        <field name="delivered_week" string="Week Number"/>
         <field name="year" string="Year"/>
-        <field name="number_of_rec"/>
+         <field string="Amount Total" name="amount_total"/>
+        <field name="amount_untaxed"/>
+        <field name="amount_tax"/>
     </tree>
 </field>
 </record>
-
-<!--DASHBOARD OPTION-->
-<menuitem id="dashboard_root_menu"
+    
+    <menuitem id="dashboard_root"
     name="Report"
     parent="production_app_root"
-    action="dashboard_graph_action"
+    sequence="70"/>
+
+<menuitem id="dashboard_production_report"
+    name="Order stock in future"
+    parent="dashboard_root"
+    action="dashboard_prod_graph_action"
     sequence="70"/>
 </odoo>
