@@ -9,7 +9,7 @@
     <field name="code">action = records.create_to_invoice()</field>
 </record>
          
-         <record id="feed_dashboard" model="ir.actions.server">
+         <record id="feed_dashboard_order" model="ir.actions.server">
      <field name="name">Feed Dashboard</field>
     <field name="model_id" ref="model_production_date_model"/>
     <field name="binding_model_id" ref="model_production_date_model"/>
@@ -17,7 +17,7 @@
     <field name="code">action = records.feed_to_dashboard()</field>
     </record>
 
-    <record id="feed_dashboard" model="ir.actions.server">
+    <record id="feed_dashboard_inv"model="ir.actions.server">
      <field name="name">Feed Dashboard</field>
     <field name="model_id" ref="model_invoice_week_model"/>
     <field name="binding_model_id" ref="model_invoice_week_model"/>
@@ -25,7 +25,7 @@
     <field name="code">action = records.feed_to_dashboard()</field>
     </record>
 
-    <record id="feed_dashboard" model="ir.actions.server">
+    <record id="feed_dashboard_to_be" model="ir.actions.server">
      <field name="name">Feed Dashboard</field>
     <field name="model_id" ref="model_invoice_to_be_week_model"/>
     <field name="binding_model_id" ref="model_invoice_to_be_week_model"/>
