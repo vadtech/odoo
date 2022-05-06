@@ -21,7 +21,7 @@ class production_date(models.Model):
 		production_records = self.env["prod_order.model"].search([])
 		for record in production_records:
 			#CHECK IF IT IS NEW OR IN PROD
-			if record.state == "new" or record.state=="prod":
+			if record.state == "new":
 				print("record deteced", record.id)
 				production_lines=[]
 				production_records = self.env["production_date.model"].search([('delivered_week','=',record.delivery_week)])
@@ -94,15 +94,6 @@ class invoice_week(models.Model):
 	number_of_rec=fields.Integer(string="Number of Sales Created" , compute="_number_of_rec" , compute_sudo=True, store=True,)
 	week_number=fields.Integer(string="Delivery Week Number",required=True)
 	year=fields.Integer(string="Year")
-	state = fields.Selection(
-		string='Status',
-		tracking=True,
-		default='new',
-		selection=[
-			('new', 'New'),
-			('prod', 'In Production'),
-			('cancel', 'Cancel'),
-			('delivered', 'Delivered')])
 	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
 	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,							store=True, )
 	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
@@ -112,7 +103,7 @@ class invoice_week(models.Model):
 		production_records = self.env["prod_order.model"].search([])
 		for record in production_records:
 			#CHECK IF IT IS NEW OR IN PROD
-			if record.state == "new" or record.state=="prod":
+			if record.state == "delivered":
 				production_lines=[]
 				production_records = self.env["invoice_week.model"].search([('week_number','=',record.delivery_week)])
 				if production_records.exists():
@@ -121,6 +112,7 @@ class invoice_week(models.Model):
 					}
 					production_lines.append((0, 0, vali))
 					production_records.write({
+						'state':'delivered',
 						'invoice_week_ids':production_lines})
 
 	@api.depends("invoice_week_ids")
@@ -185,15 +177,6 @@ class to_be_invoice_week(models.Model):
 	number_of_rec=fields.Integer(string="Number of Sales Created" , compute="_number_of_rec" , compute_sudo=True, store=True,)
 	week_number=fields.Integer(string="Week Number",required=True)
 	year=fields.Integer(string="Year")
-	state = fields.Selection(
-		string='Status',
-		tracking=True,
-		default='new',
-		selection=[
-			('new', 'New'),
-			('prod', 'In Production'),
-			('cancel', 'Cancel'),
-			('delivered', 'Delivered')])
 	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
 	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,							store=True, )
 	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
@@ -204,9 +187,9 @@ class to_be_invoice_week(models.Model):
 		production_records = self.env["prod_order.model"].search([])
 		for record in production_records:
 			#CHECK IF IT IS NEW OR IN PROD
-			if record.state == "delivered":
+			if record.state == "new" or record.state == "prod":
 				production_lines=[]
-				production_records = self.env["invoice_to_be_week.model"].search([('week_number','=',record.delivery_week)])
+				production_records = self.env["1.model"].search([('week_number','=',record.delivery_week)])
 				if production_records.exists():
 					vali ={
 						'invoice_line_ids':record.id
