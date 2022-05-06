@@ -189,7 +189,7 @@ class to_be_invoice_week(models.Model):
 			#CHECK IF IT IS NEW OR IN PROD
 			if record.state == "new" or record.state == "prod":
 				production_lines=[]
-				production_records = self.env["1.model"].search([('week_number','=',record.delivery_week)])
+				production_records = self.env["invoice_to_be_week.model"].search([('week_number','=',record.delivery_week)])
 				if production_records.exists():
 					vali ={
 						'invoice_line_ids':record.id
