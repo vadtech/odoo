@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!-- DASHBOARD ACTION -->
+
+<!-- DASHBOARD ACTION FOR ORDER STOCK -->
 <record id="dashboard_prod_graph_action" model="ir.actions.act_window">
     <field name="name">Order stock in future</field>
     <field name="type">ir.actions.act_window</field>
@@ -13,7 +14,7 @@
         </p>
     </field>
 </record>
-<!--DASHBOARD INVOICES SALES ACTION-->
+<!--DASHBOARD GRAPH FORM INSIDE FORM FOR ORDER STOCK VIEWS-->
 <record id="dashboard_production_graph" model="ir.ui.view">
     <field name="name">dashboard.production.graph</field>
     <field name="model">production_date.model</field>
@@ -47,11 +48,11 @@
                        <page name="production_lines" string="Production in week">
                                    <field name="production_recs_id" force_save="1">
                                         <tree>
-                                             <field name="street"/>
-                                             <field  name="city"/>
+                                             <field name="customer_name" />
+                                             <field  name="sales_order_name"/>
                                              <field string="Salesperson" name="sales_person"/>
-<!--                                         <field string="Total" name="amount_total"/>-->
-                                             <field name="count_zw"/>
+                                            <field name="state"/>
+                                            <field name="delivery_week" />
                                         </tree>
                                 </field>
                         </page>
@@ -71,10 +72,11 @@
                           <field name="production_lines_ids" string=""/>
                     </group>
                     <group>
-                        <field name="street" />
-                        <field name="city" />
-                        <field name="count_zw" />
+                        <field name="customer_name" />
+                        <field name="sales_order_name" />
                         <field name="sales_person" />
+                        <field name="state" />
+                        <field name="delivery_week" />
                     </group>
                 </group>
             </sheet>
@@ -95,15 +97,223 @@
     </tree>
 </field>
 </record>
-    
-    <menuitem id="dashboard_root"
+<menuitem id="dashboard_root"
     name="Report"
     parent="production_app_root"
     sequence="70"/>
-
 <menuitem id="dashboard_production_report"
     name="Order stock in future"
     parent="dashboard_root"
     action="dashboard_prod_graph_action"
     sequence="70"/>
+
+
+
+<!-- END END END END END END END END END END END END END    -->
+
+ <!-- DASHBOARD ACTION -->
+<record id="dashboard_inv_graph_action" model="ir.actions.act_window">
+    <field name="name">Total Invoiced Records</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">invoice_week.model</field>
+    <field name="view_mode">graph,tree,form</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+         Monitor all record from production to invoice app
+        </p>
+    </field>
+</record>
+<!--DASHBOARD INVOICES SALES ACTION-->
+<record id="dashboard_graph" model="ir.ui.view">
+    <field name="name">dashboard.inv.graph</field>
+    <field name="model">invoice_week.model</field>
+    <field name="arch" type="xml">
+        <graph string="Total invoiced Per Week" sample="1">
+            <field name="week_number"/>
+            <field  name="number_of_rec" type="measure"/>
+            <field  name="amount_total" type="measure"/>
+            <field  name="amount_tax" type="measure"/>
+            <field  name="amount_untaxed" type="measure"/>
+        </graph>
+    </field>
+</record>
+<record id="dashboard_inv_form" model="ir.ui.view">
+    <field name="name">dashboard.inv.form</field>
+    <field name="model">invoice_week.model</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <group>
+                          <field name="week_number" string="Week Number"/>
+                    </group>
+                    <group>
+                        <field name="year" string="Year"/>
+                        <field string="Amount Total" name="amount_total"/>
+                        <field name="amount_untaxed"/>
+                        <field name="amount_tax"/>
+
+                    </group>
+                </group>
+                <notebook>
+                       <page name="order_lines" string="Invoice Records in week">
+                                   <field name="invoice_week_ids" force_save="1">
+                                        <tree>
+                                             <field string="Invoice No" name="customer_name"/>
+                                             <field string="Creation Date" name="sales_order_name"/>
+<!--                                             <field string="Salesperson" name="salesperson"/>-->
+<!--                                             <field string="Total" name="amount_total"/>-->
+                                             <field string="State" name="state"/>
+                                        </tree>
+                                </field>
+                        </page>
+                 </notebook>
+            </sheet>
+        </form>
+     </field>
+</record>
+<record id="dashboard_inv_views" model="ir.ui.view">
+    <field name="name">dashboard.inv.form</field>
+    <field name="model">invs_week_recs.model</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <group>
+                          <field name="invoice_line_ids" string=""/>
+                    </group>
+                    <group>
+                        <field name="customer_name" />
+                        <field name="sales_order_name" />
+                        <field name="state" />
+                    </group>
+                </group>
+            </sheet>
+        </form>
+     </field>
+</record>
+<!-- TREE VIEW FOR DASHBOARD        -->
+<record id="dashboard_inv_tree" model="ir.ui.view">
+<field name="name">dashboard.tree</field>
+<field name="model">invoice_week.model</field>
+<field name="arch" type="xml">
+    <tree >
+        <field name="week_number" string="Week Number"/>
+        <field name="year" string="Year"/>
+        <field name="number_of_rec"/>
+    </tree>
+</field>
+</record>
+<menuitem id="dashboard_invs_reports"
+    name="Invoice Summary"
+    parent="dashboard_root"
+    sequence="70"/>
+
+<menuitem id="dashboard_inv_report"
+    name="Invoiced Records"
+    parent="dashboard_invs_reports"
+    action="dashboard_inv_graph_action"
+    sequence="810"/>
+
+<!-- END END END END END END END END END END END END END    -->
+
+<!-- DASHBOARD ACTION -->
+<record id="dashboard_to_be_inv_graph_action" model="ir.actions.act_window">
+    <field name="name">Total To Be Invoiced Records</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">invoice_to_be_week.model</field>
+    <field name="view_mode">graph,tree,form</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+         Monitor all record from production to invoice app
+        </p>
+    </field>
+</record>
+<!--DASHBOARD INVOICES SALES ACTION-->
+<record id="dashboard_to_be_graph" model="ir.ui.view">
+    <field name="name">dashboard.to.be.inv.graph</field>
+    <field name="model">invoice_to_be_week.model</field>
+    <field name="arch" type="xml">
+        <graph string="Total to be Invoiced per week" sample="1">
+            <field name="week_number"/>
+            <field  name="number_of_rec" type="measure"/>
+            <field  name="amount_total" type="measure"/>
+            <field  name="amount_tax" type="measure"/>
+            <field  name="amount_untaxed" type="measure"/>
+        </graph>
+    </field>
+</record>
+<record id="dashboard_to_be_inv_form" model="ir.ui.view">
+    <field name="name">dashboard.inv.form</field>
+    <field name="model">invoice_to_be_week.model</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <group>
+                          <field name="week_number" string="Week Number"/>
+                    </group>
+                    <group>
+                        <field name="year" string="Year"/>
+                        <field string="Amount Total" name="amount_total"/>
+                        <field name="amount_untaxed"/>
+                        <field name="amount_tax"/>
+
+                    </group>
+                </group>
+                <notebook>
+                       <page name="order_lines" string="To Be Invoiced Records in week">
+                                   <field name="invoice_week_ids" force_save="1">
+                                        <tree>
+                                             <field string="Invoice No" name="customer_name"/>
+                                             <field string="Creation Date" name="sales_order_name"/>
+<!--                                             <field string="Salesperson" name="salesperson"/>-->
+<!--                                             <field string="Total" name="amount_total"/>-->
+                                             <field string="State" name="state"/>
+                                        </tree>
+                                </field>
+                        </page>
+                 </notebook>
+            </sheet>
+        </form>
+     </field>
+</record>
+<record id="dashboard_to_be_inv_views" model="ir.ui.view">
+    <field name="name">dashboard.inv.form</field>
+    <field name="model">to_be_week_recs.model</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <group>
+                          <field name="invoice_line_ids" string=""/>
+                    </group>
+                    <group>
+                        <field name="customer_name" />
+                        <field name="sales_order_name" />
+                        <field name="state" />
+                    </group>
+                </group>
+            </sheet>
+        </form>
+     </field>
+</record>
+<!-- TREE VIEW FOR DASHBOARD        -->
+<record id="dashboard_to_be_inv_tree" model="ir.ui.view">
+<field name="name">dashboard.to_be.tree</field>
+<field name="model">invoice_to_be_week.model</field>
+<field name="arch" type="xml">
+    <tree>
+        <field name="week_number" string="Week Number"/>
+        <field name="year" string="Year"/>
+        <field name="number_of_rec"/>
+    </tree>
+</field>
+</record>
+<menuitem id="dashboard_inv_to_be_report"
+    name="Total to be Invoiced"
+    parent="dashboard_invs_reports"
+    action="dashboard_to_be_inv_graph_action"
+    sequence="20"/>
+
 </odoo>
