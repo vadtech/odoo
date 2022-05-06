@@ -74,7 +74,192 @@ class production_recs(models.Model):
 	production_date_ids = fields.Many2one('production_date.model', string="Weekly Number")
 	production_lines_ids = fields.Many2one('prod_order.model', string="Production order lines")
 
-	street = fields.Char(related='production_lines_ids.street')
-	city = fields.Char(related='production_lines_ids.city')
-	count_zw = fields.Char(related='production_lines_ids.count_zw')
+	customer_name= fields.Char(related='production_lines_ids.customer_ref')
+	sales_order_name = fields.Char(related='production_lines_ids.sales_id_char')
+	state = fields.Selection(related='production_lines_ids.state')
+	delivery_week = fields.Integer(related='production_lines_ids.delivery_week')
 	sales_person = fields.Many2one(string="Sales Person", related="production_lines_ids.sales_person")
+
+
+class invoice_week(models.Model):
+	"""THIS IS TO LOG INVOICE'S DASHBOARD"""
+	_name = "invoice_week.model"
+	_description = "For Tracking invoices in a week"
+	_rec_name="id"
+	_order="id desc"
+
+	# LINKS TO OTHER MODELS
+	invoice_week_ids = fields.One2many('invs_week_recs.model', 'inv_weekly_id', string="Week")
+
+	number_of_rec=fields.Integer(string="Number of Sales Created" , compute="_number_of_rec" , compute_sudo=True, store=True,)
+	week_number=fields.Integer(string="Delivery Week Number",required=True)
+	year=fields.Integer(string="Year")
+	state = fields.Selection(
+		string='Status',
+		tracking=True,
+		default='new',
+		selection=[
+			('new', 'New'),
+			('prod', 'In Production'),
+			('cancel', 'Cancel'),
+			('delivered', 'Delivered')])
+	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
+	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,							store=True, )
+	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
+
+	def feed_to_dashboard(self):
+		#LOOP ALL PRODUCTION RECORDS
+		production_records = self.env["prod_order.model"].search([])
+		for record in production_records:
+			#CHECK IF IT IS NEW OR IN PROD
+			if record.state == "new" or record.state=="prod":
+				production_lines=[]
+				production_records = self.env["invoice_week.model"].search([('week_number','=',record.delivery_week)])
+				if production_records.exists():
+					vali ={
+						'invoice_line_ids':record.id
+					}
+					production_lines.append((0, 0, vali))
+					production_records.write({
+						'invoice_week_ids':production_lines})
+
+	@api.depends("invoice_week_ids")
+	def _number_of_rec(self):
+		for rec in self:
+			rec.number_of_rec = len(rec.invoice_week_ids)
+
+	@api.depends("invoice_week_ids")
+	def _amount_total(self):
+		for recs in self:
+			amount_total = 0
+			for rec in recs.invoice_week_ids:
+				amount_total += rec.invoice_line_ids.main_sales_id.amount_total
+			recs.amount_total = amount_total
+
+	@api.depends("invoice_week_ids")
+	def _untaxed_amount(self):
+		for recs in self:
+			amount_untaxed = 0
+			for rec in recs.invoice_week_ids:
+				amount_untaxed += rec.invoice_line_ids.main_sales_id.amount_untaxed
+			recs.amount_untaxed = amount_untaxed
+
+	@api.depends("invoice_week_ids")
+	def _amount_tax(self):
+		for recs in self:
+			amount_tax = 0
+			for rec in recs.invoice_week_ids:
+				amount_tax += rec.invoice_line_ids.main_sales_id.amount_tax
+			recs.amount_tax = amount_tax
+
+class invs_week_recs(models.Model):
+	"""THIS IS TO MAKE ALL MODELS FOR DASHBOARD"""
+	_name = "invs_week_recs.model"
+	_description = "For Tracking Sales Records in Production in A week"
+	_rec_name="id"
+	_order="id desc"
+
+	# LINKS TO OTHER MODELS
+	inv_weekly_id = fields.Many2one('invoice_week.model', string="Weekly Number")
+	invoice_line_ids = fields.Many2one('prod_order.model', string="Production ID")
+
+
+	customer_name= fields.Char(related='invoice_line_ids.customer_ref')
+	sales_order_name = fields.Char(related='invoice_line_ids.sales_id_char')
+	state = fields.Selection(related='invoice_line_ids.state')
+	delivery_week = fields.Integer(related='invoice_line_ids.delivery_week')
+	sales_person = fields.Many2one(string="Sales Person", related="invoice_line_ids.sales_person")
+
+
+
+class to_be_invoice_week(models.Model):
+	"""THIS IS TO LOG INVOICE'S DASHBOARD"""
+	_name = "invoice_to_be_week.model"
+	_description = "For Tracking invoices in a week"
+	_rec_name="id"
+	_order="id desc"
+
+	# LINKS TO OTHER MODELS
+	invoice_week_ids = fields.One2many('to_be_week_recs.model', 'inv_weekly_id', string="Week")
+
+	number_of_rec=fields.Integer(string="Number of Sales Created" , compute="_number_of_rec" , compute_sudo=True, store=True,)
+	week_number=fields.Integer(string="Week Number",required=True)
+	year=fields.Integer(string="Year")
+	state = fields.Selection(
+		string='Status',
+		tracking=True,
+		default='new',
+		selection=[
+			('new', 'New'),
+			('prod', 'In Production'),
+			('cancel', 'Cancel'),
+			('delivered', 'Delivered')])
+	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
+	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,							store=True, )
+	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
+
+
+	def feed_to_dashboard(self):
+		#LOOP ALL PRODUCTION RECORDS
+		production_records = self.env["prod_order.model"].search([])
+		for record in production_records:
+			#CHECK IF IT IS NEW OR IN PROD
+			if record.state == "delivered":
+				production_lines=[]
+				production_records = self.env["invoice_to_be_week.model"].search([('week_number','=',record.delivery_week)])
+				if production_records.exists():
+					vali ={
+						'invoice_line_ids':record.id
+					}
+					production_lines.append((0, 0, vali))
+					production_records.write({
+						'invoice_week_ids':production_lines})
+
+	@api.depends("invoice_week_ids")
+	def _number_of_rec(self):
+		for rec in self:
+			rec.number_of_rec = len(rec.invoice_week_ids)
+
+	@api.depends("invoice_week_ids")
+	def _amount_total(self):
+		for recs in self:
+			amount_total = 0
+			for rec in recs.invoice_week_ids:
+				amount_total += rec.invoice_line_ids.main_sales_id.amount_total
+			recs.amount_total = amount_total
+
+	@api.depends("invoice_week_ids")
+	def _untaxed_amount(self):
+		for recs in self:
+			amount_untaxed = 0
+			for rec in recs.invoice_week_ids:
+				amount_untaxed += rec.invoice_line_ids.main_sales_id.amount_untaxed
+			recs.amount_untaxed = amount_untaxed
+
+	@api.depends("invoice_week_ids")
+	def _amount_tax(self):
+		for recs in self:
+			amount_tax = 0
+			for rec in recs.invoice_week_ids:
+				amount_tax += rec.invoice_line_ids.main_sales_id.amount_tax
+			recs.amount_tax = amount_tax
+
+class to_be_week_recs(models.Model):
+	"""THIS IS TO MAKE ALL MODELS FOR DASHBOARD"""
+	_name = "to_be_week_recs.model"
+	_description = "For Tracking Sales Records in Production in A week"
+	_rec_name="id"
+	_order="id desc"
+
+	# LINKS TO OTHER MODELS
+	inv_weekly_id = fields.Many2one('invoice_to_be_week.model', string="Weekly Number")
+	invoice_line_ids = fields.Many2one('prod_order.model', string="Production ID")
+
+
+	customer_name= fields.Char(related='invoice_line_ids.customer_ref')
+	sales_order_name = fields.Char(related='invoice_line_ids.sales_id_char')
+	state = fields.Selection(related='invoice_line_ids.state')
+	delivery_week = fields.Integer(related='invoice_line_ids.delivery_week')
+	sales_person = fields.Many2one(string="Sales Person", related="invoice_line_ids.sales_person")
+
+
