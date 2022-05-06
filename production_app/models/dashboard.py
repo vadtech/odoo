@@ -112,7 +112,6 @@ class invoice_week(models.Model):
 					}
 					production_lines.append((0, 0, vali))
 					production_records.write({
-						'state':'delivered',
 						'invoice_week_ids':production_lines})
 
 	@api.depends("invoice_week_ids")
