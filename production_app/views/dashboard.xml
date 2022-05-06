@@ -95,6 +95,11 @@
     </tree>
 </field>
 </record>
+    
+    <menuitem id="dashboard_root"
+    name="Report"
+    parent="production_app_root"
+    sequence="70"/>
 
 <menuitem id="dashboard_production_report"
     name="Order stock in future"
