@@ -14,7 +14,6 @@
     	</p>
     </field>
 </record>
-
 <menuitem id="new_ivn_views"
         name="Invoiced"
         parent="account.menu_finance"
