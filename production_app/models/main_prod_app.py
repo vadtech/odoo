@@ -16,7 +16,7 @@ class prod_order_app(models.Model):
 	customer_ref=fields.Many2one('sale.order.line',string="sale_order_lines",tracking=True)
 	main_sales_id=fields.Many2one('sale.order',string="Production_order",tracking=True,index=True,required=True)
 	orderLines_ids=fields.One2many(related='main_sales_id.order_line', string="")
-	sales_id_char=fields.Char(string="Sales Order Number", related="main_sales_id.name",required=True)
+	sales_id_char=fields.Char(string="Sales Order Number", related="main_sales_id.name",required=True,store="True")
 	pro_order_ids = fields.One2many('pro_order.model', 'prod_ids', string="Product Order")
 
 	order=fields.Datetime(related='main_sales_id.date_order' ,string="Order Date")
@@ -29,7 +29,7 @@ class prod_order_app(models.Model):
 
 	
 	delivery_date=fields.Datetime(string="Delivery Date")
-	delivery_week=fields.Integer(compute="_del_date" ,string="Delivery Week")
+	delivery_week=fields.Integer(compute="_del_date" ,string="Delivery Week",store="True")
 
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
 	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
