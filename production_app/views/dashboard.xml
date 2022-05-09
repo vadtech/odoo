@@ -316,4 +316,89 @@
     action="dashboard_to_be_inv_graph_action"
     sequence="20"/>
 
+<!-- END END END END END END END END END END END END END -->
+<!--DASHBOARD Quotation SALES ACTION-->
+<record id="dashboard_quotation_action" model="ir.actions.act_window">
+    <field name="name">Total Quotation Per Week</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">quot_dashboard.model</field>
+    <field name="view_mode">graph,tree,form</field>
+    <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+         Monitor all Quotation Records Created in Sales
+        </p>
+    </field>
+</record>
+<!--DASHBOARD Quotation SALES GRAPH-->
+<record id="dashboard_quotation_graph" model="ir.ui.view">
+    <field name="name">dashboard.quotation.graph</field>
+    <field name="model">quot_dashboard.model</field>
+    <field name="arch" type="xml">
+        <graph string="Total Quotation Per Week" sample="1">
+            <field name="week_number"/>
+            <field  name="number_of_rec" type="measure"/>
+            <field  name="amount_total" type="measure"/>
+            <field  name="amount_tax" type="measure"/>
+            <field  name="amount_untaxed" type="measure"/>
+        </graph>
+    </field>
+</record>
+<record id="dashboard_quotation_form" model="ir.ui.view">
+    <field name="name">dashboard.quotation.form</field>
+    <field name="model">quot_dashboard.model</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <group>
+                          <field name="week_number" string="Week Number"/>
+                    </group>
+                    <group>
+                        <field name="year" string="Year"/>
+                        <field string="Amount Total" name="amount_total"/>
+                        <field name="amount_untaxed"/>
+                        <field name="amount_tax"/>
+
+                    </group>
+                </group>
+                <notebook>
+                       <page name="sales_order_lines" string="Quotation Records In Week">
+                                   <field name="quotation_week_ids" force_save="1">
+                                        <tree>
+                                             <field string="Customer Name" name="customer_name"/>
+                                             <field string="Creation Date" name="sales_order_name"/>
+                                             <field string="Salesperson" name="sales_person"/>
+                                             <field string="Deliver week" name="delivery_week"/>
+                                             <field string="State" name="state"/>
+                                        </tree>
+                                </field>
+                        </page>
+                 </notebook>
+            </sheet>
+        </form>
+     </field>
+</record>
+<!-- TREE VIEW FOR DASHBOARD        -->
+<record id="dashboard_quotation_tree" model="ir.ui.view">
+<field name="name">dashboard.quotation.tree</field>
+<field name="model">quot_dashboard.model</field>
+<field name="arch" type="xml">
+    <tree >
+        <field name="week_number" string="Week Number"/>
+        <field name="year" string="Year"/>
+        <field name="number_of_rec"/>
+    </tree>
+</field>
+</record>
+<menuitem id="dashboard_quotation_reports"
+    name="Sales Summary"
+    parent="dashboard_root"
+    sequence="80"/>
+
+    <menuitem id="dashboard_quotation_report"
+    name="Quotation Created"
+    parent="dashboard_quotation_reports"
+    action="dashboard_quotation_action"
+    sequence="20"/>
+
 </odoo>
