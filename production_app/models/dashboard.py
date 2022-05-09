@@ -9,7 +9,7 @@ class production_date(models.Model):
 
 	# LINKS TO OTHER MODELS
 	production_recs_id = fields.One2many('production_recs.model', 'production_date_ids', string="Week")
-	delivered_week=fields.Integer(string="Delivered Week Number")
+	delivered_week=fields.Integer(string="Delivery Week Number")
 	year=fields.Integer(string="Year")
 	number_of_rec = fields.Integer(string="Number of New Orders", compute="_number_of_rec", compute_sudo=True,store=True, )
 	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
@@ -112,6 +112,7 @@ class invoice_week(models.Model):
 					}
 					production_lines.append((0, 0, vali))
 					production_records.write({
+						'state':'delivered',
 						'invoice_week_ids':production_lines})
 
 	@api.depends("invoice_week_ids")
@@ -174,7 +175,7 @@ class to_be_invoice_week(models.Model):
 	invoice_week_ids = fields.One2many('to_be_week_recs.model', 'inv_weekly_id', string="Week")
 
 	number_of_rec=fields.Integer(string="Number of Sales Created" , compute="_number_of_rec" , compute_sudo=True, store=True,)
-	week_number=fields.Integer(string="Week Number",required=True)
+	week_number=fields.Integer(string="Delivery Week Number",required=True)
 	year=fields.Integer(string="Year")
 	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
 	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,							store=True, )
