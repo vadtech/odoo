@@ -263,21 +263,37 @@ class add_into_sales(models.Model):
                             if line.product_id == cp_line.product_id:
                                 cp_line.acc_disAmount = line.disAmount
                                 cp_line.linediscPerct = line.linediscPerct
-
+                                
     def amount_all(self):
+        #take one record
         for single_rec in self:
-            subtot = amount_untaxed = amount_tax = disc = 0.0
+            amount_untaxed = amount_tax = 0.0
+            #open it and get access it to its order line
             for rec in single_rec.order_line:
-                dicAmnt = rec.linediscPerct / 100 * rec.price_unit * rec.product_uom_qty
-                disc = rec.discount / 100 * rec.price_unit * rec.product_uom_qty
-                subtot = rec.price_unit * rec.product_uom_qty - dicAmnt - disc
-                rec.disAmount = dicAmnt
-                rec.price_subtotal = subtot
-                amount_untaxed += subtot
-                amount_tax += rec.tax_id.amount / 100 * subtot
-            single_rec.amount_untaxed = amount_untaxed
-            single_rec.amount_tax = amount_tax
-            single_rec.amount_total = amount_untaxed + amount_tax
+                rec.disAmount = rec.linediscPerct / 100 * rec.price_unit * rec.product_uom_qty
+                dismount = rec.discount / 100 * rec.price_unit * rec.product_uom_qty
+                rec.price_subtotal = (rec.price_unit * rec.product_uom_qty) - rec.disAmount - dismount
+                amount_untaxed += rec.price_subtotal
+                amount_tax += rec.tax_id.amount / 100 * rec.price_subtotal
+            self.amount_untaxed = amount_untaxed
+            self.amount_tax = amount_tax
+            self.amount_total = amount_untaxed + amount_tax
+            
+            
+#     def amount_all(self):
+#         for single_rec in self:
+#             subtot = amount_untaxed = amount_tax = disc = 0.0
+#             for rec in single_rec.order_line:
+#                 dicAmnt = rec.linediscPerct / 100 * rec.price_unit * rec.product_uom_qty
+#                 disc = rec.discount / 100 * rec.price_unit * rec.product_uom_qty
+#                 subtot = rec.price_unit * rec.product_uom_qty - dicAmnt - disc
+#                 rec.disAmount = dicAmnt
+#                 rec.price_subtotal = subtot
+#                 amount_untaxed += subtot
+#                 amount_tax += rec.tax_id.amount / 100 * subtot
+#             single_rec.amount_untaxed = amount_untaxed
+#             single_rec.amount_tax = amount_tax
+#             single_rec.amount_total = amount_untaxed + amount_tax
 
     def action_confirm(self):
         self.state = ""
