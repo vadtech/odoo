@@ -246,3 +246,100 @@ class to_be_week_recs(models.Model):
 	sales_person = fields.Many2one(string="Sales Person", related="invoice_line_ids.sales_person")
 
 
+
+class quotation_dashboard(models.Model):
+	"""THIS IS TO LOG INVOICE'S DASHBOARD"""
+	_name = "quot_dashboard.model"
+	_description = "For Tracking Quotation creation in a week"
+	_rec_name="id"
+	_order="id desc"
+
+	# LINKS TO OTHER MODELS
+	quotation_week_ids = fields.One2many('week_quot_recs.model', 'week_quot_recs', string="Quotation Weekly Records")
+
+	number_of_rec=fields.Integer(string="Number of Quotations Created" , compute="_number_of_rec" , compute_sudo=True, store=True,)
+	week_number=fields.Integer(string="Delivery Week Number",required=True)
+	year=fields.Integer(string="Year")
+	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
+	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,							store=True, )
+	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
+
+
+	def feed_to_dashboard(self):
+		#LOOP ALL PRODUCTION RECORDS
+		sales_records = self.env["sale.order"].search([])
+		for record in sales_records:
+			#CHECK IF IT IS draft OR IN sent
+			if record.state == "draft" or record.state == "sent":
+				sales_lines=[]
+				if record.commitment_date != False:
+					delivery_week = record.commitment_date.strftime("%U")
+				elif record.expected_date != False:
+					delivery_week = record.expected_date.strftime("%U")
+				else:
+					delivery_week = 0
+				quot_dash_records = self.env["quot_dashboard.model"].search([('week_number','=',delivery_week)])
+				if quot_dash_records.exists():
+					vali ={
+						'sales_line_ids':record.id
+					}
+					sales_lines.append((0, 0, vali))
+					quot_dash_records.write({
+						'quotation_week_ids':sales_lines})
+
+	@api.depends("quotation_week_ids")
+	def _number_of_rec(self):
+		for rec in self:
+			rec.number_of_rec = len(rec.quotation_week_ids)
+
+	@api.depends("quotation_week_ids")
+	def _amount_total(self):
+		for recs in self:
+			amount_total = 0
+			for rec in recs.quotation_week_ids:
+				amount_total += rec.sales_line_ids.amount_total
+			recs.amount_total = amount_total
+
+	@api.depends("quotation_week_ids")
+	def _untaxed_amount(self):
+		for recs in self:
+			amount_untaxed = 0
+			for rec in recs.quotation_week_ids:
+				amount_untaxed += rec.sales_line_ids.amount_untaxed
+			recs.amount_untaxed = amount_untaxed
+
+	@api.depends("quotation_week_ids")
+	def _amount_tax(self):
+		for recs in self:
+			amount_tax = 0
+			for rec in recs.quotation_week_ids:
+				amount_tax += rec.sales_line_ids.amount_tax
+			recs.amount_tax = amount_tax
+
+class week_quot_recs(models.Model):
+	"""THIS IS TO MAKE ALL MODELS FOR DASHBOARD"""
+	_name = "week_quot_recs.model"
+	_description = "For Tracking Quotations Records in Production in A week"
+	_rec_name="id"
+	_order="id desc"
+
+	# LINKS TO OTHER MODELS
+	week_quot_recs = fields.Many2one('quot_dashboard.model', string="Weekly Number")
+	sales_line_ids = fields.Many2one('sale.order', string="Production ID")
+
+
+	customer_name= fields.Char(related='sales_line_ids.partner_id.name')
+	sales_order_name = fields.Char(related='sales_line_ids.name')
+	state = fields.Selection(related='sales_line_ids.state')
+	delivery_week = fields.Integer(compute="_del_date" , string="Delivery week")
+	sales_person = fields.Many2one(string="Sales Person", related="sales_line_ids.user_id")
+
+
+	def _del_date(self):
+		for rec in self:
+			if rec.sales_line_ids.commitment_date!=False:
+				rec.delivery_week=rec.sales_line_ids.commitment_date.strftime("%U")
+			elif rec.sales_line_ids.expected_date!=False:
+				rec.delivery_week=rec.sales_line_ids.expected_date.strftime("%U")
+			else:
+				rec.delivery_week =0
