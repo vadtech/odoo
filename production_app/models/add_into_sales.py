@@ -275,9 +275,9 @@ class add_into_sales(models.Model):
                 rec.price_subtotal = (rec.price_unit * rec.product_uom_qty) - rec.disAmount - dismount
                 amount_untaxed += rec.price_subtotal
                 amount_tax += rec.tax_id.amount / 100 * rec.price_subtotal
-            self.amount_untaxed = amount_untaxed
-            self.amount_tax = amount_tax
-            self.amount_total = amount_untaxed + amount_tax
+            single_rec.amount_untaxed = amount_untaxed
+            single_rec.amount_tax = amount_tax
+            single_rec.amount_total = amount_untaxed + amount_tax
             
             
 #     def amount_all(self):
