@@ -190,7 +190,15 @@ class to_be_invoice_week(models.Model):
 	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,							store=True, )
 	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
 
-
+	def reset_every(self):
+		production_records = self.env["invoice_to_be_week.model"].search([])
+		for rec in production_records:
+			rec.number_of_rec=0
+			rec.amount_total=0
+			rec.amount_untaxed=0
+			rec.amount_tax=0
+			rec.write({'invoice_week_ids': [(5, 0, 0)]})
+			
 	def feed_to_dashboard(self):
 		#LOOP ALL PRODUCTION RECORDS
 		production_records = self.env["prod_order.model"].search([])
