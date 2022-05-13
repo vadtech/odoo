@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<!--    AUTOMATION IN ODOO-->
+<!--    <record id="automate_dashboad" model="ir.cron">-->
+<!--        <field name="name">Predictive Lead Scoring: Recompute Automated Probabilities</field>-->
+<!--        <field name="model_id" ref="model_crm_lead"/>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="code">model._cron_update_automated_probabilities()</field>-->
+<!--        <field name="interval_number">1</field>-->
+<!--        <field name="interval_type">days</field>-->
+<!--        <field name="numbercall">-1</field>-->
+<!--        <field name="active" eval="False"/>-->
+<!--        <field name="doall" eval="False"/>-->
+<!--    </record>-->
 
 <!-- DASHBOARD ACTION FOR ORDER STOCK -->
 <record id="dashboard_prod_graph_action" model="ir.actions.act_window">
@@ -14,6 +26,9 @@
         </p>
     </field>
 </record>
+
+
+
 <!--DASHBOARD GRAPH FORM INSIDE FORM FOR ORDER STOCK VIEWS-->
 <record id="dashboard_production_graph" model="ir.ui.view">
     <field name="name">dashboard.production.graph</field>
@@ -52,11 +67,21 @@
                                              <field  name="sales_order_name"/>
                                              <field string="Salesperson" name="sales_person"/>
                                             <field name="state"/>
+<!--                                            <field name="amount_untaxed"/>-->
                                             <field name="delivery_week" />
                                         </tree>
                                 </field>
                         </page>
-                 </notebook>
+                       <page name="family_groups" string="Family Summary">
+                                   <field name="product_family_id" force_save="1">
+                                        <tree>
+                                             <field name="family_name" />
+                                             <field  name="Units"/>
+                                        </tree>
+                                </field>
+                        </page>
+
+                </notebook>
             </sheet>
         </form>
      </field>
@@ -159,11 +184,10 @@
                        <page name="order_lines" string="Invoice Records in week">
                                    <field name="invoice_week_ids" force_save="1">
                                         <tree>
-                                             <field string="Invoice No" name="customer_name"/>
-                                             <field string="Creation Date" name="sales_order_name"/>
-<!--                                             <field string="Salesperson" name="salesperson"/>-->
-<!--                                             <field string="Total" name="amount_total"/>-->
-                                             <field string="State" name="state"/>
+                                             <field string="Name" name="customer_name"/>
+                                             <field string="Invoice No" name="invoice_name"/>
+                                              <field string="State" name="delivery_week"/>
+                                             <field string="State" name="move_type"/>
                                         </tree>
                                 </field>
                         </page>
@@ -180,12 +204,13 @@
             <sheet>
                 <group>
                     <group>
-                          <field name="invoice_line_ids" string=""/>
+                          <field name="invoice_lin_ids" string=""/>
                     </group>
                     <group>
                         <field name="customer_name" />
-                        <field name="sales_order_name" />
-                        <field name="state" />
+                        <field name="invoice_name" />
+                        <field name="delivery_week" />
+                        <field name="move_type" />
                     </group>
                 </group>
             </sheet>
@@ -208,15 +233,14 @@
     name="Invoice Summary"
     parent="dashboard_root"
     sequence="70"/>
-
 <menuitem id="dashboard_inv_report"
     name="Invoiced Records"
     parent="dashboard_invs_reports"
     action="dashboard_inv_graph_action"
     sequence="810"/>
 
-<!-- END END END END END END END END END END END END END    -->
 
+<!-- END END END END END END END END END END END END END    -->
 <!-- DASHBOARD ACTION -->
 <record id="dashboard_to_be_inv_graph_action" model="ir.actions.act_window">
     <field name="name">Total To Be Invoiced Records</field>
@@ -315,8 +339,10 @@
     parent="dashboard_invs_reports"
     action="dashboard_to_be_inv_graph_action"
     sequence="20"/>
-
 <!-- END END END END END END END END END END END END END -->
+
+
+
 <!--DASHBOARD Quotation SALES ACTION-->
 <record id="dashboard_quotation_action" model="ir.actions.act_window">
     <field name="name">Total Quotation Per Week</field>
@@ -394,7 +420,6 @@
     name="Sales Summary"
     parent="dashboard_root"
     sequence="80"/>
-
     <menuitem id="dashboard_quotation_report"
     name="Quotation Created"
     parent="dashboard_quotation_reports"
