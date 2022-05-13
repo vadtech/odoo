@@ -66,12 +66,23 @@
                                              <field name="customer_name" />
                                              <field  name="sales_order_name"/>
                                              <field string="Salesperson" name="sales_person"/>
-                                            <field name="state"/>
-<!--                                            <field name="amount_untaxed"/>-->
+                                             <field name="state"/>
+                                             <field name="amount_untaxed"/>
+                                             <field name="amount_total"/>
+                                             <field name="amount_tax"/>
                                             <field name="delivery_week" />
                                         </tree>
                                 </field>
                         </page>
+<!--                       <page name="family_groups" string="Family Summary">-->
+<!--                                   <field name="product_family_id" force_save="1">-->
+<!--                                        <tree>-->
+<!--                                             <field name="family_name" />-->
+<!--                                             <field  name="Units"/>-->
+<!--                                        </tree>-->
+<!--                                </field>-->
+<!--                        </page>-->
+
                 </notebook>
             </sheet>
         </form>
@@ -86,6 +97,9 @@
                 <group>
                     <group>
                           <field name="production_lines_ids" string=""/>
+                        <field name="amount_untaxed"/>
+                         <field name="amount_total"/>
+                         <field name="amount_tax"/>
                     </group>
                     <group>
                         <field name="customer_name" />
@@ -165,7 +179,7 @@
                     </group>
                     <group>
                         <field name="year" string="Year"/>
-                        <field string="Amount Total" name="amount_total"/>
+                        <field name="amount_total"/>
                         <field name="amount_untaxed"/>
                         <field name="amount_tax"/>
 
@@ -177,8 +191,13 @@
                                         <tree>
                                              <field string="Name" name="customer_name"/>
                                              <field string="Invoice No" name="invoice_name"/>
-                                              <field string="Delivery Week" name="delivery_week"/>
+                                              <field name="sales_char"/>
+                                              <field string="State" name="delivery_week"/>
+                                              <field string="amount total" name="amount_total"/>
                                              <field string="State" name="move_type"/>
+                                            <field name="amount_total"/>
+                                            <field name="amount_untaxed"/>
+                                            <field name="amount_tax"/>
                                         </tree>
                                 </field>
                         </page>
@@ -196,6 +215,9 @@
                 <group>
                     <group>
                           <field name="invoice_lin_ids" string=""/>
+                            <field name="amount_total"/>
+                            <field name="amount_untaxed"/>
+                            <field name="amount_tax"/>
                     </group>
                     <group>
                         <field name="customer_name" />
@@ -273,7 +295,6 @@
                         <field string="Amount Total" name="amount_total"/>
                         <field name="amount_untaxed"/>
                         <field name="amount_tax"/>
-
                     </group>
                 </group>
                 <notebook>
@@ -282,9 +303,10 @@
                                         <tree>
                                              <field string="Invoice No" name="customer_name"/>
                                              <field string="Creation Date" name="sales_order_name"/>
-<!--                                             <field string="Salesperson" name="salesperson"/>-->
-<!--                                             <field string="Total" name="amount_total"/>-->
-                                             <field string="State" name="state"/>
+                                            <field string="State" name="state"/>
+                                            <field name="amount_total"/>
+                                            <field name="amount_untaxed"/>
+                                            <field name="amount_tax"/>
                                         </tree>
                                 </field>
                         </page>
@@ -386,6 +408,9 @@
                                              <field string="Creation Date" name="sales_order_name"/>
                                              <field string="Salesperson" name="sales_person"/>
                                              <field string="Deliver week" name="delivery_week"/>
+                                            <field name="amount_total"/>
+                                            <field name="amount_untaxed"/>
+                                            <field name="amount_tax"/>
                                              <field string="State" name="state"/>
                                         </tree>
                                 </field>
