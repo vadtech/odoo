@@ -72,15 +72,6 @@
                                         </tree>
                                 </field>
                         </page>
-                       <page name="family_groups" string="Family Summary">
-                                   <field name="product_family_id" force_save="1">
-                                        <tree>
-                                             <field name="family_name" />
-                                             <field  name="Units"/>
-                                        </tree>
-                                </field>
-                        </page>
-
                 </notebook>
             </sheet>
         </form>
