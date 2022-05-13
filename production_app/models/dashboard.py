@@ -32,6 +32,18 @@ class production_date(models.Model):
 					production_lines.append((0, 0, vali))
 					production_records.write({
 						'production_recs_id':production_lines})
+	
+	def reset_every(self):
+		production_records = self.env["production_date.model"].search([])
+		for rec in production_records:
+			rec.number_of_rec=0
+			rec.amount_total=0
+			rec.amount_untaxed=0
+			rec.amount_tax=0
+			rec.write({'production_recs_id': [(5, 0, 0)]})
+		self.feed_to_dashboard()
+					
+					
 
 	@api.depends("production_recs_id")
 	def _number_of_rec(self):
