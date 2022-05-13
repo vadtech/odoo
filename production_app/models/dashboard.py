@@ -89,7 +89,6 @@ class production_recs(models.Model):
 	delivery_week = fields.Integer(related='production_lines_ids.delivery_week')
 	sales_person = fields.Many2one(string="Sales Person", related="production_lines_ids.sales_person")
 
-
 class invoice_week(models.Model):
 	"""THIS IS TO LOG INVOICE'S DASHBOARD"""
 	_name = "invoice_week.model"
@@ -103,26 +102,35 @@ class invoice_week(models.Model):
 	number_of_rec=fields.Integer(string="Number of Sales Created" , compute="_number_of_rec" , compute_sudo=True, store=True,)
 	week_number=fields.Integer(string="Delivery Week Number",required=True)
 	year=fields.Integer(string="Year")
-	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
+	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total" )
 	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,							store=True, )
 	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
 
+	def reset_every(self):
+		production_records = self.env["invoice_week.model"].search([])
+		for rec in production_records:
+			rec.number_of_rec=0
+			rec.amount_total=0
+			rec.amount_untaxed=0
+			rec.amount_tax=0
+			rec.write({'invoice_week_ids': [(5, 0, 0)]})
+
 	def feed_to_dashboard(self):
-		#LOOP ALL PRODUCTION RECORDS
-		production_records = self.env["prod_order.model"].search([])
-		for record in production_records:
-			#CHECK IF IT IS NEW OR IN PROD
-			if record.state == "delivered":
-				production_lines=[]
-				production_records = self.env["invoice_week.model"].search([('week_number','=',record.delivery_week)])
-				if production_records.exists():
+		#LOOP ALL INVOICE RECORDS
+		invoice_records = self.env["account.move"].search([])
+		for record in invoice_records:
+			#CHECK IF IT IS A CREDIT NOTE OR A INVOICE
+			if record.move_type == "out_invoice" or record.move_type=="out_refund":
+				out_invoiced_lines=[]
+				invoiced_records = self.env["invoice_week.model"].search([('week_number','=',record.link_prod_id.delivery_week)])
+				#APPEND THE RECORD INTO DASHBOARD
+				if invoiced_records.exists():
 					vali ={
-						'invoice_line_ids':record.id
+						'invoice_lin_ids':record.id
 					}
-					production_lines.append((0, 0, vali))
-					production_records.write({
-						'state':'delivered',
-						'invoice_week_ids':production_lines})
+					out_invoiced_lines.append((0, 0, vali))
+					invoiced_records.write({
+						'invoice_week_ids':out_invoiced_lines})
 
 	@api.depends("invoice_week_ids")
 	def _number_of_rec(self):
@@ -134,7 +142,11 @@ class invoice_week(models.Model):
 		for recs in self:
 			amount_total = 0
 			for rec in recs.invoice_week_ids:
-				amount_total += rec.invoice_line_ids.main_sales_id.amount_total
+				#CHECK IF CREDIT NOTE OR NOTE FOR SUBTRACTIONS
+				if rec.move_type=="out_invoice":
+					amount_total += rec.invoice_lin_ids.amount_total
+				elif rec.move_type=="out_refund":
+					amount_total -= rec.invoice_lin_ids.amount_total
 			recs.amount_total = amount_total
 
 	@api.depends("invoice_week_ids")
@@ -142,7 +154,11 @@ class invoice_week(models.Model):
 		for recs in self:
 			amount_untaxed = 0
 			for rec in recs.invoice_week_ids:
-				amount_untaxed += rec.invoice_line_ids.main_sales_id.amount_untaxed
+				# CHECK IF CREDIT NOTE OR NOTE FOR SUBTRACTIONS
+				if rec.move_type == "out_invoice":
+					amount_untaxed += rec.invoice_lin_ids.amount_untaxed
+				elif rec.move_type == "out_refund":
+					amount_untaxed -= rec.invoice_lin_ids.amount_untaxed
 			recs.amount_untaxed = amount_untaxed
 
 	@api.depends("invoice_week_ids")
@@ -150,7 +166,11 @@ class invoice_week(models.Model):
 		for recs in self:
 			amount_tax = 0
 			for rec in recs.invoice_week_ids:
-				amount_tax += rec.invoice_line_ids.main_sales_id.amount_tax
+				# CHECK IF CREDIT NOTE OR NOTE FOR SUBTRACTIONS
+				if rec.move_type == "out_invoice":
+					amount_tax += rec.invoice_lin_ids.amount_tax
+				elif rec.move_type == "out_refund":
+					amount_tax -= rec.invoice_lin_ids.amount_tax
 			recs.amount_tax = amount_tax
 
 class invs_week_recs(models.Model):
@@ -162,14 +182,12 @@ class invs_week_recs(models.Model):
 
 	# LINKS TO OTHER MODELS
 	inv_weekly_id = fields.Many2one('invoice_week.model', string="Weekly Number")
-	invoice_line_ids = fields.Many2one('prod_order.model', string="Production ID")
+	invoice_lin_ids = fields.Many2one('account.move', string="Production ID")
 
-
-	customer_name= fields.Char(related='invoice_line_ids.customer_ref')
-	sales_order_name = fields.Char(related='invoice_line_ids.sales_id_char')
-	state = fields.Selection(related='invoice_line_ids.state')
-	delivery_week = fields.Integer(related='invoice_line_ids.delivery_week')
-	sales_person = fields.Many2one(string="Sales Person", related="invoice_line_ids.sales_person")
+	customer_name= fields.Char(related='invoice_lin_ids.invoice_partner_display_name')
+	invoice_name = fields.Char(related='invoice_lin_ids.invoice_no_name')
+	move_type = fields.Selection(related='invoice_lin_ids.move_type')
+	delivery_week = fields.Integer(related='invoice_lin_ids.link_prod_id.delivery_week')
 
 
 
