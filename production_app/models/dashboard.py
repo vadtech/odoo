@@ -15,6 +15,7 @@ class production_date(models.Model):
 	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
 	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,store=True, )
 	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
+	
 
 	def feed_to_dashboard(self):
 		#LOOP ALL PRODUCTION RECORDS
@@ -82,12 +83,17 @@ class production_recs(models.Model):
 	# LINKS TO OTHER MODELS
 	production_date_ids = fields.Many2one('production_date.model', string="Weekly Number")
 	production_lines_ids = fields.Many2one('prod_order.model', string="Production order lines")
+	currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id, readonly=True)
+
 
 	customer_name= fields.Char(related='production_lines_ids.customer_ref')
 	sales_order_name = fields.Char(related='production_lines_ids.sales_id_char')
 	state = fields.Selection(related='production_lines_ids.state')
 	delivery_week = fields.Integer(related='production_lines_ids.delivery_week')
 	sales_person = fields.Many2one(string="Sales Person", related="production_lines_ids.sales_person")
+	amount_untaxed = fields.Monetary(related='production_lines_ids.main_sales_id.amount_untaxed')
+	amount_total = fields.Monetary(related='production_lines_ids.main_sales_id.amount_total')
+	amount_tax = fields.Monetary(related='production_lines_ids.main_sales_id.amount_tax')
 
 class invoice_week(models.Model):
 	"""THIS IS TO LOG INVOICE'S DASHBOARD"""
@@ -183,11 +189,17 @@ class invs_week_recs(models.Model):
 	# LINKS TO OTHER MODELS
 	inv_weekly_id = fields.Many2one('invoice_week.model', string="Weekly Number")
 	invoice_lin_ids = fields.Many2one('account.move', string="Production ID")
+	currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id, readonly=True)
+
 
 	customer_name= fields.Char(related='invoice_lin_ids.invoice_partner_display_name')
 	invoice_name = fields.Char(related='invoice_lin_ids.invoice_no_name')
+	sales_char = fields.Char(related='invoice_lin_ids.sales_char')
 	move_type = fields.Selection(related='invoice_lin_ids.move_type')
 	delivery_week = fields.Integer(related='invoice_lin_ids.link_prod_id.delivery_week')
+	amount_untaxed = fields.Monetary(related='invoice_lin_ids.amount_untaxed')
+	amount_total = fields.Monetary(related='invoice_lin_ids.amount_total')
+	amount_tax = fields.Monetary(related='invoice_lin_ids.amount_tax')
 
 
 
@@ -200,6 +212,7 @@ class to_be_invoice_week(models.Model):
 
 	# LINKS TO OTHER MODELS
 	invoice_week_ids = fields.One2many('to_be_week_recs.model', 'inv_weekly_id', string="Week")
+
 
 	number_of_rec=fields.Integer(string="Number of Sales Created" , compute="_number_of_rec" , compute_sudo=True, store=True,)
 	week_number=fields.Integer(string="Delivery Week Number",required=True)
@@ -272,6 +285,7 @@ class to_be_week_recs(models.Model):
 	# LINKS TO OTHER MODELS
 	inv_weekly_id = fields.Many2one('invoice_to_be_week.model', string="Weekly Number")
 	invoice_line_ids = fields.Many2one('prod_order.model', string="Production ID")
+	currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id, readonly=True)
 
 
 	customer_name= fields.Char(related='invoice_line_ids.customer_ref')
@@ -279,6 +293,9 @@ class to_be_week_recs(models.Model):
 	state = fields.Selection(related='invoice_line_ids.state')
 	delivery_week = fields.Integer(related='invoice_line_ids.delivery_week')
 	sales_person = fields.Many2one(string="Sales Person", related="invoice_line_ids.sales_person")
+	amount_untaxed = fields.Monetary(related='invoice_line_ids.main_sales_id.amount_untaxed')
+	amount_total = fields.Monetary(related='invoice_line_ids.main_sales_id.amount_total')
+	amount_tax = fields.Monetary(related='invoice_line_ids.main_sales_id.amount_tax')
 
 
 
@@ -298,7 +315,15 @@ class quotation_dashboard(models.Model):
 	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
 	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,							store=True, )
 	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
-
+	
+	def reset_every(self):
+		production_records = self.env["quot_dashboard.model"].search([])
+		for rec in production_records:
+			rec.number_of_rec=0
+			rec.amount_total=0
+			rec.amount_untaxed=0
+			rec.amount_tax=0
+			rec.write({'quotation_week_ids': [(5, 0, 0)]})
 
 	def feed_to_dashboard(self):
 		#LOOP ALL PRODUCTION RECORDS
@@ -361,13 +386,18 @@ class week_quot_recs(models.Model):
 	# LINKS TO OTHER MODELS
 	week_quot_recs = fields.Many2one('quot_dashboard.model', string="Weekly Number")
 	sales_line_ids = fields.Many2one('sale.order', string="Production ID")
-
+	currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id, readonly=True)
+	
 
 	customer_name= fields.Char(related='sales_line_ids.partner_id.name')
 	sales_order_name = fields.Char(related='sales_line_ids.name')
 	state = fields.Selection(related='sales_line_ids.state')
 	delivery_week = fields.Integer(compute="_del_date" , string="Delivery week")
 	sales_person = fields.Many2one(string="Sales Person", related="sales_line_ids.user_id")
+	amount_untaxed = fields.Monetary(related='sales_line_ids.amount_untaxed')
+	amount_total = fields.Monetary(related='sales_line_ids.amount_total')
+	amount_tax = fields.Monetary(related='sales_line_ids.amount_tax')
+
 
 
 	def _del_date(self):
