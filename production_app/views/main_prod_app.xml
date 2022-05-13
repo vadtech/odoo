@@ -8,7 +8,22 @@
     <field name="state">code</field>
     <field name="code">action = records.create_to_invoice()</field>
 </record>
-         
+    <record id="feed_dashbvvoard" model="ir.actions.server">
+     <field name="name">Feed Dashboard</field>
+    <field name="model_id" ref="model_invoice_week_model"/>
+    <field name="binding_model_id" ref="model_invoice_week_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.feed_to_dashboard()</field>
+    </record>
+
+     <record id="reset_invoiced" model="ir.actions.server">
+     <field name="name">Reset Dashboard</field>
+    <field name="model_id" ref="model_invoice_week_model"/>
+    <field name="binding_model_id" ref="model_invoice_week_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.reset_every()</field>
+    </record>
+     
     <record id="reset" model="ir.actions.server">
      <field name="name">Reset Dashboard</field>
     <field name="model_id" ref="model_production_date_model"/>
