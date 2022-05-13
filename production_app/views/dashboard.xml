@@ -192,10 +192,9 @@
                                              <field string="Name" name="customer_name"/>
                                              <field string="Invoice No" name="invoice_name"/>
                                               <field name="sales_char"/>
-                                              <field string="State" name="delivery_week"/>
-                                              <field string="amount total" name="amount_total"/>
+                                              <field string="Delivery Week" name="delivery_week"/>
                                              <field string="State" name="move_type"/>
-                                            <field name="amount_total"/>
+                                             <field name="amount_total"/>
                                             <field name="amount_untaxed"/>
                                             <field name="amount_tax"/>
                                         </tree>
@@ -302,7 +301,7 @@
                                    <field name="invoice_week_ids" force_save="1">
                                         <tree>
                                              <field string="Invoice No" name="customer_name"/>
-                                             <field string="Creation Date" name="sales_order_name"/>
+                                             <field name="sales_order_name"/>
                                             <field string="State" name="state"/>
                                             <field name="amount_total"/>
                                             <field name="amount_untaxed"/>
@@ -405,13 +404,12 @@
                                    <field name="quotation_week_ids" force_save="1">
                                         <tree>
                                              <field string="Customer Name" name="customer_name"/>
-                                             <field string="Creation Date" name="sales_order_name"/>
-                                             <field string="Salesperson" name="sales_person"/>
-                                             <field string="Deliver week" name="delivery_week"/>
+                                             <field name="sales_order_name"/>
+                                             <field string="Delivery week" name="delivery_week"/>
+                                             <field string="State" name="state"/>
                                             <field name="amount_total"/>
                                             <field name="amount_untaxed"/>
                                             <field name="amount_tax"/>
-                                             <field string="State" name="state"/>
                                         </tree>
                                 </field>
                         </page>
