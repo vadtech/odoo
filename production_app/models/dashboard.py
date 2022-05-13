@@ -41,10 +41,7 @@ class production_date(models.Model):
 			rec.amount_untaxed=0
 			rec.amount_tax=0
 			rec.write({'production_recs_id': [(5, 0, 0)]})
-		self.feed_to_dashboard()
-					
-					
-
+								
 	@api.depends("production_recs_id")
 	def _number_of_rec(self):
 		for rec in self:
