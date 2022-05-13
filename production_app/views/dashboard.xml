@@ -177,7 +177,7 @@
                                         <tree>
                                              <field string="Name" name="customer_name"/>
                                              <field string="Invoice No" name="invoice_name"/>
-                                              <field string="State" name="delivery_week"/>
+                                              <field string="Delivery Week" name="delivery_week"/>
                                              <field string="State" name="move_type"/>
                                         </tree>
                                 </field>
