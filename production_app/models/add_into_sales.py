@@ -309,7 +309,7 @@ class add_into_sales(models.Model):
 #             single_rec.amount_tax = amount_tax
 #             single_rec.amount_total = amount_untaxed + amount_tax
 
-     def action_confirm(self):
+    def action_confirm(self):
         self.state = ""
         #PUSH RECORDS TO PRODUCTION APPLICATION
         for record in self:
