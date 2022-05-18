@@ -29,7 +29,7 @@ class add_into_sales(models.Model):
                 new_sign = 'nok'
         return new_sign
     
-     def _update_dashboard(self):
+    def _update_dashboard(self):
         for rec in self:
             if rec.update_dashbaord==False:
                 rec.env['quot_dashboard.model'].reset_every()
