@@ -24,9 +24,11 @@
             <xpath expr="//tree/field[@name='name']" position='replace'>
                 <field name="invoice_no_name" decoration-bf="1" />
             </xpath>
+            
             <xpath expr="//tree/field[@name='invoice_date']" position='before'>
                 <field name="sales_char" string="Sales Order Number"/>
-            </xpath>
+            </xpath> 
+            
             <xpath expr="//tree/field[@name='sales_char']" position='before'>
                 <field name="invoice_partner_display_name" string="Customer"/>
             </xpath>
@@ -146,7 +148,9 @@
                 <attribute name="optional">hide</attribute>
             </xpath>
             
-            
+             <xpath expr="//form/sheet/group/group[@name='partner_details']/field[@name='partner_shipping_id']" position="after">
+                 <field name="update_dashbaord" invisible="1" />
+            </xpath>
             
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='qty_invoiced']" position="attributes">
                     <attribute name="optional">hide</attribute>
