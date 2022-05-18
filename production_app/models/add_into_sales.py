@@ -15,6 +15,8 @@ class add_into_sales(models.Model):
     client_order_ref = fields.Char(string='Customer Reference',copy=True)
     newMarking = fields.Char(string='Marking')
     previous_sales_name = fields.Char(string='Marking')
+    update_dashbaord = fields.Boolean(string='Update Dashboard', default=False, compute="_update_dashboard")
+
 
     @api.model
     def check_u_currency(self):
@@ -26,6 +28,15 @@ class add_into_sales(models.Model):
             else:
                 new_sign = 'nok'
         return new_sign
+    
+     def _update_dashboard(self):
+        for rec in self:
+            if rec.update_dashbaord==False:
+                rec.env['quot_dashboard.model'].reset_every()
+                rec.env['quot_dashboard.model'].feed_to_dashboard()
+                rec.update_dashbaord=True
+            else:
+                rec.update_dashbaord = True
 
     def copy(self, default=None):
         default = {}
@@ -295,8 +306,9 @@ class add_into_sales(models.Model):
 #             single_rec.amount_tax = amount_tax
 #             single_rec.amount_total = amount_untaxed + amount_tax
 
-    def action_confirm(self):
+     def action_confirm(self):
         self.state = ""
+        #PUSH RECORDS TO PRODUCTION APPLICATION
         for record in self:
             created_all = self.env["prod_order.model"].search_count([('main_sales_id', '=', record.id)])
             temp_ids = []
@@ -318,6 +330,64 @@ class add_into_sales(models.Model):
                 )
             else:
                 pass
+            # UPDATE IN QUOTATION CREATED STAGE
+            remove_in_q= self.env["week_quot_recs.model"].search([('sales_line_ids', '=', record.id)])
+            remove_in_q.unlink()
+        production_records = self.env["production_date.model"].search([])
+        #CLEAR UP ALL ORDER STOCK TO UPDATE
+        for rec in production_records:
+            rec.number_of_rec = 0
+            rec.amount_total = 0
+            rec.amount_untaxed = 0
+            rec.amount_tax = 0
+            rec.write({'production_recs_id': [(5, 0, 0)]})
+
+        production_records = self.env["invoice_to_be_week.model"].search([])
+        for rec in production_records:
+            rec.number_of_rec = 0
+            rec.amount_total = 0
+            rec.amount_untaxed = 0
+            rec.amount_tax = 0
+            rec.write({'invoice_week_ids': [(5, 0, 0)]})
+
+        #UPDATE IN ORDER STOCK
+        production_records = self.env["prod_order.model"].search([])
+        for record in production_records:
+            # CHECK IF IT IS NEW AND INTO ORDER STOCK
+            if record.state == "new":
+                production_lines = []
+                production_records = self.env["production_date.model"].search(
+                    [('delivered_week', '=', record.delivery_week)])
+                if production_records.exists():
+                    vali = {
+                        'production_lines_ids': record.id
+                    }
+                    production_lines.append((0, 0, vali))
+                    production_records.write({
+                        'production_recs_id': production_lines})
+                production_lines = []
+                #ADD IT INTO TO BE INVOICED DASHBOARD
+                production_records = self.env["invoice_to_be_week.model"].search(
+                    [('week_number', '=', record.delivery_week)])
+                if production_records.exists():
+                    vali = {
+                        'invoice_line_ids': record.id
+                    }
+                    production_lines.append((0, 0, vali))
+                    production_records.write({
+                        'invoice_week_ids': production_lines})
+            #CHECK IF IT IS PROD ADD INTO TO BE INVOICED
+            elif record.state == "prod":
+                production_lines = []
+                production_records = self.env["invoice_to_be_week.model"].search(
+                    [('week_number', '=', record.delivery_week)])
+                if production_records.exists():
+                    vali = {
+                        'invoice_line_ids': record.id
+                    }
+                    production_lines.append((0, 0, vali))
+                    production_records.write({
+                        'invoice_week_ids': production_lines})
         return super().action_confirm()
 
     def custom_action_draft(self):
