@@ -24,9 +24,11 @@
             <xpath expr="//tree/field[@name='name']" position='replace'>
                 <field name="invoice_no_name" decoration-bf="1" />
             </xpath>
+            
             <xpath expr="//tree/field[@name='invoice_date']" position='before'>
                 <field name="sales_char" string="Sales Order Number"/>
-            </xpath>
+            </xpath> 
+            
             <xpath expr="//tree/field[@name='sales_char']" position='before'>
                 <field name="invoice_partner_display_name" string="Customer"/>
             </xpath>
