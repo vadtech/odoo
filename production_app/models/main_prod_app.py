@@ -136,6 +136,15 @@ class prod_order_app(models.Model):
 
 	def action_new(self):
 		self.state='new'
+		return {
+			'type': 'ir.actions.client',
+			'tag': 'display_notification',
+			'params': {
+			'title': _("Record successfully moved into new stage"),
+			'type': 'success',
+			'sticky': False,  #True/False will display for few seconds if false
+			'next': {'type': 'ir.actions.act_window_close'},
+			},}
 
 	def action_prod(self):
 		for rec in self:
@@ -143,6 +152,15 @@ class prod_order_app(models.Model):
 				record_to_copy = self.env["production_recs.model"].search([('production_lines_ids', '=', rec.id)])
 				record_to_copy.unlink()
 		self.state = 'prod'
+		return {
+			'type': 'ir.actions.client',
+			'tag': 'display_notification',
+			'params': {
+			'title': _("Record successfully moved into production stage"),
+			'type': 'success',
+			'sticky': False,  #True/False will display for few seconds if false
+			'next': {'type': 'ir.actions.act_window_close'},
+			},}
 
 	def action_done(self):
 		self.state='done'
@@ -240,9 +258,9 @@ class prod_order_app(models.Model):
 			'type': 'ir.actions.client',
 			'tag': 'display_notification',
 			'params': {
-			'title': _("Record Seccessfuly moved into Delivered Stage therefore invoiced"),
-			'type': 'warning',
-			'sticky': True,  #True/False will display for few seconds if false
+			'title': _("Record successfully moved into delivered stage therefore invoiced"),
+			'type': 'success',
+			'sticky': False,  #True/False will display for few seconds if false
 			'next': {'type': 'ir.actions.act_window_close'},
 			},}
 					
