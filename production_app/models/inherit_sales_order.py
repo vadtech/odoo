@@ -12,16 +12,22 @@ class add_into_order_line(models.Model):
 	
 	linediscPerct=fields.Integer(string='line Discount %' ) 
 
+	
 	def _cal_disamount(self):
 		for rec in self:
-			rec.disAmount = rec.linediscPerct / 100 * rec.price_unit * rec.product_uom_qty
-			dismount = rec.discount / 100 * rec.price_unit * rec.product_uom_qty
-			rec.price_subtotal= (rec.price_unit * rec.product_uom_qty )- rec.disAmount - dismount
+			# calculate discount
+			disc_ammount = rec.discount / 100 * rec.price_unit * rec.product_uom_qty
+			# calculate temp subtotal
+			temp_price_subtotal = (rec.price_unit * rec.product_uom_qty) - disc_ammount
+			# calculate line discounts and line discount amount
+			rec.disAmount = rec.linediscPerct / 100 * temp_price_subtotal
+			#subtract line discount from subtotal
+			rec.price_subtotal = temp_price_subtotal - rec.disAmount
 			amount_untaxed = amount_tax = 0.0
 			for line in self.order_id.order_line:
 				amount_untaxed += line.price_subtotal
 				amount_tax += line.tax_id.amount / 100 * line.price_subtotal
 	
-			self.order_id.amount_untaxed = amount_untaxed
-			self.order_id.amount_tax = amount_tax
-			self.order_id.amount_total = amount_untaxed + amount_tax
+			rec.order_id.amount_untaxed = amount_untaxed
+			rec.order_id.amount_tax = amount_tax
+			rec.order_id.amount_total = amount_untaxed + amount_tax
