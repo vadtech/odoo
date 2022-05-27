@@ -2,7 +2,7 @@ from odoo import fields, models, api, _
 
 
 class add_into_acc(models.Model):
-    """real name of the model"""
+    """real name of the model""" 
     _inherit = "account.move"
     _rec_name = "invoice_no_name"
     _description = "Invoicing Application edits"
