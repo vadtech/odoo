@@ -1,4 +1,6 @@
 from odoo import fields, models, api ,_
+from datetime import date
+from datetime import timedelta
 
 class add_into_order_line(models.Model):
 	"""real name of the model"""
