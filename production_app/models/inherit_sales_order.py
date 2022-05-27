@@ -14,8 +14,9 @@ class add_into_order_line(models.Model):
 
 	
 	def _cal_disamount(self):
+		date_create = datetime.strptime('2022-05-26 0:0:0', '%Y-%m-%d %H:%M:%S')
 		for rec in self:
-			if rec.state=='sale' or rec.state=='done' and rec.create_date>='2022-05-26':
+			if rec.state=='sale' or rec.state=='done' and rec.create_date>=date_create:
 				rec.disAmount = rec.linediscPerct / 100 * rec.price_unit * rec.product_uom_qty
 				dismount = rec.discount / 100 * rec.price_unit * rec.product_uom_qty
 				rec.price_subtotal= (rec.price_unit * rec.product_uom_qty )- rec.disAmount - dismount
@@ -28,7 +29,7 @@ class add_into_order_line(models.Model):
 				self.order_id.amount_tax = amount_tax
 				self.order_id.amount_total = amount_untaxed + amount_tax
 				
-			elif rec.create_date>='2022-05-26':
+			elif rec.create_date>=date_create:
 				rec.disAmount = rec.linediscPerct / 100 * rec.price_unit * rec.product_uom_qty
 				dismount = rec.discount / 100 * rec.price_unit * rec.product_uom_qty
 				rec.price_subtotal= (rec.price_unit * rec.product_uom_qty )- rec.disAmount - dismount
