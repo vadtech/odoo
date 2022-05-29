@@ -12,14 +12,23 @@ class production_date(models.Model):
 	product_family_id = fields.One2many('product_family.model', 'production_to_fam', string="Week")
 
 	delivered_week=fields.Integer(string="Delivery Week Number")
-	update_families=fields.Boolean("Update Families", default=False)
+	update_families=fields.Boolean("Update Families", default=True)
 	year=fields.Integer(string="Year")
 	number_of_rec = fields.Integer(string="Number of New Orders", compute="_number_of_rec", compute_sudo=True,store=True, )
 	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
 	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,store=True, )
 	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
 	
-
+	def create_temp(self):
+		prod_date = self.env["production_date.model"].search([('number_of_rec','=!',0)])
+		for rec in prod_date:
+			rec.write({'product_family_id': [(5, 0, 0)]})
+			self.env['product_family.model'].create({
+			'production_to_fam': rec.id,
+			'family_name': '',
+			'Units': 0,
+			})
+	
 	def feed_to_dashboard(self):
 		#LOOP ALL PRODUCTION RECORDS
 		production_records = self.env["prod_order.model"].search([])
