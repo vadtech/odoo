@@ -6,6 +6,7 @@ access_log_wiz_model,access_log_wiz_model,model_log_wiz_model,base.group_user,1,
 access_inv_pdfs_model,access_inv_pdfs_model,model_inv_pdfs_model,base.group_user,1,1,1,1
 access_royalties_model,access_royalties_model,model_royalties_model,base.group_user,1,1,1,1
 access_bunchinvoices_model,access_bunchinvoices_model,model_bunchinvoices_model,base.group_user,1,1,1,1
+access_product_family_model,access_product_family_model,model_product_family_model,base.group_user,1,1,1,1
 access_week_quot_recs_model,access_week_quot_recs_model,model_week_quot_recs_model,base.group_user,1,1,1,1
 access_quot_dashboard_model,access_quot_dashboard_model,model_quot_dashboard_model,base.group_user,1,1,1,1
 access_to_be_week_recs_model,access_to_be_week_recs_model,model_to_be_week_recs_model,base.group_user,1,1,1,1
