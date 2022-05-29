@@ -12,6 +12,7 @@ class production_date(models.Model):
 	product_family_id = fields.One2many('product_family.model', 'production_to_fam', string="Week")
 
 	delivered_week=fields.Integer(string="Delivery Week Number")
+	update_families=fields.Boolean("Update Families", default=False)
 	year=fields.Integer(string="Year")
 	number_of_rec = fields.Integer(string="Number of New Orders", compute="_number_of_rec", compute_sudo=True,store=True, )
 	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
