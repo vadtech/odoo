@@ -80,7 +80,7 @@
                                              <field name="family_name" string="Model" />
                                              <field  name="Units" string="Total Units"/>
                                             <field  name="Amount" string="Total Amount"/>
-                                             <field  name="compute_me" string=""/>
+                                             <field  name="compute_me"/>
                                         </tree>
                                 </field>
                         </page>
