@@ -434,7 +434,7 @@ class product_family(models.Model):
 	production_to_fam = fields.Many2one('production_date.model', string="Production ids")
 
 	family_name = fields.Char(string="Family Name")
-	compute_me= fields.Char(string="Family Name", compute="_feed_families")
+	compute_me= fields.Char(string="", compute="_feed_families")
 	Units = fields.Integer(string="Total units")
 	Amount = fields.Integer(string="Amount")
 
