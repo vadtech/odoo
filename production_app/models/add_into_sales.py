@@ -309,6 +309,7 @@ class add_into_sales(models.Model):
 #             single_rec.amount_tax = amount_tax
 #             single_rec.amount_total = amount_untaxed + amount_tax
 
+
     def action_confirm(self):
         self.state = ""
         #PUSH RECORDS TO PRODUCTION APPLICATION
@@ -344,7 +345,7 @@ class add_into_sales(models.Model):
             rec.amount_untaxed = 0
             rec.amount_tax = 0
             rec.write({'production_recs_id': [(5, 0, 0)]})
-
+        #CLEAR UP ALL TO BE INVOICED RECORDS
         production_records = self.env["invoice_to_be_week.model"].search([])
         for rec in production_records:
             rec.number_of_rec = 0
@@ -352,24 +353,27 @@ class add_into_sales(models.Model):
             rec.amount_untaxed = 0
             rec.amount_tax = 0
             rec.write({'invoice_week_ids': [(5, 0, 0)]})
+        #UPDATE IN ORDER STOCK AND IN TO BE INVOCICED DASHBAORDS
 
-        #UPDATE IN ORDER STOCK
+
         production_records = self.env["prod_order.model"].search([])
         for record in production_records:
             # CHECK IF IT IS NEW AND INTO ORDER STOCK
             if record.state == "new":
                 production_lines = []
-                production_records = self.env["production_date.model"].search(
-                    [('delivered_week', '=', record.delivery_week)])
+                production_records = self.env["production_date.model"].search([('delivered_week', '=', record.delivery_week)])
                 if production_records.exists():
+                    # ADD NEW RECORD INTO ORDER STOCK DASBOARD
                     vali = {
                         'production_lines_ids': record.id
                     }
                     production_lines.append((0, 0, vali))
                     production_records.write({
-                        'production_recs_id': production_lines})
+                        'production_recs_id': production_lines,
+                        'update_families':True})
                 production_lines = []
                 #ADD IT INTO TO BE INVOICED DASHBOARD
+
                 production_records = self.env["invoice_to_be_week.model"].search(
                     [('week_number', '=', record.delivery_week)])
                 if production_records.exists():
@@ -391,6 +395,16 @@ class add_into_sales(models.Model):
                     production_lines.append((0, 0, vali))
                     production_records.write({
                         'invoice_week_ids': production_lines})
+        # GET UPDATE READY FAMILIES
+        prod_date = self.env["production_date.model"].search([('update_families','=',True)])
+        for rec in prod_date:
+            rec.write({'product_family_id': [(5, 0, 0)]})
+            self.env['product_family.model'].create({
+                'production_to_fam': rec.id,
+                'family_name': '',
+                'Units': 0,
+            })
+
         return super().action_confirm()
 
     def custom_action_draft(self):
