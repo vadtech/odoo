@@ -20,7 +20,7 @@ class production_date(models.Model):
 	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
 	
 	def create_temp(self):
-		prod_date = self.env["production_date.model"].search([('number_of_rec','=!',0)])
+		prod_date = self.env["production_date.model"].search([('number_of_rec','!=',0)])
 		for rec in prod_date:
 			rec.write({'product_family_id': [(5, 0, 0)]})
 			self.env['product_family.model'].create({
