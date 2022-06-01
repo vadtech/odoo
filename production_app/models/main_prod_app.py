@@ -46,6 +46,27 @@ class prod_order_app(models.Model):
         ('cancel','Cancel'),
         ('delivered','Delivered')])
 	
+	send_to_inv=fields.Selection(
+        string='State',
+        tracking=True,
+        selection=[
+        ('sent','invoiced'),
+        ('not_sent','Not Invoived')])
+	
+	def action_delivered(self):
+		self.state='delivered'
+		self.send_to_inv='not_sent'
+		return {
+			'type': 'ir.actions.client',
+			'tag': 'display_notification',
+			'params': {
+			'title': _("Record successfully moved into delivered stage"),
+			'type': 'success',
+			'sticky': False,  #True/False will display for few seconds if false
+			'next': {'type': 'ir.actions.act_window_close'},
+			},}
+
+	
 	
 	""" FAKE FUNCTIONS FOR FIXING BUGS """		
 	def fix_sales_char(self):
@@ -169,7 +190,7 @@ class prod_order_app(models.Model):
 		self.state='cancel'
 
 
-	def action_delivered(self):
+	def action_to_invoice(self):
 		for record in self:
 			created_all = self.env["account.move"].search_count([('link_prod_id', '=', record.id)])
 			if created_all == 0:
@@ -252,13 +273,11 @@ class prod_order_app(models.Model):
 			if record.state =="new" or record.state =="prod":
 				self.env['invoice_week.model'].reset_every()
 				self.env['invoice_week.model'].feed_to_dashboard()
-
-		self.state = 'delivered'
 		return {
 			'type': 'ir.actions.client',
 			'tag': 'display_notification',
 			'params': {
-			'title': _("Record successfully moved into delivered stage therefore invoiced"),
+			'title': _("Record successfully moved into Invoice App"),
 			'type': 'success',
 			'sticky': False,  #True/False will display for few seconds if false
 			'next': {'type': 'ir.actions.act_window_close'},
