@@ -44,7 +44,7 @@ class add_into_acc(models.Model):
                 raise ValidationError(_('Invoice number is required to save'))
 
     def copy(self):
-        raise ValidationError(_('Note marking a record as delivered from the production app is the easiest approach to create an invoice'))
+        raise ValidationError(_('Invoice duplicating not allowed. All invoice are generated from delivered production orders.'))
 
             
     def update_now(self):
