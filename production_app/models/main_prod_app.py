@@ -29,7 +29,7 @@ class prod_order_app(models.Model):
 
 	
 	delivery_date=fields.Datetime(string="Delivery Date")
-	delivery_week=fields.Integer(compute="_del_date" ,string="Delivery Week")
+	delivery_week=fields.Integer(compute="_del_date" ,string="Delivery Week",store=True)
 
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
 	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
