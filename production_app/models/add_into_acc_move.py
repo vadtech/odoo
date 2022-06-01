@@ -1,4 +1,5 @@
 from odoo import fields, models, api, _
+from odoo.exceptions import ValidationError
 
 
 class add_into_acc(models.Model):
@@ -35,6 +36,16 @@ class add_into_acc(models.Model):
    
     def _check_balanced(self):
         return True
+    
+    @api.constrains('invoice_no_name')
+    def validate_invoice(self):
+        for rec in self:
+            if rec.invoice_no_name ==False:
+                raise ValidationError(_('Invoice number is required to save'))
+
+    def copy(self):
+        raise ValidationError(_('Note marking a record as delivered from the production app is the easiest approach to create an invoice'))
+
             
     def update_now(self):
         # current_rec = self.env['account.move'].search([])
