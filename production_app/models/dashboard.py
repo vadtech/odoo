@@ -9,14 +9,26 @@ class production_date(models.Model):
 
 	# LINKS TO OTHER MODELS
 	production_recs_id = fields.One2many('production_recs.model', 'production_date_ids', string="Week")
+	product_family_id = fields.One2many('product_family.model', 'production_to_fam', string="Week")
+
 	delivered_week=fields.Integer(string="Delivery Week Number")
+	update_families=fields.Boolean("Update Families", default=True)
 	year=fields.Integer(string="Year")
 	number_of_rec = fields.Integer(string="Number of New Orders", compute="_number_of_rec", compute_sudo=True,store=True, )
 	amount_total = fields.Integer(string="Total Taxed Amount", compute="_amount_total", compute_sudo=True, store=True, )
 	amount_untaxed = fields.Integer(string="Total Untaxed Amount", compute="_untaxed_amount", compute_sudo=True,store=True, )
 	amount_tax = fields.Integer(string="Total tax", compute="_amount_tax", compute_sudo=True, store=True, )
 	
-
+	def create_temp(self):
+		prod_date = self.env["production_date.model"].search([('number_of_rec','!=',0)])
+		for rec in prod_date:
+			rec.write({'product_family_id': [(5, 0, 0)]})
+			self.env['product_family.model'].create({
+			'production_to_fam': rec.id,
+			'family_name': '',
+			'Units': 0,
+			})
+	
 	def feed_to_dashboard(self):
 		#LOOP ALL PRODUCTION RECORDS
 		production_records = self.env["prod_order.model"].search([])
@@ -408,3 +420,151 @@ class week_quot_recs(models.Model):
 				rec.delivery_week=rec.sales_line_ids.expected_date.strftime("%U")
 			else:
 				rec.delivery_week =0
+				
+				
+				
+				
+class product_family(models.Model):
+	"""THIS IS TO MAKE ALL MODELS FOR DASHBOARD"""
+	_name = "product_family.model"
+	_description = "For Tracking Quotations Records in Production in A week"
+	_rec_name="id"
+	_order="id desc"
+
+	production_to_fam = fields.Many2one('production_date.model', string="Production ids")
+
+	family_name = fields.Char(string="Family Name")
+	compute_me= fields.Char(string=".", compute="_feed_families")
+	Units = fields.Integer(string="Total units")
+	Amount = fields.Integer(string="Amount")
+
+	def _feed_families(self):
+		for rec in self:
+			rec.compute_me=""
+			self.update_families(self.production_to_fam)
+
+	def update_families(self,production_to_fa):
+		#THIS IS TO UPDATE FAMILIES WITHIN DEFFIRENT MODELS
+		if production_to_fa.update_families==True:
+			print("prod is true")
+			"""THIS IS FOR CREATION OF FAMILIES IN ORDERSTOCK DASHBAORD"""
+			lean = []
+			zeta = []
+			pivot = []
+			nexus = []
+			meet = []
+			salina = []
+			santana = []
+			bankett = []
+			other = []
+			#CHECK FOR ALL RECORDS AVAILABLE AND GET THEIR FAMILY NAME
+			for rec in production_to_fa.production_recs_id.production_lines_ids.orderLines_ids:
+				#GROUPING RECORDS INTO THEIR FAMILIES
+				if rec.product_id.model=='lean':
+					product = {
+						'prod_name': rec.product_id.name,
+						'model': rec.product_id.model,
+						'units': rec.product_uom_qty,
+						'amount': rec.price_subtotal,
+					}
+					print("something with lean")
+					lean.append(product)
+				elif rec.product_id.model=='zeta':
+					product = {
+						'prod_name': rec.product_id.name,
+						'units': rec.product_uom_qty,
+						'model': rec.product_id.model,
+						'amount': rec.price_subtotal,
+					}
+					zeta.append(product)
+				elif rec.product_id.model=='pivot':
+					product = {
+						'prod_name': rec.product_id.name,
+						'units': rec.product_uom_qty,
+						'model': rec.product_id.model,
+						'amount': rec.price_subtotal,
+					}
+					print("something with pivot")
+					pivot.append(product)
+				elif rec.product_id.model=='nexus':
+					product = {
+						'prod_name': rec.product_id.name,
+						'units': rec.product_uom_qty,
+						'model': rec.product_id.model,
+						'amount': rec.price_subtotal,
+					}
+					nexus.append(product)
+				elif rec.product_id.model=='meet':
+					product = {
+						'prod_name': rec.product_id.name,
+						'units': rec.product_uom_qty,
+						'model': rec.product_id.model,
+						'amount': rec.price_subtotal,
+					}
+					meet.append(product)
+				elif rec.product_id.model=='salina':
+					product = {
+						'prod_name': rec.product_id.name,
+						'units': rec.product_uom_qty,
+						'model': rec.product_id.model,
+						'amount': rec.price_subtotal,
+					}
+					salina.append(product)
+				elif rec.product_id.model=='santana':
+					product = {
+						'prod_name': rec.product_id.name,
+						'units': rec.product_uom_qty,
+						'model': rec.product_id.model,
+						'amount': rec.price_subtotal,
+					}
+					santana.append(product)
+				elif rec.product_id.model=='bankett':
+					product = {
+						'prod_name': rec.product_id.name,
+						'units': rec.product_uom_qty,
+						'model': rec.product_id.model,
+						'amount': rec.price_subtotal,
+					}
+					bankett.append(product)
+				elif rec.product_id.model=='other':
+					product = {
+						'prod_name': rec.product_id.name,
+						'units': rec.product_uom_qty,
+						'model': rec.product_id.model,
+						'amount': rec.price_subtotal,
+					}
+					other.append(product)
+			#PASS TO ANOTHER FUNCTION FOR CREATION
+			self.create_fam(other)
+			self.create_fam(zeta)
+			self.create_fam(pivot)
+			self.create_fam(nexus)
+			self.create_fam(meet)
+			self.create_fam(salina)
+			self.create_fam(santana)
+			self.create_fam(bankett)
+			self.create_fam(lean)
+		else:
+			pass
+		self.production_to_fam.update_families=False
+
+
+
+	def create_fam(self,familie):
+		# LEST REMOVE DUPLICATES WITHIN FAMILIES
+		fam_tot_unt = 0
+		fam_tot_amt = 0
+		fam_model = ''
+		for x in range(len(familie)):
+			fam_tot_unt += int(familie[x]['units'])
+			fam_tot_amt += int(familie[x]['amount'])
+			fam_model = familie[x]['model']
+		# LEST CREATE A NEW RECORD
+		if fam_tot_unt != 0 and fam_tot_amt != 0:
+			# LEST CREATE THE RECORD
+			self.env['product_family.model'].create({
+				'production_to_fam': self.production_to_fam.id,
+				'family_name': fam_model,
+				'Amount': fam_tot_amt,
+				'Units': fam_tot_unt,
+			})

@@ -40,6 +40,14 @@
     <field name="state">code</field>
     <field name="code">action = records.reset_every()</field>
     </record>
+     
+    <record id="add_temp" model="ir.actions.server">
+     <field name="name">Feed Families</field>
+    <field name="model_id" ref="model_production_date_model"/>
+    <field name="binding_model_id" ref="model_production_date_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.create_temp()</field>
+    </record>
          
     <record id="feed_qout_dashboard" model="ir.actions.server">
      <field name="name">Feed Dashboard</field>
