@@ -2,8 +2,8 @@
 <odoo>
 <!-- Sripts Fuctions for Hard making Changes       -->
      
-         <record id="rest_qout_dashboard" model="ir.actions.server">
-     <field name="name">Reset Dashboard</field>
+    <record id="rest_qout_dashboard" model="ir.actions.server">
+    <field name="name">Reset Dashboard</field>
     <field name="model_id" ref="model_quot_dashboard_model"/>
     <field name="binding_model_id" ref="model_quot_dashboard_model"/>
     <field name="state">code</field>
@@ -160,13 +160,13 @@
 <!--</record>-->
 <!--     -->
 
-<!--     <record id="actio_to_fix" model="ir.actions.server">
-    <field name="name">Fix Update Sales Amounts</field>
-   <field name="model_id" ref="model_sale_order"/>
-   <field name="binding_model_id" ref="model_sale_order"/>
+<record id="action_to_to_be_ivoviced" model="ir.actions.server">
+    <field name="name">Confirm to Invoice</field>
+   <field name="model_id" ref="model_prod_order_model"/>
+   <field name="binding_model_id" ref="model_prod_order_model"/>
    <field name="state">code</field>
-   <field name="code">action = records.amount_all()</field>
-</record> -->
+   <field name="code">action = records.action_to_invoice()</field>
+</record>
      
 <!--     <record id="acion_to_fix" model="ir.actions.server">-->
 <!--     <field name="name">Fix Update invoice Amounts</field>-->
