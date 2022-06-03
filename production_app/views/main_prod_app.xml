@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 <!-- Sripts Fuctions for Hard making Changes       -->
-<record id="action_push_credit" model="ir.actions.server">
-     <field name="name">Credit To Invoice</field>
-    <field name="model_id" ref="model_sale_order"/>
-    <field name="binding_model_id" ref="model_sale_order"/>
-    <field name="state">code</field>
-    <field name="code">action = records.create_to_invoice()</field>
-</record>
      
          <record id="rest_qout_dashboard" model="ir.actions.server">
      <field name="name">Reset Dashboard</field>
