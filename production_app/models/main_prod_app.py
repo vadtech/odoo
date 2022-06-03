@@ -282,6 +282,7 @@ class prod_order_app(models.Model):
 			'sticky': False,  #True/False will display for few seconds if false
 			'next': {'type': 'ir.actions.act_window_close'},
 			},}
+		self.send_to_inv = 'sent'
 					
 
 class pro_ord(models.Model):
