@@ -191,6 +191,7 @@ class prod_order_app(models.Model):
 
 
 	def action_to_invoice(self):
+		self.send_to_inv = 'sent'
 		for record in self:
 			created_all = self.env["account.move"].search_count([('link_prod_id', '=', record.id)])
 			if created_all == 0:
@@ -282,7 +283,6 @@ class prod_order_app(models.Model):
 			'sticky': False,  #True/False will display for few seconds if false
 			'next': {'type': 'ir.actions.act_window_close'},
 			},}
-		self.send_to_inv = 'sent'
 					
 
 class pro_ord(models.Model):
