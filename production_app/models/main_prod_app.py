@@ -192,6 +192,7 @@ class prod_order_app(models.Model):
 
 	def action_to_invoice(self):
 		self.send_to_inv = 'sent'
+		self.sent = 'delivered'
 		for record in self:
 			created_all = self.env["account.move"].search_count([('link_prod_id', '=', record.id)])
 			if created_all == 0:
