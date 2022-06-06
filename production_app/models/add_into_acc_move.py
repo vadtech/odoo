@@ -14,7 +14,7 @@ class add_into_acc(models.Model):
     
     reference = fields.Char(string="Referece", readonly=True, required=True, copy=False, default=lambda self: _('New'))
     sales_char = fields.Char(string="Sales Order Number", related="link_prod_id.main_sales_id.name")
-    invoice_no_name = fields.Char(string="Inovice Number")
+    invoice_no_name = fields.Char(string="Inovice Number",default=lambda self: _(''))
     customer_name = fields.Many2one(string="Customer", related="link_prod_id.main_sales_id.partner_id")
     over_rounding = fields.Monetary(string='Øreavrunding')
 
@@ -36,6 +36,13 @@ class add_into_acc(models.Model):
    
     def _check_balanced(self):
         return True
+    
+    @api.model
+    def create(self,vals):
+        if vals.get('invoice_no_name', _('')) == _(''):
+            vals['invoice_no_name']=self.env['ir.sequence'].next_by_code('invoice.seq') or _('')
+        res= super(add_into_acc,self).create(vals)
+        return res
     
     @api.constrains('invoice_no_name')
     def validate_invoice(self):
