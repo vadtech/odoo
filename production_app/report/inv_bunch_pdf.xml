@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <template id="bunch_report_pdf">
+            <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+				 <t t-call="web.external_layout">
+                     <t t-set="address">
+                       <br/>
+                       <br/>
+                       <br/>
+<!--                           constant data to be printed-->
+                        <h5>Registrert AV: &#160; &#160;Per Magne Mork</h5>
+                        <h5> Kundenr Hos Factoringselskap:&#160; &#160;09891</h5>
+                        <h5>Debitor FCI: &#160; &#160;530</h5>
+                        </t>
+                     <t t-set="information_block">
+                            <div style="margin-top:-100%">
+                                 <h4 style="font-weight:bolder;" >FACTORINGBUNT DNB FACTORING</h4>
+                            </div>
+                             <br/>
+<!--                            <h6>Bunt nr: &#160; &#160;<t t-esc="docs.update_banch()"/></h6>-->
+
+                               <h5> Bunt Nr: &#160; &#160;<t t-esc="doc.banch_no"/></h5>
+                               <h5> Buntdato: &#160; &#160; <t t-esc="doc.create_date"/></h5>
+                               <h5 >Bunttype: &#160; &#160;1</h5>
+                               <h5 >Sendt: &#160; &#160; YES</h5>
+                     </t>
+                     <br/>
+                     <br/>
+<!--                     CHECK FOR FACTORING GROUPS TO BE DISPLAYED-->
+                     <t t-set="pay_1" t-value="1"/>
+                     <t t-set="pay_2" t-value="1"/>
+                     <t t-set="pay_3" t-value="1"/>
+
+                     <t t-foreach="doc.bunch_inv_ids" t-as="inv_id">
+                    <span t-if="inv_id.payment_fact == 'pay_1'">
+                    <t t-set="pay_1" t-value="2"/>
+                    </span>
+
+                    <span t-if="inv_id.payment_fact =='pay_2'">
+                     <t t-set="pay_2" t-value="3"/>
+                    </span>
+
+                    <span t-if="inv_id.payment_fact == 'pay_3'">
+                     <t t-set="pay_3" t-value="4"/>
+                    </span>
+                     </t>
+<!--                DISPLAY DATA ABOUT NOK RECORDS -->
+                     <span t-if="pay_1==2" class="page">
+                    <div id="informatios" class="row mt32 mb32">
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                  <h5>Valutakode På Konto: &#160; &#160;NOK</h5>
+                             </div>
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                    <h5>Beløp: &#160; &#160; Kr <t t-esc=" '%.2f'% doc.cal_total(pay_1)"/></h5>
+                             </div>
+                              <div class="col-auto col-3 mw-100 mb-2">
+                                     <h5>Antall Bilag: &#160; &#160; <t t-esc="doc.cal_records(pay_1)"/></h5>
+                             </div>
+                    </div>
+                     <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th name="art_no" class="text-left" style="font-size:11px"><span>Fakturanr</span></th>
+                                <th name="th_description" class="text-left"><span style="font-size:11px" >Navn</span></th>
+                                <th name="th_quantity" class="text-left" style="font-size:11px" >Kundenr</th>
+                                <th name="th_priceunit" class="text-left" style="font-size:11px" >Fakturadato</th>
+                                <th name="th_price_unit" class="text-left"><span style="font-size:11px" >Forfallsdato</span></th>
+                                <th name="th_price_unit" class="text-right" style="width:1000px; font-size:11px"><span>Beløp Uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px; font-size:11px"><span>Beløp MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px; font-size:11px"><span>Beløp Med MVA</span></th>
+                            </tr>
+                            </thead>
+                         <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
+                             <span t-if="inv_ids.payment_fact =='pay_1'">
+                            <tbody>
+                                        <td name="account_invoice_line_id" style="font-size:11px"><span t-esc="inv_ids.inv_no" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_name" style="font-size:11px"><span t-field="inv_ids.customer_nme" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line" style="font-size:11px"><span t-field="inv_ids.acc_mv_ids.customer_name.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoic_line" style="font-size:11px"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoicline" style="font-size:11px"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
+<!--                                CHECK IF ITS CREDIT AND GIVE NEGATIVE VALUES-->
+                                <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
+                                    <td class="text-right"  style="width:1000px; font-size:11px">
+                                         <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
+                                        </td>
+                                        <td class="text-right"  style="width:1000px; font-size:11px ">
+                                           <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_tax *-1)"/>
+                                        </td>
+                                        <td class="text-right"  style="width:1000px; font-size:11px ">
+                                          <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_total *-1)"/>
+                                        </td>
+
+                                </t>
+                                <t t-else="">
+                                        <td class="text-right"  style="width:1000px; font-size:11px ">
+                                            <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
+                                        </td>
+                                        <td class="text-right"  style="width:1000px; font-size:11px ">
+                                            <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
+                                        </td>
+                                        <td class="text-right"  style="width:1000px; font-size:11px ">
+                                            <span t-field="inv_ids.acc_mv_ids.amount_total"/>
+                                        </td>
+                                </t>
+
+                            </tbody>
+                             </span>
+                         </t>
+
+                         </table>
+                         <table class="table table-striped" style="width:40%;  margin-right: 0px; margin-left: auto;">
+                                  <tr class="border-black o_subtotal">
+                                    <th><strong>Totalbeløp Uten MVA</strong></th>
+                                    <th>kr <t t-esc="'%.2f'% doc.cal_no_tax(pay_1)"/></th>
+                                  </tr>
+                                  <tr class="border-black o_subtotal" >
+                                    <td><strong>Totalbeløp MVA</strong></td>
+                                    <td>kr <t t-esc="'%.2f'% doc.cal_in_tax(pay_1)"/></td>
+                                  </tr>
+                                    <tr class="border-black o_subtotal" >
+                                    <td><strong>Totalbeløp Med MVA</strong></td>
+                                    <td>kr <t t-esc="'%.2f'% doc.cal_total(pay_1)"/></td>
+                                  </tr>
+                                </table>
+                         <br/>
+                        </span>
+
+<!--                DISPLAY DATA ABOUT SEK RECORDS -->
+                    <span t-if="pay_2==3" class="page">
+                    <p t-if="pay_1==2" style="page-break-before:always;"> </p>
+                    <br/>
+                     <br/>
+                    <div id="informatios" class="row mt32 mb32">
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                 <h5>Valutakode På Konto: &#160; &#160;SEK</h5>
+                             </div>
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                    <h5>Beløp: &#160; &#160; Kr <t t-esc=" '%.2f'% docs.cal_total(pay_2)"/></h5>
+                             </div>
+                              <div class="col-auto col-3 mw-100 mb-2">
+                                     <h5>Antall Bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_2)"/></h5>
+                             </div>
+                             </div>
+                     <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th name="art_no" class="text-left"><span style="font-size:11px" >Fakturanr</span ></th>
+                                <th name="th_description" class="text-left"><span style="font-size:11px" >Navn</span></th>
+                                <th name="th_quantity" class="text-left" style="font-size:11px" >Kundenr</th>
+                                <th name="th_priceunit" class="text-left" style="font-size:11px" >Fakturadato</th>
+                                <th name="th_price_unit" class="text-left"><span style="font-size:11px" >Forfallsdato</span></th>
+                                <th name="th_price_unit" class="text-right" style="width:1000px; font-size:11px"><span>Beløp uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px; font-size:11px"><span>Beløp MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px; font-size:11px"><span>Beløp Med MVA</span></th>
+                            </tr>
+                            </thead>
+                         <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
+                             <span t-if="inv_ids.payment_fact =='pay_2'">
+                            <tbody>
+                                        <td name="account_invoice_line_id"><span  t-esc="inv_ids.inv_no" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_name"><span t-field="inv_ids.customer_nme" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="inv_ids.acc_mv_ids.customer_name.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
+                                        <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
+                                            <td class="text-right"  style="width:1000px; font-size:11px">
+                                                   <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
+                                                </td>
+                                                <td class="text-right"  style="width:1000px; font-size:11px">
+                                                   <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_tax *-1)"/>
+                                                </td>
+                                                <td class="text-right"  style="width:1000px; font-size:11px">
+                                                   <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_total *-1)"/>
+                                                </td>
+
+                                        </t>
+                                        <t t-else="">
+                                                <td class="text-right"  style="width:1000px; font-size:11px">
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
+                                                </td>
+                                                <td class="text-right"  style="width:1000px; font-size:11px">
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
+                                                </td>
+                                                <td class="text-right"  style="width:1000px; font-size:11px">
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_total"/>
+                                                </td>
+                                        </t>
+                            </tbody>
+                             <br/>
+                             </span>
+                         </t>
+                         </table>
+                         <table align="right" class="table table-striped" style="width:40%">
+                                  <tr class="border-black o_subtotal">
+                                    <th>Totalbeløp Uten MVA</th>
+                                    <th>kr <t t-esc="'%.2f'% docs.cal_no_tax(pay_2)"/></th>
+                                  </tr>
+                                  <tr class="border-black o_subtotal">
+                                    <td>Totalbeløp MVA</td>
+                                    <td>kr <t t-esc="'%.2f'% docs.cal_in_tax(pay_2)"/></td>
+                                  </tr>
+                                    <tr class="border-black o_subtotal">
+                                    <td>Totalbeløp Med MVA</td>
+                                    <td>kr <t t-esc="'%.2f'% docs.cal_total(pay_2)"/></td>
+                                  </tr>
+                                </table>
+                        </span>
+
+<!--                DISPLAY DATA ABOUT DKK RECORDS -->
+
+                    <span t-if="pay_3==4" class="page">
+                    <p  t-if="pay_2==3 or pay_1==2" style="page-break-before:always;"> </p>
+                        <br/>
+                     <br/>
+                    <div id="informatios" class="row mt32 mb32">
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                 <h6>Valutakode På Konto: &#160; &#160;DKK</h6>
+                             </div>
+                             <div class="col-auto col-3 mw-100 mb-2">
+                                    <h6>Beløp: &#160; &#160; Kr <t t-esc=" '%.2f'% docs.cal_total(pay_3)"/></h6>
+                             </div>
+                              <div class="col-auto col-3 mw-100 mb-2">
+                                     <h6>Antall Bilag: &#160; &#160; <t t-esc="docs.cal_records(pay_3)"/></h6>
+                             </div>
+                             </div>
+                     <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th name="art_no" class="text-left"><span style="font-size:11px" >Fakturanr</span></th>
+                                <th name="th_description" class="text-left"><span style="font-size:11px" >Navn</span></th>
+                                <th name="th_quantity" class="text-left" style="font-size:11px" >Kundenr</th>
+                                <th name="th_priceunit" class="text-left" style="font-size:11px" >Fakturadato</th>
+                                <th name="th_price_unit" class="text-left"><span style="font-size:11px" >Forfallsdato</span></th>
+                                <th name="th_price_unit" class="text-right" style="width:1000px; font-size:11px"><span>Beløp Uten MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px; font-size:11px"><span>Beløp MVA</span></th>
+                                <th name="th_price_unt" class="text-right" style="width:1000px; font-size:11px"><span>Beløp Med MVA</span></th>
+                            </tr>
+                            </thead>
+                         <t t-foreach="doc.bunch_inv_ids" t-as="inv_ids">
+                             <span t-if="inv_ids.payment_fact=='pay_3'">
+                                  <tbody>
+                                        <td name="account_invoice_line_id"><span  t-esc="inv_ids.inv_no" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line_name"><span t-field="inv_ids.customer_nme" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoice_line"><span t-field="inv_ids.acc_mv_ids.customer_name.id" t-options="{'widget': 'text'}"/></td>
+                                        <td name="account_invoic_line"><t t-esc="inv_ids.inv_date.strftime('%Y-%m-%d')"/></td>
+                                        <td name="account_invoicline"><t t-esc="inv_ids.date_due.strftime('%Y-%m-%d')"/></td>
+                                        <t t-if="inv_ids.acc_mv_ids.move_type=='out_refund'" >
+                                    <td class="text-right"  style="width:1000px; font-size:11px">
+                                           <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_untaxed *-1)"/>
+                                        </td>
+                                        <td class="text-right"  style="width:1000px; font-size:11px">
+                                           <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_tax *-1)"/>
+                                        </td>
+                                        <td class="text-right"  style="width:1000px; font-size:11px">
+                                           <span t-field="inv_ids.acc_mv_ids.currency_id.symbol" /><t t-esc="'%.2f'%(inv_ids.acc_mv_ids.amount_total *-1)"/>
+                                        </td>
+
+                                </t>
+                                        <t t-else="">
+                                                <td class="text-right"  style="width:1000px; font-size:11px">
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_untaxed"/>
+                                                </td>
+                                                <td class="text-right"  style="width:1000px; font-size:11px">
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_tax"/>
+                                                </td>
+                                                <td class="text-right"  style="width:1000px; font-size:11px">
+                                                    <span t-field="inv_ids.acc_mv_ids.amount_total"/>
+                                                </td>
+                                        </t>
+                            </tbody>
+                             <br/>
+                             </span>
+                         </t>
+                         </table>
+                         <table align="right" class="table table-striped" style="width:40%">
+                                  <tr>
+                                    <th>Totalbeløp Uten MVA</th>
+                                    <th>kr <t t-esc="'%.2f'% doc.cal_no_tax(pay_3)"/></th>
+                                  </tr>
+                                  <tr>
+                                    <td>Totalbeløp MVA</td>
+                                    <td>kr <t t-esc="'%.2f'% doc.cal_in_tax(pay_3)"/></td>
+                                  </tr>
+                                    <tr>
+                                    <td>Totalbeløp Med MVA</td>
+                                    <td>kr <t t-esc="'%.2f'% doc.cal_total(pay_3)"/></td>
+                                  </tr>
+                                </table>
+                        <br/>
+                        </span>
+<!--                     thus where external layout close-->
+                     <t><t t-esc="docs.change_state()"/></t>
+                 </t>
+                </t>
+            <p style="page-break-before:always;"> </p>
+            </t>
+        </template>
+    </data>
+</odoo>

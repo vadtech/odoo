@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- this is the main view for invoice application-->
+<record id="new_inv_view" model="ir.actions.act_window">
+    <field name="name">Records that have been Invoiced</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.move</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="context">{'default_state':'invc'}</field>
+    <field name="domain">[('inv_state','=','invc')]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Create A Invoiced Record!
+    	</p>
+    </field>
+</record>
+<menuitem id="new_ivn_views"
+        name="Invoiced"
+        parent="account.menu_finance"
+        action="new_inv_view"
+        sequence="-50"/>
+
+<!-- this is the main view for bunched invoice application-->
+<record id="new_non_inv_view" model="ir.actions.act_window">
+    <field name="name">Records that have not been Invoiced</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.move</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="context">{'default_state':'not_invc'}</field>
+    <field name="domain">[('inv_state','=','not_invc')]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Create a record that isn't Invoiced!
+    	</p>
+        <p>
+            eg Note marking a record as delivered from the production app is the easiest approach to create record thst isn't Invoiced!
+        </p>
+    </field>
+</record>
+
+
+<menuitem id="new_non_ivn_views"
+        name="Not Invoiced"
+        parent="account.menu_finance"
+        action="new_non_inv_view"
+        sequence="-60"/>
+
+
+<record id="invs_models" model="ir.actions.act_window">
+    <field name="name">Bunched Reports</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">inv_pdfs.model</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="context"></field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Download XMl Reports to Create Bunched invoices!
+    	</p>
+    </field>
+</record>
+
+
+<record id="inv_pdfs_tree" model="ir.ui.view">
+        <field name="name">inv.pdfs.order.tree</field>
+        <field name="model">inv_pdfs.model</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="banch_no" decoration-bf="1"/>
+                <field name="create_date" string="Date Xml Generated"/>
+                <field name="no_invoives"/>
+                <field name="isPrinted"/>
+            </tree>
+        </field>
+   </record>
+
+    <record id="inv_pdfs_form" model="ir.ui.view">
+        <field name="name">inv.pdfs.k.form</field>
+        <field name="model">inv_pdfs.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            Bunch Number: <field  name="banch_no"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <!--this splts form into 2 -->
+                        <group>
+                              <field name="create_date" string="Date Xml Generated"/>
+                        </group>
+                        <group>
+                            <field name="no_invoives" />
+                        </group>
+                    </group>
+                    <notebook>
+                           <page name="order_lines" string="Order Lines">
+                                       <field name="bunch_inv_ids" force_save="1">
+                                            <tree>
+                                                 <field string="Invoice No" name="inv_no"/>
+                                                 <field string="Sale Order" name="sale_order"/>
+                                                 <field string="Customer" name="custmer"/>
+                                                 <field string="Date Due" name="date_due"/>
+                                            </tree>
+<!--                                             <form>-->
+<!--                                             </form>-->
+                                    </field>
+                            </page>
+                     </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+         </field>
+   </record>
+
+
+
+<menuitem id="non_ivn_views"
+        name="Bunched Reports"
+        parent="account.menu_finance"
+        action="invs_models"
+        sequence="20"/>
+
+    <record id="invs_not_down" model="ir.actions.act_window">
+    <field name="name">Printed Bunched Reports</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">inv_pdfs.model</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="context"></field>
+    <field name="domain">[('isPrinted','=',True)]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	    Create Bunched Report!
+    	</p>
+        <p>eg Note that any unprinted bundled report must be downloaded in order for it to appear. </p>
+    </field>
+</record>
+
+<menuitem id="non_ivn_print_views"
+        name="Printed Bunched Reports"
+        parent="non_ivn_views"
+        action="invs_not_down"
+        sequence="10"/>
+
+    <record id="un_invs_not_down" model="ir.actions.act_window">
+    <field name="name">Unprinted Bunched Reports</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">inv_pdfs.model</field>
+    <field name="view_mode">tree,form,kanban</field>
+    <field name="context"></field>
+    <field name="domain">[('isPrinted','=',False)]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Download XMl Report to Create Bunched Reports!
+    	</p>
+        <p>eg Note that downloading any xml file type is the simplest approach to build a bundled report!
+</p>
+    </field>
+</record>
+
+<menuitem id="no_ivn_print_views"
+        name="Unprinted Bunched Reports"
+        parent="non_ivn_views"
+        action="un_invs_not_down"
+        sequence="20"/>
+</odoo>
+
+

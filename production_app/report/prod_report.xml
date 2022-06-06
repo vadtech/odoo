@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="prod_reports_vad">
+			<t t-foreach="docs" t-as="prod_order">
+			 <t t-foreach="prod_order.pro_order_ids" t-as="od_lines">
+             <t t-call="web.html_container">
+                     <t t-call="web.external_layout">
+						 <t  t-if="prod_order.main_sales_id.partner_id.payment_fact != 'pay_1'">
+				                <div class="row mt32 mb32" id="set_into_row">
+				                <div class="col-auto col-3 mw-100 mb-2">
+				                   <h5><strong>Order ID:</strong></h5>
+				                    <p class="m-0" t-field="prod_order.sales_id_char"/>
+				                </div>
+
+				                
+				         		<div class="col-auto col-3 mw-100 mb-2">
+									<h5>  <strong>Delivery Week:</strong></h5>
+				                    <p class="m-0" t-field="prod_order.delivery_week"/>
+				                </div>
+				            	</div>
+
+				         		<div class="row mt32 mb32" id="set_into_second_row">
+				                <div class="col-auto col-3 mw-100 mb-2">
+									<h5>  <strong>Customer</strong></h5>
+				                    <div class="m-0"  t-field="prod_order.deli_address"
+				                    t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+				                	</div>
+
+				                <div class="col-auto col-3 mw-100 mb-2">
+									<h5>  <strong>Marking</strong></h5>
+				                    <p class="m-0" t-field="prod_order.main_sales_id.newMarking"/>
+				                    <br/>
+				                    <br/>
+									<h5> 	<strong>Quantity</strong></h5>
+				                    <p class="m-0" t-field="od_lines.qunt"/>
+				                    <h6></h6>
+				                </div>
+				            	</div>
+							 <div>
+									<h5> <strong style="font-size:20px" >Order Line Id:</strong></h5>
+				                    <p class="m-0" t-field="od_lines.name_id"/>
+				                </div>
+
+				            	<div>
+									<h5>  <strong>Product</strong></h5>
+
+                						<span t-field="od_lines.product_order"/>
+                						<br/>
+                						<br/>
+				            	</div>
+				         </t>
+                         <t  t-if="prod_order.main_sales_id.partner_id.payment_fact == 'pay_1'">
+				                <div class="row mt32 mb32" id="set_into_row">
+				                <div class="col-auto col-3 mw-100 mb-2">
+				                   <h5><strong>Bestillings ID:</strong></h5>
+				                    <p class="m-0" t-field="prod_order.sales_id_char"/>
+				                </div>
+
+				                
+				         		<div class="col-auto col-3 mw-100 mb-2">
+									<h5>  <strong>Leveringsuke:</strong></h5>
+				                    <p class="m-0" t-field="prod_order.delivery_week"/>
+				                </div>
+				            	</div>
+
+				         		<div class="row mt32 mb32" id="set_into_second_row">
+				                <div class="col-auto col-3 mw-100 mb-2">
+									<h5>  <strong>Kunde</strong></h5>
+				                    <div class="m-0"  t-field="prod_order.deli_address"
+				                    t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+				                	</div>
+
+				                <div class="col-auto col-3 mw-100 mb-2">
+									<h5>  <strong>Merking</strong></h5>
+				                    <p class="m-0" t-field="prod_order.main_sales_id.newMarking"/>
+				                    <br/>
+				                    <br/>
+									<h5> 	<strong>Mengde</strong></h5>
+				                    <p class="m-0" t-field="od_lines.qunt"/>
+				                    <h6></h6>
+				                </div>
+				            	</div>
+				 
+				 			<div>
+									<h5> <strong style="font-size:20px" >Ordrelinje-ID:</strong></h5>
+				                    <p class="m-0" t-field="od_lines.name_id"/>
+				                </div>
+				 		
+
+				            	<div>
+									<h5>  <strong>Produkt</strong></h5>
+
+                						<span t-field="od_lines.product_order"/>
+                						<br/>
+                						<br/>
+				            	</div>
+				         </t>
+			 			</t>
+				   </t>
+            </t>
+			 </t>
+
+        </template>
+    </data>
+</odoo>
+
