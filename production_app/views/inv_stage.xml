@@ -6,7 +6,7 @@
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">account.move</field>
     <field name="view_mode">tree,form,kanban</field>
-    <field name="context">{'default_state':'invc'}</field>
+    <field name="context">{'default_inv_state':'invc'}</field>
     <field name="domain">[('inv_state','=','invc')]</field>
     <field name="help" type="html">
     	<p class="o_view_nocontent_smiling_face">
@@ -26,7 +26,7 @@
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">account.move</field>
     <field name="view_mode">tree,form,kanban</field>
-    <field name="context">{'default_state':'not_invc'}</field>
+    <field name="context">{'default_inv_state':'not_invc'}</field>
     <field name="domain">[('inv_state','=','not_invc')]</field>
     <field name="help" type="html">
     	<p class="o_view_nocontent_smiling_face">
@@ -168,5 +168,3 @@
         action="un_invs_not_down"
         sequence="20"/>
 </odoo>
-
-
