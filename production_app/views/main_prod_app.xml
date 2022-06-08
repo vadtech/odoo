@@ -10,6 +10,14 @@
     <field name="code">action = records.reset_every()</field>
     </record>
      
+    <record id="update_del" model="ir.actions.server">
+     <field name="name">Update Delivered</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.update_quantity()</field>
+    </record>
+     
     <record id="feed_dashbvvoard" model="ir.actions.server">
      <field name="name">Feed Dashboard</field>
     <field name="model_id" ref="model_invoice_week_model"/>
@@ -368,14 +376,14 @@
                     </group>
                     <notebook>
                            <page name="order_lines" string="Order Lines">
-                                       <field name="pro_order_ids" force_save="1">
+                                       <field name="orderLines_ids" force_save="1">
                                             <tree editable="top">
-                                                 <field string="Id" name="name_id"/>
-                                                 <field string="Line Marking" name="line_mark"/>
-                                                 <field string="Art_No and description" name="product_order"/>
-                                                 <field string="Product Instruction" name="product_ints"/>
-                                                 <field string="Quantity" name="qunt" />
-                                                 <field string="Delivered Quantity" name="del_qunt" />
+                                                <field string="Id" name="id"/>
+                                                 <field string="Line Marking" name="linMarking"/>
+                                                 <field string="Art_No and description" name="name"/>
+                                                 <field string="Product Instruction" name="prod_ist"/>
+                                                 <field string="Quantity" name="product_uom_qty" />
+                                                 <field string="Delivered Quantity" name="delivered_Qty" />
                                             </tree>
                                              <form>
                                              </form>
