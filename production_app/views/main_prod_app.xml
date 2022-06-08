@@ -10,6 +10,14 @@
     <field name="code">action = records.reset_every()</field>
     </record>
      
+    <record id="update_del" model="ir.actions.server">
+     <field name="name">Update Delivered</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.update_quantity()</field>
+    </record>
+     
     <record id="feed_dashbvvoard" model="ir.actions.server">
      <field name="name">Feed Dashboard</field>
     <field name="model_id" ref="model_invoice_week_model"/>
