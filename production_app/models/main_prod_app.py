@@ -67,7 +67,14 @@ class prod_order_app(models.Model):
 			},}
 
 	
-	
+	def update_quantity(self):
+		record_to_copy = self.env["prod_order.model"].search([])
+		for rec in record_to_copy.pro_order_ids:
+			for record in record_to_copy.orderLines_ids:
+				if record.name == rec.product_order:
+					record.delivered_Qty=rec.qunt
+
+
 	""" FAKE FUNCTIONS FOR FIXING BUGS """		
 	def fix_sales_char(self):
 		for x in range(25000, 30000):
