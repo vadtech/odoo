@@ -15,7 +15,7 @@ class prod_order_app(models.Model):
 	currency_id = fields.Many2one('res.currency')
 	customer_ref=fields.Many2one('sale.order.line',string="sale_order_lines",tracking=True)
 	main_sales_id=fields.Many2one('sale.order',string="Production_order",tracking=True,index=True,required=True)
-	orderLines_ids=fields.One2many(related='main_sales_id.order_line', string="")
+	orderLines_ids=fields.One2many(related='main_sales_id.order_line',readonly=False,string="")
 	sales_id_char=fields.Char(string="Sales Order Number", related="main_sales_id.name",required=True)
 	pro_order_ids = fields.One2many('pro_order.model', 'prod_ids', string="Product Order")
 
