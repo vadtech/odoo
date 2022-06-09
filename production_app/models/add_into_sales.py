@@ -9,9 +9,7 @@ class add_into_sales(models.Model):
     _inherit = "sale.order"
     _description = "Moddification of sales table"
     
-    partner_id = fields.Many2one('res.partner', string='Customer', domain="[('state', '=', 'active')]")
-
-    
+    partner_id=fields.Many2one('res.partner', string='Customer', domain="[('state', '=', 'active')]")
     price_list = fields.Many2one('product.pricelist', string="Price list")
     total_dis = fields.Integer(string='Total Discount')
     total_dis_line = fields.Integer(string='Total line')
