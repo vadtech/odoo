@@ -10,6 +10,14 @@
     <field name="code">action = records.reset_every()</field>
     </record>
      
+    <record id="action_activate" model="ir.actions.server">
+     <field name="name">Activate Contact</field>
+    <field name="model_id" ref="model_res_partner"/>
+    <field name="binding_model_id" ref="model_res_partner"/>
+    <field name="state">code</field>
+    <field name="code">action = records.activate_user()</field>
+    </record>
+     
     <record id="update_del" model="ir.actions.server">
      <field name="name">Update Delivered</field>
     <field name="model_id" ref="model_prod_order_model"/>
