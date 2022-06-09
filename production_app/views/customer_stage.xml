@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- this is the main view for invoice application-->
+<record id="new_customers" model="ir.actions.act_window">
+    <field name="name">Non-Active Contacts</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="context">{'default_state':'not_active'}</field>
+    <field name="domain">[('state','=','not_active')]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Make a non-active Contacts list.
+    	</p>
+    </field>
+</record>
+<menuitem id="non_active_contacts"
+        name="Non-Active Contacts"
+        parent="contacts.menu_contacts"
+        action="new_customers"
+        sequence="-50"/>
+
+    <!-- this is the main view for bunched invoice application-->
+<record id="active_contacts" model="ir.actions.act_window">
+    <field name="name">Active Contacts</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="context">{'default_state':'active'}</field>
+    <field name="domain">[('state','=','active')]</field>
+    <field name="help" type="html">
+    	<p class="o_view_nocontent_smiling_face">
+    	Make a active Contacts list.
+    	</p>
+    </field>
+</record>
+
+
+<menuitem id="active_contacts_s"
+        name="Active Contacts"
+        parent="contacts.menu_contacts"
+        action="active_contacts"
+        sequence="-60"/>
+
+
+</odoo>
