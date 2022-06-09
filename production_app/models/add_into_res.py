@@ -15,7 +15,6 @@ class add_into_res(models.Model):
 			('del_4', 'incoterms 2020-DPU')])
 	detailed_terms=fields.Text(string='Detailed Delivery Terms')
 	new_vat_id=fields.Char(string='VAT')
-
 	state = fields.Selection(
 		string='Customer State',
 		readonly=True,
@@ -23,7 +22,6 @@ class add_into_res(models.Model):
 		selection=[
 			('active', 'active'),
 			('not_active', 'Not Active ')])
-
 	payment_fact = fields.Selection(
 		string='Payment Factoring',
 		default='pay_1',
@@ -65,7 +63,3 @@ class add_into_res(models.Model):
 					'new_vat_id': record_to_copy.vat,
 				}
 				record_to_copy.write(vali)
-
-	def activate_user(self):
-		for rec in self:
-			rec.state="active"
