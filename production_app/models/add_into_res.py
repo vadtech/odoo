@@ -63,3 +63,10 @@ class add_into_res(models.Model):
 					'new_vat_id': record_to_copy.vat,
 				}
 				record_to_copy.write(vali)
+				
+				
+	
+	def activate_user(self):
+		for rec in self:
+			rec.state="active"
+
