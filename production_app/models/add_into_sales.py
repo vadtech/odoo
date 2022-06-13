@@ -18,8 +18,15 @@ class add_into_sales(models.Model):
     newMarking = fields.Char(string='Marking')
     previous_sales_name = fields.Char(string='Marking')
     update_dashbaord = fields.Boolean(string='Update Dashboard', default=False, compute="_update_dashboard")
-
-
+    
+    
+    @api.model
+    def create(self,vals):
+        if vals['order_line'] ==[]:
+            raise ValidationError(_('An order should have at least one product'))
+        res= super(add_into_sales,self).create(vals)
+        return res
+    
     @api.model
     def check_u_currency(self):
         for record in self:
