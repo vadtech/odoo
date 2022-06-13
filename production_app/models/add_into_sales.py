@@ -1,7 +1,9 @@
-from odoo import fields, models, api
+from odoo import fields, models, api,_
 import datetime
+from odoo.exceptions import ValidationError
 from datetime import date
 from datetime import timedelta
+
 
 
 class add_into_sales(models.Model):
