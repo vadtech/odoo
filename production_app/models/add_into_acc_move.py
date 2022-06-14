@@ -50,8 +50,8 @@ class add_into_acc(models.Model):
             if rec.invoice_no_name ==False:
                 raise ValidationError(_('Invoice number is required to save'))
 
-    def copy(self):
-        raise ValidationError(_('Invoice duplicating not allowed. All invoice are generated from delivered production orders.'))
+#     def copy(self):
+#         raise ValidationError(_('Invoice duplicating not allowed. All invoice are generated from delivered production orders.'))
 
             
     def update_now(self):
