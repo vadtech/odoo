@@ -80,7 +80,7 @@
                                     <span t-field="lin.product_uom_qty"/>
                                     </td>
                                     <td name="td_priceunit" class="text-right">
-                                    <span t-field="lin.delivered_Qty"/>
+                                    <span t-field="lin.linediscPerct"/>
                                     </td>
                                     </t>
                                     </tr>
