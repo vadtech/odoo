@@ -71,7 +71,7 @@
                                     </thead>
                                     <tbody class="sale_tbody">
                                     <t t-set="current_subtotal" t-value="0"/>
-                                    <t t-foreach="prod_order.orderLines_ids" t-as="lin">
+                                    <t t-foreach="prod_order.main_sales_id.order_line" t-as="lin">
                                     <tr t-att-class="'bg-200 font-italic o_line_note'">
                                     <t>
                                     <td name="td_artno"><span t-field="lin.id"/></td>
