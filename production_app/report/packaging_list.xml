@@ -71,7 +71,7 @@
                                     </thead>
                                     <tbody class="sale_tbody">
                                     <t t-set="current_subtotal" t-value="0"/>
-                                    <t t-foreach="prod_order.main_sales_id.order_line" t-as="lin">
+                                    <t t-foreach="prod_order.orderLines_ids" t-as="lin">
                                     <tr t-att-class="'bg-200 font-italic o_line_note'">
                                     <t>
                                     <td name="td_artno"><span t-field="lin.id"/></td>
@@ -80,7 +80,7 @@
                                     <span t-field="lin.product_uom_qty"/>
                                     </td>
                                     <td name="td_priceunit" class="text-right">
-                                    <span t-field="lin.linediscPerct"/>
+                                    <span t-field="lin.delivered_Qty"/>
                                     </td>
                                     </t>
                                     </tr>
@@ -181,16 +181,16 @@
                                         
                                         <t t-set="current_subtotal" t-value="0"/>
                                         
-                                        <t t-foreach="prod_order.pro_order_ids" t-as="lin">
+                                        <t t-foreach="prod_order.orderLines_ids" t-as="lin">
                                         <tr t-att-class="'bg-200 font-italic o_line_note'">
                                         <t>
-                                        <td name="td_artno"><span t-field="lin.name_id"/></td>
-                                        <td name="td_name"><span t-field="lin.product_order"/></td>
+                                        <td name="td_artno"><span t-field="lin.id"/></td>
+                                        <td name="td_name"><span t-field="lin.name"/></td>
                                         <td name="td_quantity" class="text-right">
-                                        <span t-field="lin.qunt"/>
+                                        <span t-field="lin.product_uom_qty"/>
                                         </td>
                                         <td name="td_priceunit" class="text-right">
-                                        <span t-field="lin.del_qunt"/>
+                                        <span t-field="lin.delivered_Qty"/>
                                         </td>
                                         </t>
                                         </tr>
