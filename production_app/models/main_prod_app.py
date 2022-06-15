@@ -7,7 +7,7 @@ from datetime import timedelta
 class prod_order_app(models.Model):
 	"""real name of the model"""  
 	_name = "prod_order.model"
-	_description = "For Production application"
+	_description = "For Production application"  
 	_inherit =["mail.thread","mail.activity.mixin"]
 	_rec_name="customer_ref"
 	_order="id desc"
