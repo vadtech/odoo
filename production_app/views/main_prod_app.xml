@@ -315,6 +315,7 @@
                 <field name="sales_person" /> 
                 <field name="state"/>
                 <field name="delivery_wee"/>
+                <field name="delivery_week" invisible="1"/>
                 <field name="create_date"/>
             </tree>
         </field>
