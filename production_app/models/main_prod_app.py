@@ -71,10 +71,8 @@ class prod_order_app(models.Model):
 	
 	def update_quantity(self):
 		record_to_copy = self.env["prod_order.model"].search([])
-		for rec in record_to_copy.pro_order_ids:
-			for record in record_to_copy.orderLines_ids:
-				if record.name == rec.product_order:
-					record.delivered_Qty=rec.qunt
+		for rec in record_to_copy:
+			rec.delivery_wee=rec.delivery_week
 
 
 	""" FAKE FUNCTIONS FOR FIXING BUGS """		
