@@ -30,6 +30,8 @@ class prod_order_app(models.Model):
 	
 	delivery_date=fields.Datetime(string="Delivery Date")
 	delivery_week=fields.Integer(compute="_del_date" ,string="Delivery Week")
+	delivery_wee=fields.Integer(string="Delivery Week")
+
 
 	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
 	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
@@ -147,6 +149,7 @@ class prod_order_app(models.Model):
 				rec.delivery_week = rec.delivery_date.strftime("%U")
 			else:
 				rec.delivery_week =0
+			rec.delivery_wee=rec.delivery_week
 		
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
