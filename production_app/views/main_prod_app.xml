@@ -314,7 +314,7 @@
                 <field name="sales_id_char"/>
                 <field name="sales_person" /> 
                 <field name="state"/>
-                <field name="delivery_week"/>
+                <field name="delivery_wee"/>
                 <field name="create_date"/>
             </tree>
         </field>
