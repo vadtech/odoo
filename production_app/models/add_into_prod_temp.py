@@ -35,6 +35,12 @@ class ProductImage(models.Model):
             image = base64.b64encode(requests.get(self.image_url).content)
         self.image_1920 = image
 
+    def load_pictures(self):
+        for rec in self:
+            image = False
+            if rec.image_url:
+                image = base64.b64encode(requests.get(rec.image_url).content)
+            rec.image_1920 = image
 
 class ProductVariantImage(models.Model):
     _inherit = 'product.product'
