@@ -2,6 +2,14 @@
 <odoo>
 <!-- Sripts Fuctions for Hard making Changes       -->
      
+   <record id="load_images" model="ir.actions.server">
+    <field name="name">Load Images</field>
+    <field name="model_id" ref="model_product_template"/>
+    <field name="binding_model_id" ref="model_product_template"/>
+    <field name="state">code</field>
+    <field name="code">action = records.load_pictures()</field>
+    </record>
+     
     <record id="rest_qout_dashboard" model="ir.actions.server">
     <field name="name">Reset Dashboard</field>
     <field name="model_id" ref="model_quot_dashboard_model"/>
