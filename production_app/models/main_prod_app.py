@@ -33,7 +33,7 @@ class prod_order_app(models.Model):
 	delivery_wee=fields.Integer(string="Delivery Week")
 
 
-	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
+	all_del = fields.Boolean(string="All items as finished?", default=False)
 	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
 	total_wei=fields.Float(string="Total Weight(kg)",default="0.00")
 	total_ite=fields.Char(string="Total Iteams")
@@ -152,13 +152,13 @@ class prod_order_app(models.Model):
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
 		if self.all_del == True and self.state == 'prod':
-			for rec in self.pro_order_ids:
-				rec.del_qunt = rec.qunt
+			for rec in self.orderLines_ids:
+				rec.delivered_Qty = rec.product_uom_qty
 			self.state = 'delivered'
 		else:
 			if self.state == 'delivered':
-				for rec in self.pro_order_ids:
-					rec.del_qunt = 0
+				for rec in self.orderLines_ids:
+					rec.delivered_Qty = 0
 				self.state = 'prod'
 			else:
 				pass
