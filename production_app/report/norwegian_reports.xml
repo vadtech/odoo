@@ -27,7 +27,7 @@
              <h4 class="mt16">
                 <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
                     <span t-if="doc.state not in ['draft','sent']">Ordrebekreftelses</span>
-                    <span t-if="doc.state in ['draft','sent']">Tilbudsbekreftelses</span>
+                    <span t-if="doc.state in ['draft','sent']">Tilbud</span>
                 </t>
                 <t t-if="env.context.get('proforma', False) or is_pro_forma">
                     <span>Pro-Forma faktura # </span>
@@ -90,9 +90,9 @@
                     <tr>
                         <th name="th_artno" class="text-left">ARTNO</th>
                         <th name="th_description" class="text-left">Beskrivelse</th>
-                        <th name="th_quantity" class="text-right">Antall<span style="font-size:10px">(STK)</span></th>
-                        <th name="th_priceunit" class="text-right">Enhetspris <span style="font-size:10px">(<t t-esc="doc.check_u_currency()"/>)</span></th>
-                        <th name="th_discount" t-if="display_discount" class="text-right" groups="product.group_discount_per_so_line">
+                        <th name="th_quantity" class="text-left">Antall<span style="font-size:10px">(STK)</span></th>
+                        <th name="th_priceunit" class="text-left">Enhetspris<span style="font-size:10px">(<t t-esc="doc.check_u_currency()"/>)</span></th>
+                        <th name="th_discount" t-if="display_discount" class="text-left" groups="product.group_discount_per_so_line">
                             <span>Rab%</span>
                         </th>
                         <th name="th_subtotal" class="text-right">

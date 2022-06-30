@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 	
-	
+	 
 	<data>
         <template id="logs_rep_xml">
             <t t-call="web.html_container">
@@ -15,7 +15,7 @@
                             <br/>
                         <thead>
                             <tr>
-                               <th name="art_no" class="text-left"><span>Faktura nr</span></th>
+                               <th name="art_no"><span style="font-size:15px">Faktura nr</span></th>
                                 <th name="th_description" class="text-left"><span>Fakturadato</span></th>
                                 <th name="th_descpion" class="text-left"><span>Forfallsdato</span></th>
                                 <th name="th_escption" class="text-left"><span>Kundenavn</span></th>

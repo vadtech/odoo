@@ -27,7 +27,7 @@
              <h4 class="mt16">
                 <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
                     <span t-if="doc.state not in ['draft','sent']">Order Confirmation</span>
-                    <span t-if="doc.state in ['draft','sent']">Quotation Confirmation</span>
+                    <span t-if="doc.state in ['draft','sent']">Quotation</span>
                 </t>
                 <t t-if="env.context.get('proforma', False) or is_pro_forma">
                     <span>Pro-Forma Invoice # </span>
@@ -90,8 +90,8 @@
                     <tr>
                         <th name="th_artno" class="text-left">ARTNO</th>
                         <th name="th_description" class="text-left">Description</th>
-                        <th name="th_quantity" class="text-right">Quantity<span style="font-size:10px">(PCS)</span></th>
-                        <th name="th_priceunit" class="text-right"> Unit Price <span style="font-size:10px">(<t t-esc="doc.check_u_currency()"/>)</span></th>
+                        <th name="th_quantity" class="text-left">Quantity<span style="font-size:10px">(PCS)</span></th>
+                        <th name="th_priceunit" class="text-left">Unit Price<span style="font-size:10px">(<t t-esc="doc.check_u_currency()"/>)</span></th>
                         <th name="th_discount" t-if="display_discount" class="text-right" groups="product.group_discount_per_so_line">
                             <span>Disc.%</span>
                         </th>
