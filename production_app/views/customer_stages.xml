@@ -37,10 +37,9 @@
 
 
 <menuitem id="active_contacts_s"
-        name="Active Contacts"
+        name="Main Contacts"
         parent="contacts.menu_contacts"
         action="active_contacts"
         sequence="-60"/>
-
 
 </odoo>
