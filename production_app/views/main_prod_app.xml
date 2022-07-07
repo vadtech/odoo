@@ -87,7 +87,7 @@
         <field name="arch" type="xml">
             <tree multi_edit="1">   
                 <field name="customer_ref"/>
-                <field name="sales_id_char"/>
+                <field name="sales_id"/>
                 <field name="sales_person" /> 
                 <field name="state"/>
                 <field name="delivery_wee"/>
