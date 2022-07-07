@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 <!-- Sripts Fuctions for Hard making Changes       -->
-      <record id="reset_links" model="ir.actions.server">
-    <field name="name">Update New Sales Char</field>
-    <field name="model_id" ref="model_prod_order_model"/>
-    <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.update_sales_char()</field>
-    </record>
-      
   <record id="action_to_tvoviced" model="ir.actions.server">
     <field name="name">Confirm to Invoice</field>
    <field name="model_id" ref="model_prod_order_model"/>
@@ -24,15 +16,6 @@
     <field name="state">code</field>
     <field name="code">action = records.activate_user()</field>
     </record>
-
-     <!--<record id="action_quto" model="ir.actions.server">
-    <field name="name">Automate me</field>
-    <field name="model_id" ref="model_res_partner"/>
-    <field name="binding_model_id" ref="model_res_partner"/>
-    <field name="binding_view_types">form,list</field>
-    <field name="state">code</field>
-    <field name="code">action = records.automate_change()</field>
-</record> -->
      
      <!-- Add options or  Button in action menu -->
 <record id="action_confirm_to_production" model="ir.actions.server">
@@ -52,7 +35,7 @@
 </record>
 
     <record id="action_confirm_to_deivered" model="ir.actions.server">
-    <field name="name">Export To Delivered</field>
+    <field name="name">Export To Finished</field>
     <field name="model_id" ref="model_prod_order_model"/>
     <field name="binding_model_id" ref="model_prod_order_model"/>
     <field name="state">code</field>
