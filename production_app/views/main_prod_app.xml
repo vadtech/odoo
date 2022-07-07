@@ -8,6 +8,14 @@
     <field name="state">code</field>
     <field name="code">action = records.update_sales_char()</field>
     </record>
+      
+  <record id="action_to_tvoviced" model="ir.actions.server">
+    <field name="name">Confirm to Invoice</field>
+   <field name="model_id" ref="model_prod_order_model"/>
+   <field name="binding_model_id" ref="model_prod_order_model"/>
+   <field name="state">code</field>
+   <field name="code">action = records.action_to_invoice()</field>
+  </record>
      
     <record id="action_activate" model="ir.actions.server">
      <field name="name">Activate Contact</field>
@@ -16,14 +24,6 @@
     <field name="state">code</field>
     <field name="code">action = records.activate_user()</field>
     </record>
-
-<record id="action_to_to_be_ivoviced" model="ir.actions.server">
-    <field name="name">Confirm to Invoice</field>
-   <field name="model_id" ref="model_prod_order_model"/>
-   <field name="binding_model_id" ref="model_prod_order_model"/>
-   <field name="state">code</field>
-   <field name="code">action = records.action_to_invoice()</field>
-</record>
 
      <!--<record id="action_quto" model="ir.actions.server">
     <field name="name">Automate me</field>
@@ -122,14 +122,15 @@
         <field name="model">prod_order.model</field>
         <field name="arch" type="xml">
             <form>
-                 <header>
+                  <header>
                          <field name="state" statusbar_visible="new,prod,delivered" default="new" widget="statusbar"/>
+                         <field name="send_to_inv" invisible="1"/>
                          <button id="button_new" name="action_new" string="Set to New" confirm="are you sure to set this record as New?" type="object" states="cancel" class="btn-primary"/>
-                        <button id="button_prod" name="action_prod" string="In Production" confirm="are you sure to confirm to in production state?" type="object" states="new" class="btn-primary"/>
+                         <button id="button_prod" name="action_prod" string="In Production" confirm="are you sure to confirm to in production state?" type="object" states="new" class="btn-primary"/>
                          <button id="button_cancel"  name="action_cancelled" confirm="are you sure to cancel this record?" string="Canceled" type="object" states="new,prod,delivered"/>
-                         <button id="button_delivered" name="action_delivered" confirm="are you sure to set this record as delivered?" string="Mark as delivered" type="object" states="prod" class="btn-primary"/>
-                         <button id="button_invoice" name="action_to_invoice" confirm="Are you sure to push to invoice app ?" string="Confirm to Invoice" type="object" send_to_invs="not_sent" class="btn-primary"/>
-                </header>
+                         <button id="button_delivered" name="action_delivered" confirm="are you sure to set this record as finished?" string="Mark as finished" type="object" states="prod" class="btn-primary"/>
+                         <button id="button_invoice" name="action_to_invoice" confirm="Are you sure to push to invoice app ?" string="Confirm to Invoice" attrs="{'invisible':['&amp;',('send_to_inv','!=','not_sent'),('state','not in','new,prod')]}" type="object" class="btn-primary"/>
+                 </header>
                 <sheet>
                                         <div class="oe_title">
                         <h1>
