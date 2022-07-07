@@ -17,6 +17,7 @@ class prod_order_app(models.Model):
 	main_sales_id=fields.Many2one('sale.order',string="Production_order",tracking=True,index=True,required=True)
 	orderLines_ids=fields.One2many(related='main_sales_id.order_line',readonly=False,string="")
 	sales_id_char=fields.Char(string="Sales Order Number", related="main_sales_id.name",required=True)
+	sales_id=fields.Char(string="Sales Order Number")
 	pro_order_ids = fields.One2many('pro_order.model', 'prod_ids', string="Product Order")
 
 	order=fields.Datetime(related='main_sales_id.date_order' ,string="Order Date")
@@ -55,27 +56,18 @@ class prod_order_app(models.Model):
         ('sent','invoiced'),
         ('not_sent','Not Invoived')])
 	
-	def action_delivered(self):
-		self.state='delivered'
-		self.send_to_inv='not_sent'
-		return {
-			'type': 'ir.actions.client',
-			'tag': 'display_notification',
-			'params': {
-			'title': _("Record successfully moved into delivered stage"),
-			'type': 'success',
-			'sticky': False,  #True/False will display for few seconds if false
-			'next': {'type': 'ir.actions.act_window_close'},
-			},}
-
 	
+	""" LITTLE FUNCTIONS FOR FIXING BUGS """	
+	def update_sales_char(self):
+		record_to_copy = self.env["prod_order.model"].search([])
+		for rec in record_to_copy:
+			rec.sales_id=rec.sales_id_char
+
 	def update_quantity(self):
 		record_to_copy = self.env["prod_order.model"].search([])
 		for rec in record_to_copy:
 			rec.delivery_wee=rec.delivery_week
-
-
-	""" FAKE FUNCTIONS FOR FIXING BUGS """		
+	
 	def fix_sales_char(self):
 		for x in range(25000, 30000):
 			record_to_copy = self.env["account.move"].search([('id', '=', x)])
@@ -147,6 +139,7 @@ class prod_order_app(models.Model):
 				rec.delivery_week = rec.delivery_date.strftime("%U")
 			else:
 				rec.delivery_week =0
+			rec.sales_id=rec.sales_id_char
 			rec.delivery_wee=rec.delivery_week
 		
 	@api.onchange("all_del")
@@ -162,6 +155,19 @@ class prod_order_app(models.Model):
 				self.state = 'prod'
 			else:
 				pass
+			
+	def action_delivered(self):
+		self.state='delivered'
+		self.send_to_inv='not_sent'
+		return {
+			'type': 'ir.actions.client',
+			'tag': 'display_notification',
+			'params': {
+			'title': _("Record successfully moved into delivered stage"),
+			'type': 'success',
+			'sticky': False,  #True/False will display for few seconds if false
+			'next': {'type': 'ir.actions.act_window_close'},
+			},}
 
 	def action_new(self):
 		self.state='new'
