@@ -38,7 +38,7 @@ class prod_order_app(models.Model):
 	all_del = fields.Boolean(string="All items as finished?", default=False)
 	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
 	total_wei=fields.Float(string="Total Weight(kg)",default="0.00")
-	total_ite=fields.Char(string="Total Iteams")
+	total_ite=fields.Char(string="Total items")
 
 	state=fields.Selection(
         string='Status',
