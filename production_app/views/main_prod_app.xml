@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 <!-- Sripts Fuctions for Hard making Changes       -->
-  <record id="action_to_tvoviced" model="ir.actions.server">
-    <field name="name">Confirm to Invoice</field>
-   <field name="model_id" ref="model_prod_order_model"/>
-   <field name="binding_model_id" ref="model_prod_order_model"/>
-   <field name="state">code</field>
-   <field name="code">action = records.action_to_invoice()</field>
-  </record>
-     
     <record id="action_activate" model="ir.actions.server">
      <field name="name">Activate Contact</field>
     <field name="model_id" ref="model_res_partner"/>
@@ -18,13 +10,6 @@
     </record>
      
      <!-- Add options or  Button in action menu -->
-<record id="action_confirm_to_production" model="ir.actions.server">
-    <field name="name">Export To Production</field>
-    <field name="model_id" ref="model_prod_order_model"/>
-    <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field> 
-    <field name="code">action = records.action_prod()</field>
-</record>
      <record id="action_confirm_to" model="ir.actions.server">
     <field name="name">Mark Quotation as Confirmed</field>
     <field name="model_id" ref="model_sale_order"/>
@@ -32,15 +17,7 @@
     <field name="binding_view_types">form,list</field>
     <field name="state">code</field>
     <field name="code">action = records.custom_action_confirm()</field>
-</record>
-
-    <record id="action_confirm_to_deivered" model="ir.actions.server">
-    <field name="name">Export To Finished</field>
-    <field name="model_id" ref="model_prod_order_model"/>
-    <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.action_delivered()</field>
-</record>
+    </record>
 
     <record id="action_confirm_to_delivered" model="ir.actions.server">
     <field name="name">Reset to New</field>
@@ -49,6 +26,32 @@
     <field name="state">code</field>
     <field name="code">action = records.action_new()</field>
 </record>
+  
+  <record id="action_confirm_to_production" model="ir.actions.server">
+    <field name="name">Export To Production</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field> 
+    <field name="code">action = records.action_prod()</field>
+</record>
+  
+   <record id="action_confirm_to_deivered" model="ir.actions.server">
+    <field name="name">Export To Finished</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.action_delivered()</field>
+</record>
+  
+  <record id="action_to_tvoviced" model="ir.actions.server">
+    <field name="name">Confirm to Invoice</field>
+   <field name="model_id" ref="model_prod_order_model"/>
+   <field name="binding_model_id" ref="model_prod_order_model"/>
+   <field name="state">code</field>
+   <field name="code">action = records.action_to_invoice()</field>
+  </record>
+  
+  
 <!-- this is the main view for hosiptial-->
 <record id="main_prod_action" model="ir.actions.act_window">
     <field name="name">Production Application</field>
