@@ -149,6 +149,7 @@ class prod_order_app(models.Model):
 			for rec in self.orderLines_ids:
 				rec.delivered_Qty = rec.product_uom_qty
 			self.state = 'delivered'
+			self.send_to_inv='not_sent'
 		else:
 			if self.state == 'delivered':
 				for rec in self.orderLines_ids:
