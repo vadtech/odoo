@@ -22,7 +22,7 @@
 <!--                            <h6>Bunt nr: &#160; &#160;<t t-esc="docs.update_banch()"/></h6>-->
 
                                <h5> Bunt Nr: &#160; &#160;<t t-esc="doc.banch_no"/></h5>
-                               <h5> Buntdato: &#160; &#160; <t t-esc="doc.create_date"/></h5>
+                               <h5> Buntdato: &#160; &#160; <t t-esc="doc.create_date.strftime('%Y-%m-%d')"/></h5>
                                <h5 >Bunttype: &#160; &#160;1</h5>
                                <h5 >Sendt: &#160; &#160; YES</h5>
                      </t>

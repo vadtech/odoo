@@ -11,7 +11,7 @@ class add_into_sales(models.Model):
     _inherit = "sale.order"
     _description = "Moddification of sales table"
     
-    partner_id=fields.Many2one('res.partner', string='Customer', domain="[('state', '=', 'active')]")
+    partner_id = fields.Many2one('res.partner', string='Customer') 
     price_list = fields.Many2one('product.pricelist', string="Price list")
     total_dis = fields.Integer(string='Total Discount')
     total_dis_line = fields.Integer(string='Total line')
@@ -49,6 +49,58 @@ class add_into_sales(models.Model):
                 rec.update_dashbaord=True
             else:
                 rec.update_dashbaord = True
+    
+    
+    def action_quotation_sen(self):
+        """TO ENSURE PICKING OF CORRECT EMAIL TEMPLATES AND ACCODING TO CUSTOMER LUNGUAGE AND SALESPERSON"""
+        self.ensure_one()
+        temp_lang=""
+        # check language within the customer
+        if self.partner_id.payment_fact =="pay_1" or self.partner_id.payment_fact=="pay_2":
+            temp_lang="nor"
+        else:
+            temp_lang="eng"
+            
+            
+        force_confirmation_template=False
+        template_id = False
+        if force_confirmation_template or (self.state == 'sale' and not self.env.context.get('proforma', False)):
+            # template_id = self.env['mail.template'].search([('create_uid', '=', '')]).id
+            # template_id = int(self.env['ir.config_parameter'].sudo().get_param('sale.default_confirmation_template'))
+            template_id = self.env['mail.template'].search(['&',('create_uid','=',self.env.uid),('template_lang','=',temp_lang)],limit=1, order='id desc').id
+            if not template_id:
+                template_id = self.env['mail.template'].search(['&',('create_uid','=',self.env.uid),('template_lang','=',temp_lang)],limit=1, order='id desc').id
+                #template_id = self.env['ir.model.data'].xmlid_to_res_id('sale.mail_template_sale_confirmation', raise_if_not_found=False)
+        if not template_id:
+            template_id = self.env['ir.model.data'].xmlid_to_res_id('sale.email_template_edi_sale', raise_if_not_found=False)
+            
+            
+            
+        lang = self.env.context.get('lang')
+        template = self.env['mail.template'].browse(template_id)
+        if template.lang:
+            lang = template._render_lang(self.ids)[self.id]
+        ctx = {
+            'default_model': 'sale.order',
+            'default_res_id': self.ids[0],
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+            'mark_so_as_sent': True,
+            'custom_layout': "mail.mail_notification_paynow",
+            'proforma': self.env.context.get('proforma', False),
+            'force_email': True,
+            'model_description': self.with_context(lang=lang).type_name,
+        }
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(False, 'form')],
+            'view_id': False,
+            'target': 'new',
+            'context': ctx,
+        }
 
                 
                 

@@ -27,7 +27,7 @@
              <h4 class="mt16">
                 <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
                     <span t-if="doc.state not in ['draft','sent']">Ordrebekreftelses</span>
-                    <span t-if="doc.state in ['draft','sent']">Tilbudsbekreftelses</span>
+                    <span t-if="doc.state in ['draft','sent']">Tilbud</span>
                 </t>
                 <t t-if="env.context.get('proforma', False) or is_pro_forma">
                     <span>Pro-Forma faktura # </span>
@@ -90,9 +90,9 @@
                     <tr>
                         <th name="th_artno" class="text-left">ARTNO</th>
                         <th name="th_description" class="text-left">Beskrivelse</th>
-                        <th name="th_quantity" class="text-right">Antall<span style="font-size:10px">(STK)</span></th>
-                        <th name="th_priceunit" class="text-right">Enhetspris <span style="font-size:10px">(<t t-esc="doc.check_u_currency()"/>)</span></th>
-                        <th name="th_discount" t-if="display_discount" class="text-right" groups="product.group_discount_per_so_line">
+                        <th name="th_quantity" class="text-left">Antall<span style="font-size:10px">(STK)</span></th>
+                        <th name="th_priceunit" class="text-left">Enhetspris<span style="font-size:10px">(<t t-esc="doc.check_u_currency()"/>)</span></th>
+                        <th name="th_discount" t-if="display_discount" class="text-left" groups="product.group_discount_per_so_line">
                             <span>Rab%</span>
                         </th>
                         <th name="th_subtotal" class="text-right">
@@ -112,7 +112,7 @@
 
                         <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
                             <t t-if="not line.display_type">
-                                <td name="td_artno"><span t-field="line.id"/></td>
+                                <td name="td_artno"><span t-field="line.product_template_id.default_code"/></td>
                                 <td name="td_name"><span t-field="line.name"/></td>
                                 <td name="td_quantity" class="text-right">
                                     <span t-field="line.product_uom_qty"/>

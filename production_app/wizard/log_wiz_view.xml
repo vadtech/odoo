@@ -21,7 +21,7 @@
         </record>
 
         <record id="report_logs_action" model="ir.actions.act_window">
-            <field name="name">Print Log</field>
+            <field name="name">Generate Fakturalogg</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">log_wiz.model</field>
             <field name="view_mode">form</field>
@@ -30,7 +30,7 @@
         </record>
 
 <menuitem id="new_report"
-        name="logs Report"
+        name="Fakturalogg"
         parent="account.menu_finance_reports"
         action="report_logs_action"
         sequence="-50"/>

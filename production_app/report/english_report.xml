@@ -27,7 +27,7 @@
              <h4 class="mt16">
                 <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
                     <span t-if="doc.state not in ['draft','sent']">Order Confirmation</span>
-                    <span t-if="doc.state in ['draft','sent']">Quotation Confirmation</span>
+                    <span t-if="doc.state in ['draft','sent']">Quotation</span>
                 </t>
                 <t t-if="env.context.get('proforma', False) or is_pro_forma">
                     <span>Pro-Forma Invoice # </span>
@@ -90,8 +90,8 @@
                     <tr>
                         <th name="th_artno" class="text-left">ARTNO</th>
                         <th name="th_description" class="text-left">Description</th>
-                        <th name="th_quantity" class="text-right">Quantity<span style="font-size:10px">(PCS)</span></th>
-                        <th name="th_priceunit" class="text-right"> Unit Price <span style="font-size:10px">(<t t-esc="doc.check_u_currency()"/>)</span></th>
+                        <th name="th_quantity" class="text-left">Quantity<span style="font-size:10px">(PCS)</span></th>
+                        <th name="th_priceunit" class="text-left">Unit Price<span style="font-size:10px">(<t t-esc="doc.check_u_currency()"/>)</span></th>
                         <th name="th_discount" t-if="display_discount" class="text-right" groups="product.group_discount_per_so_line">
                             <span>Disc.%</span>
                         </th>
@@ -112,7 +112,7 @@
 
                         <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
                             <t t-if="not line.display_type">
-                                <td name="td_artno"><span t-field="line.id"/></td>
+                                <td name="td_artno"><span t-field="line.product_template_id.default_code"/></td>
                                 <td name="td_name"><span t-field="line.name"/></td>
                                 <td name="td_quantity" class="text-right">
                                     <span t-field="line.product_uom_qty"/>

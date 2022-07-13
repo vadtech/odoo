@@ -22,12 +22,12 @@
 
     <!-- this is the main view for bunched invoice application-->
 <record id="active_contacts" model="ir.actions.act_window">
-    <field name="name">Active Contacts</field>
+    <field name="name">Main Contacts</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">res.partner</field>
     <field name="view_mode">kanban,tree,form</field>
     <field name="context">{'default_state':'active'}</field>
-    <field name="domain">[('state','=','active')]</field>
+    <field name="domain">['&amp;',('state','=','active'),('category_id','=','Main Customer')]</field>
     <field name="help" type="html">
     	<p class="o_view_nocontent_smiling_face">
     	Make a active Contacts list.
@@ -37,10 +37,9 @@
 
 
 <menuitem id="active_contacts_s"
-        name="Active Contacts"
+        name="Main Contacts"
         parent="contacts.menu_contacts"
         action="active_contacts"
         sequence="-60"/>
-
 
 </odoo>

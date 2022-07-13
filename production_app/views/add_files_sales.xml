@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="product_url_form" model="ir.ui.view">
+        <field name="name">Product URL</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+
+            <field name="name" position="after">
+                <field name="image_url" class="oe_edit_only"/>
+            </field>
+
+        </field>
+    </record>
+    
+    <record id="email_templates" model="ir.ui.view">
+    <field name="name">mail.template.email</field>
+    <field name="model">mail.template</field>
+    <field name="inherit_id" ref="mail.email_template_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//form/sheet/div[hasclass('oe_title')]/group/field[@name='model']" position="after">
+            <field name="template_lang"/>
+        </xpath>
+    </field>
+    </record>
+    
+    <record id="product_variant_url_form" model="ir.ui.view">
+        <field name="name">Product URL</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+
+            <field name="name" position="after">
+                <field name="image_url" class="oe_edit_only"/>
+            </field>
+
+        </field>
+    </record>
+
     <record id="product_template_only_view" model="ir.ui.view">
     <field name="name">product.template.product.form1</field>
     <field name="model">product.template</field>
@@ -20,9 +57,9 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_invoice_tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="attributes">
+<!--             <xpath expr="//tree" position="attributes">
                     <attribute name="create">false</attribute>
-            </xpath>
+            </xpath> -->
   
             <xpath expr="//tree/field[@name='name']" position='replace'>
                 <field name="invoice_no_name" decoration-bf="1" />

@@ -2,6 +2,7 @@ from odoo import fields, models , api, _
 import datetime 
 from datetime import date
 from datetime import timedelta
+from odoo.exceptions import ValidationError
 
 
 class prod_order_app(models.Model):
@@ -17,6 +18,7 @@ class prod_order_app(models.Model):
 	main_sales_id=fields.Many2one('sale.order',string="Production_order",tracking=True,index=True,required=True)
 	orderLines_ids=fields.One2many(related='main_sales_id.order_line',readonly=False,string="")
 	sales_id_char=fields.Char(string="Sales Order Number", related="main_sales_id.name",required=True)
+	sales_id=fields.Char(string="Sales Order Number")
 	pro_order_ids = fields.One2many('pro_order.model', 'prod_ids', string="Product Order")
 
 	order=fields.Datetime(related='main_sales_id.date_order' ,string="Order Date")
@@ -30,11 +32,13 @@ class prod_order_app(models.Model):
 	
 	delivery_date=fields.Datetime(string="Delivery Date")
 	delivery_week=fields.Integer(compute="_del_date" ,string="Delivery Week")
+	delivery_wee=fields.Integer(string="Delivery Week")
 
-	all_del = fields.Boolean(string="All iteams as Delivered?", default=False)
+
+	all_del = fields.Boolean(string="All items as finished?", default=False)
 	total_vol=fields.Float(string="Total Volume(dm3)",default="0.00")
 	total_wei=fields.Float(string="Total Weight(kg)",default="0.00")
-	total_ite=fields.Char(string="Total Iteams")
+	total_ite=fields.Char(string="Total items")
 
 	state=fields.Selection(
         string='Status',
@@ -53,29 +57,18 @@ class prod_order_app(models.Model):
         ('sent','invoiced'),
         ('not_sent','Not Invoived')])
 	
-	def action_delivered(self):
-		self.state='delivered'
-		self.send_to_inv='not_sent'
-		return {
-			'type': 'ir.actions.client',
-			'tag': 'display_notification',
-			'params': {
-			'title': _("Record successfully moved into delivered stage"),
-			'type': 'success',
-			'sticky': False,  #True/False will display for few seconds if false
-			'next': {'type': 'ir.actions.act_window_close'},
-			},}
-
 	
+	""" LITTLE FUNCTIONS FOR FIXING BUGS """	
+	def update_sales_char(self):
+		record_to_copy = self.env["prod_order.model"].search([])
+		for rec in record_to_copy:
+			rec.sales_id=rec.sales_id_char
+
 	def update_quantity(self):
 		record_to_copy = self.env["prod_order.model"].search([])
-		for rec in record_to_copy.pro_order_ids:
-			for record in record_to_copy.orderLines_ids:
-				if record.name == rec.product_order:
-					record.delivered_Qty=rec.qunt
-
-
-	""" FAKE FUNCTIONS FOR FIXING BUGS """		
+		for rec in record_to_copy:
+			rec.delivery_wee=rec.delivery_week
+	
 	def fix_sales_char(self):
 		for x in range(25000, 30000):
 			record_to_copy = self.env["account.move"].search([('id', '=', x)])
@@ -147,20 +140,36 @@ class prod_order_app(models.Model):
 				rec.delivery_week = rec.delivery_date.strftime("%U")
 			else:
 				rec.delivery_week =0
+			rec.sales_id=rec.sales_id_char
+			rec.delivery_wee=rec.delivery_week
 		
 	@api.onchange("all_del")
 	def _onchange_alldel(self):
 		if self.all_del == True and self.state == 'prod':
-			for rec in self.pro_order_ids:
-				rec.del_qunt = rec.qunt
+			for rec in self.orderLines_ids:
+				rec.delivered_Qty = rec.product_uom_qty
 			self.state = 'delivered'
+			self.send_to_inv='not_sent'
 		else:
 			if self.state == 'delivered':
-				for rec in self.pro_order_ids:
-					rec.del_qunt = 0
+				for rec in self.orderLines_ids:
+					rec.delivered_Qty = 0
 				self.state = 'prod'
 			else:
 				pass
+			
+	def action_delivered(self):
+		self.state='delivered'
+		self.send_to_inv='not_sent'
+		return {
+			'type': 'ir.actions.client',
+			'tag': 'display_notification',
+			'params': {
+			'title': _("Record successfully moved into delivered stage"),
+			'type': 'success',
+			'sticky': False,  #True/False will display for few seconds if false
+			'next': {'type': 'ir.actions.act_window_close'},
+			},}
 
 	def action_new(self):
 		self.state='new'
@@ -198,98 +207,103 @@ class prod_order_app(models.Model):
 
 
 	def action_to_invoice(self):
-		self.send_to_inv = 'sent'
-		self.state = 'delivered'
-		for record in self:
-			created_all = self.env["account.move"].search_count([('link_prod_id', '=', record.id)])
-			if created_all == 0:
-				invoice_lines = []
-				for line in record.orderLines_ids:
-					vals = {
-						'name': line.name,
-						'discount': line.discount,
-						'price_unit': line.price_unit,
-						'quantity': line.product_uom_qty,
-						'product_id': line.product_id.id,
-						'product_uom_id': line.product_uom.id,
-						'acc_disAmount': line.disAmount,
-						'linediscPerct': line.linediscPerct,
-						'tax_ids': [(6, 0, line.tax_id.ids)],
-						'sale_line_ids': [(6, 0, [line.id])],
-					}
-					invoice_lines.append((0, 0, vals))
-				self.env['account.move'].create({
-					'link_prod_id': record.id,
-					'inv_state': 'not_invc',
-					'ref': record.main_sales_id.client_order_ref,
-					'state': 'draft',
-					'move_type': 'out_invoice',
-					'invoice_origin': record.main_sales_id.name,
-					'invoice_user_id': record.main_sales_id.user_id.id,
-					'partner_id': record.main_sales_id.partner_invoice_id.id,
-					'currency_id': record.main_sales_id.pricelist_id.currency_id.id,
-					'invoice_line_ids': invoice_lines,
+		access_users=[6,2,16,13]
+		if self.env.uid not in access_users:
+			raise ValidationError(_('You have no access rights to perform such action'))
+		else:
+			print(self.env.uid)
+			self.send_to_inv = 'sent'
+			self.state = 'delivered'
+			for record in self:
+				created_all = self.env["account.move"].search_count([('link_prod_id', '=', record.id)])
+				if created_all == 0:
+					invoice_lines = []
+					for line in record.orderLines_ids:
+						vals = {
+							'name': line.name,
+							'discount': line.discount,
+							'price_unit': line.price_unit,
+							'quantity': line.product_uom_qty,
+							'product_id': line.product_id.id,
+							'product_uom_id': line.product_uom.id,
+							'acc_disAmount': line.disAmount,
+							'linediscPerct': line.linediscPerct,
+							'tax_ids': [(6, 0, line.tax_id.ids)],
+							'sale_line_ids': [(6, 0, [line.id])],
+						}
+						invoice_lines.append((0, 0, vals))
+					self.env['account.move'].create({
+						'link_prod_id': record.id,
+						'inv_state': 'not_invc',
+						'ref': record.main_sales_id.client_order_ref,
+						'state': 'draft',
+						'move_type': 'out_invoice',
+						'invoice_origin': record.main_sales_id.name,
+						'invoice_user_id': record.main_sales_id.user_id.id,
+						'partner_id': record.main_sales_id.partner_invoice_id.id,
+						'currency_id': record.main_sales_id.pricelist_id.currency_id.id,
+						'invoice_line_ids': invoice_lines,
 
-				})
-				record_to_update = self.env["account.move"].search([('link_prod_id', '=', record.id)])
-				if record_to_update.exists():
-					vali = {
-						'state': 'posted',
-						'invoice_date': date.today(),
-						'invoice_date_due': date.today() + timedelta(days=30),
-					}
-					record_to_update.write(vali)
-					# check if a record is in sek currency
-					if record_to_update.customer_name.payment_fact == 'pay_3':
-						cur = 'DKK'
-						rate_dkk = self.env['res.currency'].search([('name', '=', 'DKK')], limit=1).rate
-						amt_un_tax = record_to_update.amount_untaxed * rate_dkk
-						amt_tax = record_to_update.amount_tax * rate_dkk
-						amt_total = record_to_update.amount_total * rate_dkk
-					elif record_to_update.customer_name.payment_fact == 'pay_2':
-						cur = 'SEK'
-						rate_sek = self.env['res.currency'].search([('name', '=', 'SEK')], limit=1).rate
-						amt_un_tax = record_to_update.amount_untaxed * rate_sek
-						amt_tax = record_to_update.amount_tax * rate_sek
-						amt_total = record_to_update.amount_total * rate_sek
-					else:
-						cur = 'NOK'
-						amt_un_tax = record_to_update.amount_untaxed
-						amt_tax = record_to_update.amount_tax
-						amt_total = record_to_update.amount_total
-					self.env['logs.model'].create({
-						'acc_move_id': record_to_update.invoice_no_name,
-						'inv_date': record_to_update.invoice_date,
-						'due_date': record_to_update.invoice_date_due,
-						'customer_no': record_to_update.customer_name.name,
-						'untaxed_amt': amt_un_tax,
-						'mva': amt_tax,
-						'total': amt_total,
-						'dte_create': record_to_update.invoice_date,
-						'curncy': cur,
 					})
-			if record.state =="new":
-				record_to_copy = self.env["production_recs.model"].search([('production_lines_ids', '=', record.id)])
-				# print("new record",record_to_copy)
-				record_to_copy.unlink()
-				#DELETE IN ORDER STOCK RECORD DASHBOARD
-			elif record.state == "prod":
-				# print("prod record", record_to_copy)
-				#DELETE IN ORDER STOCK RECORD DASHBOARD
-				record_to_copy = self.env["to_be_week_recs.model"].search([('invoice_line_ids', '=', record.id)])
-				record_to_copy.unlink()
-			if record.state =="new" or record.state =="prod":
-				self.env['invoice_week.model'].reset_every()
-				self.env['invoice_week.model'].feed_to_dashboard()
-		return {
-			'type': 'ir.actions.client',
-			'tag': 'display_notification',
-			'params': {
-			'title': _("Record successfully moved into Invoice App"),
-			'type': 'success',
-			'sticky': False,  #True/False will display for few seconds if false
-			'next': {'type': 'ir.actions.act_window_close'},
-			},}
+					record_to_update = self.env["account.move"].search([('link_prod_id', '=', record.id)])
+					if record_to_update.exists():
+						vali = {
+							'state': 'posted',
+							'invoice_date': date.today(),
+							'invoice_date_due': date.today() + timedelta(days=30),
+						}
+						record_to_update.write(vali)
+						# check if a record is in sek currency
+						if record_to_update.customer_name.payment_fact == 'pay_3':
+							cur = 'DKK'
+							rate_dkk = self.env['res.currency'].search([('name', '=', 'DKK')], limit=1).rate
+							amt_un_tax = record_to_update.amount_untaxed * rate_dkk
+							amt_tax = record_to_update.amount_tax * rate_dkk
+							amt_total = record_to_update.amount_total * rate_dkk
+						elif record_to_update.customer_name.payment_fact == 'pay_2':
+							cur = 'SEK'
+							rate_sek = self.env['res.currency'].search([('name', '=', 'SEK')], limit=1).rate
+							amt_un_tax = record_to_update.amount_untaxed * rate_sek
+							amt_tax = record_to_update.amount_tax * rate_sek
+							amt_total = record_to_update.amount_total * rate_sek
+						else:
+							cur = 'NOK'
+							amt_un_tax = record_to_update.amount_untaxed
+							amt_tax = record_to_update.amount_tax
+							amt_total = record_to_update.amount_total
+						self.env['logs.model'].create({
+							'acc_move_id': record_to_update.invoice_no_name,
+							'inv_date': record_to_update.invoice_date,
+							'due_date': record_to_update.invoice_date_due,
+							'customer_no': record_to_update.customer_name.name,
+							'untaxed_amt': amt_un_tax,
+							'mva': amt_tax,
+							'total': amt_total,
+							'dte_create': record_to_update.invoice_date,
+							'curncy': cur,
+						})
+				if record.state =="new":
+					record_to_copy = self.env["production_recs.model"].search([('production_lines_ids', '=', record.id)])
+					# print("new record",record_to_copy)
+					record_to_copy.unlink()
+					#DELETE IN ORDER STOCK RECORD DASHBOARD
+				elif record.state == "prod":
+					# print("prod record", record_to_copy)
+					#DELETE IN ORDER STOCK RECORD DASHBOARD
+					record_to_copy = self.env["to_be_week_recs.model"].search([('invoice_line_ids', '=', record.id)])
+					record_to_copy.unlink()
+				if record.state =="new" or record.state =="prod":
+					self.env['invoice_week.model'].reset_every()
+					self.env['invoice_week.model'].feed_to_dashboard()
+			return {
+				'type': 'ir.actions.client',
+				'tag': 'display_notification',
+				'params': {
+				'title': _("Record successfully moved into Invoice App"),
+				'type': 'success',
+				'sticky': False,  #True/False will display for few seconds if false
+				'next': {'type': 'ir.actions.act_window_close'},
+				},}
 					
 
 class pro_ord(models.Model):

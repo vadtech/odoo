@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 <!-- Sripts Fuctions for Hard making Changes       -->
-     
-    <record id="rest_qout_dashboard" model="ir.actions.server">
-    <field name="name">Reset Dashboard</field>
-    <field name="model_id" ref="model_quot_dashboard_model"/>
-    <field name="binding_model_id" ref="model_quot_dashboard_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.reset_every()</field>
-    </record>
-     
     <record id="action_activate" model="ir.actions.server">
      <field name="name">Activate Contact</field>
     <field name="model_id" ref="model_res_partner"/>
@@ -18,246 +9,7 @@
     <field name="code">action = records.activate_user()</field>
     </record>
      
-    <record id="update_del" model="ir.actions.server">
-     <field name="name">Update Delivered</field>
-    <field name="model_id" ref="model_prod_order_model"/>
-    <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.update_quantity()</field>
-    </record>
-     
-    <record id="feed_dashbvvoard" model="ir.actions.server">
-     <field name="name">Feed Dashboard</field>
-    <field name="model_id" ref="model_invoice_week_model"/>
-    <field name="binding_model_id" ref="model_invoice_week_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.feed_to_dashboard()</field>
-    </record>
-
-     <record id="reset_invoiced" model="ir.actions.server">
-     <field name="name">Reset Dashboard</field> 
-    <field name="model_id" ref="model_invoice_week_model"/>
-    <field name="binding_model_id" ref="model_invoice_week_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.reset_every()</field>
-    </record>
-     
-    <record id="reset" model="ir.actions.server">
-     <field name="name">Reset Dashboard</field>
-    <field name="model_id" ref="model_production_date_model"/>
-    <field name="binding_model_id" ref="model_production_date_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.reset_every()</field>
-    </record>
-     
-    <record id="add_temp" model="ir.actions.server">
-     <field name="name">Feed Families</field>
-    <field name="model_id" ref="model_production_date_model"/>
-    <field name="binding_model_id" ref="model_production_date_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.create_temp()</field>
-    </record>
-         
-    <record id="feed_qout_dashboard" model="ir.actions.server">
-     <field name="name">Feed Dashboard</field>
-    <field name="model_id" ref="model_quot_dashboard_model"/>
-    <field name="binding_model_id" ref="model_quot_dashboard_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.feed_to_dashboard()</field>
-    </record>
-         
-         <record id="feed_dashboard_order" model="ir.actions.server">
-     <field name="name">Feed Dashboard</field>
-    <field name="model_id" ref="model_production_date_model"/>
-    <field name="binding_model_id" ref="model_production_date_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.feed_to_dashboard()</field>
-    </record>
-
-    <record id="feed_dashboard_inv" model="ir.actions.server">
-     <field name="name">Feed Dashboard</field>
-    <field name="model_id" ref="model_invoice_week_model"/>
-    <field name="binding_model_id" ref="model_invoice_week_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.feed_to_dashboard()</field>
-    </record>
-     
-    <record id="reset_to_be_inv" model="ir.actions.server">
-     <field name="name">Reset Dashboard</field>
-    <field name="model_id" ref="model_invoice_to_be_week_model"/>
-    <field name="binding_model_id" ref="model_invoice_to_be_week_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.reset_every()</field>
-    </record>
-
-    <record id="feed_dashboard_to_be" model="ir.actions.server">
-     <field name="name">Feed Dashboard</field>
-    <field name="model_id" ref="model_invoice_to_be_week_model"/>
-    <field name="binding_model_id" ref="model_invoice_to_be_week_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.feed_to_dashboard()</field>
-    </record>
-
-
-<!--    <record id="quick_sales_char" model="ir.actions.server">
-     <field name="name">Fix Log Reportsr</field>
-    <field name="model_id" ref="model_account_move"/>
-    <field name="binding_model_id" ref="model_account_move"/>
-    <field name="state">code</field>
-    <field name="code">action = records.fix_log_reports()</field>
-    </record> -->
-     
-<!--    <record id="action_o_fix" model="ir.actions.server">-->
-<!--     <field name="name">Fix Updating Line Disc</field>-->
-<!--    <field name="model_id" ref="model_sale_order"/>-->
-<!--    <field name="binding_model_id" ref="model_sale_order"/>-->
-<!--    <field name="state">code</field>-->
-<!--    <field name="code">action = records.lest_fix_line_disc()</field>-->
-<!--</record>-->
-     
-     
-     
-<!--       <record id="action_to_update" model="ir.actions.server">
-     <field name="name">Fix Logs Reports</field>
-    <field name="model_id" ref="model_account_move"/>
-    <field name="binding_model_id" ref="model_account_move"/>
-    <field name="state">code</field>
-    <field name="code">action = records.update_now()</field>
-</record>
- -->
-<!--      <record id="action_to_logs" model="ir.actions.server">
-     <field name="name">Fix Logs Reports</field>
-    <field name="model_id" ref="model_account_move"/>
-    <field name="binding_model_id" ref="model_account_move"/>
-    <field name="state">code</field>
-    <field name="code">action = records.fix_log_reports()</field>
-</record>
- -->
-<!--     <record id="action_bached_repo" model="ir.actions.server">
-     <field name="name">Fix Bunched Reports</field>
-    <field name="model_id" ref="model_inv_pdfs_model"/>
-    <field name="binding_model_id" ref="model_inv_pdfs_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.refill_records()</field>
-</record> -->
-
-
-<!--     <record id="action_bunched" model="ir.actions.server">
-     <field name="name">Export To Printed</field>
-    <field name="model_id" ref="model_inv_pdfs_model"/>
-    <field name="binding_model_id" ref="model_inv_pdfs_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.change_to_printed()</field>
-</record> -->
-
-<!--     <record id="action_fix_sales_char" model="ir.actions.server">-->
-<!--    <field name="name">Lest Sales Char</field>-->
-<!--    <field name="model_id" ref="model_prod_order_model"/>-->
-<!--    <field name="binding_model_id" ref="model_prod_order_model"/>-->
-<!--    <field name="state">code</field>-->
-<!--    <field name="code">action = records.fix_sales_char()</field>-->
-<!--</record>-->
-     
-<!--      <record id="quick_fix" model="ir.actions.server">-->
-<!--     <field name="name">Push To Invoiced</field>-->
-<!--    <field name="model_id" ref="model_account_move"/>-->
-<!--    <field name="binding_model_id" ref="model_account_move"/>-->
-<!--    <field name="state">code</field>-->
-<!--    <field name="code">action = records.quick_fix_inv()</field>-->
-<!--</record>    -->
-     
-     
-<!--          <record id="action_test_me" model="ir.actions.server">-->
-<!--    <field name="name">Lest fix Invoice NO</field>-->
-<!--    <field name="model_id" ref="model_prod_order_model"/>-->
-<!--    <field name="binding_model_id" ref="model_prod_order_model"/>-->
-<!--    <field name="state">code</field>-->
-<!--    <field name="code">action = records.fix_invocie_no()</field>-->
-<!--</record>-->
-<!--     -->
-
-<record id="action_to_to_be_ivoviced" model="ir.actions.server">
-    <field name="name">Confirm to Invoice</field>
-   <field name="model_id" ref="model_prod_order_model"/>
-   <field name="binding_model_id" ref="model_prod_order_model"/>
-   <field name="state">code</field>
-   <field name="code">action = records.action_to_invoice()</field>
-</record>
-     
-<!--     <record id="acion_to_fix" model="ir.actions.server">-->
-<!--     <field name="name">Fix Update invoice Amounts</field>-->
-<!--    <field name="model_id" ref="model_account_move"/>-->
-<!--    <field name="binding_model_id" ref="model_account_move"/>-->
-<!--    <field name="state">code</field>-->
-<!--    <field name="code">action = records.fix_updating_fields()</field>-->
-<!--</record>    -->
-     
-<!--     <record id="quick_fix_for_id" model="ir.actions.server">-->
-<!--     <field name="name">Fix ID</field>-->
-<!--    <field name="model_id" ref="model_account_move"/>-->
-<!--    <field name="binding_model_id" ref="model_account_move"/>-->
-<!--    <field name="state">code</field>-->
-<!--    <field name="code">action = records.quick_fix_id()</field>-->
-<!--</record>    -->
-     
-<!-- <record id="act_test_me" model="ir.actions.server">-->
-<!--    <field name="name">Lest Update Models in Res </field>-->
-<!--    <field name="model_id" ref="model_prod_order_model"/>-->
-<!--    <field name="binding_model_id" ref="model_prod_order_model"/>-->
-<!--    <field name="state">code</field>-->
-<!--    <field name="code">action = records.fix_prod_to_models()</field>-->
-<!--</record>-->
-
-<!--     <record id="act_test" model="ir.actions.server">-->
-<!--    <field name="name">Lest Update Sales</field>-->
-<!--    <field name="model_id" ref="model_account_move"/>-->
-<!--    <field name="binding_model_id" ref="model_account_move"/>-->
-<!--    <field name="state">code</field>-->
-<!--    <field name="code">action = records.fix_sales_char()</field>-->
-<!--</record>-->
-     
-     
-<!--        <record id="automate" model="ir.actions.server">
-    <field name="name">Automate</field>
-    <field name="model_id" ref="model_account_move"/>
-    <field name="binding_model_id" ref="model_account_move"/>
-    <field name="binding_view_types">form,list</field>
-    <field name="state">code</field>
-    <field name="code">action = records.auto_mate()</field>
-</record> -->
-    
-     <!--<record id="action_quto" model="ir.actions.server">
-    <field name="name">Automate me</field>
-    <field name="model_id" ref="model_res_partner"/>
-    <field name="binding_model_id" ref="model_res_partner"/>
-    <field name="binding_view_types">form,list</field>
-    <field name="state">code</field>
-    <field name="code">action = records.automate_change()</field>
-</record> -->
-     
      <!-- Add options or  Button in action menu -->
-<record id="action_confirm_to_production" model="ir.actions.server">
-    <field name="name">Export To Production</field>
-    <field name="model_id" ref="model_prod_order_model"/>
-    <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field> 
-    <field name="code">action = records.action_prod()</field>
-</record>
-     
-
-
-
-
-<!-- <record id="action_to_draft" model="ir.actions.server">
-    <field name="name">Mark Quotation as Draft</field>
-    <field name="model_id" ref="model_sale_order"/>
-    <field name="binding_model_id" ref="model_sale_order"/>
-    <field name="binding_view_types">form,list</field>
-    <field name="state">code</field>
-    <field name="code">action = records.custom_action_draft()</field>
-</record> -->
-     
-     
      <record id="action_confirm_to" model="ir.actions.server">
     <field name="name">Mark Quotation as Confirmed</field>
     <field name="model_id" ref="model_sale_order"/>
@@ -265,23 +17,7 @@
     <field name="binding_view_types">form,list</field>
     <field name="state">code</field>
     <field name="code">action = records.custom_action_confirm()</field>
-</record>
-     
-<!--     <record id="action_confirm_to_cancel" model="ir.actions.server">
-    <field name="name">Cancel Order</field>
-    <field name="model_id" ref="model_prod_order_model"/>
-    <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.action_cancelled()</field>
-</record>
- -->
-    <record id="action_confirm_to_deivered" model="ir.actions.server">
-    <field name="name">Export To Delivered</field>
-    <field name="model_id" ref="model_prod_order_model"/>
-    <field name="binding_model_id" ref="model_prod_order_model"/>
-    <field name="state">code</field>
-    <field name="code">action = records.action_delivered()</field>
-</record>
+    </record>
 
     <record id="action_confirm_to_delivered" model="ir.actions.server">
     <field name="name">Reset to New</field>
@@ -290,6 +26,32 @@
     <field name="state">code</field>
     <field name="code">action = records.action_new()</field>
 </record>
+  
+  <record id="action_confirm_to_production" model="ir.actions.server">
+    <field name="name">Export To Production</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field> 
+    <field name="code">action = records.action_prod()</field>
+</record>
+  
+   <record id="action_confirm_to_deivered" model="ir.actions.server">
+    <field name="name">Export To Finished</field>
+    <field name="model_id" ref="model_prod_order_model"/>
+    <field name="binding_model_id" ref="model_prod_order_model"/>
+    <field name="state">code</field>
+    <field name="code">action = records.action_delivered()</field>
+</record>
+  
+  <record id="action_to_tvoviced" model="ir.actions.server">
+    <field name="name">Confirm to Invoice</field>
+   <field name="model_id" ref="model_prod_order_model"/>
+   <field name="binding_model_id" ref="model_prod_order_model"/>
+   <field name="state">code</field>
+   <field name="code">action = records.action_to_invoice()</field>
+  </record>
+  
+  
 <!-- this is the main view for hosiptial-->
 <record id="main_prod_action" model="ir.actions.act_window">
     <field name="name">Production Application</field>
@@ -311,10 +73,11 @@
         <field name="arch" type="xml">
             <tree multi_edit="1">   
                 <field name="customer_ref"/>
-                <field name="sales_id_char"/>
+                <field name="sales_id"/>
                 <field name="sales_person" /> 
                 <field name="state"/>
-                <field name="delivery_week"/>
+                <field name="delivery_wee"/>
+                <field name="delivery_week" invisible="1"/>
                 <field name="create_date"/>
             </tree>
         </field>
@@ -345,14 +108,15 @@
         <field name="model">prod_order.model</field>
         <field name="arch" type="xml">
             <form>
-                 <header>
+                  <header>
                          <field name="state" statusbar_visible="new,prod,delivered" default="new" widget="statusbar"/>
+                         <field name="send_to_inv" invisible="1"/>
                          <button id="button_new" name="action_new" string="Set to New" confirm="are you sure to set this record as New?" type="object" states="cancel" class="btn-primary"/>
-                        <button id="button_prod" name="action_prod" string="In Production" confirm="are you sure to confirm to in production state?" type="object" states="new" class="btn-primary"/>
+                         <button id="button_prod" name="action_prod" string="In Production" confirm="are you sure to confirm to in production state?" type="object" states="new" class="btn-primary"/>
                          <button id="button_cancel"  name="action_cancelled" confirm="are you sure to cancel this record?" string="Canceled" type="object" states="new,prod,delivered"/>
-                         <button id="button_delivered" name="action_delivered" confirm="are you sure to set this record as delivered?" string="Mark as delivered" type="object" states="prod" class="btn-primary"/>
-                         <button id="button_invoice" name="action_to_invoice" confirm="Are you sure to push to invoice app ?" string="Confirm to Invoice" type="object" send_to_invs="not_sent" class="btn-primary"/>
-                </header>
+                         <button id="button_delivered" name="action_delivered" confirm="are you sure to set this record as finished?" string="Mark as finished" type="object" states="prod" class="btn-primary"/>
+                         <button id="button_invoice" name="action_to_invoice" confirm="Are you sure to push to invoice app ?" string="Confirm to Invoice" attrs="{'invisible':['&amp;',('send_to_inv','!=','not_sent'),('state','not in','new,prod')]}" type="object" class="btn-primary"/>
+                 </header>
                 <sheet>
                                         <div class="oe_title">
                         <h1>
