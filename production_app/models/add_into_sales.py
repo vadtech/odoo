@@ -60,19 +60,22 @@ class add_into_sales(models.Model):
             temp_lang="nor"
         else:
             temp_lang="eng"
+            
+            
         force_confirmation_template=False
         template_id = False
         if force_confirmation_template or (self.state == 'sale' and not self.env.context.get('proforma', False)):
             # template_id = self.env['mail.template'].search([('create_uid', '=', '')]).id
             # template_id = int(self.env['ir.config_parameter'].sudo().get_param('sale.default_confirmation_template'))
-            template_id = self.env['mail.template'].search(['&',('create_uid','=',self.env.uid),('template_lang','=',temp_lang)]).id
-            print("iniside force_confitmation_template")
+            template_id = self.env['mail.template'].search(['&',('create_uid','=',self.env.uid),('template_lang','=',temp_lang)],limit=1, order='id desc').id
             if not template_id:
-                print("not tempalte_id iniside force comfirmation")
-                template_id = self.env['ir.model.data'].xmlid_to_res_id('sale.mail_template_sale_confirmation', raise_if_not_found=False)
+                template_id = self.env['mail.template'].search(['&',('create_uid','=',self.env.uid),('template_lang','=',temp_lang)],limit=1, order='id desc').id
+                #template_id = self.env['ir.model.data'].xmlid_to_res_id('sale.mail_template_sale_confirmation', raise_if_not_found=False)
         if not template_id:
-            print("in template Id ")
             template_id = self.env['ir.model.data'].xmlid_to_res_id('sale.email_template_edi_sale', raise_if_not_found=False)
+            
+            
+            
         lang = self.env.context.get('lang')
         template = self.env['mail.template'].browse(template_id)
         if template.lang:
