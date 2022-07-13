@@ -6,6 +6,4 @@ from . import add_into_prod_temp
 from . import add_into_acc_move
 from . import add_into_acc_line
 from . import dashboard
-
- 
- 
+from . import add_into_email_temps
