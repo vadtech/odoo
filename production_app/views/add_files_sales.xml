@@ -12,7 +12,18 @@
 
         </field>
     </record>
-
+    
+    <record id="email_templates" model="ir.ui.view">
+    <field name="name">mail.template.email</field>
+    <field name="model">mail.template</field>
+    <field name="inherit_id" ref="mail.email_template_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//form/sheet/div[hasclass('oe_title')]/group/field[@name='model']" position="after">
+            <field name="template_lang"/>
+        </xpath>
+    </field>
+    </record>
+    
     <record id="product_variant_url_form" model="ir.ui.view">
         <field name="name">Product URL</field>
         <field name="model">product.product</field>
