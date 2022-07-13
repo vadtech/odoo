@@ -51,7 +51,7 @@ class add_into_sales(models.Model):
                 rec.update_dashbaord = True
     
     
-    def action_quotation_send(self):
+    def action_quotation_sen(self):
         """TO ENSURE PICKING OF CORRECT EMAIL TEMPLATES AND ACCODING TO CUSTOMER LUNGUAGE AND SALESPERSON"""
         self.ensure_one()
         temp_lang=""
