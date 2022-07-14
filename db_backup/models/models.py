@@ -1,8 +1,8 @@
 import time
 import logging
 from odoo import models, fields, api
-# from odoo.addons.db_backup.upload_api.graph_api import get_folder_id, upload_file
-# from odoo.addons.db_backup.upload_api.download import download_file, trigger_download
+from odoo.addons.db_backup.upload_api.graph_api import get_folder_id, upload_file
+from odoo.addons.db_backup.upload_api.download import download_file, trigger_download
 
 
 _logger = logging.getLogger(__name__)
